@@ -1,0 +1,14 @@
+{
+    "name": "wordimpress/maps-builder-core",
+    "description": "Shared code between Maps Builder Pro and free.",
+    "type": "library",
+    "license": "GLPv2+",
+    "authors": [
+        {
+            "name": "Devin Walker",
+            "email": "Devin@WordImpress.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
