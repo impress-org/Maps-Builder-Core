@@ -37,12 +37,38 @@ define( 'GMB_CORE_FILE', __FILE__ );
 
 add_action( 'plugins_loaded', 'gmb_core_init' );
 function gmb_core_init(){
-
+	do_action( 'gmb_core_before_init' );
+	$Google_Maps_Builder_Core = new Google_Maps_Builder_Core();
+	do_action( 'gmb_core_init', $Google_Maps_Builder_Core );
 }
 
-function gmb_core_include_classes(){
-	$files = glob( GMB_CORE_PATH . 'classes/*.php' );
-	foreach( $files as $file ){
-		include_once( $file );
+class Google_Maps_Builder_Core{
+
+	/**
+	 * Get the CMB2 bootstrap!
+	 *
+	 * @description: Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
+	 *
+	 */
+	public static function cmb2_init(){
+
+		if ( file_exists( WP_PLUGIN_DIR . '/cmb2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
+			require_once WP_PLUGIN_DIR . '/cmb2/init.php';
+		} elseif ( file_exists( GMB_CORE_PATH . '/classes/libraries/metabox/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
+			require_once GMB_CORE_PATH . '/classes/libraries/metabox/init.php';
+		} elseif ( file_exists( GMB_CORE_PATH . '/includes/libraries/CMB2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
+			require_once GMB_CORE_PATH . '/classes/libraries/CMB2/init.php';
+		}
+
 	}
+
+	public static function include_classes(){
+		$files = glob( GMB_CORE_PATH . 'classes/*.php' );
+
+		foreach( $files as $file ){
+			include_once( $file );
+		}
+	}
+
+
 }
