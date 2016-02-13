@@ -56,7 +56,7 @@ function gmb_tools_sysinfo_get() {
 	global $wpdb, $gmb_options;
 
 	if ( ! class_exists( 'Browser' ) ) {
-		require_once GMB_CORE_PATH . 'classes/libraries/browser.php';
+		require_once GMB_CORE_PATH . 'includes/libraries/browser.php';
 	}
 
 	$browser = new Browser();

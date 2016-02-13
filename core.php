@@ -54,10 +54,10 @@ class Google_Maps_Builder_Core{
 
 		if ( file_exists( WP_PLUGIN_DIR . '/cmb2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
 			require_once WP_PLUGIN_DIR . '/cmb2/init.php';
-		} elseif ( file_exists( GMB_CORE_PATH . '/classes/libraries/metabox/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
-			require_once GMB_CORE_PATH . '/classes/libraries/metabox/init.php';
+		} elseif ( file_exists( GMB_CORE_PATH . '/includes/libraries/metabox/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
+			require_once GMB_CORE_PATH . '/includes/libraries/metabox/init.php';
 		} elseif ( file_exists( GMB_CORE_PATH . '/includes/libraries/CMB2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
-			require_once GMB_CORE_PATH . '/classes/libraries/CMB2/init.php';
+			require_once GMB_CORE_PATH . '/includes/libraries/CMB2/init.php';
 		}
 
 	}
@@ -69,10 +69,10 @@ class Google_Maps_Builder_Core{
 	 */
 	public static function load_admin(){
 		//Upgrades
-		require_once GMB_CORE_PATH . 'classes/admin/upgrades/upgrade-functions.php';
-		require_once GMB_CORE_PATH . 'classes/admin/upgrades/upgrades.php';
+		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
+		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
 
-		require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'classes/admin/class-gmb-shortcode-generator.php';
+		require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
 	}
 
 	public static function include_classes(){
