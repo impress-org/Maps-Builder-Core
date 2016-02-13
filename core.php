@@ -63,6 +63,15 @@ class Google_Maps_Builder_Core{
 	}
 
 	/**
+	 * Load files needed in front-end and admin
+	 *
+	 * @since 2.1.0
+	 */
+	public static function load_files(){
+		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
+	}
+
+	/**
 	 * Load files that we need in the admin
 	 *
 	 * @since 2.1.0
@@ -73,6 +82,8 @@ class Google_Maps_Builder_Core{
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
 
 		require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
+
+		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
 	}
 
 	public static function include_classes(){
