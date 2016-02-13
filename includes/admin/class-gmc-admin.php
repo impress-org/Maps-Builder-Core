@@ -33,6 +33,15 @@ abstract class Google_Maps_Builder_Core_Admin {
 	protected $marker_box;
 
 	/**
+	 * Markerbox group field ID
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string
+	 */
+	protected $marker_box_group_field_id;
+
+	/**
 	 * Search options CMB2 object
 	 *
 	 * @since 2.1.0
@@ -150,7 +159,7 @@ abstract class Google_Maps_Builder_Core_Admin {
 			'type' => 'google_geocoder'
 		) );
 
-		$group_field_id = $this->marker_box->add_field( array(
+		$this->marker_box_group_field_id = $this->marker_box->add_field( array(
 			'name'        => __( 'Existing Markers', $this->plugin_slug ),
 			'id'          => $prefix . 'markers_group',
 			'type'        => 'group',
@@ -162,43 +171,43 @@ abstract class Google_Maps_Builder_Core_Admin {
 				'sortable'      => true, // beta
 			),
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Title', $this->plugin_slug ),
 			'id'   => 'title',
 			'type' => 'text',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Marker Description', $this->plugin_slug ),
 			'description' => __( 'Write a short description for this marker', $this->plugin_slug ),
 			'id'          => 'description',
 			'type'        => 'textarea_small',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Reference', $this->plugin_slug ),
 			'id'   => 'reference',
 			'type' => 'text',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Place ID', $this->plugin_slug ),
 			'id'   => 'place_id',
 			'type' => 'text',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Hide Place Details', $this->plugin_slug ),
 			'id'   => 'hide_details',
 			'type' => 'checkbox',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Latitude', $this->plugin_slug ),
 			'id'   => 'lat',
 			'type' => 'text',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Longitude', $this->plugin_slug ),
 			'id'   => 'lng',
 			'type' => 'text',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Marker Image', $this->plugin_slug ),
 			'id'          => 'marker_img',
 			'row_classes' => 'gmb-hidden',
@@ -208,13 +217,13 @@ abstract class Google_Maps_Builder_Core_Admin {
 				'add_upload_file_text' => __( 'Add Marker Image', $this->plugin_slug )
 			),
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Marker Data', $this->plugin_slug ),
 			'row_classes' => 'gmb-hidden',
 			'id'          => 'marker',
 			'type'        => 'textarea_code',
 		) );
-		$this->marker_box->add_group_field( $group_field_id, array(
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Marker Label Data', $this->plugin_slug ),
 			'row_classes' => 'gmb-hidden',
 			'id'          => 'label',
