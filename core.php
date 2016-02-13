@@ -50,7 +50,7 @@ class Google_Maps_Builder_Core{
 	 * @description: Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
 	 *
 	 */
-	public static function cmb2_init(){
+	public static function cmb2_load(){
 
 		if ( file_exists( WP_PLUGIN_DIR . '/cmb2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
 			require_once WP_PLUGIN_DIR . '/cmb2/init.php';
