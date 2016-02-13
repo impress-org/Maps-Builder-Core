@@ -63,6 +63,19 @@ class Google_Maps_Builder_Core{
 	}
 
 	/**
+	 * Load maps admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @TODO add CMB2 stuff here
+	 */
+	public static function init_map_editor_admin(){
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmb-admin.php';
+		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-admin.php';
+		new Google_Maps_Builder_Admin();
+	}
+
+	/**
 	 * Load files needed in front-end and admin
 	 *
 	 * @since 2.1.0

@@ -11,7 +11,7 @@
  * @link      http://wordimpress.com
  * @copyright 2015 WordImpress
  */
-class Google_Maps_Builder_Core_Admin {
+abstract class Google_Maps_Builder_Core_Admin {
 
 
 	/**
