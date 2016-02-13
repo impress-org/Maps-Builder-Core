@@ -70,7 +70,7 @@ class Google_Maps_Builder_Core{
 	 * @TODO add CMB2 stuff here
 	 */
 	public static function init_map_editor_admin(){
-		require_once GMB_CORE_PATH . 'includes/admin/class-gmb-admin.php';
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-admin.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-admin.php';
 		new Google_Maps_Builder_Admin();
 	}
@@ -94,17 +94,17 @@ class Google_Maps_Builder_Core{
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
 
-		require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
+		//require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
+
+		require_once GMB_CORE_PATH . 'includes/admin/system-info.php';
 
 		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
 	}
 
-	public static function include_classes(){
-		$files = glob( GMB_CORE_PATH . 'classes/*.php' );
-
-		foreach( $files as $file ){
-			include_once( $file );
-		}
+	public static function include_core_classes(){
+		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts.php';
+		require_once GMB_CORE_PATH . 'includes/class-gmc-admin-scripts.php';
+		require_once GMB_CORE_PATH . 'includes/class-gmc-frontend-scripts.php';
 	}
 
 
