@@ -72,6 +72,7 @@ class Google_Maps_Builder_Core{
 	public static function init_map_editor_admin(){
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-admin.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-admin.php';
+
 		new Google_Maps_Builder_Admin();
 	}
 
@@ -99,6 +100,9 @@ class Google_Maps_Builder_Core{
 		require_once GMB_CORE_PATH . 'includes/admin/system-info.php';
 
 		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
+
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
+		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
 	}
 
 	public static function include_core_classes(){
