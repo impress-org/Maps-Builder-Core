@@ -83,6 +83,8 @@ class Google_Maps_Builder_Core{
 	 */
 	public static function load_files(){
 		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
+		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
 	}
 
 	/**
@@ -95,14 +97,20 @@ class Google_Maps_Builder_Core{
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
 
-		//require_once GMB_PLUGIN_PATH . GMB_CORE_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
+
 
 		require_once GMB_CORE_PATH . 'includes/admin/system-info.php';
 
 		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
 
-		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
-		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
+
+
+		//shortcode generator
+		//@todo load conditionally
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-shortcode-generator.php';
+		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
+		new GMB_Shortcode_Generator();
+
 	}
 
 	public static function include_core_classes(){
