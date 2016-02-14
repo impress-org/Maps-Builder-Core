@@ -63,6 +63,16 @@ class Google_Maps_Builder_Core{
 	}
 
 	/**
+	 * Load activation classes
+	 *
+	 * @since 2.1.0
+	 */
+	public static function load_activate(){
+		require_once GMB_CORE_PATH . 'includes/class-gmc-activate.php';
+		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-activate.php';
+	}
+
+	/**
 	 * Load maps admin
 	 *
 	 * @since 2.1.0
