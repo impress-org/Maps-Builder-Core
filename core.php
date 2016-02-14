@@ -95,6 +95,9 @@ class Google_Maps_Builder_Core{
 		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
+
+		require_once GMB_CORE_PATH . 'includes/class-gmc-engine.php';
+		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-engine.php';
 	}
 
 	/**
