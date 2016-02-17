@@ -335,6 +335,7 @@ function gmb_get_map_languages() {
  *
  * @param string $file File path relative to either core includes path or plugin includes path. Use full absolute path if $full param is true
  * @param bool $full Optional. If true, $file param should be a full absolute path. Default is false.
+ * @param array $data Optional. An array of values to be used in the view via output buffering. Default is an empty array which skips output buffering.
  *
  * @return bool True if file was included, false if not.
  */
