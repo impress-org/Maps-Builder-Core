@@ -322,3 +322,51 @@ function gmb_get_map_languages() {
 	return $lanugages;
 
 }
+
+/**
+ * Include a view
+ *
+ * NOTE: First this attempts to load from GMB_PLUGIN_PATH . '/includes/' then it trys GMP_CORE_PATH .'/includes', unless $full
+ * NOTE: Uses include() not include_once()
+ *
+ * @since 0.1.0
+ *
+ * @return string
+ *
+ * @param string $file File path relative to either core includes path or plugin includes path. Use full absolute path if $full param is true
+ * @param bool $full Optional. If true, $file param should be a full absolute path. Default is false.
+ *
+ * @return bool True if file was included, false if not.
+ */
+function gmb_include_view( $file, $full = false, $data = array() ) {
+	if ( ! $full ) {
+		$file = GMB_PLUGIN_PATH . 'includes/' . $file;
+		if ( ! file_exists( $file ) ) {
+			$file = GMB_CORE_PATH . 'includes' . $file;
+		}
+	}
+
+	/**
+	 * Filter file path for gmb_include_view
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $file File path -- should be a full absolute path
+	 * @param bool $full If this function is using full file path mode or not
+	 */
+	$file = apply_filters( 'gmb_gmb_include_view_file', $file, $full );
+
+	if( file_exists( $file ) ){
+		if( ! empty( $data ) ){
+			extract( $data );
+			ob_start();
+		}
+		include( $file );
+		if( ! empty( $data ) ){
+			echo ob_get_clean();
+		}
+		return true;
+	}else{
+		return false;
+	}
+}
