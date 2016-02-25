@@ -340,12 +340,7 @@ function gmb_get_map_languages() {
  * @return bool True if file was included, false if not.
  */
 function gmb_include_view( $file, $full = false, $data = array() ) {
-	if ( ! $full ) {
-		$file = GMB_PLUGIN_PATH . 'includes/' . $file;
-		if ( ! file_exists( $file ) ) {
-			$file = GMB_CORE_PATH . 'includes' . $file;
-		}
-	}
+	$file = gmb_find_view( $file, $full );
 
 	/**
 	 * Filter file path for gmb_include_view
@@ -370,4 +365,27 @@ function gmb_include_view( $file, $full = false, $data = array() ) {
 	}else{
 		return false;
 	}
+}
+
+/**
+ * Find view file
+ *
+ * NOTE: First this attempts to load from GMB_PLUGIN_PATH . '/includes/' then it trys GMP_CORE_PATH .'/includes', unless $full
+ *
+ * @since 0.1.0
+ *
+ * @param string $file File path relative to either core includes path or plugin includes path. Use full absolute path if $full param is true
+ * @param bool $full Optional. If true, $file param should be a full absolute path. Default is false.
+ *
+ * @return string
+ */
+function gmb_find_view( $file, $full = false ){
+	if ( ! $full ) {
+		$file = GMB_PLUGIN_PATH . 'includes/' . $file;
+		if ( ! file_exists( $file ) ) {
+			$file = GMB_CORE_PATH . 'includes' . $file;
+		}
+	}
+
+	return $file;
 }

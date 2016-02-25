@@ -75,7 +75,7 @@ abstract class Google_Maps_Builder_Core_Engine {
 		if ( file_exists( get_stylesheet_directory() . '/google-maps/' . $single_template ) ) {
 			$output = get_stylesheet_directory() . '/google-maps/' . $single_template;
 		} else {
-			$output = dirname( __FILE__ ) . '/views/' . $single_template;
+			$output = gmb_find_view( 'views/' . $single_template );
 		}
 
 		return $output;
