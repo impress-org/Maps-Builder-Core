@@ -821,7 +821,7 @@ abstract class Google_Maps_Builder_Core_Admin {
 		$output .= '</div>';
 
 		//Markers Modal
-		include( GMB_PLUGIN_PATH . 'includes/admin/views/markers.php' );
+		gmb_include_view(  'admin/views/markers.php', false, array( 'plugin_slug' => $this->plugin_slug ) );
 
 		//Places search
 		$output = $this->places_search( $output );
