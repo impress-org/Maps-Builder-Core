@@ -11,7 +11,7 @@ abstract class Google_Maps_Builder_Core_Settings {
 	 * Array of metaboxes/fields
 	 * @var array
 	 */
-	protected static $plugin_options = array();
+	protected $plugin_options = array();
 
 	/**
 	 * @var string
@@ -122,15 +122,9 @@ abstract class Google_Maps_Builder_Core_Settings {
 	 * @return array
 	 */
 	public function general_option_fields() {
-
-		// Only need to initiate the array once per page-load
-		if ( ! empty( self::$plugin_options ) ) {
-			return self::$plugin_options;
-		}
-
 		$prefix = $this->prefix();
 
-		self::$plugin_options = array(
+		$this->plugin_options = array(
 			'id'         => 'plugin_options',
 			'show_on'    => array( 'key' => 'options-page', 'value' => array( self::$key, ), ),
 			'show_names' => true,
@@ -173,7 +167,7 @@ abstract class Google_Maps_Builder_Core_Settings {
 			),
 		);
 
-		return apply_filters( 'gmb_general_options_fields', self::$plugin_options );
+		return apply_filters( 'gmb_general_options_fields', $this->plugin_options );
 
 	}
 
@@ -185,14 +179,9 @@ abstract class Google_Maps_Builder_Core_Settings {
 	 */
 	public function map_option_fields() {
 
-		// Only need to initiate the array once per page-load
-		if ( ! empty( self::$plugin_options ) ) {
-			return self::$plugin_options;
-		}
-
 		$prefix = $this->prefix();
 
-		self::$plugin_options = array(
+		$this->plugin_options = array(
 			'id'         => 'plugin_options',
 			'show_on'    => array( 'key' => 'options-page', 'value' => array( self::$key, ), ),
 			'show_names' => true,
@@ -226,7 +215,7 @@ abstract class Google_Maps_Builder_Core_Settings {
 			),
 		);
 
-		return apply_filters( 'gmb_map_options_fields', self::$plugin_options );
+		return apply_filters( 'gmb_map_options_fields', $this->plugin_options );
 
 	}
 

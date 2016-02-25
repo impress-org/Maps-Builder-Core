@@ -354,7 +354,7 @@ function gmb_include_view( $file, $full = false, $data = array() ) {
 
 	if( file_exists( $file ) ){
 		if( ! empty( $data ) ){
-			extract( $data );
+			extract( $data, EXTR_SKIP  );
 			ob_start();
 		}
 		include( $file );
@@ -381,10 +381,12 @@ function gmb_include_view( $file, $full = false, $data = array() ) {
  */
 function gmb_find_view( $file, $full = false ){
 	if ( ! $full ) {
-		$file = GMB_PLUGIN_PATH . 'includes/' . $file;
-		if ( ! file_exists( $file ) ) {
-			$file = GMB_CORE_PATH . 'includes' . $file;
+		$_file = GMB_PLUGIN_PATH . 'includes/' . $file;
+		if ( ! file_exists( $_file ) ) {
+			$_file = GMB_CORE_PATH . 'includes/' . $file;
 		}
+
+		$file = $_file;
 	}
 
 	return $file;
