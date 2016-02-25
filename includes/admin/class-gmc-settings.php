@@ -4,7 +4,7 @@
  * CMB Theme Options
  * @version 0.1.0
  */
-abstract class Google_Maps_Builder_Core_Settings {
+abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Core_Interface {
 
 
 	/**
@@ -13,10 +13,6 @@ abstract class Google_Maps_Builder_Core_Settings {
 	 */
 	protected $plugin_options = array();
 
-	/**
-	 * @var string
-	 */
-	public $plugin_slug;
 
 	/**
 	 * @var string
@@ -45,7 +41,7 @@ abstract class Google_Maps_Builder_Core_Settings {
 	 */
 	public function __construct() {
 
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
+		parent::__construct();
 		$this->page_name = __( 'Maps Builder Settings', $this->plugin_slug );
 
 		//Create Settings submenu
@@ -58,6 +54,8 @@ abstract class Google_Maps_Builder_Core_Settings {
 		//Add links/information to plugin row meta
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2 );
 		add_filter( 'plugin_action_links', array( $this, 'add_plugin_page_links' ), 10, 2 );
+
+		add_action( 'gmb_settings_tabs', array( $this, 'settings_tabs' ) );
 
 	}
 
@@ -345,6 +343,29 @@ abstract class Google_Maps_Builder_Core_Settings {
 		$prefix = 'gmb_';
 
 		return $prefix;
+	}
+
+	/**
+	 * Markup for settings tab switcher
+	 *
+	 * @since 2.1.0
+	 *
+	 * @uses "gmb_settings_tabs" action
+	 */
+	public function settings_tabs( $active_tab ) {
+		gmb_include_view( 'admin/views/settings-tabs.php', false, $this->view_data( $this->tab_settings( $active_tab ), true ) );
+	}
+
+	/**
+	 * @param $active_tab
+	 *
+	 * @return array
+	 */
+	protected function tab_settings( $active_tab ) {
+		return array(
+			'active_tab' => $active_tab,
+			'key' => $this->key()
+		);
 	}
 
 

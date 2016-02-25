@@ -11,17 +11,8 @@
  * @link      http://wordimpress.com
  * @copyright 2015 WordImpress
  */
-abstract class Google_Maps_Builder_Core_Admin {
+abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_Interface {
 
-
-	/**
-	 * This plugin's slug
-	 *
-	 * @since unknown
-	 *
-	 * @var string
-	 */
-	protected $plugin_slug;
 
 	/**
 	 * Markerbox CMB2 object
@@ -57,8 +48,7 @@ abstract class Google_Maps_Builder_Core_Admin {
 	 * @since     1.0.0
 	 */
 	public function __construct() {
-
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
+		parent::__construct();
 
 		//CPT
 		add_filter( 'manage_edit-google_maps_columns', array( $this, 'setup_custom_columns' ) );
@@ -77,6 +67,7 @@ abstract class Google_Maps_Builder_Core_Admin {
 
 		//Add metaboxes and fields to CPT
 		add_action( 'cmb2_init', array( $this, 'cpt2_metaboxes_fields' ) );
+
 	}
 
 	/**
@@ -821,7 +812,7 @@ abstract class Google_Maps_Builder_Core_Admin {
 		$output .= '</div>';
 
 		//Markers Modal
-		gmb_include_view(  'admin/views/markers.php', false, array( 'plugin_slug' => $this->plugin_slug ) );
+		gmb_include_view(  'admin/views/markers.php', false, $this->view_data() );
 
 		//Places search
 		$output = $this->places_search( $output );
@@ -899,9 +890,9 @@ abstract class Google_Maps_Builder_Core_Admin {
 	 * @return string
 	 */
 	function places_search( $output ){
-
 		return $output;
 	}
+
 
 }
 

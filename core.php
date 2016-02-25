@@ -92,6 +92,7 @@ class Google_Maps_Builder_Core{
 	 * @since 2.1.0
 	 */
 	public static function load_files(){
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
@@ -107,6 +108,8 @@ class Google_Maps_Builder_Core{
 	 * @since 2.1.0
 	 */
 	public static function load_admin(){
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
+
 		//Upgrades
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
