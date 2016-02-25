@@ -1,0 +1,164 @@
+/*!
+ * Directions
+ *
+ * @description: Panel overlay and below map
+ * @package:     GMB
+ * @subpackage:  SCSS/Admin
+ * @copyright:   Copyright (c) 2015, WordImpress
+ * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+*/
+
+.google-maps-builder-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/*-------------------------------
+Directions Table Display
+---------------------------------*/
+div[id^="directions-panel"] {
+  display: none;
+  font-size: 16px;
+  margin: 20px 0;
+
+  div.adp {
+	border: 1px solid #DDD;
+	margin: 0 0 25px;
+  }
+
+  div.adp-summary {
+	padding: 3px 10px 3px 5px;
+	background-color: #F7F7F7;
+  }
+  div.adp-legal {
+	font-size: 10px;
+	text-align: right;
+	background: #F7F7F7;
+	border-top: 1px solid #DDD;
+	padding: 2px 4px;
+  }
+  .adp-substep .adp-stepicon {
+	margin: 0 auto;
+  }
+
+  &.panel-below {
+	display: block;
+	margin: 20px 0;
+	.gmb-directions-toggle {
+	  display: none;
+	}
+  }
+
+  //General Directions Table
+  table {
+	margin: 0;
+	border: none;
+
+	td {
+	  padding: 4px;
+	  vertical-align: middle;
+	  border: none;
+	}
+
+	img {
+	  box-shadow: none;
+	  max-width: none;
+	}
+  }
+
+  table.adp-directions {
+	table-layout: auto;
+	font-size: 16px;
+
+	td.adp-substep:first-of-type {
+	  vertical-align: middle;
+	}
+
+  }
+
+  table.adp-placemark {
+	td.adp-text {
+	  border: none;
+	  padding-left: 35px;
+	  font-size: 20px;
+	}
+
+	img.adp-marker {
+	  display: block;
+	  padding: 8px 0 8px 8px;
+	}
+
+  }
+
+}
+
+/*-------------------------------
+Responsiveness
+---------------------------------*/
+
+div[id^="directions-panel"] {
+
+  @media(max-width: 767px) {
+	//General Directions Table
+	table {
+	  td {
+		padding: 2px;
+	  }
+
+	}
+
+  }
+
+}
+
+/*-------------------------------
+Panel
+---------------------------------*/
+
+//Panel overlay
+div[id^="directions-panel"].panel-overlay {
+  position: absolute;
+  top: 0;
+  right: -50%;
+  display: block;
+  background-color: #FFF;
+  max-width: 50%;
+  max-height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  height: 100%;
+
+  .gmb-directions-toggle {
+	position: absolute;
+	background-color: #FFF;
+	top: 40%;
+	left: -40px;
+	height: 40px;
+	width: 40px;
+
+	.gmb-directions-icon {
+	  background: url('../img/directions-icon.png') no-repeat center center #FFF;
+	  opacity: 0.5;
+	  display: block;
+	  width: 40px;
+	  height: 40px;
+	  cursor: pointer;
+	  @include easing-transition;
+
+	  &:hover {
+		opacity: 0.8;
+	  }
+	}
+
+	.gmb-hide-text {
+	  display: none;
+	}
+  }
+
+  .gmb-directions-panel-inner {
+	overflow-y: scroll;
+	padding: 5px;
+	height: 100%;
+  }
+
+}

@@ -1,0 +1,90 @@
+/**
+ * Mashups
+ *
+ * @package     Give
+ * @subpackage  SCSS/Admin
+ * @copyright   Copyright (c) 2015, WordImpress
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+*/
+
+//General
+#gmb_mashup_group_repeat {
+  .cmb-group-name {
+	display: none;
+  }
+}
+
+//Padding fix for mashup fields
+#side-sortables #gmb_mashup_group_repeat {
+  .cmb-repeat-group-field .cmb-td {
+	padding-bottom: 0;
+  }
+}
+
+//Loading Panel
+#side-sortables .gmb-mashup-loading, #poststuff .gmb-mashup-loading {
+
+  .cmb-th {
+	display: none;
+  }
+  float: left;
+  border: none;
+}
+
+#gmb_mashup_group_repeat .cmb-remove-field-row {
+  float: right;
+}
+
+//Loading Status
+#gmb_mashup_group_repeat .mashup-load-status-wrap {
+  padding: 10px 0 15px;
+  > div.mashup-load-status {
+	padding: 2px 4px;
+	background: #fffff8;
+	border: 1px solid #EEE;
+	height: 300px;
+	overflow-y: scroll;
+
+	ol {
+	  padding: 0 0 0 18px;
+	  margin: 0;
+	}
+	li {
+	  &.gmb-error {
+		color: red;
+	  }
+	  &.gmb-loaded {
+		color: green;
+	  }
+	}
+
+  }
+}
+
+//When in sidebar
+#side-sortables #gmb_mashup_group_repeat {
+  .mashup-load-status-wrap > div.mashup-load-status {
+	width: 230px;
+	height: 150px;
+	li {
+	  font-size: 11px;
+	}
+  }
+  .cmb-remove-field-row {
+	margin-top: -43px;
+  }
+}
+
+//Hide loading symbol
+.gmb-mashups-loading {
+  display: none;
+  margin: 4px 0 0 6px;
+}
+
+div.place-thumb {
+  margin: 0 0 10px;
+
+  img {
+	max-width: 100%;
+  }
+}

@@ -1,0 +1,77 @@
+/**
+ * Import/Export SCSS
+ */
+
+.google_maps_page_gmb_import_export {
+
+  .nav-tab-wrapper {
+	margin-bottom: 20px;
+  }
+
+  .import-export-metabox {
+	max-width: 440px;
+
+	h3.hndle {
+	  margin: 0;
+	  padding: 8px 10px;
+	  font-size: 15px;
+	  cursor: default;
+	}
+
+  }
+
+  p.intro {
+	font-size: 15px;
+	font-style: italic;
+	margin: 0 0 20px;
+	color: #AAA;
+  }
+
+  label {
+	font-weight: bold;
+	margin: 0 0 10px;
+	display: block;
+  }
+
+  .field-wrap {
+	margin: 0 0 10px;
+	select, .field-label {
+	  width: 48%;
+	  margin: 0 1%;
+	  display: inline-block;
+	}
+
+  }
+
+}
+
+/*----------------------------
+Marker Import Metabox
+-------------------------------*/
+
+#gmb-marker-import {
+  .csv-upload {
+	margin-top: 20px;
+  }
+  #submit {
+	margin: 10px 0 0;
+  }
+}
+
+.csv-mapping-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+
+  > span {
+	width: 48%;
+	margin: 0 1%;
+	display: inline-block;
+	padding: 3px 0;
+	border-bottom: 1px solid #000000;
+  }
+
+}
+
+.marker-export-submit {
+  margin: 15px 0 0;
+}

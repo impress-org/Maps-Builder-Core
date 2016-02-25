@@ -1,0 +1,66 @@
+/*------------------------------------------
+ Place Search
+--------------------------------------------*/
+
+#places-search {
+  margin-top: 30px;
+
+  .controls {
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #pac-input {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 400px;
+	margin: 0;
+
+	&:focus {
+	  border-color: #4d90fe;
+	}
+  }
+
+  .pac-container {
+	font-family: Roboto;
+  }
+
+  #type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 0 11px 0px 11px;
+	height: 30px;
+	overflow: hidden;
+
+	label {
+	  font-family: Roboto;
+	  font-size: 13px;
+	  font-weight: 300;
+	  margin-right: 15px;
+	  line-height: 24px;
+	  padding: 4px 8px 2px;
+	  border-radius: 0 0 4px 4px;
+	  cursor: pointer;
+	}
+
+	input[type="radio"] {
+	  display: none;
+
+	  &:checked + label {
+		background-color: #447ee0;
+
+	  }
+
+	}
+
+  }
+}

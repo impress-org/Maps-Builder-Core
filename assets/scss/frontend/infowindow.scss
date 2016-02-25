@@ -1,0 +1,116 @@
+/*!
+ * Info Bubble (window)
+ *
+ * @description:
+ * @package:     GMB
+ * @subpackage:  SCSS/Frontend
+ * @copyright:   Copyright (c) 2015, WordImpress
+ * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+*/
+
+/* Loading */
+.gmb-infobubble.loading {
+  background: url('../img/loading-large.gif') no-repeat center center #FFF;
+}
+
+div[id^='google-maps-builder'] .gmb-infobubble {
+  padding: 8px 10px;
+  margin: 0;
+  min-width: 0;
+  min-height: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: default;
+
+  p {
+	font-size: 12px;
+	margin: 0 0 7px;
+	color: #2C2C2C;
+  }
+
+  p.place-title {
+	border: 1px solid #FFF;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 21px;
+	font-weight: 700;
+	min-height: 21px;
+	white-space: normal;
+  }
+
+  .place-description {
+	white-space: normal;
+  }
+  img {
+	max-width: 100%;
+  }
+
+  .place-thumb {
+	margin: 5px 0 10px;
+  }
+
+}
+
+/* Place Details */
+.gmb-infobubble {
+  .marker-info-wrapper {
+	background-color: #F1F1F1;
+	margin: 8px 0;
+	padding: 12px;
+	font-size: 13px;
+	display: block;
+  }
+  /* Ratings */
+  .rating-wrap {
+	overflow: hidden;
+	margin: 4px 0 0;
+	.numeric-rating {
+	  font-size: 16px;
+	  color: #DD4B39;
+	  font-weight: 400;
+	  float: left;
+	  margin: 0 5px 0 0;
+	  line-height: 1;
+	}
+	.star-rating-wrap {
+	  background: url('../img/review_stars.png') no-repeat 0 0 transparent;
+	  height: 13px;
+	  width: 67px;
+	  float: left;
+	  margin: 1px 0 0;
+	}
+	.star-rating-size {
+	  background: url('../img/review_stars.png') no-repeat 0 -13px transparent;
+	  height: 13px;
+	}
+  }
+
+  .gmb-mashup-single-link {
+	font-size: 14px;
+	display: block;
+	margin: 8px 0;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .gmb-infobubble {
+	min-width: inherit;
+	overflow: visible
+  }
+}
+
+/* Maps Icons */
+div[id^='google-maps-builder'] .marker-label {
+  z-index: 99;
+  position: absolute;
+  display: block;
+  margin-top: -50px;
+  margin-left: -25px;
+  width: 50px;
+  height: 50px;
+  font-size: 28px;
+  text-align: center;
+  color: #FFFFFF;
+  white-space: nowrap;
+  line-height: 1;
+}
