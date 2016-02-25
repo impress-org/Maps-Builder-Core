@@ -65,7 +65,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_style( 'google-maps-builder-plugin-styles', GMB_PLUGIN_URL . 'assets/css/google-maps-builder' . $suffix . '.css', array(), GMB_VERSION );
+		wp_register_style( 'google-maps-builder-plugin-styles', GMB_CORE_URL . 'assets/css/google-maps-builder' . $suffix . '.css', array(), GMB_VERSION );
 		wp_enqueue_style( 'google-maps-builder-plugin-styles' );
 
 		wp_register_style( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/css/map-icons.css', array(), GMB_VERSION );
