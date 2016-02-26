@@ -62,13 +62,13 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		//Widget Script
 		if ( $hook == 'widgets.php' ) {
 
-			wp_register_style( $this->plugin_slug . '-admin-styles', GMB_PLUGIN_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
+			wp_register_style( $this->plugin_slug . '-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
 			wp_enqueue_style( $this->plugin_slug . '-admin-styles' );
 
-			wp_register_script( 'gmb-qtip', GMB_PLUGIN_URL . 'assets/js/plugins/jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
+			wp_register_script( 'gmb-qtip', GMB_CORE_URL . 'assets/js/plugins/jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
 			wp_enqueue_script( 'gmb-qtip' );
 
-			wp_register_script( 'gmb-admin-widgets-scripts', GMB_PLUGIN_URL . 'assets/js/admin/admin-widget' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, false );
+			wp_register_script( 'gmb-admin-widgets-scripts', GMB_CORE_URL . 'assets/js/admin/admin-widget' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, false );
 			wp_enqueue_script( 'gmb-admin-widgets-scripts' );
 		}
 
