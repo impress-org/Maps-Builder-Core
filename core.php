@@ -33,16 +33,217 @@ define( 'GMB_CORE_VERSION', '0.1.0' );
 // Core Lib Root File
 define( 'GMB_CORE_FILE', __FILE__ );
 
-//Load
-
+/**
+ * Load plugin
+ */
 add_action( 'plugins_loaded', 'gmb_core_init' );
 function gmb_core_init(){
 	do_action( 'gmb_core_before_init' );
-	$Google_Maps_Builder_Core = new Google_Maps_Builder_Core();
-	do_action( 'gmb_core_init', $Google_Maps_Builder_Core );
+	add_action( 'plugins_loaded', array( Google_Maps_Builder(), 'instance' ) );
+	add_action( 'widgets_init', array( Google_Maps_Builder(), 'init_widget' ) );
+	do_action( 'gmb_core_init' );
 }
 
-class Google_Maps_Builder_Core{
+/**
+ * The main function responsible for returning the one true Maps Builder istance to function everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ * Example: <?php $gmb = Google_Maps_Builder(); ?>
+ *
+ * @since 2.0
+ * @return object|Google_Maps_Builder
+ */
+function Google_Maps_Builder() {
+	return Google_Maps_Builder::instance();
+}
+
+
+
+abstract class Google_Maps_Builder_Core{
+
+	/**
+	 * Unique identifier for plugin.
+	 *
+	 * The variable name is used as the text domain when internationalizing strings
+	 * of text. Its value should match the Text Domain file header in the main
+	 * plugin file.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var      string
+	 */
+	protected $plugin_slug = 'google-maps-builder';
+
+
+	/**
+	 * Activation Object
+	 *
+	 * @var Google_Maps_Builder_Activate
+	 * @since 2.0
+	 */
+	public $activate;
+
+
+	/**
+	 * GMB Scripts Object
+	 *
+	 * @var Google_Maps_Builder_Scripts
+	 * @since 2.0
+	 */
+	public $scripts;
+
+	/**
+	 * GMB Settings Object
+	 *
+	 * @var Google_Maps_Builder_Settings
+	 * @since 2.0
+	 */
+	public $settings;
+
+	/**
+	 * GMB Engine Object
+	 *
+	 * @var Google_Maps_Builder_Engine
+	 * @since 2.0
+	 */
+	public $engine;
+
+	/**
+	 * GMB Plugin Meta
+	 *
+	 * @var array
+	 * @since 2.0
+	 */
+	public $meta;
+
+	/**
+	 * GMB HTML elements
+	 *
+	 * @var Google_Maps_Builder_HTML_Elements
+	 * @since 2.0
+	 */
+	public $html;
+
+	/**
+	 * User meta key for marking welcome message as dismissed
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var string
+	 */
+	protected $hide_welcome_key = 'gmb_hide_pro_welcome';
+
+	/**
+	 * Include required files
+	 *
+	 * OVVERIDE IN PLUGIN
+	 */
+	protected function includes() {
+		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.', 'google-maps-builder' ), '2.1.0' );
+	}
+
+	/**
+	 * Get instance
+	 *
+	 * OVVERIDE IN PLUGIN
+	 */
+	public static function instance() {
+		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.','google-maps-builder' ), '2.1.0' );
+	}
+
+	/**
+	 * Throw error on object clone
+	 *
+	 * The whole idea of the singleton design pattern is that there is a single
+	 * object, therefore we don't want the object to be cloned.
+	 *
+	 * @since  2.0
+	 * @access protected
+	 * @return void
+	 */
+	public function __clone() {
+		// Cloning instances of the class is forbidden
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'gmb' ), '2.0' );
+	}
+
+	/**
+	 * Disable unserializing of the class
+	 *
+	 * @since  2.0
+	 * @access protected
+	 * @return void
+	 */
+	public function __wakeup() {
+		// Unserializing instances of the class is forbidden
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'gmb' ), '2.0' );
+	}
+
+	/**
+	 * Loads the plugin language files
+	 *
+	 * @access public
+	 * @since  2.0
+	 * @return void
+	 */
+	public function load_textdomain() {
+		// Set filter for Give's languages directory
+		$gmb_lang_dir = dirname( plugin_basename( GMB_PLUGIN_FILE ) ) . '/languages/';
+		$gmb_lang_dir = apply_filters( 'gmb_languages_directory', $gmb_lang_dir );
+
+		// Traditional WordPress plugin locale filter
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'gmb' );
+		$mofile = sprintf( '%1$s-%2$s.mo', 'gmb', $locale );
+
+		// Setup paths to current locale file
+		$mofile_local  = $gmb_lang_dir . $mofile;
+		$mofile_global = WP_LANG_DIR . '/gmb/' . $mofile;
+
+		if ( file_exists( $mofile_global ) ) {
+			// Look in global /wp-content/languages/gmb folder
+			load_textdomain( 'gmb', $mofile_global );
+		} elseif ( file_exists( $mofile_local ) ) {
+			// Look in local /wp-content/plugins/gmb/languages/ folder
+			load_textdomain( 'gmb', $mofile_local );
+		} else {
+			// Load the default language files
+			load_plugin_textdomain( 'gmb', false, $gmb_lang_dir );
+		}
+	}
+
+
+	/**
+	 * Return the plugin slug.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @return   string.
+	 */
+	public function get_plugin_slug() {
+		return $this->plugin_slug;
+	}
+
+	/**
+	 * Get the user meta key for marking welcome message as dismissed
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return string
+	 */
+	public function get_hide_welcome_key(){
+		return $this->hide_welcome_key;
+	}
+
+	/**
+	 * Registers the Google Maps Builder Widget.
+	 *
+	 * @since 2.1.0
+	 * @return void
+	 */
+	public function init_widget() {
+		register_widget( 'Google_Maps_Builder_Widget' );
+	}
 
 	/**
 	 * Get the CMB2 bootstrap!
@@ -50,7 +251,7 @@ class Google_Maps_Builder_Core{
 	 * @description: Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
 	 *
 	 */
-	public static function cmb2_load(){
+	public function cmb2_load(){
 
 		if ( file_exists( WP_PLUGIN_DIR . '/cmb2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
 			require_once WP_PLUGIN_DIR . '/cmb2/init.php';
@@ -62,12 +263,14 @@ class Google_Maps_Builder_Core{
 
 	}
 
+
+
 	/**
 	 * Load activation classes
 	 *
 	 * @since 2.1.0
 	 */
-	public static function load_activate(){
+	public  function load_activate(){
 		require_once GMB_CORE_PATH . 'includes/class-gmc-activate.php';
 		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-activate.php';
 	}
@@ -76,10 +279,8 @@ class Google_Maps_Builder_Core{
 	 * Load maps admin
 	 *
 	 * @since 2.1.0
-	 *
-	 * @TODO add CMB2 stuff here
 	 */
-	public static function init_map_editor_admin(){
+	public function init_map_editor_admin(){
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-admin.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-admin.php';
 
@@ -91,8 +292,8 @@ class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public static function load_files(){
-		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
+	public function load_files(){
+
 		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-settings.php';
@@ -107,7 +308,7 @@ class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public static function load_admin(){
+	public function load_admin(){
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 
 		//Upgrades
@@ -130,7 +331,13 @@ class Google_Maps_Builder_Core{
 
 	}
 
-	public static function include_core_classes(){
+	/**
+	 * Base classes that need to load first
+	 *
+	 * @since 2.1.0
+	 */
+	public function include_core_classes(){
+		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-admin-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-frontend-scripts.php';
