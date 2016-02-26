@@ -51,7 +51,10 @@
 		<div class="gmb-plugin-heading">
 			Google Maps Builder
 		</div>
-		<?php gmb_include_view( 'admin/views/logo-svg.php' ); ?>
+		<?php
+			gmb_include_view( 'admin/views/logo-svg.php' );
+			add_action( 'gmb_settings_page_after_logo' );
+		?>
 	</div>
 
 
