@@ -178,7 +178,7 @@ var gmb_data;
 		} );
 		//Marker Animation
 		$( '#gmb_marker_animate1' ).change( function () {
-			gmb.toggle_marker_animation();
+			gmb.clear_main_markers();
 		} );
 
 
@@ -1004,27 +1004,8 @@ var gmb_data;
 	 * @returns {Number}
 	 */
 	gmb.get_marker_index = function() {
-
-		var marker_repeatable = $( '#gmb_markers_group_repeat' );
-		var marker_repeatable_group = marker_repeatable.find( ' div.cmb-repeatable-grouping' );
-		var marker_add_row_btn = marker_repeatable.find( '.cmb-add-group-row.button' );
-
-		//Create a new marker repeatable meta group
-		var index = parseInt( marker_repeatable_group.last().attr( 'data-iterator' ) );
-		var existing_vals = marker_repeatable_group.first().find( 'input,textarea' ).val();
-
-		//Ensure appropriate index is used for marker
-		if ( existing_vals && index === 0 ) {
-			marker_add_row_btn.trigger( 'click' );
-			index = 1;
-		} else if ( index !== 0 ) {
-			marker_add_row_btn.trigger( 'click' );
-			//recount rows
-			index = parseInt( marker_repeatable.find( ' div.cmb-repeatable-grouping' ).last().attr( 'data-iterator' ) );
-		}
-
-		return index;
-	};
+        //added sperately in free/pro
+    };
 
 	/**
 	 * Google Places Marker Info Window
@@ -1726,6 +1707,10 @@ var gmb_data;
 		} );
 
 	};
+
+    gmb.set_map_theme = function() {
+        //handled in pro
+    }
 
 }( jQuery, window.MapsBuilderAdmin || ( window.MapsBuilderAdmin = {} ) ) );
 
