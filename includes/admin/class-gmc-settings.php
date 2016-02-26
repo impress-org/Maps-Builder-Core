@@ -105,12 +105,49 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 	/**
 	 * Admin page markup. Mostly handled by CMB
+	 *
 	 * @since  0.1.0
 	 */
 	public function admin_page_display() {
+		gmb_include_view( 'admin/views/settings-page.php', false, array_merge( $this->common_settings_page_data(), $this->settings_page_data() ) );
 
-		include( 'views/settings-page.php' );
+	}
 
+	/**
+	 * Handle main data for the settings page
+	 *
+	 * Must ovveride in plugin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return array
+	 */
+	protected function settings_page_data(){
+		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride in plugin', 'google-maps-builder' ), '2.1.0' );
+
+		//place holder
+		$data = array(
+			'welcome' => '',
+			'sub_heading' => ''
+		);
+
+		return $this->view_data( $data, true );
+	}
+
+	/**
+	 * Common data for settings page
+	 *
+	 * @since 2.1.0
+	 *
+	 * @return array
+	 */
+	protected function common_settings_page_data(){
+		return array(
+			'plugin_slug'           => $this->plugin_slug,
+			'key'                   => $this->key(),
+			'general_option_fields' => $this->general_option_fields(),
+			'map_option_fields'     => $this->map_option_fields()
+		);
 	}
 
 	/**

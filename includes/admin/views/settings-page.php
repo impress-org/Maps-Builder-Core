@@ -26,11 +26,11 @@
 
 				<div class="col-md-9">
 					<h1 class="main-heading">
-						<?php _e( 'Welcome to Maps Builder <em>Pro</em> ', $plugin_slug ); ?><?php echo Google_Maps_Builder()->meta['Version']; ?>
+						<?php echo $welcome; ?>
 					</h1>
 
 					<p class="main-subheading">
-						<?php _e( 'Thank you for upgrading to the Maps Builder Pro', $plugin_slug ); ?>. <?php echo sprintf( __( 'As a Pro active license holder you receive %3$spriority support%2$s, awesome plugin features, and thoroughly written plugin %1$sdocumentation%2$s. We hope you enjoy using the Pro plugin version!', $plugin_slug ), '<a href="https://wordimpress.com/documentation/maps-builder-pro/" target="_blank">', '</a>', '<a href="https://wordimpress.com/support/forum/maps-builder-pro" target="_blank">' ); ?>
+						<?php echo $sub_heading; ?>
 					</p>
 					<?php gmb_include_view( 'admin/views/social-media.php', false, $data ); ?>
 
@@ -53,7 +53,7 @@
 		</div>
 		<?php
 			gmb_include_view( 'admin/views/logo-svg.php' );
-			add_action( 'gmb_settings_page_after_logo' );
+			do_action( 'gmb_settings_page_after_logo' );
 		?>
 	</div>
 
