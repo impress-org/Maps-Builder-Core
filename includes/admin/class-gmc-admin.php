@@ -132,8 +132,21 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$prefix          = 'gmb_';
 		$default_options = $this->get_default_map_options();
-
-
+		// MAP PREVIEW
+		$preview_box = cmb2_get_metabox( array(
+			'id'           => 'google_maps_preview_metabox',
+			'title'        => __( 'Google Map Preview', $this->plugin_slug ),
+			'object_types' => array( 'google_maps' ), // post type
+			'context'      => 'normal', //  'normal', 'advanced', or 'side'
+			'priority'     => 'high', //  'high', 'core', 'default' or 'low'
+			'show_names'   => false, // Show field names on the left
+		) );
+		$preview_box->add_field( array(
+			'name'    => __( 'Map Preview', $this->plugin_slug ),
+			'id'      => $prefix . 'preview',
+			'type'    => 'google_maps_preview',
+			'default' => '',
+		) );
 
 		// MARKERS
 		$this->marker_box = cmb2_get_metabox( array(
