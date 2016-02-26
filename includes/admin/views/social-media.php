@@ -37,6 +37,7 @@
 		<div class="wordimpress-logo">
 			<a href="http://wordimpress.com" title="<?php _e( 'Visit the Developers site of Google Maps Builder', $plugin_slug ); ?>" target="_blank" class="logo-link"></a>
 		</div>
+		<?php do_action( 'gmb_social_media_after_logo' ); ?>
 
 	</div>
 	<!-- /.social-items-wrap -->
