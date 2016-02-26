@@ -605,6 +605,11 @@
 
 	};
 
+    //pro only functions
+    gmb.set_map_directions = function( map, map_data ){};
+    gmb.set_map_layers = function ( map, map_data ){};
+    gmb.set_map_places_search = function( map, map_data ){};
+
 
 
 }( jQuery, window.MapsBuilder || ( window.MapsBuilder = {} ) ) );
