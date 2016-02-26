@@ -49,17 +49,6 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	}
 
 	/**
-	 * Get plugin slug
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string
-	 */
-	public function get_plugin_slug(){
-		return $this->plugin_slug;
-	}
-
-	/**
 	 * Use to add hooks in parent class
 	 *
 	 * @since 0.1.0
