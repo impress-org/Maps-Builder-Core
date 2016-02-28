@@ -47,7 +47,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	function enqueue_admin_styles( $hook ) {
 
 		global $post;
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$suffix = $this->paths->suffix();
 
 		//Only enqueue scripts for CPT on post type screen
 		if ( ( $hook == 'post-new.php' || $hook == 'post.php' ) && 'google_maps' === $post->post_type || $hook == 'google_maps_page_gmb_settings' || $hook == 'google_maps_page_gmb_import_export' ) {
@@ -73,9 +73,9 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	 */
 	function enqueue_admin_scripts( $hook ) {
 		global $post;
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$js_dir     = $this->admin_js_dir();
-		$js_plugins = $this->admin_js_url();
+		$suffix = $this->paths->suffix();
+		$js_dir     = $this->paths->admin_js_dir();
+		$js_plugins = $this->paths->admin_js_url();
 
 		//Builder Google Maps API URL
 		$signed_in_option    = gmb_get_option( 'gmb_signed_in' );

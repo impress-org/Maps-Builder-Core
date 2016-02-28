@@ -36,9 +36,9 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 		wp_register_script( 'google-maps-builder-gmaps', $google_maps_api_url, array( 'jquery' ) );
 		wp_enqueue_script( 'google-maps-builder-gmaps' );
 
-		$js_dir     = $this->front_end_js_dir();
-		$js_plugins = $this->front_end_js_url();
-		$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$js_dir     = $this->paths->front_end_js_dir();
+		$js_plugins = $this->paths->front_end_js_url();
+		$suffix     = $this->paths->suffix();
 
 		// Use minified libraries if SCRIPT_DEBUG is turned off
 		wp_register_script( 'google-maps-builder-plugin-script', $js_dir . 'google-maps-builder' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
@@ -63,7 +63,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 	 */
 	function enqueue_frontend_styles() {
 
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$suffix     = $this->paths->suffix();
 
 		wp_register_style( 'google-maps-builder-plugin-styles', GMB_CORE_URL . 'assets/css/google-maps-builder' . $suffix . '.css', array(), GMB_VERSION );
 		wp_enqueue_style( 'google-maps-builder-plugin-styles' );

@@ -36,7 +36,17 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 */
 	protected $google_maps_conflict = false;
 
+	/**
+	 * Asset paths
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var Google_Maps_Builder_Core_Asset_Paths
+	 */
+	protected $paths;
+
 	public function __construct(){
+		$this->paths = Google_Maps_Builder_Core_Asset_Paths::get_instance();
 		$this->plugin_slug     = Google_Maps_Builder()->get_plugin_slug();
 		$this->plugin_settings = get_option( 'gmb_settings' );
 		if( is_admin() ) {
@@ -142,48 +152,5 @@ abstract class Google_Maps_Builder_Core_Scripts {
 		return $google_maps_api_url;
 	}
 
-	/**
-	 * Get front-end JS Dir
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string
-	 */
-	protected function front_end_js_dir() {
-		return GMB_CORE_URL . 'assets/js/frontend/';
-	}
-
-	/**
-	 * Get front-end JS URL
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string
-	 */
-	protected function front_end_js_url() {
-		return GMB_CORE_URL . 'assets/js/plugins/';
-	}
-
-	/**
-	 * Get admin JS Dir
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string
-	 */
-	protected function admin_js_dir() {
-		return GMB_CORE_URL . 'assets/js/admin/';
-	}
-
-	/**
-	 * Get admin JS URL
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string
-	 */
-	protected function admin_js_url() {
-		return GMB_CORE_URL . 'assets/js/plugins/';
-	}
 
 }
