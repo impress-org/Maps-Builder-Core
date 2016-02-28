@@ -338,6 +338,7 @@ abstract class Google_Maps_Builder_Core{
 	 */
 	public function include_core_classes(){
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
+		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts-init.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-admin-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-frontend-scripts.php';
