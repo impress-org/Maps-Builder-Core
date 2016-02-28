@@ -1708,9 +1708,7 @@ var gmb_data;
 
 	};
 
-    gmb.set_map_theme = function() {
-        //handled in pro
-    }
+    gmb.set_map_theme = function() {};
 
 }( jQuery, window.MapsBuilderAdmin || ( window.MapsBuilderAdmin = {} ) ) );
 
@@ -1728,4 +1726,5 @@ jQuery( window ).load( function () {
     var gmb_init = new CustomEvent( 'MapBuilderAdminInit' );
     window.dispatchEvent( gmb_init );
 } );
+
 
