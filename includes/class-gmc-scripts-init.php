@@ -41,6 +41,7 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_late'), 50 );
 		}else{
 			add_action( 'wp_enqueue_scripts', array( $this, 'font_end_hooks' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_late' ), 50 );
 			new Google_Maps_Builder_Core_Front_End_Scripts();
 
 		}
@@ -78,6 +79,18 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 *
 	 */
 	public function font_end_hooks(){}
+
+
+	/**
+	 * Enqueue front-end scripts that need to run late
+	 *
+	 * @since 2.1.0
+	 *
+	 * @uses "wp_enqueue_scripts
+	 *
+	 * @param $hook
+	 */
+	public function front_end_late( $hook ){}
 
 
 
