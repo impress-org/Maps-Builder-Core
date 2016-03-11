@@ -1039,7 +1039,7 @@ var gmb_data;
 
 				info_bubble.setContent( info_window_content );
 
-				gmg.initialize_tooltips(); //refresh tooltips
+				gmb.initialize_tooltips(); //refresh tooltips
 
 			} else {
 				//There was an API error; display it for the user:
