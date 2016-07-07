@@ -22,10 +22,13 @@
 
 div[id^='google-maps-builder'] div.gmb-infobubble > div {
   white-space: normal; }
+
 div[id^='google-maps-builder'] .gm-style-iw, div[id^='google-maps-builder'] .gm-style-iw > div, div[id^='google-maps-builder'] .gm-style-iw > div > div {
   overflow: visible !important; }
+
 div[id^='google-maps-builder'] div[class*="_ibani_"] {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
+
 div[id^='google-maps-builder'] iframe.gm-save-widget {
   margin: 0;
   padding: 0; }
@@ -48,7 +51,7 @@ div[id^='google-maps-builder'] img {
 */
 /* Loading */
 .gmb-infobubble.loading {
-  background: url('../img/loading-large.gif') no-repeat center center #FFF; }
+  background: url("../img/loading-large.gif") no-repeat center center #FFF; }
 
 div[id^='google-maps-builder'] .gmb-infobubble {
   padding: 8px 10px;
@@ -97,13 +100,13 @@ div[id^='google-maps-builder'] .gmb-infobubble {
       margin: 0 5px 0 0;
       line-height: 1; }
     .gmb-infobubble .rating-wrap .star-rating-wrap {
-      background: url('../img/review_stars.png') no-repeat 0 0 transparent;
+      background: url("../img/review_stars.png") no-repeat 0 0 transparent;
       height: 13px;
       width: 67px;
       float: left;
       margin: 1px 0 0; }
     .gmb-infobubble .rating-wrap .star-rating-size {
-      background: url('../img/review_stars.png') no-repeat 0 -13px transparent;
+      background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
       height: 13px; }
   .gmb-infobubble .gmb-mashup-single-link {
     font-size: 14px;
@@ -221,7 +224,7 @@ div[id^="directions-panel"].panel-overlay {
     height: 40px;
     width: 40px; }
     div[id^="directions-panel"].panel-overlay .gmb-directions-toggle .gmb-directions-icon {
-      background: url('../img/directions-icon.png') no-repeat center center #FFF;
+      background: url("../img/directions-icon.png") no-repeat center center #FFF;
       opacity: 0.5;
       display: block;
       width: 40px;
@@ -285,6 +288,5 @@ div[id^="directions-panel"].panel-overlay {
       display: none; }
       #places-search #type-selector input[type="radio"]:checked + label {
         background-color: #447ee0; }
-
 
 /*# sourceMappingURL=google-maps-builder.css.map */

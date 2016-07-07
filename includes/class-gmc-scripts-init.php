@@ -40,7 +40,7 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_hooks' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_late'), 50 );
 		}else{
-			add_action( 'wp_enqueue_scripts', array( $this, 'font_end_hooks' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_hooks' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_late' ), 50 );
 			new Google_Maps_Builder_Core_Front_End_Scripts();
 
@@ -78,7 +78,7 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 * @uses "enqueue_scripts"
 	 *
 	 */
-	public function font_end_hooks(){}
+	public function front_end_hooks(){}
 
 
 	/**

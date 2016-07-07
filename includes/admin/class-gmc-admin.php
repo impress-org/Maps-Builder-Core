@@ -257,7 +257,6 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			)
 		);
 
-
 		$this->search_options->add_field(
 			array(
 				'name'    => __( 'Search Radius', $this->plugin_slug ),
@@ -267,7 +266,6 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'type'    => 'text_small'
 			)
 		);
-
 
 		$this->search_options->add_field(
 			array(

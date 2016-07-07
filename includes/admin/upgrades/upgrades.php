@@ -67,7 +67,7 @@ function gmb_upgrades_screen() {
 			<div id="gmb-upgrade-status" class="updated" style="margin-top:15px;">
 				<p style="margin-bottom:8px;">
 					<?php _e( 'The upgrade process has started, please do not close your browser or refresh. This could take several minutes. You will be automatically redirected when the upgrade has finished.', 'gmb' ); ?>
-					<img src="<?php echo GMB_PLUGIN_URL . '/assets/img/loading.GIF'; ?>" id="gmb-upgrade-loader" style="position:relative; top:3px;" />
+					<img src="<?php echo GMB_PLUGIN_URL . '/assets/img/loading.gif'; ?>" id="gmb-upgrade-loader" style="position:relative; top:3px;" />
 				</p>
 			</div>
 			<script type="text/javascript">
