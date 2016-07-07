@@ -128,15 +128,15 @@ abstract class Google_Maps_Builder_Core_Scripts {
 		$google_maps_api_key = gmb_get_option( 'gmb_maps_api_key' );
 		$gmb_language        = gmb_get_option( 'gmb_language' );
 
-
 		$google_maps_api_url_args = array(
-			'sensor'    => 'false',
 			'libraries' => $libraries
 		);
+
 		//Google Maps API key present?
 		if ( ! empty( $google_maps_api_key ) ) {
 			$google_maps_api_url_args[ 'key' ] = $google_maps_api_key;
 		}
+
 		//Preferred Language?
 		if ( ! empty( $google_maps_api_key ) ) {
 			$google_maps_api_url_args[ 'language' ] = $gmb_language;
