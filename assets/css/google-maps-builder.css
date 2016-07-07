@@ -7,6 +7,11 @@
  * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 /* Mixin */
+.gmb-clearfix:after {
+  content: "";
+  display: table;
+  clear: both; }
+
 /*!
  * Maps Builder Frontend Maps
  *

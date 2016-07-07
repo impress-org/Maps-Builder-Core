@@ -5,14 +5,14 @@
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress
  * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- *//*!
+ */div[id^=google-maps-builder] .gmb-infobubble .place-description,div[id^=google-maps-builder] div.gmb-infobubble>div{white-space:normal}.gmb-clearfix:after{content:"";display:table;clear:both}/*!
  * Maps Builder Frontend Maps
  *
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress
  * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
-*/div[id^=google-maps-builder] .gmb-infobubble .place-description,div[id^=google-maps-builder] div.gmb-infobubble>div{white-space:normal}.google-maps-builder{width:100%;height:500px;min-height:275px}div[id^=google-maps-builder] .gm-style-iw,div[id^=google-maps-builder] .gm-style-iw>div,div[id^=google-maps-builder] .gm-style-iw>div>div{overflow:visible!important}div[id^=google-maps-builder] div[class*="_ibani_"]{box-shadow:0 0 3px rgba(0,0,0,.2)}div[id^=google-maps-builder] iframe.gm-save-widget{margin:0;padding:0}div[id^=google-maps-builder] img{max-width:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}/*!
+*/.google-maps-builder{width:100%;height:500px;min-height:275px}div[id^=google-maps-builder] .gm-style-iw,div[id^=google-maps-builder] .gm-style-iw>div,div[id^=google-maps-builder] .gm-style-iw>div>div{overflow:visible!important}div[id^=google-maps-builder] div[class*="_ibani_"]{box-shadow:0 0 3px rgba(0,0,0,.2)}div[id^=google-maps-builder] iframe.gm-save-widget{margin:0;padding:0}div[id^=google-maps-builder] img{max-width:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}/*!
  * Info Bubble (window)
  *
  * @description:

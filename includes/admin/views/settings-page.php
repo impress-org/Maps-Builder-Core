@@ -11,7 +11,6 @@
  * @link      http://wordimpress.com
  * @copyright 2015 WordImpress, Devin Walker
  */
-
 ?>
 
 <div class="wrap">
@@ -21,7 +20,7 @@
 	// Check that the user hasn't already clicked to ignore the welcome message and that they have appropriate permissions
 	if ( ! get_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() ) && current_user_can( 'install_plugins' ) ) {
 		?>
-		<div class="container welcome-header">
+		<div class="container welcome-header gmb-clearfix">
 			<div class="row">
 
 				<div class="col-md-9">

@@ -27,17 +27,21 @@
 
 @mixin clearfix {
   &:after {
-	content: "";
-	display: table;
-	clear: both;
+    content: "";
+    display: table;
+    clear: both;
   }
 }
 
 @mixin easing-transition {
   -webkit-transition: 0.2s all linear;
-  	-moz-transition: 0.2s all linear;
-  	-o-transition: 0.2s all linear;
-  	transition: 0.2s all linear;
+  -moz-transition: 0.2s all linear;
+  -o-transition: 0.2s all linear;
+  transition: 0.2s all linear;
+}
+
+.gmb-clearfix {
+  @include clearfix;
 }
 
 $blue: #42A4F5;
