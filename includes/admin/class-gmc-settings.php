@@ -21,6 +21,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 	/**
 	 * Option key, and option page slug
+	 *
 	 * @var string
 	 */
 	protected static $key = 'gmb_settings';
@@ -36,8 +37,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 
 	/**
-	 * Constructor
-	 * @since 0.1.0
+	 * Google_Maps_Builder_Core_Settings constructor.
 	 */
 	public function __construct() {
 
@@ -101,11 +101,12 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 
 	/**
-	 * Admin page markup. Mostly handled by CMB
+	 * Admin Page Display
 	 *
-	 * @since  0.1.0
+	 * @description: Admin page markup. Mostly handled by CMB
 	 */
 	public function admin_page_display() {
+
 		gmb_include_view( 'admin/views/settings-page.php', false, array_merge( $this->common_settings_page_data(), $this->settings_page_data() ) );
 
 	}
@@ -270,7 +271,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 				'longitude'     => '',
 			)
 		);
-		
+
 		//lat_lng
 		$output = '<div id="lat-lng-wrap"><div class="coordinates-wrap clear">';
 		$output .= '<div class="lat-lng-wrap lat-wrap clear"><span>' . __( 'Latitude', $this->plugin_slug ) . ': </span>
@@ -288,7 +289,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 		$output .= '<div class="geolocate-radio-wrap size-labels-wrap">';
 		$output .= '<label class="yes-label label-left"><input id="geolocate_map_yes" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="yes" ' . ( $meta['geolocate_map'] === 'yes' ? 'checked="checked"' : '' ) . '>' . __( 'Yes', $this->plugin_slug ) . '</label>';
 
-		$output .= '<label class="no-label label-left"><input id="geolocate_map_no" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="no" ' . ( ($meta['geolocate_map'] === 'no' ) ? 'checked="checked"' : '' ) . ' >' . __( 'No', $this->plugin_slug ) . '</label>';
+		$output .= '<label class="no-label label-left"><input id="geolocate_map_no" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="no" ' . ( ( $meta['geolocate_map'] === 'no' ) ? 'checked="checked"' : '' ) . ' >' . __( 'No', $this->plugin_slug ) . '</label>';
 		$output .= '</div>';
 		$output .= '<p class="cmb2-metabox-description clear">' . sprintf( __( 'When creating a new map the plugin will use your current longitude and latitude for the base location. Please note, Chrome 50+ %1$srequires a secure https connection%2$s (SSL certificate) to access geolocation features and other browsers may soon follow suit. Use this feature with caution.', $this->plugin_slug ), '<a href="https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only" class="new-window" target="_blank">', '</a>' ) . '</p>';
 
@@ -331,6 +332,16 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 		return $links;
 	}
 
+	/**
+	 * Add Plugin Meta Links
+	 *
+	 * @description: Adds links on the admin plugin listing page
+	 *
+	 * @param $meta
+	 * @param $file
+	 *
+	 * @return array
+	 */
 	function add_plugin_meta_links( $meta, $file ) {
 
 		if ( $file == GMB_PLUGIN_BASE ) {
@@ -393,6 +404,8 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	}
 
 	/**
+	 * Tab Settings
+	 *
 	 * @param $active_tab
 	 *
 	 * @return array

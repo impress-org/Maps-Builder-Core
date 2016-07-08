@@ -9,14 +9,17 @@
  * @author    Devin Walker <devin@wordimpress.com>
  * @license   GPL-2.0+
  * @link      http://wordimpress.com
- * @copyright 2015 WordImpress, Devin Walker
+ * @copyright 2016 WordImpress, Devin Walker
  */
 ?>
 
 <div class="wrap">
 
-	<?php global $current_user;
+	<?php
+
+	global $current_user;
 	$user_id = $current_user->ID;
+
 	// Check that the user hasn't already clicked to ignore the welcome message and that they have appropriate permissions
 	if ( ! get_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() ) && current_user_can( 'install_plugins' ) ) {
 		?>
@@ -51,8 +54,8 @@
 			Google Maps Builder
 		</div>
 		<?php
-			gmb_include_view( 'admin/views/logo-svg.php' );
-			do_action( 'gmb_settings_page_after_logo' );
+		gmb_include_view( 'admin/views/logo-svg.php' );
+		do_action( 'gmb_settings_page_after_logo' );
 		?>
 	</div>
 
@@ -65,12 +68,9 @@
 	 *
 	 * @see: http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-5-tabbed-navigation-for-your-settings-page--wp-24971
 	 */
-	$active_tab = isset( $_GET['tab'] ) ? strip_tags( $_GET[ 'tab' ] ) : 'map_options';
+	$active_tab = isset( $_GET['tab'] ) ? strip_tags( $_GET['tab'] ) : 'map_options';
 	?>
-	<h2 class="nav-tab-wrapper">
-		<?php do_action( 'gmb_settings_tabs', $active_tab ); ?>
-	</h2>
-
+	<h1 class="nav-tab-wrapper"><?php do_action( 'gmb_settings_tabs', $active_tab ); ?></h1>
 
 	<?php
 	/**
@@ -93,8 +93,7 @@
 			$view = 'tab-map-options.php';
 			break;
 	}
-	gmb_include_view( 'admin/views/' . $view, false, $data  );
-	?>
 
+	gmb_include_view( 'admin/views/' . $view, false, $data ); ?>
 
 </div>

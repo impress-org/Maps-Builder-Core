@@ -329,7 +329,7 @@ function gmb_get_map_languages() {
  * NOTE: First this attempts to load from GMB_PLUGIN_PATH . '/includes/' then it trys GMP_CORE_PATH .'/includes', unless $full
  * NOTE: Uses include() not include_once()
  *
- * @since 0.1.0
+ * @since 2.1
  *
  * @return string
  *
@@ -345,24 +345,25 @@ function gmb_include_view( $file, $full = false, $data = array() ) {
 	/**
 	 * Filter file path for gmb_include_view
 	 *
-	 * @since 0.1.0
+	 * @since 2.1
 	 *
 	 * @param string $file File path -- should be a full absolute path
 	 * @param bool $full If this function is using full file path mode or not
 	 */
 	$file = apply_filters( 'gmb_gmb_include_view_file', $file, $full );
 
-	if( file_exists( $file ) ){
-		if( ! empty( $data ) ){
-			extract( $data, EXTR_SKIP  );
+	if ( file_exists( $file ) ) {
+		if ( ! empty( $data ) ) {
+			extract( $data, EXTR_SKIP );
 			ob_start();
 		}
 		include( $file );
-		if( ! empty( $data ) ){
+		if ( ! empty( $data ) ) {
 			echo ob_get_clean();
 		}
+
 		return true;
-	}else{
+	} else {
 		return false;
 	}
 }
@@ -372,14 +373,14 @@ function gmb_include_view( $file, $full = false, $data = array() ) {
  *
  * NOTE: First this attempts to load from GMB_PLUGIN_PATH . '/includes/' then it trys GMP_CORE_PATH .'/includes', unless $full
  *
- * @since 0.1.0
+ * @since 2.1
  *
  * @param string $file File path relative to either core includes path or plugin includes path. Use full absolute path if $full param is true
  * @param bool $full Optional. If true, $file param should be a full absolute path. Default is false.
  *
  * @return string
  */
-function gmb_find_view( $file, $full = false ){
+function gmb_find_view( $file, $full = false ) {
 	if ( ! $full ) {
 		$_file = GMB_PLUGIN_PATH . 'includes/' . $file;
 		if ( ! file_exists( $_file ) ) {

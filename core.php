@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Abort load if
  */
-if( defined( 'GMB_CORE_PATH' ) ) {
+if ( defined( 'GMB_CORE_PATH' ) ) {
 	return;
 }
 
@@ -37,7 +37,7 @@ define( 'GMB_CORE_FILE', __FILE__ );
  * Load plugin
  */
 add_action( 'plugins_loaded', 'gmb_core_init' );
-function gmb_core_init(){
+function gmb_core_init() {
 	do_action( 'gmb_core_before_init' );
 	add_action( 'plugins_loaded', array( Google_Maps_Builder(), 'instance' ) );
 	add_action( 'widgets_init', array( Google_Maps_Builder(), 'init_widget' ) );
@@ -60,8 +60,7 @@ function Google_Maps_Builder() {
 }
 
 
-
-abstract class Google_Maps_Builder_Core{
+abstract class Google_Maps_Builder_Core {
 
 	/**
 	 * Unique identifier for plugin.
@@ -150,7 +149,7 @@ abstract class Google_Maps_Builder_Core{
 	 * OVVERIDE IN PLUGIN
 	 */
 	public static function instance() {
-		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.','google-maps-builder' ), '2.1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.', 'google-maps-builder' ), '2.1.0' );
 	}
 
 	/**
@@ -231,7 +230,7 @@ abstract class Google_Maps_Builder_Core{
 	 *
 	 * @return string
 	 */
-	public function get_hide_welcome_key(){
+	public function get_hide_welcome_key() {
 		return $this->hide_welcome_key;
 	}
 
@@ -251,7 +250,7 @@ abstract class Google_Maps_Builder_Core{
 	 * @description: Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
 	 *
 	 */
-	public function cmb2_load(){
+	public function cmb2_load() {
 
 		if ( file_exists( WP_PLUGIN_DIR . '/cmb2/init.php' ) && ! defined( 'CMB2_LOADED' ) ) {
 			require_once WP_PLUGIN_DIR . '/cmb2/init.php';
@@ -264,13 +263,12 @@ abstract class Google_Maps_Builder_Core{
 	}
 
 
-
 	/**
 	 * Load activation classes
 	 *
 	 * @since 2.1.0
 	 */
-	public  function load_activate(){
+	public function load_activate() {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-activate.php';
 		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-activate.php';
 	}
@@ -280,7 +278,7 @@ abstract class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public function init_map_editor_admin(){
+	public function init_map_editor_admin() {
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-admin.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-admin.php';
 
@@ -292,7 +290,7 @@ abstract class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public function load_files(){
+	public function load_files() {
 
 		require_once GMB_CORE_PATH . 'includes/misc-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-settings.php';
@@ -308,20 +306,15 @@ abstract class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public function load_admin(){
+	public function load_admin() {
+
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 
 		//Upgrades
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
-
-
-
 		require_once GMB_CORE_PATH . 'includes/admin/system-info.php';
-
 		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
-
-
 
 		//shortcode generator
 		//@todo load conditionally
@@ -336,7 +329,7 @@ abstract class Google_Maps_Builder_Core{
 	 *
 	 * @since 2.1.0
 	 */
-	public function include_core_classes(){
+	public function include_core_classes() {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-asset-paths.php';
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts-init.php';
