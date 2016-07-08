@@ -205,7 +205,8 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 	/**
 	 * Map Option Fields
-	 * Defines the plugin option metabox and field configuration
+	 *
+	 * @description: Defines the plugin option metabox and field configuration
 	 * @since  1.0.0
 	 * @return array
 	 */
