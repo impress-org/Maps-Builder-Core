@@ -138,9 +138,10 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			'wp-color-picker'
 		), GMB_VERSION );
 		wp_enqueue_script( $this->plugin_slug . '-admin-magnific-builder' );
-
-
-
+		
+		//Map Controls
+		wp_register_script( $this->plugin_slug . '-admin-map-controls', $js_dir . 'admin-maps-controls' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-admin-map-controls' );
 
 		$api_key     = gmb_get_option( 'gmb_maps_api_key' );
 		$geolocate   = gmb_get_option( 'gmb_lat_lng' );
