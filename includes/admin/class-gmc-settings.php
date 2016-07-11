@@ -1,11 +1,9 @@
 <?php
 
 /**
- * CMB Theme Options
- * @version 0.1.0
+ * Class Google_Maps_Builder_Core_Settings
  */
 abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Core_Interface {
-
 
 	/**
 	 * Array of metaboxes/fields
@@ -65,7 +63,6 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	 * @since  0.1.0
 	 */
 	public function mninit() {
-
 		register_setting( self::$key, self::$key );
 	}
 
@@ -208,7 +205,6 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	 * Map Option Fields
 	 *
 	 * @description: Defines the plugin option metabox and field configuration
-	 * @since  1.0.0
 	 * @return array
 	 */
 	public function map_option_fields() {
@@ -422,7 +418,6 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 /**
  * Wrapper function around cmb_get_option
- * @since  0.1.0
  *
  * @param  string $key Options array key
  *
@@ -430,4 +425,55 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
  */
 function gmb_get_option( $key = '' ) {
 	return cmb2_get_option( Google_Maps_Builder_Settings::key(), $key );
+}
+
+
+/**
+ * Remove an option
+ *
+ * Removes a setting value in the serialized settings option 
+ *
+ * @since 2.1
+ *
+ * @param string $key The Key to delete
+ *
+ * @return boolean True if updated, false if not.
+ */
+function gmb_delete_option( $key = '' ) {
+
+	// If no key, exit
+	if ( empty( $key ) ) {
+		return false;
+	}
+
+	// First let's grab the current settings
+	$options = get_option( 'gmb_settings' );
+
+	// Next let's try to update the value
+	if ( isset( $options[ $key ] ) ) {
+		unset( $options[ $key ] );
+	}
+	if ( isset( $_POST[ $key ] ) ) {
+		unset( $_POST[ $key ] );
+	}
+
+	$did_update = update_option( 'gmb_settings', $options );
+
+	return $did_update;
+}
+
+/**
+ * Get Settings
+ *
+ * Retrieves all plugin settings
+ *
+ * @since 2.1
+ * @return array Give settings
+ */
+function gmb_get_settings() {
+
+	$settings = get_option( 'gmb_settings' );
+
+	return (array) apply_filters( 'gmb_get_settings', $settings );
+
 }
