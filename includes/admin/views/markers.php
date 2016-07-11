@@ -43,6 +43,9 @@
 						</div>
 						<div class="marker-description"><?php _e( 'Default Icons', $plugin_slug ); ?></div>
 					</div>
+
+					<?php do_action( 'gmb_extra_marker_options' ); ?>
+					
 				</div>
 
 				<div class="marker-icon-row map-svg-icons clear">
