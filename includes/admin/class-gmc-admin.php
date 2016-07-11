@@ -67,8 +67,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		//Add metaboxes and fields to CPT
 		add_action( 'cmb2_init', array( $this, 'cpt2_metaboxes_fields' ) );
-
 	}
+
 
 	/**
 	 * Add Shortcode to Publish Metabox
@@ -823,7 +823,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '</div>';
 
 		//Markers Modal
-		gmb_include_view(  'admin/views/markers.php', false, $this->view_data() );
+		gmb_include_view( 'admin/views/markers.php', false, $this->view_data() );
 
 		//Places search
 		$output = $this->places_search( $output );
@@ -900,7 +900,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 *
 	 * @return string
 	 */
-	function places_search( $output ){
+	function places_search( $output ) {
 		return $output;
 	}
 

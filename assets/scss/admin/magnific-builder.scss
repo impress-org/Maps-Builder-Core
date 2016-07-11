@@ -8,7 +8,7 @@
 */
 
 //Display none things
-.magnific-builder #titlediv, .magnific-builder #submitdiv, .magnific-builder #google_maps_preview_metabox .handlediv, .magnific-builder #google_maps_preview_metabox .ui-sortable-handle, .magnific-builder #post-body-content, .magnific-builder .marker-icon-modal {
+.magnific-builder #titlediv, .magnific-builder #submitdiv, .magnific-builder #google_maps_preview_metabox .handlediv, .magnific-builder #google_maps_preview_metabox .ui-sortable-handle, .magnific-builder #post-body-content, .magnific-builder .marker-icon-modal, .map-modal-upsell {
   display: none;
 }
 
@@ -35,27 +35,27 @@ Magnific Builder
   overflow: hidden;
 
   #google-map-wrap {
-	border: none;
+    border: none;
   }
 
   #poststuff {
-	padding-top: 0;
+    padding-top: 0;
   }
 
   #cmb2-metabox-google_maps_preview_metabox {
-	> div {
-	  padding-top: 0;
-	}
+    > div {
+      padding-top: 0;
+    }
   }
   .magnific-builder#post .places-loading {
-	top: auto;
-	right: -175px;
-	bottom: 15px;
-	left: auto;
+    top: auto;
+    right: -175px;
+    bottom: 15px;
+    left: auto;
   }
 
   #map-toolbar {
-	min-width: 678px;
+    min-width: 678px;
   }
 }
 
@@ -64,120 +64,120 @@ Magnific Builder
 .magnific-builder#post {
 
   #postbox-container-1 {
-	margin-left: 0;
-	padding: 90px 0 50px;
-	width: 300px !important;
-	background: url('../img/maps-builder-logo-small.png') no-repeat 15px 15px transparent;
+    margin-left: 0;
+    padding: 90px 0 50px;
+    width: 300px !important;
+    background: url('../img/maps-builder-logo-small.png') no-repeat 15px 15px transparent;
 
-	&:after {
-	  content: ' ';
-	  position: absolute;
-	  bottom: 15px;
-	  right: 130px;
-	  background: url('../img/powered-by-google-on-white.png') no-repeat 0 0 transparent;
-	  width: 104px;
-	  height: 16px;
-	}
+    &:after {
+      content: ' ';
+      position: absolute;
+      bottom: 15px;
+      right: 130px;
+      background: url('../img/powered-by-google-on-white.png') no-repeat 0 0 transparent;
+      width: 104px;
+      height: 16px;
+    }
 
-	#side-sortables {
-	  border-left: 1px solid #DDD;
-	  border-bottom: 1px solid #DDD;
-	  background-color: #F7F7F7;
-	  overflow-y: auto;
-	  overflow-x: hidden;
-	  height: 100%;
-	  min-height: 100%;
-	  position: relative;
+    #side-sortables {
+      border-left: 1px solid #DDD;
+      border-bottom: 1px solid #DDD;
+      background-color: #F7F7F7;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 100%;
+      min-height: 100%;
+      position: relative;
 
-	  //Blue sections
-	  .ui-sortable-handle {
-		background: $blue;
-		color: #FFF;
+      //Blue sections
+      .ui-sortable-handle {
+        background: $blue;
+        color: #FFF;
 
-		&:hover {
-		  background: darken($blue, 10%);
-		}
-	  }
-	  .handlediv {
-		color: #FFF;
-	  }
+        &:hover {
+          background: darken($blue, 10%);
+        }
+      }
+      .handlediv {
+        color: #FFF;
+      }
 
-	}
+    }
 
-	.magnific-submit {
-	  position: absolute;
-	  bottom: 10px;
-	  right: 10px;
-	  display: block;
-	}
-	/*-------------------------------------
-	Google Places
-	---------------------------------------*/
-	#google_maps_search_options {
+    .magnific-submit {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: block;
+    }
+    /*-------------------------------------
+    Google Places
+    ---------------------------------------*/
+    #google_maps_search_options {
 
-	  .cmb2-id-gmb-places-search {
-		margin-top: 15px;
-		border-top: none;
-	  }
+      .cmb2-id-gmb-places-search {
+        margin-top: 15px;
+        border-top: none;
+      }
 
-	  .cmb2-id-gmb-places-search-multicheckbox {
-		ul li {
-		  width: 50%;
-		  position: relative;
-		  .cmb2-option {
-			position: absolute;
-			top: 0;
-			left: 0;
-		  }
-		  label {
-			padding-left: 25px;
-			display: block;
-			padding-right: 3px;
-		  }
-		}
-	  }
-	}
-	//#google_maps_search_options
+      .cmb2-id-gmb-places-search-multicheckbox {
+        ul li {
+          width: 50%;
+          position: relative;
+          .cmb2-option {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          label {
+            padding-left: 25px;
+            display: block;
+            padding-right: 3px;
+          }
+        }
+      }
+    }
+    //#google_maps_search_options
 
-	/*-------------------------------------
-	Map Markers
-	---------------------------------------*/
-	a.drop-marker {
-	  margin-top: 10px;
-	  display: block;
-	  width: 120px;
-	  text-align: center;
-	}
+    /*-------------------------------------
+    Map Markers
+    ---------------------------------------*/
+    a.drop-marker {
+      margin-top: 10px;
+      display: block;
+      width: 120px;
+      text-align: center;
+    }
 
-	.places-change-message .button {
-	  margin-bottom: 10px;
-	  float: left;
-	}
+    .places-change-message .button {
+      margin-bottom: 10px;
+      float: left;
+    }
 
   }
 
   #post-body.columns-2 #side-sortables {
-	margin-right: 0;
-	width: 300px !important;
+    margin-right: 0;
+    width: 300px !important;
   }
 
   .postbox {
-	margin: 0;
-	border: none;
+    margin: 0;
+    border: none;
 
-	&:last-of-type {
-	  border-bottom: 1px solid #DDD;
-	}
+    &:last-of-type {
+      border-bottom: 1px solid #DDD;
+    }
   }
 
   .toggle-repeater-groups {
-	display: block;
-	width: 140px;
-	text-align: center;
-	margin: 10px 0 0;
+    display: block;
+    width: 140px;
+    text-align: center;
+    margin: 10px 0 0;
   }
   button.edit-title {
-	display: inline-block;
+    display: inline-block;
   }
 }
 
@@ -208,9 +208,9 @@ Magnific Builder
   text-align: center;
 
   span.dashicons {
-	position: relative;
-	top: 2px;
-	margin-right: 3px;
+    position: relative;
+    top: 2px;
+    margin-right: 3px;
   }
 
 }
@@ -237,29 +237,29 @@ Modal within Modal
   display: table;
 
   .inner-modal-wrap {
-	display: table-cell;
-	vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 
-	.inner-modal-container {
-	  overflow-y: auto;
-	  max-height: 100%;
-	}
+    .inner-modal-container {
+      overflow-y: auto;
+      max-height: 100%;
+    }
 
-	.inner-modal {
-	  max-width: 600px;
-	  margin: 30px auto;
-	  background: #FFF;
-	  padding: 20px;
-	  box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
-	  position: relative;
-	}
+    .inner-modal {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #FFF;
+      padding: 20px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
 
   }
 
   .save-marker-icon {
-	position: relative;
-	border: none;
-	margin-top: 15px;
+    position: relative;
+    border: none;
+    margin-top: 15px;
   }
 
 }
@@ -275,4 +275,32 @@ button.gmb-modal-close {
   cursor: pointer;
   outline: none;
   padding: 0;
+}
+
+
+//--------------------------
+//Pro Version Upsell CSS
+//--------------------------
+.mfp-container .map-modal-upsell {
+  display: block;
+  position: absolute;
+  top: 35px;
+  right: -261px;
+  text-align: center;
+
+  p {
+    font-size: 11px;
+    font-style: italic;
+    margin: 0 0 2px;
+    color: #AAA;
+  }
+
+  a.upsell-button {
+    width: 70px;
+  }
+
+}
+
+.maps-builder-free .magnific-builder#post #postbox-container-1 {
+  background-image: url("../img/maps-builder-logo-small-non-pro.png");
 }
