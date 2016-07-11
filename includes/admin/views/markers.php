@@ -43,25 +43,6 @@
 						</div>
 						<div class="marker-description"><?php _e( 'Default Icons', $plugin_slug ); ?></div>
 					</div>
-					<div class="marker-item" data-marker="mapicons" data-toggle="map-icons-row">
-						<div class="marker-map-icons marker-preview">
-							<img src="<?php echo GMB_PLUGIN_URL . 'assets/img/logo-mapicons.png'; ?>" class="default-marker" />
-						</div>
-						<div class="marker-description"><?php _e( 'Map Icons', $plugin_slug ); ?></div>
-					</div>
-					<div class="marker-item" data-marker="mapicons" data-toggle="templatic-icons-row">
-						<div class="marker-map-icons marker-preview">
-							<img src="<?php echo GMB_PLUGIN_URL . 'assets/img/templatic-icon.png'; ?>" class="templatic-marker" />
-						</div>
-						<div class="marker-description"><?php _e( 'Templatic Icons', $plugin_slug ); ?></div>
-					</div>
-					<div class="marker-item" data-marker="upload" data-toggle="marker-upload">
-						<div class="marker-upload marker-preview">
-							<span class="dashicons dashicons-upload"></span>
-						</div>
-						<div class="marker-description"><?php _e( 'Upload Marker', $plugin_slug ); ?></div>
-					</div>
-
 				</div>
 
 				<div class="marker-icon-row map-svg-icons clear">
