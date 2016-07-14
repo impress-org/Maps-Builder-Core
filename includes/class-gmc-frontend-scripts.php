@@ -6,22 +6,26 @@
  * @subpackage  Functions
  * @copyright   Copyright (c) 2016, WordImpress
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
+ * @since       2.1
+ */
+
+/**
+ * Class Google_Maps_Builder_Core_Front_End_Scripts
  */
 class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Core_Scripts {
 
+	/**
+	 * Hooks
+	 */
 	protected function hooks(){
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ), 11 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_styles' ) );
-
 	}
 
 	/**
 	 * Load Frontend Scripts
 	 *
-	 * Enqueues the required scripts to display maps on the frontend only.
-	 *
-	 * @since 0.1.0
+	 * @description: Enqueues the required scripts to display maps on the frontend only.
 	 */
 	function load_frontend_scripts() {
 
