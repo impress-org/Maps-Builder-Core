@@ -2,7 +2,7 @@
 /**
  *  Handles Upgrade Functionality
  *
- * @copyright   Copyright (c) 2015, WordImpress
+ * @copyright   Copyright (c) 2016, WordImpress
  * @since       : 2.0
  */
 
@@ -20,9 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function gmb_show_upgrade_notices() {
 
-	//Uncomment for testing ONLY - Never leave uncommented unless testing:
-	//delete_option( 'gmb_refid_upgraded' );
-
 	// Don't show notices on the upgrades page
 	if ( isset( $_GET['page'] ) && $_GET['page'] == 'gmb-upgrades' ) {
 		return;
@@ -30,8 +27,8 @@ function gmb_show_upgrade_notices() {
 
 	//Check to see if we have any posts
 	$gmb_posts = get_posts( array( 'post_type' => 'google_maps', 'posts_per_page' => 10 ) );
-	if(empty($gmb_posts)){
-		update_option( 'gmb_refid_upgraded', 'upgraded' );//mark as updated
+	if ( empty( $gmb_posts ) ) {
+		update_option( 'gmb_refid_upgraded', 'upgraded' ); //mark as updated
 		return; //Don't run if there's no posts!
 	}
 
@@ -47,7 +44,13 @@ function gmb_show_upgrade_notices() {
 
 	if ( version_compare( $gmb_version, '2.0', '<=' ) && ! get_option( 'gmb_refid_upgraded' ) ) {
 		printf(
-			'<div class="updated"><p><strong>Google Maps Builder Notice:</strong> ' . esc_html__( 'Google has updated their Maps API to use the new Google Places ID rather than previous Reference ID. The old method will soon be deprecated and eventually go offline. We are being proactive and would like to update your maps to use the new Places ID. Once you upgrade, your maps should work just fine but remember to make a backup prior to upgrading. If you choose not to upgrade Google will eventually take the old reference ID offline (no date has been given). Please contact WordImpress support via our website if you have any further questions or issues. %sClick here to upgrade your maps to use the new Places ID%s', 'gmb' ) . '</p></div>',
+			'<div class="updated"><p><strong>' . __( 'Maps Builder Update Required', 'google-maps-builder' ) . ':</strong> ' . esc_html__( 'Google has updated their Maps API to use the new Google Places ID rather than previous Reference ID. The old method will soon be deprecated and eventually go offline. We are being proactive and would like to update your maps to use the new Places ID. Once you upgrade, your maps should work just fine but remember to make a backup prior to upgrading. If you choose not to upgrade Google will eventually take the old reference ID offline (no date has been given). Please contact WordImpress support via our website if you have any further questions or issues. %sClick here to upgrade your maps to use the new Places ID%s', 'google-maps-builder' ) . '</p></div>',
+			'<br><a href="' . esc_url( admin_url( 'options.php?page=gmb-upgrades' ) ) . '" class="button button-primary" style="margin-top:10px;">',
+			'</a>'
+		);
+	} elseif ( version_compare( $gmb_version, '2.1', '<=' ) && ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
+		printf(
+			'<div class="updated"><p><strong>' . __( 'Maps Builder Update Required', 'google-maps-builder' ) . ':</strong> ' . esc_html__( 'An upgrade is required to your Google maps. We highly recommend performing a backup prior to upgrading. %sClick here to upgrade your maps%s', 'google-maps-builder' ) . '</p></div>',
 			'<br><a href="' . esc_url( admin_url( 'options.php?page=gmb-upgrades' ) ) . '" class="button button-primary" style="margin-top:10px;">',
 			'</a>'
 		);
@@ -68,11 +71,77 @@ add_action( 'admin_notices', 'gmb_show_upgrade_notices' );
  */
 function gmb_add_upgrade_submenu_page() {
 
-	$gmb_upgrades_screen = add_submenu_page( null, __( 'Maps Builder Upgrades', 'gmb' ), __( 'Maps Builder Upgrades', 'gmb' ), 'activate_plugins', 'gmb-upgrades', 'gmb_upgrades_screen' );
+	$gmb_upgrades_screen = add_submenu_page( null, __( 'Maps Builder Upgrades', 'google-maps-builder' ), __( 'Maps Builder Upgrades', 'google-maps-builder' ), 'activate_plugins', 'gmb-upgrades', 'gmb_upgrades_screen' );
 
 }
 
 add_action( 'admin_menu', 'gmb_add_upgrade_submenu_page', 10 );
+
+
+/**
+ * Check if the upgrade routine has been run for a specific action
+ *
+ * @since  2.1
+ *
+ * @param  string $upgrade_action The upgrade action to check completion for
+ *
+ * @return bool                   If the action has been added to the completed actions array
+ */
+function gmb_has_upgrade_completed( $upgrade_action = '' ) {
+
+	if ( empty( $upgrade_action ) ) {
+		return false;
+	}
+
+	$completed_upgrades = gmb_get_completed_upgrades();
+
+	return in_array( $upgrade_action, $completed_upgrades );
+
+}
+
+
+/**
+ * Adds an upgrade action to the completed upgrades array
+ *
+ * @since  2.1
+ *
+ * @param  string $upgrade_action The action to add to the completed upgrades array
+ *
+ * @return bool                   If the function was successfully added
+ */
+function gmb_set_upgrade_complete( $upgrade_action = '' ) {
+
+	if ( empty( $upgrade_action ) ) {
+		return false;
+	}
+
+	$completed_upgrades   = gmb_get_completed_upgrades();
+	$completed_upgrades[] = $upgrade_action;
+
+	// Remove any blanks, and only show uniques
+	$completed_upgrades = array_unique( array_values( $completed_upgrades ) );
+
+	return update_option( 'gmb_completed_upgrades', $completed_upgrades );
+}
+
+/**
+ * Get's the array of completed upgrade actions
+ *
+ * @since  2.1
+ * @return array The array of completed upgrades
+ */
+function gmb_get_completed_upgrades() {
+
+	$completed_upgrades = get_option( 'gmb_completed_upgrades' );
+
+	if ( false === $completed_upgrades ) {
+		$completed_upgrades = array();
+	}
+
+	return $completed_upgrades;
+
+}
+
 
 /**
  * Triggers all upgrade functions
@@ -85,7 +154,7 @@ add_action( 'admin_menu', 'gmb_add_upgrade_submenu_page', 10 );
 function gmb_trigger_upgrades() {
 
 	if ( ! current_user_can( 'activate_plugins' ) ) {
-		wp_die( __( 'You do not have permission to do plugin upgrades', 'gmb' ), __( 'Error', 'gmb' ), array( 'response' => 403 ) );
+		wp_die( __( 'You do not have permission to do plugin upgrades', 'google-maps-builder' ), __( 'Error', 'google-maps-builder' ), array( 'response' => 403 ) );
 	}
 
 	$gmb_version = get_option( 'gmb_version' );
@@ -97,8 +166,10 @@ function gmb_trigger_upgrades() {
 		add_option( 'gmb_version', $gmb_version );
 	}
 
-	if ( version_compare( GMB_VERSION, $gmb_version, '>=' ) && ! get_option( 'gmb_refid_upgraded' ) ) {
+	if ( version_compare( GMB_VERSION, '2.0', '>=' ) && ! get_option( 'gmb_refid_upgraded' ) ) {
 		gmb_v2_upgrades();
+	} elseif ( version_compare( GMB_VERSION, '2.1', '>=' ) && ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
+		gmb_v21_upgrades();
 	}
 
 	update_option( 'gmb_version', $gmb_version );
@@ -112,97 +183,91 @@ add_action( 'wp_ajax_gmb_trigger_upgrades', 'gmb_trigger_upgrades' );
 
 
 /**
- * Upgrade from Google Reference ID to Places ID
+ * Render Upgrades Screen
  *
  * @since 2.0
- * @uses  WP_Query
  * @return void
  */
-function gmb_v2_upgrades() {
+function gmb_upgrades_screen() {
 
-	//Set key variables
-	$google_api_key = gmb_get_option( 'gmb_api_key' );
+	$action = isset( $_GET['gmb-upgrade'] ) ? sanitize_text_field( $_GET['gmb-upgrade'] ) : '';
+	$step   = isset( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
+	$total  = isset( $_GET['total'] ) ? absint( $_GET['total'] ) : false;
+	$custom = isset( $_GET['custom'] ) ? absint( $_GET['custom'] ) : 0;
+	$number = isset( $_GET['number'] ) ? absint( $_GET['number'] ) : 100;
+	$steps  = round( ( $total / $number ), 0 );
 
-	//Loop through maps
-	$args = array(
-		'post_type'      => 'google_maps',
-		'posts_per_page' => - 1
+	$doing_upgrade_args = array(
+		'page'        => 'gmb-upgrades',
+		'gmb-upgrade' => $action,
+		'step'        => $step,
+		'total'       => $total,
+		'custom'      => $custom,
+		'steps'       => $steps
 	);
+	update_option( 'gmb_doing_upgrade', $doing_upgrade_args );
+	if ( $step > $steps ) {
+		// Prevent a weird case where the estimate was off. Usually only a couple.
+		$steps = $step;
+	} ?>
+	<div class="wrap">
+		<h2><?php _e( 'Maps Builder - Upgrade', 'google-maps-builder' ); ?></h2>
 
-	// The Query
-	$the_query = new WP_Query( $args );
+		<?php if ( ! empty( $action ) ) : ?>
 
-	// The CPT Loop
-	if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
+			<div id="gmb-upgrade-status">
+				<p><?php _e( 'The upgrade process has started, please be patient. This could take several minutes. You will be automatically redirected when the upgrade is finished.', 'google-maps-builder' ); ?></p>
 
-		//Repeater markers data
-		$markers = get_post_meta( get_the_ID(), 'gmb_markers_group', true );
+				<?php if ( ! empty( $total ) ) : ?>
+					<p>
+						<strong><?php printf( __( 'Step %d of approximately %d running', 'google-maps-builder' ), $step, $steps ); ?></strong>
+					</p>
+				<?php endif; ?>
+			</div>
+			<script type="text/javascript">
+				setTimeout(function () {
+					document.location.href = "index.php?gmb_action=<?php echo $action; ?>&step=<?php echo $step; ?>&total=<?php echo $total; ?>&custom=<?php echo $custom; ?>";
+				}, 250);
+			</script>
 
-		//If no markers skip
-		if ( ! empty( $markers ) ) {
+		<?php else : ?>
 
-			//Markers loop
-			foreach ( $markers as $key => $marker ) {
+			<div id="gmb-upgrade-status" class="updated" style="margin-top:15px;">
+				<p style="margin-bottom:8px;">
+					<?php _e( 'The upgrade process has started, please do not close your browser or refresh. This could take several minutes. You will be automatically redirected when the upgrade has finished.', 'google-maps-builder' ); ?>
+					<img src="<?php echo GMB_PLUGIN_URL . '/assets/img/loading.gif'; ?>" id="gmb-upgrade-loader" style="position:relative; top:3px;"/>
+				</p>
+			</div>
+			<script type="text/javascript">
+				jQuery(document).ready(function () {
+					// Trigger upgrades on page load
+					var data = {action: 'gmb_trigger_upgrades'};
+					var el_upgrade_status = jQuery('#gmb-upgrade-status');
 
-				$ref_id   = isset( $marker['reference'] ) ? $marker['reference'] : '';
-				$place_id = isset( $marker['place_id'] ) ? $marker['place_id'] : '';
+					//Trigger via AJAX
+					jQuery.post(ajaxurl, data, function (response) {
 
-				//No ref ID -> skip; If place_id already there skip
-				if ( empty( $ref_id ) ) {
-					continue;
-				}
-				if ( ! empty( $place_id ) ) {
-					continue;
-				}
-				//cURL the Google API for the Google Place ID
-				$google_places_url = add_query_arg(
-					array(
-						'reference' => $ref_id,
-						'key'       => $google_api_key
-					),
-					'https://maps.googleapis.com/maps/api/place/details/json'
-				);
+						//Uncomment for debugging
+//						jQuery( '#gmb-upgrade-status' ).after( response );
 
-				$response = wp_remote_get( $google_places_url,
-					array(
-						'timeout'   => 15,
-						'sslverify' => false
-					)
-				);
+						//Success Message
+						if (response == 'complete') {
 
-				// make sure the response came back okay
-				if ( is_wp_error( $response ) ) {
-					return;
-				}
+							el_upgrade_status.hide();
+							el_upgrade_status.after('<div class="updated"><p><strong><?php __( 'Upgrade Successful:', 'google-maps-builder' ); ?></strong> <?php __( 'The upgrade process has completed successfully. Hooray! You will now be redirected back to your previous page.', 'google-maps-builder' ); ?></p></div>');
 
-				// decode the license data
-				$response = json_decode( $response['body'], true );
+							//Send user back to prev page
+							setTimeout(function () {
+								history.back();
+							}, 4000);
 
-				//Place ID is there, now let's update the widget data
-				if ( isset( $response['result']['place_id'] ) ) {
+						}
+					});
+				});
+			</script>
 
-					//Add Place ID to markers array
-					$markers[ $key ]['place_id'] = $response['result']['place_id'];
+		<?php endif; ?>
 
-				}
-
-				//Pause for 2 seconds so we don't overwhelm the Google API with requests
-				sleep( 2 );
-
-
-			} //end foreach
-
-			//Update repeater data with new data
-			update_post_meta( get_the_ID(), 'gmb_markers_group', $markers );
-
-		} //endif
-
-	endwhile; endif;
-
-	// Reset Post Data
-	wp_reset_postdata();
-
-	//Update our options and GTF out
-	update_option( 'gmb_refid_upgraded', 'upgraded' );
-
+	</div>
+	<?php
 }
