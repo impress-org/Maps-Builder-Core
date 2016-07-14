@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @description: Runs on plugin install by setting up the post types, custom taxonomies, flushing rewrite rules to initiate the new 'donations' slug and also creates the plugin and populates the settings fields for those plugin pages. After successful install, the user is redirected to the gmb Welcome screen.
  *
- * @since 1.0
+ * @since 2.1
  * @global $wpdb
  * @global $wp_version
  * @return void
