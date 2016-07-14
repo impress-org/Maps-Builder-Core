@@ -4,7 +4,6 @@
  * @description: Frontend form rendering
  */
 
-
 (function ($, gmb) {
     "use strict";
 
@@ -94,7 +93,7 @@
     };
 
     /**
-     * Map Intialize
+     * Map Initialize
      *
      * Sets up and configures the Google Map
      *
@@ -106,7 +105,7 @@
         var map_data = gmb_data[map_id];
 
         //info_window - Contains the place's information and content
-        info_window = new InfoBubble(info_window_args);
+        gmb.info_window = new InfoBubble(info_window_args);
 
         var latitude = (map_data.map_params.latitude) ? map_data.map_params.latitude : '32.713240';
         var longitude = (map_data.map_params.longitude) ? map_data.map_params.longitude : '-117.159443';
@@ -281,8 +280,12 @@
 
     /**
      * Set Map Markers
+     *
+     * @param map
+     * @param map_data
+     * @param info_window_content
      */
-    gmb.set_map_markers = function (map, map_data, info_window) {
+    gmb.set_map_markers = function (map, map_data, info_window_content) {
 
         var map_markers = map_data.map_markers;
         var markers = [];
@@ -298,15 +301,22 @@
             var marker_label = '';
 
             //check for custom marker and label data
-            var marker_icon = map_data.map_params.default_marker; //Default marker icon here
+            var custom_marker_icon = (typeof marker_data.marker !== 'undefined' ? marker_data.marker : '');
 
-            //Marker Image Icon
-            if (marker_data.marker_img) {
+            var marker_icon = map_data.map_params.default_marker; //Default marker icon here
+            var included_marker_icon = marker_data.marker_included_img !== '' ? marker_data.marker_included_img : '';
+
+            console.log(marker_data);
+
+            //Custom Marker Image Icon? Check if image is set
+            if (marker_data.marker_img && !isNaN(marker_data.marker_img_id)) {
+                marker_icon = marker_data.marker_img;
+            } else if (marker_data.marker_img) {
                 marker_icon = marker_data.marker_img;
             }
             //SVG Icon
             else if ((typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0)) {
-                marker_icon = eval("(" + marker_data.marker + ")");
+                marker_icon = eval('(' + marker_data.marker + ')');
                 marker_label = marker_data.label
             }
 
@@ -344,15 +354,15 @@
             location_marker.setVisible(true);
 
             google.maps.event.addListener(location_marker, 'click', function () {
-                gmb.set_info_window_content(marker_data, info_window);
-                info_window.open(map, location_marker);
-                info_window.updateContent_();
+                gmb.set_info_window_content(marker_data, info_window_content);
+                gmb.info_window.open(map, location_marker);
+                gmb.info_window.updateContent_();
 
                 //Marker Centers Map on Click?
                 if (map_data.marker_centered == 'yes') {
                     window.setTimeout(function () {
                         // Pan into view, done in a time out to make it feel nicer :)
-                        info_window.panToView();
+                        gmb.info_window.panToView();
                     }, 200);
                 }
             });
@@ -361,10 +371,10 @@
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
-                    info_window.setContent('<div id="infobubble-content" class="loading"></div>');
-                    gmb.set_info_window_content(marker_data, info_window);
-                    info_window.open(map, location_marker);
-                    info_window.updateContent_();
+                    gmb.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
+                    gmb.set_info_window_content(marker_data, gmb.info_window);
+                    gmb.info_window.open(map, location_marker);
+                    gmb.info_window.updateContent_();
 
 
                 });
@@ -386,7 +396,7 @@
      * @description: Queries to get Google Place Details information
      *
      * @param marker_data
-     * @param info_window
+     * @param gmb.info_window
      */
     gmb.set_info_window_content = function (marker_data, info_window) {
 
@@ -415,14 +425,14 @@
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
 
                     info_window_content += gmb.set_place_content_in_info_window(place);
-                    info_window.setContent(info_window_content); //set marker content
-                    info_window.updateContent_();
+                    gmb.info_window.setContent(info_window_content); //set marker content
+                    gmb.info_window.updateContent_();
 
                 }
             });
         } else {
-            info_window.setContent(info_window_content); //set marker content
-            info_window.updateContent_();
+            gmb.info_window.setContent(info_window_content); //set marker content
+            gmb.info_window.updateContent_();
 
         }
 
@@ -651,7 +661,7 @@ jQuery(document).ready(function () {
 
 /*
  * Backwards compatibility function
- Instead use:
+ * Instead use:
 
  document.addEventListener("MapBuilderInit", function(){
  MapsBuilder.global_load( map_canvas );
