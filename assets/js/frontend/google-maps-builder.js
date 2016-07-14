@@ -301,18 +301,17 @@
             var marker_label = '';
 
             //check for custom marker and label data
-            var custom_marker_icon = (typeof marker_data.marker !== 'undefined' ? marker_data.marker : '');
-
+            var custom_marker_icon = (marker_data.marker_img && !isNaN(marker_data.marker_img_id)) ? marker_data.marker_img : '';
             var marker_icon = map_data.map_params.default_marker; //Default marker icon here
             var included_marker_icon = marker_data.marker_included_img !== '' ? marker_data.marker_included_img : '';
 
-            console.log(marker_data);
-
-            //Custom Marker Image Icon? Check if image is set
-            if (marker_data.marker_img && !isNaN(marker_data.marker_img_id)) {
-                marker_icon = marker_data.marker_img;
-            } else if (marker_data.marker_img) {
-                marker_icon = marker_data.marker_img;
+            //Plugin included marker image
+            if (included_marker_icon) {
+                marker_icon = map_data.plugin_url + included_marker_icon;
+            }
+            //Custom Marker Upload? Check if image is set
+            else if (custom_marker_icon) {
+                marker_icon = custom_marker_icon;
             }
             //SVG Icon
             else if ((typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0)) {
