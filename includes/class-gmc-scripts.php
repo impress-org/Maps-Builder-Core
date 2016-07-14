@@ -4,9 +4,13 @@
  *
  * @package     GMB
  * @subpackage  Functions
- * @copyright   Copyright (c) 2015, WordImpress
+ * @copyright   Copyright (c) 2016, WordImpress
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       2.0
+ */
+
+/**
+ * Class Google_Maps_Builder_Core_Scripts
  */
 abstract class Google_Maps_Builder_Core_Scripts {
 
@@ -45,6 +49,9 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 */
 	protected $paths;
 
+	/**
+	 * Google_Maps_Builder_Core_Scripts constructor.
+	 */
 	public function __construct(){
 		$this->paths = Google_Maps_Builder_Core_Asset_Paths::get_instance();
 		$this->plugin_slug     = Google_Maps_Builder()->get_plugin_slug();
