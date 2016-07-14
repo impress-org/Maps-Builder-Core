@@ -212,7 +212,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Marker Image', $this->plugin_slug ),
+			'name'        => __( 'Custom Marker Image', $this->plugin_slug ),
 			'id'          => 'marker_img',
 			'row_classes' => 'gmb-hidden',
 			'type'        => 'file',
@@ -220,6 +220,12 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'url'                  => false,
 				'add_upload_file_text' => __( 'Add Marker Image', $this->plugin_slug )
 			),
+		) );
+		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
+			'name'        => __( 'Included Marker Icon', $this->plugin_slug ),
+			'row_classes' => 'gmb-hidden',
+			'id'          => 'marker_included_img',
+			'type'        => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Marker Data', $this->plugin_slug ),

@@ -673,6 +673,7 @@ var gmb_data;
 
         //Marker Modal Update Icon
         var save_icon_listener = google.maps.event.addDomListener($('.save-marker-button')[0], 'click', function (e) {
+
             e.preventDefault();
             var marker_position = marker.getPosition();
             var marker_icon = $(this).data('marker');
@@ -691,12 +692,25 @@ var gmb_data;
             //collect marker data from submit button
             var marker_label_data = '<i class="' + $(this).data('label') + '" style="' + marker_label_inline_style + '"></i>';
 
+
+            //Clear marker vals
+            gmb.clear_marker_values(index);
+
             //Determine which type of marker to place
             if (marker_icon == 'mapicons' || marker_icon == 'upload' || marker_icon == 'default') {
+
                 marker_icon_data = $(this).data('marker-image');
                 marker_label_data = ''; //no label here (img marker)
-                $('#gmb_markers_group_' + index + '_marker_img').val(marker_icon_data); //set marker image field
-                $('#gmb_markers_group_' + index + '_marker', '#gmb_markers_group_' + index + '_label').val(''); //clear other marker data
+
+                //If marker image is an upload set full path
+                if (marker_icon == 'upload') {
+                    $('#gmb_markers_group_' + index + '_marker_img').val(marker_icon_data);
+                } else {
+                    //else set marker image relative path
+                    var new_marker_img_path = marker_icon_data.replace(gmb_data.plugin_url, '');
+                    $('#gmb_markers_group_' + index + '_marker_included_img').val(new_marker_img_path);
+                }
+
             }
             //custom SVG markers
             else if (marker_icon == 'MAP_PIN' || marker_icon == 'SQUARE_PIN') {
@@ -709,7 +723,7 @@ var gmb_data;
                 $('#gmb_markers_group_' + index + '_marker_img').val(''); //set marker image field
             }
 
-            //remove current marker
+            //remove current marker from map
             marker.setMap(null);
 
             var marker_args = {
@@ -814,23 +828,26 @@ var gmb_data;
         var cluster_markers = $('#gmb_marker_cluster1').prop('checked');
 
         //Loop through repeatable field of markers
-        $("#gmb_markers_group_repeat").find('.cmb-repeatable-grouping').each(function (index) {
-
-            //Timeout pending on animation choice
-            //setTimeout( function () {
+        $('#gmb_markers_group_repeat').find('.cmb-repeatable-grouping').each(function (index) {
 
             var marker_icon = gmb_data.default_marker;
             var marker_label = '';
 
             //check for custom marker and label data
-            var custom_marker_icon = $('#gmb_markers_group_' + index + '_marker').val();
+            var custom_marker_svg = $('#gmb_markers_group_' + index + '_marker').val();
             var custom_marker_img = $('#gmb_markers_group_' + index + '_marker_img').val();
+            var included_marker_img = $('#gmb_markers_group_' + index + '_marker_included_img').val();
 
-            if (custom_marker_img) {
+            //Plugin included marker image
+            if (included_marker_img) {
+                marker_icon = gmb_data.plugin_url + included_marker_img;
+            } else if (custom_marker_img) {
+                //Uploaded marker image
                 marker_icon = custom_marker_img;
-            } else if (custom_marker_icon.length > 0 && custom_marker_icon.length > 0) {
+            } else if (custom_marker_svg.length > 0 && custom_marker_svg.length > 0) {
+                //SVG Marker
                 var custom_label = $('#gmb_markers_group_' + index + '_label').val();
-                marker_icon = eval("(" + custom_marker_icon + ")");
+                marker_icon = eval('(' + custom_marker_svg + ')');
                 marker_label = custom_label;
             }
 
@@ -889,8 +906,6 @@ var gmb_data;
                 });
             });
 
-            //}, time ); //marker drop in timeout
-
         }); //end $.each()
 
         //Cluster?
@@ -900,6 +915,12 @@ var gmb_data;
 
     };
 
+    /**
+     * Get Info Window Saved Data
+     *
+     * @param index
+     * @returns {{}}
+     */
     gmb.get_info_window_saved_data = function (index) {
 
         var info_window_data = {};
@@ -1710,6 +1731,25 @@ var gmb_data;
 
     gmb.set_map_theme = function () {
     };
+
+    /**
+     * Clear Marker Values
+     *
+     * @description: Sets all marker meta field data to emtpy
+     * @since 2.1
+     *
+     * @param index
+     */
+    gmb.clear_marker_values = function (index) {
+
+        //Clear marker data
+        $('#gmb_markers_group_' + index + '_marker').val('');
+        $('#gmb_markers_group_' + index + '_label').val('');
+        $('#gmb_markers_group_' + index + '_marker_img').val('');
+        $('#gmb_markers_group_' + index + '_marker_included_img').val('');
+
+    }
+
 
 }(jQuery, window.MapsBuilderAdmin || ( window.MapsBuilderAdmin = {} )) );
 
