@@ -166,7 +166,7 @@ abstract class Google_Maps_Builder_Core {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'gmb' ), '2.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'google-maps-builder' ), '2.0' );
 	}
 
 	/**
@@ -178,7 +178,7 @@ abstract class Google_Maps_Builder_Core {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'gmb' ), '2.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'google-maps-builder' ), '2.0' );
 	}
 
 	/**
@@ -194,8 +194,8 @@ abstract class Google_Maps_Builder_Core {
 		$gmb_lang_dir = apply_filters( 'gmb_languages_directory', $gmb_lang_dir );
 
 		// Traditional WordPress plugin locale filter
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'gmb' );
-		$mofile = sprintf( '%1$s-%2$s.mo', 'gmb', $locale );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'google-maps-builder' );
+		$mofile = sprintf( '%1$s-%2$s.mo', 'google-maps-builder', $locale );
 
 		// Setup paths to current locale file
 		$mofile_local  = $gmb_lang_dir . $mofile;
@@ -203,13 +203,13 @@ abstract class Google_Maps_Builder_Core {
 
 		if ( file_exists( $mofile_global ) ) {
 			// Look in global /wp-content/languages/gmb folder
-			load_textdomain( 'gmb', $mofile_global );
+			load_textdomain( 'google-maps-builder', $mofile_global );
 		} elseif ( file_exists( $mofile_local ) ) {
 			// Look in local /wp-content/plugins/gmb/languages/ folder
-			load_textdomain( 'gmb', $mofile_local );
+			load_textdomain( 'google-maps-builder', $mofile_local );
 		} else {
 			// Load the default language files
-			load_plugin_textdomain( 'gmb', false, $gmb_lang_dir );
+			load_plugin_textdomain( 'google-maps-builder', false, $gmb_lang_dir );
 		}
 	}
 
@@ -288,7 +288,7 @@ abstract class Google_Maps_Builder_Core {
 	}
 
 	/**
-	 * Load files needed in front-end and admin
+	 * Load files needed in both front-end and admin
 	 *
 	 * @since 2.1.0
 	 */
@@ -301,6 +301,9 @@ abstract class Google_Maps_Builder_Core {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-engine.php';
 		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-engine.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-widget.php';
+
+		require_once GMB_CORE_PATH . 'includes/install.php';
+
 	}
 
 	/**
