@@ -391,7 +391,6 @@ var gmb_data;
                 lat_field.val(place.geometry.location.lat());
                 lng_field.val(place.geometry.location.lng());
 
-
                 if (!place.geometry) {
                     alert('Error: Place not found!');
                     return;
@@ -1770,6 +1769,21 @@ var gmb_data;
         $('#gmb_markers_group_' + index + '_marker_included_img').val('');
 
     }
+
+    /**
+     * Detect Google Maps API Authentication Error
+     *
+     * @description:   Google Authentication Callback in case there was an error
+     *
+     * @see: https://developers.google.com/maps/documentation/javascript/events#auth-errors
+     * @see: https://developers.google.com/maps/documentation/javascript/events#auth-errors
+     */
+
+    window.gm_authFailure = function () {
+
+        $('#poststuff').before('<div class="notice gmc-notice-error error"><p>' + gmb_data.i18n.api_key_required + '</p></div>');
+
+    };
 
 
 }(jQuery, window.MapsBuilderAdmin || ( window.MapsBuilderAdmin = {} )) );

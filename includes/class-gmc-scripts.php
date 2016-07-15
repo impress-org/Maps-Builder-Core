@@ -132,6 +132,7 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 * @return string
 	 */
 	protected function google_maps_url( $signed_in_option, $libraries = 'places,drawing' ) {
+
 		$google_maps_api_key = gmb_get_option( 'gmb_maps_api_key' );
 		$gmb_language        = gmb_get_option( 'gmb_language' );
 
