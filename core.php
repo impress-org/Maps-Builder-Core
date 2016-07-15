@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /**
- * Abort load if
+ * Abort load if core path defined
  */
 if ( defined( 'GMB_CORE_PATH' ) ) {
 	return;
@@ -33,10 +33,14 @@ define( 'GMB_CORE_VERSION', '0.1.0' );
 // Core Lib Root File
 define( 'GMB_CORE_FILE', __FILE__ );
 
+//Install Procees
+if ( file_exists( GMB_CORE_PATH . 'includes/install.php' ) ) {
+	require_once GMB_CORE_PATH . 'includes/install.php';
+}
+
 /**
  * Load plugin
  */
-add_action( 'plugins_loaded', 'gmb_core_init' );
 function gmb_core_init() {
 	do_action( 'gmb_core_before_init' );
 	add_action( 'plugins_loaded', array( Google_Maps_Builder(), 'instance' ) );
@@ -44,8 +48,11 @@ function gmb_core_init() {
 	do_action( 'gmb_core_init' );
 }
 
+add_action( 'plugins_loaded', 'gmb_core_init' );
+
+
 /**
- * The main function responsible for returning the one true Maps Builder istance to function everywhere.
+ * The main function responsible for returning the one true Maps Builder instance to function everywhere.
  *
  * Use this function like you would a global variable, except without needing
  * to declare the global.
@@ -301,8 +308,6 @@ abstract class Google_Maps_Builder_Core {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-engine.php';
 		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-engine.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-widget.php';
-
-		require_once GMB_CORE_PATH . 'includes/install.php';
 
 	}
 
