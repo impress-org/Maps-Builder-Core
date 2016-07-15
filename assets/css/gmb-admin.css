@@ -2120,6 +2120,14 @@ Google Style Buttons
     color: #111; }
 
 /*-------------------------------------
+Google API Errors
+---------------------------------------*/
+input#_gmb_mashup_autocomplete[placeholder*="Oops!"], input#gmb_geocoder[placeholder*="Oops!"] {
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 35px; }
+
+/*-------------------------------------
 Temporary Info Window
 ---------------------------------------*/
 .infowindow-toolbar {
