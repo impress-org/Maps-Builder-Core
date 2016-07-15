@@ -218,7 +218,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 			'fields'     => array(
 				array(
 					'name' => __( 'Google Maps API Key', $this->plugin_slug ),
-					'desc' => sprintf( __( 'The Google Maps JavaScript API requires a valid API key to function correctly. %1$sLearn how to obtain a Google Maps API key%2$s.', $this->plugin_slug ), '<a href="' . esc_url( 'https://developers.google.com/maps/documentation/javascript/get-api-key' ) . '" target="_blank" class="new-window">', '</a>' ),
+					'desc' => sprintf( __( 'The Google Maps JavaScript API requires a valid API key to function correctly. %1$sLearn how to obtain a Google Maps API key%2$s.', $this->plugin_slug ), '<a href="' . esc_url( 'https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/' ) . '" target="_blank" class="new-window">', '</a>' ),
 					'id'   => $prefix . 'maps_api_key',
 					'type' => 'text',
 				),
