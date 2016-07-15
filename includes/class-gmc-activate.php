@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Activation
  *
@@ -9,61 +8,242 @@
  * @link      http://wordimpress.com
  * @copyright 2015 WordImpress, Devin Walker
  */
+
+/**
+ * Class Google_Maps_Builder_Core_Activate
+ */
 class Google_Maps_Builder_Core_Activate {
 
-		/**
-		 * Plugin slug
-		 *
-		 * @var $plugin_slug
-		 */
-		protected $plugin_slug;
+	/**
+	 * Plugin slug
+	 *
+	 * @var $plugin_slug
+	 */
+	protected $plugin_slug;
+
+	/**
+	 * API Nag Meta Tag
+	 *
+	 * @var $nag_meta_key
+	 */
+	protected $nag_meta_key;
 
 
-		/**
-		 * Initialize the plugin by setting localization and loading public scripts
-		 * and styles.
-		 *
-		 * @since     1.0.0
-		 */
-		public function __construct() {
-			$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
-			// Activate plugin when new blog is added
-			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
+	/**
+	 * Initialize the plugin by setting localization and loading public scripts
+	 * and styles.
+	 *
+	 * @since     1.0.0
+	 */
+	public function __construct() {
 
-			//Activation tooltips
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_pointer_script_style' ) );
+		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
 
-			//Init CPT (after CMB2 -> hence the 10000 priority)
-			add_action( 'init', array( $this, 'setup_post_type' ), 10000 );
+		$this->nag_meta_key = 'gmb_api_activation_ignore';
 
+		// Activate plugin when new blog is added
+		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
+
+		//Activation tooltips
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_pointer_script_style' ) );
+
+		//Init CPT (after CMB2 -> hence the 10000 priority)
+		add_action( 'init', array( $this, 'setup_post_type' ), 10000 );
+
+
+		//API Admin Notice for New Installs
+		add_action( 'current_screen', array( $this, 'api_notice_ignore' ) );
+		add_action( 'admin_notices', array( $this, 'api_admin_notice' ) );
+
+	}
+
+	/**
+	 * Give Addon Activation Banner
+	 *
+	 * @since  1.0
+	 */
+	public function api_admin_notice() {
+
+		$current_user = wp_get_current_user();
+
+		// If the user has already dismissed our alert, bounce
+		if ( get_user_meta( $current_user->ID, $this->nag_meta_key ) ) {
+			return;
 		}
 
+		$api_key = gmb_get_option( 'maps_api_key' );
 
-		/**
-		 * Fired when the plugin is activated.
-		 *
-		 * @since    1.0.0
-		 *
-		 * @param    boolean $network_wide       True if WPMU superadmin uses
-		 *                                       "Network Activate" action, false if
-		 *                                       WPMU is disabled or plugin is
-		 *                                       activated on an individual blog.
+		//If API key is not entered
+		if ( ! empty( $api_key ) ) {
+			return;
+		}
+		//This is a new install only (no maps)
+		$count_maps = wp_count_posts( 'google_maps' );
+		if ( $count_maps->publish != 0 || $count_maps->draft != 0 ) {
+			return;
+		} ?>
+
+		<style>
+
+			div.gmb-svg-banner {
+				float: left;
+			}
+
+			div.gmb-svg-banner > svg {
+				width: 50px;
+				height: 50px;
+				float: left;
+			}
+
+			div.gmb-api-alert.updated {
+				padding: 1em 2em;
+				position: relative;
+				border-color: #66BB6A;
+			}
+
+			div.gmb-api-alert img {
+				max-width: 50px;
+				position: relative;
+				top: 1em;
+			}
+
+			div.gmb-banner-content-wrap {
+				margin: 0 30px 0 70px;
+			}
+
+			div.gmb-api-alert h3 {
+				font-weight: 300;
+				margin: 5px 0 0;
+			}
+
+			div.gmb-api-alert h3 span {
+				font-weight: 900;
+				color: #66BB6A;
+			}
+
+			div.gmb-api-alert .alert-actions {
+				position: relative;
+				left: 70px;
+			}
+
+			div.gmb-api-alert a {
+				color: #66BB6A;
+			}
+
+			div.gmb-api-alert .alert-actions a {
+				text-decoration: underline;
+				color: #808080;
+			}
+
+			div.gmb-api-alert .alert-actions a:hover {
+				color: #555555;
+			}
+
+			div.gmb-api-alert .alert-actions a span {
+				text-decoration: none;
+				margin-right: 5px;
+			}
+
+			div.gmb-api-alert .dismiss {
+				position: absolute;
+				right: 10px;
+				height: 100%;
+				top: 50%;
+				margin-top: -10px;
+				outline: none;
+				box-shadow: none;
+				text-decoration: none;
+				color: #333;
+			}
+		</style>
+
+		<!-- * Now we output the HTML
+			 * of the banner 			-->
+
+		<div class="updated gmb-api-alert">
+
+			<!-- Logo -->
+			<div class="gmb-svg-banner"><?php gmb_include_view( 'admin/views/mascot-svg.php' ); ?></div>
+
+			<div class="gmb-banner-content-wrap">
+				<!-- Your Message -->
+				<h3><?php
+					printf(
+						__( "Thank you for activating %s! Let's get started.", 'google-maps-builder' ),
+						'<span>' . $this->plugin_name() . '</span>'
+					);
+					?></h3>
+
+				<p><?php echo sprintf( __( 'Welcome to %1$s. In order to start using %1$s please include your Google Maps API key in the %2$splugin settings%5$s. An API key with Maps and Places APIs is now required by Google to access their mapping services. Don\'t worry, getting an API key is free and easy. %3$sHow to Create a Maps API Key &raquo; %5$s | %4$s Google API Console &raquo; %5$s', 'google-maps-builder' ), $this->plugin_name(), '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank" class="new-window">', '<a href="https://console.cloud.google.com/" target="_blank">', '</a>' ); ?></p>
+			</div>
+
+			<a href="<?php
+			//The Dismiss Button
+			$nag_admin_dismiss_url = 'plugins.php?' . $this->nag_meta_key . '=0';
+			echo admin_url( $nag_admin_dismiss_url ); ?>" class="dismiss"><span class="dashicons dashicons-dismiss"></span></a>
+
+			<div class="alert-actions">
+
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ); ?>"><span class="dashicons dashicons-admin-settings"></span><?php _e( 'Go to Settings', 'google-maps-builder' ); ?></a>
+
+				<a href="https://wordimpress.com/documentation/maps-builder-pro" target="_blank" style="margin-left:30px;"><span class="dashicons dashicons-media-text"></span><?php _e( 'Plugin Documentation', 'google-maps-builder' ); ?></a>
+
+				<a href="https://wordpress.org/plugins/google-maps-builder/" target="_blank" style="margin-left:30px;">
+					<span class="dashicons dashicons-sos"></span><?php _e( 'Get Support', 'google-maps-builder' ); ?>
+				</a>
+
+			</div>
+
+		</div>
+		<?php
+	}
+
+
+	/**
+	 * Ignore Nag
+	 *
+	 * This is the action that allows the user to dismiss the banner it basically sets a tag to their user meta data
+	 */
+	public function api_notice_ignore() {
+
+		/* If user clicks to ignore the notice, add that to their user meta the banner then checks whether this tag exists already or not.
+		 * See here: http://codex.wordpress.org/Function_Reference/add_user_meta
 		 */
-		public static function activate( $network_wide ) {
+		if ( isset( $_GET[ $this->nag_meta_key ] ) && '0' == $_GET[ $this->nag_meta_key ] ) {
 
-			//Remove Welcome Message Meta so User Sees it Again
+			//Get the global user
 			global $current_user;
 			$user_id = $current_user->ID;
-			delete_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() );
 
-			//Display Tooltip
-			$dismissed_pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
+			add_user_meta( $user_id, $this->nag_meta_key, 'true', true );
+		}
+	}
 
-			// Check if our pointer is among dismissed ones and delete that mofo
-			if ( in_array( 'gmb_welcome_pointer', $dismissed_pointers ) ) {
-				$key = array_search( 'gmb_welcome_pointer', $dismissed_pointers );
-				delete_user_meta( $user_id, 'dismissed_wp_pointers', $key['gmb_welcome_pointer'] );
-			}
+	/**
+	 * Fired when the plugin is activated.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @param    boolean $network_wide True if WPMU superadmin uses
+	 *                                       "Network Activate" action, false if
+	 *                                       WPMU is disabled or plugin is
+	 *                                       activated on an individual blog.
+	 */
+	public static function activate( $network_wide ) {
+
+		//Remove Welcome Message Meta so User Sees it Again
+		$current_user = wp_get_current_user();
+		$user_id      = $current_user->ID;
+		delete_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() );
+
+		//Display Tooltip
+		$dismissed_pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
+
+		// Check if our pointer is among dismissed ones and delete that mofo
+		if ( in_array( 'gmb_welcome_pointer', $dismissed_pointers ) ) {
+			$key = array_search( 'gmb_welcome_pointer', $dismissed_pointers );
+			delete_user_meta( $user_id, 'dismissed_wp_pointers', $key['gmb_welcome_pointer'] );
+		}
 
 
 		//Multisite Checks
@@ -97,7 +277,7 @@ class Google_Maps_Builder_Core_Activate {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean $network_wide       True if WPMU superadmin uses
+	 * @param    boolean $network_wide True if WPMU superadmin uses
 	 *                                       "Network Deactivate" action, false if
 	 *                                       WPMU is disabled or plugin is
 	 *                                       deactivated on an individual blog.
@@ -139,20 +319,22 @@ class Google_Maps_Builder_Core_Activate {
 	function admin_enqueue_pointer_script_style( $hook ) {
 
 		global $post;
+		global $current_screen;
+
 
 		// Assume pointer shouldn't be shown
 		$enqueue_pointer_script_style = false;
 
 		//For testing ONLY!:
-		//		delete_user_meta( get_current_user_id(), 'dismissed_wp_pointers' );
+		//delete_user_meta( get_current_user_id(), 'dismissed_wp_pointers' );
 
 		// Get array list of dismissed pointers for current user and convert it to array
 		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-		$key                = array_search( 'gmb_welcome_pointer', $dismissed_pointers ); // $key = 2;
 
 
 		//Welcome Tooltip - Check if our pointer is not among dismissed ones
-		if ( ! in_array( 'gmb_welcome_pointer', $dismissed_pointers ) ) {
+		if ( ! in_array( 'gmb_welcome_pointer', $dismissed_pointers ) && $current_screen->post_type === 'google_maps' ) {
+
 			$enqueue_pointer_script_style = true;
 
 			// Add footer scripts using callback function
@@ -161,6 +343,7 @@ class Google_Maps_Builder_Core_Activate {
 
 		// Map Customizer Tooltip - Check if our pointer is not among dismissed ones
 		if ( ! in_array( 'gmb_customizer_pointer', $dismissed_pointers ) && isset( $post->post_type ) && $post->post_type === 'google_maps' ) {
+
 			$enqueue_pointer_script_style = true;
 
 			// Add footer scripts using callback function
@@ -179,31 +362,45 @@ class Google_Maps_Builder_Core_Activate {
 	 * Welcome Activation Message
 	 */
 	function welcome_pointer_print_scripts() {
-		global $current_user;
-		get_currentuserinfo();
+
+		$current_user = wp_get_current_user();
+
+		//Pointer Content
 		$pointer_content = '<h3>' . __( 'Welcome to', $this->plugin_slug ) . ' ' . $this->plugin_name() . '</h3>';
-		$pointer_content .= '<p>' . __( sprintf( 'Thank you for activating %s for WordPress. To stay up to date on the latest plugin updates, enhancements, and news please sign up for our newsletter.', $this->plugin_name() ),  $this->plugin_slug ) . '</p>';
-		$pointer_content .= '<div id="mc_embed_signup" style="padding: 0 15px;"><form action="http://wordimpress.us3.list-manage2.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=83609e2883" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate><div class="mc-field-group" style="margin: 0 0 10px;"><input type="email"  value="' . $current_user->user_email . '"  name="EMAIL" class="required email" id="mce-EMAIL" style="margin-right:5px;width:230px;" ><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div><div id="mce-responses" class="clear"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div style="position: absolute; left: -5000px;"><input type="text" name="b_3ccb75d68bda4381e2f45794c_83609e2883" value=""></div></form></div>';
-		?>
+		$pointer_content .= '<p>' . __( sprintf( 'Thank you for activating %s for WordPress.  Sign up for the latest plugin updates, enhancements, and news.', $this->plugin_name() ), $this->plugin_slug ) . '</p>';
+
+		//MailChimp Form
+		$pointer_content .= '<div id="mc_embed_signup" style="padding: 0 15px;"><form action="//wordimpress.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=cf1af2563c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>';
+		$pointer_content .= '<div class="mc-field-group" style="margin:0 0 5px">';
+		$pointer_content .= '<label for="mce-EMAIL" style="float: left;width: 90px;margin: 5px 0 0;">Email Address</label>';
+		$pointer_content .= '<input type="email" value="' . $current_user->user_email . '" name="EMAIL" class="required email" id="mce-EMAIL">';
+		$pointer_content .= '</div>';
+		$pointer_content .= '<div class="mc-field-group" style="margin: 0 0 10px;">';
+		$pointer_content .= '<label for="mce-FNAME" style="float: left;width: 90px;margin: 5px 0 0;">First Name </label>';
+		$pointer_content .= '<input type="text" value="' . $current_user->first_name . '" name="FNAME" class="" id="mce-FNAME">';
+		$pointer_content .= '</div>';
+		$pointer_content .= '<input type="radio" value="64" name="group[13857]" id="mce-group[13857]-13857-6" checked="checked" checked style="display:none;">';
+		$pointer_content .= '<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">';
+		$pointer_content .= '</form></div>'; ?>
 
 		<script type="text/javascript">
 			//<![CDATA[
-			jQuery( document ).ready( function ( $ ) {
-				$( '#menu-posts-google_maps' ).pointer( {
-					content     : '<?php echo $pointer_content; ?>',
-					position    : {
-						edge : 'left', // arrow direction
+			jQuery(document).ready(function ($) {
+				$('#menu-posts-google_maps').pointer({
+					content: '<?php echo $pointer_content; ?>',
+					position: {
+						edge: 'left', // arrow direction
 						align: 'center' // vertical alignment
 					},
 					pointerWidth: 350,
-					close       : function () {
-						$.post( ajaxurl, {
+					close: function () {
+						$.post(ajaxurl, {
 							pointer: 'gmb_welcome_pointer', // pointer ID
-							action : 'dismiss-wp-pointer'
-						} );
+							action: 'dismiss-wp-pointer'
+						});
 					}
-				} ).pointer( 'open' );
-			} );
+				}).pointer('open');
+			});
 			//]]>
 		</script>
 
@@ -218,15 +415,13 @@ class Google_Maps_Builder_Core_Activate {
 	 * @return string
 	 */
 	protected function plugin_name() {
-		return 'Maps Builder Pro';
+		return __( 'Maps Builder', 'gooogle-maps-builder' );
 	}
 
 	/**
 	 * Maps Builder Customizer Tooltio
 	 */
 	function maps_customizer_tooltip() {
-		global $current_user;
-		get_currentuserinfo();
 
 		$pointer_content = '<h3>' . __( 'Introducing the Map Builder', $this->plugin_slug ) . '</h3>';
 		$pointer_content .= '<p>' . sprintf( __( '%1$sWe have upgraded your map building experience!%2$s Click here to experience the new interface. All controls are within your reach and the map always stays in view. If you like it, you can enable the view by default within the %3$splugin settings%4$s. We hope you enjoy it!', $this->plugin_slug ), '<strong>', '</strong>', '<a href="' . admin_url( 'edit.php?post_type=google_maps&page=gmb_settings&tab=general_settings' ) . '">', '</a>' ) . '</p>';
@@ -234,22 +429,22 @@ class Google_Maps_Builder_Core_Activate {
 
 		<script type="text/javascript">
 			//<![CDATA[
-			jQuery( document ).ready( function ( $ ) {
-				$( '#map-builder' ).pointer( {
-					content     : '<?php echo $pointer_content; ?>',
-					position    : {
-						edge : 'right', // arrow direction
+			jQuery(document).ready(function ($) {
+				$('#map-builder').pointer({
+					content: '<?php echo $pointer_content; ?>',
+					position: {
+						edge: 'right', // arrow direction
 						align: 'center' // vertical alignment
 					},
 					pointerWidth: 350,
-					close       : function () {
-						$.post( ajaxurl, {
+					close: function () {
+						$.post(ajaxurl, {
 							pointer: 'gmb_customizer_pointer', // pointer ID
-							action : 'dismiss-wp-pointer'
-						} );
+							action: 'dismiss-wp-pointer'
+						});
 					}
-				} ).pointer( 'open' );
-			} );
+				}).pointer('open');
+			});
 			//]]>
 		</script>
 
@@ -285,7 +480,8 @@ class Google_Maps_Builder_Core_Activate {
 	 *
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
-	private static function get_blog_ids() {
+	private
+	static function get_blog_ids() {
 
 		global $wpdb;
 
