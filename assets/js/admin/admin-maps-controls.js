@@ -1,7 +1,7 @@
 /**
  *  Maps Directions
  *
- *  @description: Adds directions functionality to the maps builder
+ *  Adds directions functionality to the maps builder
  *  @copyright: http://opensource.org/licenses/gpl-2.0.php GNU Public License
  *  @since: 2.0
  */
@@ -231,7 +231,7 @@ var placeSearchAutocomplete;
     /**
      * Toggle Places Search Field
      *
-     * @description: Adds and removes the places search field from the map preview
+     * Adds and removes the places search field from the map preview
      * @param input
      */
     gmb.toggle_map_places_search_field = function (input) {

@@ -25,7 +25,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 	/**
 	 * Load Frontend Scripts
 	 *
-	 * @description: Enqueues the required scripts to display maps on the frontend only.
+	 * Enqueues the required scripts to display maps on the frontend only.
 	 */
 	function load_frontend_scripts() {
 

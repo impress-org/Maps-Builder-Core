@@ -2,7 +2,7 @@
 /**
  * Upgrades
  *
- * @description: Upgrade functions go here
+ * Upgrade functions go here
  *
  * @subpackage  includes/admin/upgrades
  * @copyright   Copyright (c) 2016, WordImpress
@@ -116,7 +116,7 @@ function gmb_v2_upgrades() {
 /**
  * Upgrade Marker Paths
  *
- * @description: Marker paths were hard coded into the db causing issues when structures change
+ * Marker paths were hard coded into the db causing issues when structures change
  *
  * @since 2.1
  * @return void

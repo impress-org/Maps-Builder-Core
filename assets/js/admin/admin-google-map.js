@@ -1,7 +1,7 @@
 /**
  * Admin Google Maps
  *
- * @description: Enqueued on the single `google_maps` CPT and responsible for interface map creation; the methods are extendable by admin-free.js and admin-pro.js
+ * Enqueued on the single `google_maps` CPT and responsible for interface map creation; the methods are extendable by admin-free.js and admin-pro.js
  */
 var gmb_data;
 
@@ -1755,7 +1755,7 @@ var gmb_data;
     /**
      * Clear Marker Values
      *
-     * @description: Sets all marker meta field data to emtpy
+     * Sets all marker meta field data to emtpy
      * @since 2.1
      *
      * @param index
@@ -1773,7 +1773,7 @@ var gmb_data;
     /**
      * Detect Google Maps API Authentication Error
      *
-     * @description:   Google Authentication Callback in case there was an error
+     *   Google Authentication Callback in case there was an error
      *
      * @see: https://developers.google.com/maps/documentation/javascript/events#auth-errors
      * @see: https://developers.google.com/maps/documentation/javascript/events#auth-errors

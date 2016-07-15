@@ -100,7 +100,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	/**
 	 * Admin Page Display
 	 *
-	 * @description: Admin page markup. Mostly handled by CMB
+	 * Admin page markup. Mostly handled by CMB
 	 */
 	public function admin_page_display() {
 
@@ -204,7 +204,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	/**
 	 * Map Option Fields
 	 *
-	 * @description: Defines the plugin option metabox and field configuration
+	 * Defines the plugin option metabox and field configuration
 	 * @return array
 	 */
 	public function map_option_fields() {
@@ -331,7 +331,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	/**
 	 * Add Plugin Meta Links
 	 *
-	 * @description: Adds links on the admin plugin listing page
+	 * Adds links on the admin plugin listing page
 	 *
 	 * @param $meta
 	 * @param $file

@@ -2,7 +2,7 @@
 /**
  * Markers Modal
  *
- * @description: Appears in modal
+ * Appears in modal
  */
 ?>
 <div class="white-popup marker-icon-modal mfp-hide">

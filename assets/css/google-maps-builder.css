@@ -1,4 +1,4 @@
-/*!
+/**
  * Maps Builder Frontend
  *
  * @package:     GMB
@@ -12,7 +12,7 @@
   display: table;
   clear: both; }
 
-/*!
+/**
  * Maps Builder Frontend Maps
  *
  * @package:     GMB
@@ -45,7 +45,7 @@ div[id^='google-maps-builder'] img {
   -moz-box-shadow: none;
   -webkit-box-shadow: none; }
 
-/*!
+/**
  * Info Bubble (window)
  *
  * @description:
@@ -138,10 +138,10 @@ div[id^='google-maps-builder'] .marker-label {
   white-space: nowrap;
   line-height: 1; }
 
-/*!
+/**
  * Directions
  *
- * @description: Panel overlay and below map
+ * Panel overlay and below map
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress

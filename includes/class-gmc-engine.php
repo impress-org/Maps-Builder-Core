@@ -98,7 +98,7 @@ abstract class Google_Maps_Builder_Core_Engine {
 	/**
 	 * Localize Scripts
 	 *
-	 * @description: Add params to AJAX for Shortcode Usage
+	 * Add params to AJAX for Shortcode Usage
 	 * @see        : http://benjaminrojas.net/using-wp_localize_script-dynamically/
 	 *
 	 * @param $localized_data

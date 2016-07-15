@@ -3,7 +3,7 @@
 /**
  * GMB_Shortcode_Generator class.
  *
- * @description: Adds a TinyMCE button that's clickable
+ * Adds a TinyMCE button that's clickable
  *
  * @since      2.0
  */

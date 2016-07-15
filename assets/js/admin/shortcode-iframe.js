@@ -1,7 +1,7 @@
 /**
  *  Google Places Reviews JS: WP Admin Shortcode Generator
  *
- *  @description: JavaScripts for the shortcode generator iframe
+ *  JavaScripts for the shortcode generator iframe
  *  @since: 1.3
  */
 
@@ -80,7 +80,7 @@
 	/**
 	 * Shortcode Generator On Submit
 	 *
-	 * @description: Outputs the shortcode in TinyMCE and does minor validation
+	 * Outputs the shortcode in TinyMCE and does minor validation
 	 */
 	function gmb_generator_submit() {
 
@@ -113,7 +113,7 @@
 	/**
 	 * Get Attribute
 	 *
-	 * @description: Helper function that plucks options from passed string
+	 * Helper function that plucks options from passed string
 	 */
 	function gmb_get_attr( s, n ) {
 		n = new RegExp( n + '=\"([^\"]+)\"', 'g' ).exec( s );

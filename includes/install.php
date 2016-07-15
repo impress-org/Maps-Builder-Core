@@ -84,7 +84,7 @@ function gmb_run_install() {
 /**
  * Network Activated New Site Setup
  *
- * @description: When a new site is created when Maps Builder is network activated this function runs the appropriate install function to set up the site for the plugin.
+ * When a new site is created when Maps Builder is network activated this function runs the appropriate install function to set up the site for the plugin.
  *
  * @since      2.1
  *

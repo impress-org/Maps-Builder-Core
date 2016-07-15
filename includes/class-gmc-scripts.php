@@ -79,7 +79,7 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	/**
 	 * Load Google Maps API
 	 *
-	 * @description: Determine if Google Maps API script has already been loaded
+	 * Determine if Google Maps API script has already been loaded
 	 * @since      : 1.0.3
 	 * @return bool $multiple_google_maps_api
 	 */

@@ -256,7 +256,7 @@ abstract class Google_Maps_Builder_Core {
 	/**
 	 * Get the CMB2 bootstrap!
 	 *
-	 * @description: Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
+	 * Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
 	 *
 	 */
 	public function cmb2_load() {

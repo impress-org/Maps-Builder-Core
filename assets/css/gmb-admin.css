@@ -1,7 +1,7 @@
-/*!
+/**
  * Maps Builder Admin SCSS/CSS
  *
- * @description: The Main SCSS file for admin styles which is compiled and minified via Gulp taskrunner
+ * The Main SCSS file for admin styles which is compiled and minified via Gulp taskrunner
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress
@@ -2327,10 +2327,10 @@ div.white-popup .cmb-td {
   width: 100%;
   padding: 15px 0; }
 
-/*!
+/**
  * Maps Builder Admin Settings Pages SCSS/CSS
  *
- * @description: The Main SCSS file for admin SETTINGS styles which is compiled and minified via Gulp taskrunner
+ * The Main SCSS file for admin SETTINGS styles which is compiled and minified via Gulp taskrunner
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress
@@ -2541,10 +2541,10 @@ System Settings Tab
   width: 100%;
   height: 600px; }
 
-/*!
+/**
  * Maps Builder Admin Settings Pages SCSS/CSS
  *
- * @description: The Main SCSS file for admin SETTINGS styles which is compiled and minified via Gulp taskrunner
+ * The Main SCSS file for admin SETTINGS styles which is compiled and minified via Gulp taskrunner
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress
@@ -2814,10 +2814,10 @@ System Settings Tab
       line-height: 11px;
       height: auto; }
 
-/*!
+/**
  * Maps Builder Widget
  *
- * @description: Admin styles for the widget
+ * Admin styles for the widget
  * @package:     GMB
  * @subpackage:  SCSS/Admin
  * @copyright:   Copyright (c) 2015, WordImpress

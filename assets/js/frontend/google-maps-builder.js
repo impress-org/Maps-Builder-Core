@@ -1,7 +1,7 @@
 /**
  * Maps Builder JS
  *
- * @description: Frontend form rendering
+ * Frontend form rendering
  */
 
 (function ($, gmb) {
@@ -153,7 +153,7 @@
     /**
      * Set Map Theme
      *
-     * @description: Sets up map theme
+     * Sets up map theme
      *
      */
     gmb.set_map_theme = function (map, map_data) {
@@ -396,7 +396,7 @@
     /**
      * Set Infowindow Content
      *
-     * @description: Queries to get Google Place Details information
+     * Queries to get Google Place Details information
      *
      * @param marker_data
      * @param gmb.info_window

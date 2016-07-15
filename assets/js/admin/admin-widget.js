@@ -1,7 +1,7 @@
-/*!
+/**
  * Maps Builder Admin Widgets JS
  *
- * @description: The GMB Admin Widget scripts. Only enqueued on the admin widgets screen; used to validate fields, show/hide, and other functions
+ * The GMB Admin Widget scripts. Only enqueued on the admin widgets screen; used to validate fields, show/hide, and other functions
  * @package:     GMB
  * @subpackage:  Assets/JS
  * @copyright:   Copyright (c) 2015, WordImpress

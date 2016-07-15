@@ -150,7 +150,7 @@ function gmb_magnific( $, gmb ){
     /**
      * Window/Lightbox Resize
      *
-     * @description: Resizes modal elements as the browser resizes & refreshes Google Maps
+     * Resizes modal elements as the browser resizes & refreshes Google Maps
      * @since 2.0
      */
     gmb.lightbox_resize = function() {
