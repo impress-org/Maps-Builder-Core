@@ -60,6 +60,10 @@
             var panel = $('.ui-accordion-content-active').get(0);
             gmb.load_hidden_map(panel);
         });
+        //VC Tabs
+        $('.vc_tta-tabs a').on('show.vc.tab', function () {
+            google.maps.event.trigger(window, 'resize', {});
+        });
 
     };
 
