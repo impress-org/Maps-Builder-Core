@@ -1,6 +1,7 @@
 /**
- * Google Maps CPT Handling
+ * Admin Google Maps
  *
+ * @description: Enqueued on the single `google_maps` CPT and responsible for interface map creation; the methods are extendable by admin-free.js and admin-pro.js
  */
 var gmb_data;
 
@@ -1025,7 +1026,27 @@ var gmb_data;
      * @returns {Number}
      */
     gmb.get_marker_index = function () {
-        //added sperately in free/pro
+
+        var marker_repeatable = $('#gmb_markers_group_repeat');
+        var marker_repeatable_group = marker_repeatable.find(' div.cmb-repeatable-grouping');
+        var marker_add_row_btn = marker_repeatable.find('.cmb-add-group-row.button');
+
+        //Create a new marker repeatable meta group
+        var index = parseInt(marker_repeatable_group.last().attr('data-iterator'));
+        var existing_vals = marker_repeatable_group.first().find('input,textarea').val();
+
+        //Ensure appropriate index is used for marker
+        if (existing_vals && index === 0) {
+            marker_add_row_btn.trigger('click');
+            index = 1;
+        } else if (index !== 0) {
+            marker_add_row_btn.trigger('click');
+            //recount rows
+            index = parseInt(marker_repeatable.find(' div.cmb-repeatable-grouping').last().attr('data-iterator'));
+        }
+
+        return index;
+
     };
 
     /**
