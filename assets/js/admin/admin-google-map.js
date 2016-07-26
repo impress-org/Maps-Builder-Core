@@ -1728,7 +1728,8 @@ var gmb_data;
             },
             hide: {
                 fixed: true,
-                delay: 100
+                delay: 100,
+                event: 'mouseleave click'
             },
             position: {
                 my: 'top center',
