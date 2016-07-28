@@ -234,7 +234,36 @@ function gmb_v21_marker_upgrades() {
  * @return void
  */
 function gmb_v21_api_key_upgrades() {
-    
+
+    // Establish an array with all possible key values
+    $api_key_values = array(
+        'gmb_maps_api_key' => gmb_get_option( 'gmb_maps_api_key' ),
+        'gmb_api_key'      => gmb_get_option( 'gmb_api_key' ),
+        'maps_api_key'     => gmb_get_option( 'maps_api_key' ),
+    );
+
+    // Remove all duplicate values
+    $unique_api_key_values = array_values( array_unique( $api_key_values ) );
+
+    // Start with an empty API key
+    $reconciled_api_key = '';
+
+    // If there was only one API key value in the list, we'll use that one
+    if ( count( $unique_api_key_values ) === 1 ) {
+        $reconciled_api_key = $unique_api_key_values[0];
+    } else {
+
+    }
+
+    // Check that we actually found a value for our API key
+    if ( ! empty($reconciled_api_key ) ) {
+        $gmb_settings = get_option( 'gmb_settings' );
+
+        $gmb_settings[ 'gmb_maps_api_key' ] = $reconciled_api_key;
+
+        $did_update = update_option( 'gmb_settings', $gmb_settings );
+    }
 
     gmb_set_upgrade_complete( 'gmb_api_keys_upgraded' );
+
 }
