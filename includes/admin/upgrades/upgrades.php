@@ -121,7 +121,7 @@ function gmb_v2_upgrades() {
  * @since 2.1
  * @return void
  */
-function gmb_v21_upgrades() {
+function gmb_v21_marker_upgrades() {
 
 	//Loop through maps
 	$args = array(
@@ -223,4 +223,18 @@ function gmb_v21_upgrades() {
 	//Update our options and GTF out
 	gmb_set_upgrade_complete( 'gmb_markers_upgraded' );
 
+}
+
+/**
+ * Upgrade API Keys
+ *
+ * API keys were stored under several option values over plugin versions, requiring reconciliation
+ *
+ * @since 2.1
+ * @return void
+ */
+function gmb_v21_api_key_upgrades() {
+    
+
+    gmb_set_upgrade_complete( 'gmb_api_keys_upgraded' );
 }
