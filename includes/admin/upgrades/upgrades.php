@@ -256,7 +256,7 @@ function gmb_v21_api_key_upgrades() {
     }
 
     // Check that we actually found a value for our API key
-    if ( ! empty($reconciled_api_key ) ) {
+    if ( ! empty( $reconciled_api_key ) ) {
         $gmb_settings = get_option( 'gmb_settings' );
 
         $gmb_settings[ 'gmb_maps_api_key' ] = $reconciled_api_key;
