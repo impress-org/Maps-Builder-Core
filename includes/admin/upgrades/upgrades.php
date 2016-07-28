@@ -250,20 +250,30 @@ function gmb_v21_api_key_upgrades() {
 
     // If there was only one API key value in the list, we'll use that one
     if ( count( $unique_api_key_values ) === 1 ) {
+
         $reconciled_api_key = $unique_api_key_values[0];
+
+    // There was more than one API key value in the list
     } else {
 
+        /**
+         * Given that there are many API key values, we need to pick just one. So, we prioritize
+         * `gmb_maps_api_key` over `gmb_api_key` over `maps_api_key`.
+         */
+        $reconciled_api_key = ( ! empty( $api_key_values['maps_api_key'] ) ) ? $api_key_values['maps_api_key'] : $reconciled_api_key;
+        $reconciled_api_key = ( ! empty( $api_key_values['gmb_api_key'] ) ) ? $api_key_values['gmb_api_key'] : $reconciled_api_key;
+        $reconciled_api_key = ( ! empty( $api_key_values['gmb_maps_api_key'] ) ) ? $api_key_values['gmb_maps_api_key'] : $reconciled_api_key;
+
     }
 
-    // Check that we actually found a value for our API key
-    if ( ! empty( $reconciled_api_key ) ) {
-        $gmb_settings = get_option( 'gmb_settings' );
+    // Set our API key under the `gmb_maps_api_key` key
+    $gmb_settings = get_option( 'gmb_settings' );
 
-        $gmb_settings[ 'gmb_maps_api_key' ] = $reconciled_api_key;
+    $gmb_settings[ 'gmb_maps_api_key' ] = $reconciled_api_key;
 
-        $did_update = update_option( 'gmb_settings', $gmb_settings );
-    }
+    update_option( 'gmb_settings', $gmb_settings );
 
+    // Woo, we made it!
     gmb_set_upgrade_complete( 'gmb_api_keys_upgraded' );
 
 }
