@@ -242,8 +242,8 @@ function gmb_v21_api_key_upgrades() {
         'maps_api_key'     => gmb_get_option( 'maps_api_key' ),
     );
 
-    // Remove all duplicate values
-    $unique_api_key_values = array_values( array_unique( $api_key_values ) );
+    // Remove all false values, then get rid of duplicates, then reset the array indices (array_unique preserves indices)
+    $unique_api_key_values = array_values( array_unique( array_filter( $api_key_values ) ) );
 
     // Start with an empty API key
     $reconciled_api_key = '';
