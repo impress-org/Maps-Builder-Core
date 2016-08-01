@@ -121,7 +121,7 @@ function gmb_v2_upgrades() {
  * @since 2.1
  * @return void
  */
-function gmb_v21_upgrades() {
+function gmb_v21_marker_upgrades() {
 
 	//Loop through maps
 	$args = array(
@@ -222,5 +222,58 @@ function gmb_v21_upgrades() {
 
 	//Update our options and GTF out
 	gmb_set_upgrade_complete( 'gmb_markers_upgraded' );
+
+}
+
+/**
+ * Upgrade API Keys
+ *
+ * API keys were stored under several option values over plugin versions, requiring reconciliation
+ *
+ * @since 2.1
+ * @return void
+ */
+function gmb_v21_api_key_upgrades() {
+
+    // Establish an array with all possible key values
+    $api_key_values = array(
+        'gmb_maps_api_key' => gmb_get_option( 'gmb_maps_api_key' ),
+        'gmb_api_key'      => gmb_get_option( 'gmb_api_key' ),
+        'maps_api_key'     => gmb_get_option( 'maps_api_key' ),
+    );
+
+    // Remove all false/empty values, then get rid of duplicates, then reset the array indices (array_unique preserves indices)
+    $unique_api_key_values = array_values( array_unique( array_filter( $api_key_values ) ) );
+
+    // Start with an empty API key
+    $reconciled_api_key = '';
+
+    // If there was only one API key value in the list, we'll use that one
+    if ( count( $unique_api_key_values ) === 1 ) {
+
+        $reconciled_api_key = $unique_api_key_values[0];
+
+    // There was more than one API key value in the list
+    } else {
+
+        /**
+         * Given that there are many API key values, we need to pick just one. So, we prioritize
+         * `gmb_maps_api_key` over `gmb_api_key` over `maps_api_key`.
+         */
+        $reconciled_api_key = ( ! empty( $api_key_values['maps_api_key'] ) ) ? $api_key_values['maps_api_key'] : $reconciled_api_key;
+        $reconciled_api_key = ( ! empty( $api_key_values['gmb_api_key'] ) ) ? $api_key_values['gmb_api_key'] : $reconciled_api_key;
+        $reconciled_api_key = ( ! empty( $api_key_values['gmb_maps_api_key'] ) ) ? $api_key_values['gmb_maps_api_key'] : $reconciled_api_key;
+
+    }
+
+    // Set our API key under the `gmb_maps_api_key` key
+    $gmb_settings = get_option( 'gmb_settings' );
+
+    $gmb_settings[ 'gmb_maps_api_key' ] = $reconciled_api_key;
+
+    update_option( 'gmb_settings', $gmb_settings );
+
+    // Woo, we made it!
+    gmb_set_upgrade_complete( 'gmb_api_keys_upgraded' );
 
 }

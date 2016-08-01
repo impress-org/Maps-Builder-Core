@@ -71,7 +71,7 @@ class Google_Maps_Builder_Core_Activate {
 			return;
 		}
 
-		$api_key = gmb_get_option( 'maps_api_key' );
+		$api_key = gmb_get_option( 'gmb_maps_api_key' );
 
 		//If API key is not entered
 		if ( ! empty( $api_key ) ) {
