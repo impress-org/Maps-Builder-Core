@@ -83,7 +83,7 @@ var placeSearchAutocomplete;
                 //Not wrapped, wrap it
                 if (inner_wrap.length == 0 && inner_wrap_container.length == 0) {
 
-                    $(target).addClass('white-popup').wrapInner('<div class="inner-modal-wrap"><div class="inner-modal-container"><div class="inner-modal clearfix"></div></div></div>');
+                    $(target).addClass('white-popup').wrapInner('<div class="inner-modal-wrap"><div class="inner-modal-container"><div class="inner-modal clear"></div></div></div>');
                     $('<button type="button" class="gmb-modal-close">&times;</button>').prependTo($(target).find('.inner-modal'));
 
                 }
