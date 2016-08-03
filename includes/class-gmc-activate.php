@@ -438,8 +438,8 @@ class Google_Maps_Builder_Core_Activate {
 	 */
 	function maps_customizer_tooltip() {
 
-		$pointer_content = '<h3>' . __( 'Introducing the Map Builder', $this->plugin_slug ) . '</h3>';
-		$pointer_content .= '<p>' . sprintf( __( 'Building maps has never been easier. All maps controls are within your reach and the map always stays in view. If you like it, you can enable the view by default within the %3$splugin settings%4$s. Enjoy!', $this->plugin_slug ), '<strong>', '</strong>', '<a href="' . admin_url( 'edit.php?post_type=google_maps&page=gmb_settings&tab=general_settings' ) . '">', '</a>' ) . '</p>';
+		$pointer_content = '<h3>' . __( 'Introducing the Map Builder', 'google-maps-builder' ) . '</h3>';
+		$pointer_content .= '<p>' . sprintf( __( 'Building maps has never been easier. With the Map Builder all maps controls are within your reach and the map always stays in view. Try it out! If you like it, you can enable the view by default within the <a href="%s">plugin settings</a>. Enjoy!', 'google-maps-builder' ), admin_url( 'edit.php?post_type=google_maps&page=gmb_settings&tab=general_settings' ) ) . '</p>';
 		?>
 
 		<script type="text/javascript">
