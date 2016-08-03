@@ -149,7 +149,7 @@ abstract class Google_Maps_Builder_Core {
 	 * OVERRIDE IN PLUGIN
 	 */
 	protected function includes() {
-		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.', 'google-maps-builder' ), '2.1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Must overide.', 'google-maps-builder' ), '2.1.0' );
 	}
 
 	/**
@@ -158,7 +158,7 @@ abstract class Google_Maps_Builder_Core {
 	 * OVERRIDE IN PLUGIN
 	 */
 	public static function instance() {
-		_doing_it_wrong( __FUNCTION__, __( 'Must ovveride.', 'google-maps-builder' ), '2.1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Must overide.', 'google-maps-builder' ), '2.1.0' );
 	}
 
 	/**
