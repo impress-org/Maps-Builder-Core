@@ -168,8 +168,14 @@ function gmb_trigger_upgrades() {
 
 	if ( version_compare( GMB_VERSION, '2.0', '>=' ) && ! get_option( 'gmb_refid_upgraded' ) ) {
 		gmb_v2_upgrades();
-	} elseif ( version_compare( GMB_VERSION, '2.1', '>=' ) && ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
-		gmb_v21_upgrades();
+	} elseif ( version_compare( GMB_VERSION, '2.1', '>=' ) ) {
+		if ( ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
+			gmb_v21_marker_upgrades();
+		}
+
+		if ( ! gmb_has_upgrade_completed( 'gmb_api_keys_upgraded' ) ) {
+			gmb_v21_api_key_upgrades();
+		}
 	}
 
 	update_option( 'gmb_version', $gmb_version );

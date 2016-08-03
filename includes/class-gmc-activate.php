@@ -53,35 +53,41 @@ class Google_Maps_Builder_Core_Activate {
 
 		//API Admin Notice for New Installs
 		add_action( 'current_screen', array( $this, 'api_notice_ignore' ) );
-		add_action( 'admin_notices', array( $this, 'api_admin_notice' ) );
+		add_action( 'admin_notices', array( $this, 'activation_notice' ) );
 
 	}
 
 	/**
-	 * Give Addon Activation Banner
+	 * Maps activation banner.
+	 *
+	 * Welcome the user and provide instructions to create and add a Google Maps API key.
+	 *
+	 * @see http://stackoverflow.com/questions/2769148/whats-the-api-key-for-in-google-maps-api-v3/37994162#37994162
 	 *
 	 * @since  1.0
 	 */
-	public function api_admin_notice() {
+	public function activation_notice() {
 
 		$current_user = wp_get_current_user();
 
-		// If the user has already dismissed our alert, bounce
+		// If the user has already dismissed our alert, bounce.
 		if ( get_user_meta( $current_user->ID, $this->nag_meta_key ) ) {
 			return;
 		}
 
-		$api_key = gmb_get_option( 'maps_api_key' );
+		$api_key = gmb_get_option( 'gmb_maps_api_key' );
 
-		//If API key is not entered
+		//If API key is not entered.
 		if ( ! empty( $api_key ) ) {
 			return;
 		}
-		//This is a new install only (no maps)
+
+		//This is a new install only (no maps).
 		$count_maps = wp_count_posts( 'google_maps' );
-		if ( $count_maps->publish != 0 || $count_maps->draft != 0 ) {
+		if ( $count_maps->publish != 0 ) {
 			return;
-		} ?>
+		}
+		?>
 
 		<style>
 
@@ -117,7 +123,7 @@ class Google_Maps_Builder_Core_Activate {
 			}
 
 			div.gmb-api-alert h3 span {
-				font-weight: 900;
+				font-weight: 600;
 				color: #66BB6A;
 			}
 
@@ -146,7 +152,7 @@ class Google_Maps_Builder_Core_Activate {
 
 			div.gmb-api-alert .dismiss {
 				position: absolute;
-				right: 10px;
+				right: 15px;
 				height: 100%;
 				top: 50%;
 				margin-top: -10px;
@@ -157,24 +163,19 @@ class Google_Maps_Builder_Core_Activate {
 			}
 		</style>
 
-		<!-- * Now we output the HTML
-			 * of the banner 			-->
-
 		<div class="updated gmb-api-alert">
 
-			<!-- Logo -->
 			<div class="gmb-svg-banner"><?php gmb_include_view( 'admin/views/mascot-svg.php' ); ?></div>
 
 			<div class="gmb-banner-content-wrap">
-				<!-- Your Message -->
 				<h3><?php
 					printf(
-						__( "Thank you for activating %s! Let's get started.", 'google-maps-builder' ),
+						__( "Welcome to %s! Let's get started.", 'google-maps-builder' ),
 						'<span>' . $this->plugin_name() . '</span>'
 					);
 					?></h3>
 
-				<p><?php echo sprintf( __( 'Welcome to %1$s. In order to start using %1$s please include your Google Maps API key in the %2$splugin settings%5$s. An API key with Maps and Places APIs is now required by Google to access their mapping services. Don\'t worry, getting an API key is free and easy. %3$sHow to Create a Maps API Key &raquo; %5$s | %4$s Google API Console &raquo; %5$s', 'google-maps-builder' ), $this->plugin_name(), '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank" class="new-window">', '<a href="https://console.cloud.google.com/" target="_blank">', '</a>' ); ?></p>
+				<p><?php echo sprintf( __( 'You\'re almost ready to start building awesome Google Maps! But first, in order to use %1$s you need to include a Google Maps API key in the %2$splugin settings%5$s. An API key with Maps and Places APIs is now required by Google to access their mapping services. Don\'t worry, getting an API key is free and easy.<br> %3$sLearn How to Create a Maps API Key &raquo; %5$s | %4$s Google API Console &raquo; %5$s', 'google-maps-builder' ), $this->plugin_name(), '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank">', '<a href="https://console.cloud.google.com/" target="_blank">', '</a>' ); ?></p>
 			</div>
 
 			<a href="<?php
@@ -200,9 +201,10 @@ class Google_Maps_Builder_Core_Activate {
 
 
 	/**
-	 * Ignore Nag
+	 * Ignore Nag.
 	 *
-	 * This is the action that allows the user to dismiss the banner it basically sets a tag to their user meta data
+	 * This is the action that allows the user to dismiss the banner it basically sets
+	 * a tag to their user meta data.
 	 */
 	public function api_notice_ignore() {
 

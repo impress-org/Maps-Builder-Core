@@ -14,19 +14,8 @@
     var directionsDisplay = [];
     var search_markers = [];
     var info_window_args = {
-        map: map,
-        shadowStyle: 0,
-        padding: 0,
-        backgroundColor: 'rgb(255, 255, 255)',
-        borderRadius: 3,
-        arrowSize: 15,
-        minHeight: 100,
-        maxHeight: 355,
-        minWidth: 220,
         maxWidth: 355,
-        borderWidth: 0,
-        disableAutoPan: true,
-        backgroundClassName: 'gmb-infobubble'
+        disableAutoPan: true
     };
 
     gmb.init = function () {
@@ -109,7 +98,7 @@
         var map_data = gmb_data[map_id];
 
         //info_window - Contains the place's information and content
-        gmb.info_window = new InfoBubble(info_window_args);
+        gmb.info_window = new google.maps.InfoWindow(info_window_args);
 
         var latitude = (map_data.map_params.latitude) ? map_data.map_params.latitude : '32.713240';
         var longitude = (map_data.map_params.longitude) ? map_data.map_params.longitude : '-117.159443';
@@ -130,7 +119,6 @@
             ]
         };
         map = new google.maps.Map(map_canvas[0], map_options);
-        info_window_args.map = map;
         places_service = new google.maps.places.PlacesService(map);
 
         gmb.set_map_options(map, map_data);
@@ -359,7 +347,6 @@
             google.maps.event.addListener(location_marker, 'click', function () {
                 gmb.set_info_window_content(marker_data, info_window_content);
                 gmb.info_window.open(map, location_marker);
-                gmb.info_window.updateContent_();
 
                 //Marker Centers Map on Click?
                 if (map_data.marker_centered == 'yes') {
@@ -377,7 +364,6 @@
                     gmb.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
                     gmb.set_info_window_content(marker_data, gmb.info_window);
                     gmb.info_window.open(map, location_marker);
-                    gmb.info_window.updateContent_();
 
 
                 });
@@ -403,11 +389,13 @@
      */
     gmb.set_info_window_content = function (marker_data, info_window) {
 
-        var info_window_content;
+        var info_window_content = '';
+
+        info_window_content += '<div class="gmb-infobubble">';
 
         //place name
         if (marker_data.title) {
-            info_window_content = '<p class="place-title">' + marker_data.title + '</p>';
+            info_window_content += '<p class="place-title">' + marker_data.title + '</p>';
         }
 
         if (marker_data.description) {
@@ -428,14 +416,17 @@
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
 
                     info_window_content += gmb.set_place_content_in_info_window(place);
+
+                    info_window_content += '</div>';
+
                     gmb.info_window.setContent(info_window_content); //set marker content
-                    gmb.info_window.updateContent_();
 
                 }
             });
         } else {
+            info_window_content += '</div>';
+
             gmb.info_window.setContent(info_window_content); //set marker content
-            gmb.info_window.updateContent_();
 
         }
 
@@ -559,8 +550,8 @@
 
         google.maps.event.addListener(search_marker, 'click', function () {
 
-            info_window.close();
-            info_window.setContent('<div class="gmb-infobubble loading"></div>');
+            gmb.info_window.close();
+            gmb.info_window.setContent('<div class="gmb-infobubble loading"></div>');
 
             var marker_data = {
                 title: place.name,
@@ -568,7 +559,7 @@
             };
 
             gmb.set_info_window_content(marker_data, info_window);
-            info_window.open(map, search_marker);
+            gmb.info_window.open(map, search_marker);
 
         });
 
