@@ -75,18 +75,29 @@ class Google_Maps_Builder_Core_Activate {
 			return;
 		}
 
+		//Only display if an API key is not entered.
 		$api_key = gmb_get_option( 'gmb_maps_api_key' );
 
-		//If API key is not entered.
 		if ( ! empty( $api_key ) ) {
 			return;
 		}
 
-		//This is a new install only (no maps).
+		//Only display if this is a new install (no maps).
 		$count_maps = wp_count_posts( 'google_maps' );
 		if ( $count_maps->publish != 0 ) {
 			return;
 		}
+
+		//Don't show on the plugin's settings screen.
+		if ( isset( $_GET['page'] ) && $_GET['page'] == 'gmb_settings' ) {
+			return;
+		}
+
+
+		//Free pr
+		//@TODO: Provide support link
+		$support_link = 'https://wordpress.org/plugins/google-maps-builder/';
+
 		?>
 
 		<style>
@@ -175,21 +186,26 @@ class Google_Maps_Builder_Core_Activate {
 					);
 					?></h3>
 
-				<p><?php echo sprintf( __( 'You\'re almost ready to start building awesome Google Maps! But first, in order to use %1$s you need to include a Google Maps API key in the %2$splugin settings%5$s. An API key with Maps and Places APIs is now required by Google to access their mapping services. Don\'t worry, getting an API key is free and easy.<br> %3$sLearn How to Create a Maps API Key &raquo; %5$s | %4$s Google API Console &raquo; %5$s', 'google-maps-builder' ), $this->plugin_name(), '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank">', '<a href="https://console.cloud.google.com/" target="_blank">', '</a>' ); ?></p>
+				<p><?php echo sprintf( __( 'You\'re almost ready to start building awesome Google Maps! But first, in order to use %1$s you need to enter a Google Maps API key in the %2$splugin settings%5$s. An API key with Maps and Places APIs is now required by Google to access their mapping services. Don\'t worry, getting an API key is free and easy.<br> %3$sLearn How to Create a Maps API Key &raquo; %5$s | %4$s Google API Console &raquo; %5$s', 'google-maps-builder' ), $this->plugin_name(), '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank">', '<a href="https://console.cloud.google.com/" target="_blank">', '</a>' ); ?></p>
 			</div>
 
 			<a href="<?php
 			//The Dismiss Button
-			$nag_admin_dismiss_url = 'plugins.php?' . $this->nag_meta_key . '=0';
-			echo admin_url( $nag_admin_dismiss_url ); ?>" class="dismiss"><span class="dashicons dashicons-dismiss"></span></a>
+			$nag_admin_dismiss_url = add_query_arg( array(
+				$this->nag_meta_key => 0
+			), admin_url() );
+
+			echo esc_url( $nag_admin_dismiss_url ); ?>" class="dismiss"><span class="dashicons dashicons-dismiss"></span></a>
 
 			<div class="alert-actions">
 
-				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ); ?>"><span class="dashicons dashicons-admin-settings"></span><?php _e( 'Go to Settings', 'google-maps-builder' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ); ?>"><span class="dashicons dashicons-admin-settings"></span><?php _e( 'Go to Settings', 'google-maps-builder' ); ?>
+				</a>
 
-				<a href="https://wordimpress.com/documentation/maps-builder-pro" target="_blank" style="margin-left:30px;"><span class="dashicons dashicons-media-text"></span><?php _e( 'Plugin Documentation', 'google-maps-builder' ); ?></a>
+				<a href="https://wordimpress.com/documentation/maps-builder-pro" target="_blank" style="margin-left:30px;"><span class="dashicons dashicons-media-text"></span><?php _e( 'Plugin Documentation', 'google-maps-builder' ); ?>
+				</a>
 
-				<a href="https://wordpress.org/plugins/google-maps-builder/" target="_blank" style="margin-left:30px;">
+				<a href="<?php echo $support_link; ?>" target="_blank" style="margin-left:30px;">
 					<span class="dashicons dashicons-sos"></span><?php _e( 'Get Support', 'google-maps-builder' ); ?>
 				</a>
 
@@ -236,12 +252,11 @@ class Google_Maps_Builder_Core_Activate {
 		//Remove Welcome Message Meta so User Sees it Again
 		$current_user = wp_get_current_user();
 		$user_id      = $current_user->ID;
-		delete_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() );
 
 		//Display Tooltip
 		$dismissed_pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
 
-		// Check if our pointer is among dismissed ones and delete that mofo
+		// Check if our pointer is among dismissed ones and delete the meta so it displays again.
 		if ( in_array( 'gmb_welcome_pointer', $dismissed_pointers ) ) {
 			$key = array_search( 'gmb_welcome_pointer', $dismissed_pointers );
 			delete_user_meta( $user_id, 'dismissed_wp_pointers', $key['gmb_welcome_pointer'] );
@@ -314,7 +329,7 @@ class Google_Maps_Builder_Core_Activate {
 
 
 	/**
-	 * ADMIN: Activation Welcome Tooltip Scripts
+	 * ADMIN: Activation Welcome Tooltip Scripts.
 	 *
 	 * @param $hook
 	 */
@@ -322,7 +337,6 @@ class Google_Maps_Builder_Core_Activate {
 
 		global $post;
 		global $current_screen;
-
 
 		// Assume pointer shouldn't be shown
 		$enqueue_pointer_script_style = false;
@@ -333,14 +347,13 @@ class Google_Maps_Builder_Core_Activate {
 		// Get array list of dismissed pointers for current user and convert it to array
 		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
 
-
-		//Welcome Tooltip - Check if our pointer is not among dismissed ones
+		// Check if our pointer is not among dismissed ones. And we're on Google Maps settings screen.
 		if ( ! in_array( 'gmb_welcome_pointer', $dismissed_pointers ) && $current_screen->post_type === 'google_maps' ) {
 
-			$enqueue_pointer_script_style = true;
+//			$enqueue_pointer_script_style = true;
 
 			// Add footer scripts using callback function
-			add_action( 'admin_print_footer_scripts', array( $this, 'welcome_pointer_print_scripts' ) );
+//			add_action( 'admin_print_footer_scripts', array( $this, 'welcome_pointer_print_scripts' ) );
 		}
 
 		// Map Customizer Tooltip - Check if our pointer is not among dismissed ones
@@ -426,7 +439,7 @@ class Google_Maps_Builder_Core_Activate {
 	function maps_customizer_tooltip() {
 
 		$pointer_content = '<h3>' . __( 'Introducing the Map Builder', $this->plugin_slug ) . '</h3>';
-		$pointer_content .= '<p>' . sprintf( __( '%1$sWe have upgraded your map building experience!%2$s Click here to experience the new interface. All controls are within your reach and the map always stays in view. If you like it, you can enable the view by default within the %3$splugin settings%4$s. We hope you enjoy it!', $this->plugin_slug ), '<strong>', '</strong>', '<a href="' . admin_url( 'edit.php?post_type=google_maps&page=gmb_settings&tab=general_settings' ) . '">', '</a>' ) . '</p>';
+		$pointer_content .= '<p>' . sprintf( __( 'Building maps has never been easier. All maps controls are within your reach and the map always stays in view. If you like it, you can enable the view by default within the %3$splugin settings%4$s. Enjoy!', $this->plugin_slug ), '<strong>', '</strong>', '<a href="' . admin_url( 'edit.php?post_type=google_maps&page=gmb_settings&tab=general_settings' ) . '">', '</a>' ) . '</p>';
 		?>
 
 		<script type="text/javascript">
@@ -482,8 +495,7 @@ class Google_Maps_Builder_Core_Activate {
 	 *
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
-	private
-	static function get_blog_ids() {
+	private static function get_blog_ids() {
 
 		global $wpdb;
 
