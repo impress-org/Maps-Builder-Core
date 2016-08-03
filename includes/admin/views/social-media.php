@@ -43,7 +43,7 @@
 	<!-- /.social-items-wrap -->
 
 
-	<a href="#" class="hide-welcome" title="<?php _e( 'Hide the Google Maps Builder Welcome Message', $plugin_slug ); ?>">
+	<a href="#" class="hide-welcome" title="<?php _e( 'Hide the welcome message', $plugin_slug ); ?>">
 		<?php _e( 'Hide Welcome', $plugin_slug ); ?><span></span>
 	</a>
 
