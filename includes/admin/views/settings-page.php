@@ -50,9 +50,7 @@
 
 	<div class="logo-svg logo-svg-small pull-right" <?php echo( ! get_user_meta( $user_id, 'gmb_hide_pro_welcome' ) ?
 		'style="display:none;"' : '' ); ?>>
-		<div class="gmb-plugin-heading">
-			Google Maps Builder
-		</div>
+		<div class="gmb-plugin-heading">Google Maps Builder</div>
 		<?php
 		gmb_include_view( 'admin/views/logo-svg.php' );
 		do_action( 'gmb_settings_page_after_logo' );
@@ -62,9 +60,9 @@
 
 	<?php
 	/**
-	 * Option tabs
+	 * Option tabs.
 	 *
-	 * Better organize our options in tabs
+	 * Better organize our options in tabs.
 	 *
 	 * @see: http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-5-tabbed-navigation-for-your-settings-page--wp-24971
 	 */
