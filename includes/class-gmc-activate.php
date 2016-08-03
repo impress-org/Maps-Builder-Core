@@ -123,7 +123,7 @@ class Google_Maps_Builder_Core_Activate {
 			}
 
 			div.gmb-api-alert h3 span {
-				font-weight: 900;
+				font-weight: 600;
 				color: #66BB6A;
 			}
 
