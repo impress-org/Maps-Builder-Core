@@ -550,8 +550,8 @@
 
         google.maps.event.addListener(search_marker, 'click', function () {
 
-            info_window.close();
-            info_window.setContent('<div class="gmb-infobubble loading"></div>');
+            gmb.info_window.close();
+            gmb.info_window.setContent('<div class="gmb-infobubble loading"></div>');
 
             var marker_data = {
                 title: place.name,
@@ -559,7 +559,7 @@
             };
 
             gmb.set_info_window_content(marker_data, info_window);
-            info_window.open(map, search_marker);
+            gmb.info_window.open(map, search_marker);
 
         });
 
