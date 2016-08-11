@@ -51,7 +51,14 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 		wp_register_script( 'google-maps-builder-maps-icons', GMB_CORE_URL . 'includes/libraries/map-icons/js/map-icons.js', array( 'jquery' ), GMB_VERSION, true );
 		wp_enqueue_script( 'google-maps-builder-maps-icons' );
 
-		wp_localize_script( $this->plugin_slug . '-plugin-script', 'gmb_data', array() );
+        // Initial data to pass to the `gmb_data` front-end JS object
+        $maps_data = array(
+            'i18n' => array(
+                'get_directions' => __( 'Get Directions', $this->plugin_slug ),
+            ),
+        );
+
+		wp_localize_script( $this->plugin_slug . '-plugin-script', 'gmb_data', $maps_data );
 
 	}
 
