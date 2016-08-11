@@ -467,6 +467,11 @@
                 '</div>'
         }
 
+        //Directions Option
+        if (place.formatted_address) {
+            info_window_content += '<a href="https://www.google.com/maps/dir/Current+Location/' + encodeURIComponent(place.formatted_address) + '" target="_blank" title="' + gmb_data.i18n.get_directions + '">' + gmb_data.i18n.get_directions + '</a>';
+        }
+
         //close wrapper
         info_window_content += '</div>';
 
