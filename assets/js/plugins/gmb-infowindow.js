@@ -24,7 +24,7 @@ function GMB_InfoWindow() {
 window['GMB_InfoWindow'] = GMB_InfoWindow;
 
 // Extension method from InfoBubble
-InfoBubble.prototype.extend = function(obj1, obj2) {
+GMB_InfoWindow.prototype.extend = function(obj1, obj2) {
     return (function(object) {
         for (var property in object.prototype) {
             this.prototype[property] = object.prototype[property];
