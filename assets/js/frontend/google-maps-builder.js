@@ -98,7 +98,7 @@
         var map_data = gmb_data[map_id];
 
         //info_window - Contains the place's information and content
-        gmb.info_window = new google.maps.InfoWindow(info_window_args);
+        gmb.info_window = new google.maps.GMB_InfoWindow();
 
         var latitude = (map_data.map_params.latitude) ? map_data.map_params.latitude : '32.713240';
         var longitude = (map_data.map_params.longitude) ? map_data.map_params.longitude : '-117.159443';
