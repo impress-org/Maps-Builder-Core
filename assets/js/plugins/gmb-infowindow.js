@@ -79,4 +79,6 @@ google.maps.GMB_InfoWindow = (function() {
     InfoWindow.prototype.close = function() {
         this.setMap(null);
     };
+
+    return InfoWindow;
 });
