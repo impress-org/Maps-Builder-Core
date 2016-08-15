@@ -12,7 +12,7 @@
 
 google.maps.GMB_InfoWindow = (function() {
    var InfoWindow = function() {
-       this.container = $('<div class="gmb-infobuble"></div>');
+       this.container = jQuery('<div class="gmb-infobuble"></div>');
        this.layer = null;
        this.marker = null;
        this.position = null;
@@ -27,7 +27,7 @@ google.maps.GMB_InfoWindow = (function() {
      * Called when window is added to map
      */
     InfoWindow.prototype.onAdd = function() {
-        this.layer = $(this.getPanes().floatPlane);
+        this.layer = jQuery(this.getPanes().floatPlane);
         this.layer.append(this.container);
         this.container.find('.map-info-close').on('click', _.bind(function() {
             // Close info window on click
