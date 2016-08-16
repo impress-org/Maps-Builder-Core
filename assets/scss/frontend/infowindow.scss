@@ -16,10 +16,21 @@
 div[id^='google-maps-builder'] .gmb-infobubble {
   padding: 8px 10px;
   margin: 0;
+
   min-width: 0;
+
   max-height: 355px;
+  max-width: 355px;
+
   box-sizing: border-box;
   cursor: default;
+
+  .gmb-infobubble__close {
+    position: absolute;
+
+    right: 5px;
+    top: 5px;
+  }
 
   p {
 	font-size: 12px;

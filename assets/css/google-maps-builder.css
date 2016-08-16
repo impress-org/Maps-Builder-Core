@@ -67,6 +67,7 @@ div[id^='google-maps-builder'] .gmb-infobubble {
 
   box-sizing: border-box;
   cursor: default; }
+
   div[id^='google-maps-builder'] .gmb-infobubble p {
     font-size: 12px;
     margin: 0 0 7px;
