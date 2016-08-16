@@ -95,3 +95,11 @@ GMB_InfoWindow.prototype.close = function() {
     this.setMap(null);
 };
 GMB_InfoWindow.prototype['close'] = GMB_InfoWindow.prototype.close;
+
+/**
+ * Centre the marker in the window on click
+ */
+GMB_InfoWindow.prototype.panToView = function () {
+
+};
+GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
