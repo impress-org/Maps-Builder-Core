@@ -14,7 +14,7 @@ function GMB_InfoWindow() {
     // Inherit from OverlayView
     this.extend(GMB_InfoWindow, google.maps.OverlayView);
 
-    this.container = jQuery('<div class="gmb-infobuble"></div>');
+    this.container = jQuery('<div class="gmb-infobubble"></div>');
     this.layer = null;
     this.marker = null;
     this.position = null;
@@ -37,8 +37,9 @@ GMB_InfoWindow.prototype.extend = function(obj1, obj2) {
  * Called when window is added to map
  */
 GMB_InfoWindow.prototype.onAdd = function() {
-    this.layer = jQuery(this.getPanes().floatPlane);
+    this.layer = jQuery(this.getPanes().floatPane);
     this.layer.append(this.container);
+
     this.container.find('.map-info-close').on('click', _.bind(function() {
         // Close info window on click
         this.close();
@@ -51,14 +52,14 @@ GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
  */
 GMB_InfoWindow.prototype.draw = function() {
     var markerIcon = this.marker.getIcon(),
-        cHeight = this.container.outerHeight() + markerIcon.scaledSize.height + 10,
-        cWidth = this.container.width() / 2 + markerIcon.scaledSize.width / 2;
+        cHeight = this.container.outerHeight(),
+        cWidth = this.container.width();
 
     this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
 
     this.container.css({
-        'top': this.position.y - cHeight,
-        'left': this.position.x - cWidth
+        'top': this.position.y - cHeight + 'px',
+        'left': this.position.x - cWidth + 'px'
     });
 };
 GMB_InfoWindow.prototype['draw'] = GMB_InfoWindow.prototype.draw;
@@ -76,6 +77,7 @@ GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
  */
 GMB_InfoWindow.prototype.setContent = function( html ) {
     this.container.html(html);
+    this.container.prepend('<div class="map-info-close">x</div>');
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 
