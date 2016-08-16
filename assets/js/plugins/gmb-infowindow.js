@@ -40,7 +40,7 @@ GMB_InfoWindow.prototype.onAdd = function() {
     this.layer = jQuery(this.getPanes().floatPane);
     this.layer.append(this.container);
 
-    this.container.find('.map-info-close').on('click', _.bind(function() {
+    this.container.find('.gmb-infobubble__close').on('click', _.bind(function() {
         // Close info window on click
         this.close();
     }, this));
