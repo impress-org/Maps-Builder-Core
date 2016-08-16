@@ -14,7 +14,7 @@ function GMB_InfoWindow() {
     // Inherit from OverlayView
     this.extend(GMB_InfoWindow, google.maps.OverlayView);
 
-    this.container = jQuery('<div class="gmb-infobubble"></div>');
+    this.container = jQuery('<div class="gmb-infobubble"><div class="gmb-infobubble__close">x</div><div class="gmb-infobubble__content"></div></div>');
     this.layer = null;
     this.marker = null;
     this.position = null;
@@ -76,8 +76,7 @@ GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
  * Set the contents of the overlay container
  */
 GMB_InfoWindow.prototype.setContent = function( html ) {
-    this.container.html(html);
-    this.container.prepend('<div class="map-info-close">x</div>');
+    this.container.find('.gmb-infobubble__content').html(html);
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 
