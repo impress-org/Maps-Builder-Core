@@ -51,14 +51,13 @@ GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
  * Redraws the window any time something happens to affect its position
  */
 GMB_InfoWindow.prototype.draw = function() {
-    var markerIcon = this.marker.getIcon(),
-        cHeight = this.container.outerHeight(),
-        cWidth = this.container.width();
+    var cHeight = this.container.outerHeight(),
+        cWidth = this.container.width() / 2;
 
     this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
 
     this.container.css({
-        'top': this.position.y - cHeight + 'px',
+        'bottom': this.position.y - cHeight + 'px',
         'left': this.position.x - cWidth + 'px'
     });
 };
