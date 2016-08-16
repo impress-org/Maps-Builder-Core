@@ -391,8 +391,6 @@
 
         var info_window_content = '';
 
-        info_window_content += '<div class="gmb-infobubble">';
-
         //place name
         if (marker_data.title) {
             info_window_content += '<p class="place-title">' + marker_data.title + '</p>';
@@ -417,15 +415,11 @@
 
                     info_window_content += gmb.set_place_content_in_info_window(place);
 
-                    info_window_content += '</div>';
-
                     gmb.info_window.setContent(info_window_content); //set marker content
 
                 }
             });
         } else {
-            info_window_content += '</div>';
-
             gmb.info_window.setContent(info_window_content); //set marker content
 
         }
