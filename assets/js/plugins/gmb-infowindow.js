@@ -112,6 +112,8 @@ GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
 
 /**
  * Prevent various events from propagating to the map layer
+ *
+ * This is a slightly modified version of the InfoBubble plugin's approach.
  */
 GMB_InfoWindow.prototype.addEvents_ = function() {
     // We want to cancel all the events so they do not go to the map
