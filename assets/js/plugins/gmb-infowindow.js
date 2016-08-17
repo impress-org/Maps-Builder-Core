@@ -44,6 +44,12 @@ GMB_InfoWindow.prototype.onAdd = function() {
         // Close info window on click
         this.close();
     }, this));
+
+    // Prevent various events from propagating to the map
+    this.addEvents_();
+
+    // With the window added to the map, trigger `domready` event
+    google.maps.event.trigger(this, 'domready');
 };
 GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
 
@@ -103,3 +109,27 @@ GMB_InfoWindow.prototype.panToView = function () {
 
 };
 GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
+
+/**
+ * Prevent various events from propagating to the map layer
+ */
+GMB_InfoWindow.prototype.addEvents_ = function() {
+    // We want to cancel all the events so they do not go to the map
+    var events = ['mousedown', 'mousemove', 'mouseover', 'mouseout', 'mouseup',
+        'mousewheel', 'DOMMouseScroll', 'touchstart', 'touchend', 'touchmove',
+        'dblclick', 'contextmenu', 'click'];
+
+    var window = this.container;
+    this.listeners_ = [];
+    for (var i = 0, event; event = events[i]; i++) {
+        this.listeners_.push(
+            google.maps.event.addDomListener(window, event, function (e) {
+                e.cancelBubble = true;
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+            })
+        );
+    }
+};
+GMB_InfoWindow.prototype['addEvents_'] = GMB_InfoWindow.prototype.addEvents_;
