@@ -57,10 +57,18 @@ GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
  * Redraws the window any time something happens to affect its position
  */
 GMB_InfoWindow.prototype.draw = function() {
+    var projection = this.getProjection();
+
+    if (!projection) {
+        // The map projection is not ready yet so do nothing
+        return;
+    }
+
+    // Get information about the dimensions of the container
     var cHeight = this.container.outerHeight() + 40,
         cWidth = this.container.width() / 2;
 
-    this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
+    this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
 
     this.container.css({
         'top': this.position.y - cHeight + 'px',
