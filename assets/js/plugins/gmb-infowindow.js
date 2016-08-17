@@ -119,7 +119,8 @@ GMB_InfoWindow.prototype.addEvents_ = function() {
         'mousewheel', 'DOMMouseScroll', 'touchstart', 'touchend', 'touchmove',
         'dblclick', 'contextmenu', 'click'];
 
-    var window = this.container;
+    // Grab the DOM element represented by the container
+    var window = this.container[0];
     this.listeners_ = [];
     for (var i = 0, event; event = events[i]; i++) {
         this.listeners_.push(
