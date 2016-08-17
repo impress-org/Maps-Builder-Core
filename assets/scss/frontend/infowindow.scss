@@ -29,11 +29,15 @@ div[id^='google-maps-builder'] .gmb-infobubble {
   box-sizing: border-box;
   cursor: default;
 
+  overflow: auto;
+
   .gmb-infobubble__close {
     position: absolute;
 
     right: 5px;
     top: 5px;
+
+    cursor: pointer;
   }
 
   p {
