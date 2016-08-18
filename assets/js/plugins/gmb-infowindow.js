@@ -90,6 +90,7 @@ GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
  */
 GMB_InfoWindow.prototype.setContent = function( html ) {
     this.container.find('.gmb-infobubble__content').html(html);
+    this.draw();
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 
