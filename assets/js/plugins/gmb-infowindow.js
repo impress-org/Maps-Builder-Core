@@ -65,7 +65,7 @@ GMB_InfoWindow.prototype.draw = function() {
     }
 
     // Get information about the dimensions of the container
-    var cHeight = this.container.outerHeight() + this.marker.anchorPoint.y, // use marker's built-in height property
+    var cHeight = this.container.outerHeight() - this.marker.anchorPoint.y, // use marker's built-in height property
         cWidth = this.container.width() / 2;
 
     this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
