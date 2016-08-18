@@ -9,9 +9,6 @@
 */
 
 /* Loading */
-.gmb-infobubble.loading {
-  background: url('../img/loading-large.gif') no-repeat center center #FFF;
-}
 
 div[id^='google-maps-builder'] .gmb-infobubble {
   position: absolute;
@@ -26,6 +23,10 @@ div[id^='google-maps-builder'] .gmb-infobubble {
 
   box-sizing: border-box;
   cursor: default;
+
+  .gmb-infobubble__loading {
+    background: url('../img/loading-large.gif') no-repeat center center #FFF;
+  }
 
   .gmb-infobubble__header {
     position: absolute;

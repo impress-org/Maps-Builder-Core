@@ -361,7 +361,7 @@
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
-                    gmb.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
+                    gmb.info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
                     gmb.set_info_window_content(marker_data, gmb.info_window);
                     gmb.info_window.open(map, location_marker);
 
@@ -550,7 +550,7 @@
         google.maps.event.addListener(search_marker, 'click', function () {
 
             gmb.info_window.close();
-            gmb.info_window.setContent('<div class="gmb-infobubble loading"></div>');
+            gmb.info_window.setContent('<div class="gmb-infobubble__loading"></div>');
 
             var marker_data = {
                 title: place.name,
