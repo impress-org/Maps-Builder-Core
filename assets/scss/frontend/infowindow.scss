@@ -38,6 +38,9 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     height: 20px;
 
     background: #666;
+
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
   }
 
     .gmb-infobubble__close {
@@ -46,7 +49,7 @@ div[id^='google-maps-builder'] .gmb-infobubble {
       position: absolute;
 
       right: 5px;
-      top: -10px;
+      top: -7px;
 
       cursor: pointer;
 
@@ -61,6 +64,9 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     padding: 8px;
 
     overflow: auto;
+
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 
   .gmb-infobubble__arrow {
