@@ -16,7 +16,7 @@
 div[id^='google-maps-builder'] .gmb-infobubble {
   position: absolute;
 
-  padding: 24px 10px 8px;
+  padding: 24px 10px 15px;
   margin: 0;
 
   min-width: 0;
@@ -63,7 +63,7 @@ div[id^='google-maps-builder'] .gmb-infobubble {
   .gmb-infobubble__window {
     background-color: #FFF;
 
-    max-height: 355px - 16px - 20px;
+    max-height: 355px - 16px - 25px;
 
     padding: 8px;
 
@@ -81,7 +81,7 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 
-    border-top: 10px solid #fff;
+    border-top: 15px solid #fff;
 
     // Positioning at bottom centre of window
     position: absolute;
