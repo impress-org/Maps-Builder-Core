@@ -54,6 +54,10 @@ div[id^='google-maps-builder'] .gmb-infobubble {
       cursor: pointer;
 
       font-size: 20px;
+
+      &:hover {
+        color: #ddd;
+      }
     }
 
   .gmb-infobubble__window {
