@@ -14,7 +14,7 @@ function GMB_InfoWindow() {
     // Inherit from OverlayView
     this.extend(GMB_InfoWindow, google.maps.OverlayView);
 
-    this.container = jQuery('<div class="gmb-infobubble"><div class="gmb-infobubble__close">x</div><div class="gmb-infobubble__content"></div></div>');
+    this.container = jQuery('<div class="gmb-infobubble"><div class="gmb-infobubble__header"><div class="gmb-infobubble__close">x</div></div><div class="gmb-infobubble__window"><div class="gmb-infobubble__content"></div></div><div class="gmb-infobubble__arrow"></div></div>');
     this.layer = null;
     this.marker = null;
     this.position = null;
