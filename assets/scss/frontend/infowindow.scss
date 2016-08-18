@@ -16,9 +16,7 @@
 div[id^='google-maps-builder'] .gmb-infobubble {
   position: absolute;
 
-  background-color: #FFF;
-
-  padding: 8px 10px;
+  padding: 24px 10px 8px;
   margin: 0;
 
   min-width: 0;
@@ -29,15 +27,44 @@ div[id^='google-maps-builder'] .gmb-infobubble {
   box-sizing: border-box;
   cursor: default;
 
-  overflow: auto;
-
-  .gmb-infobubble__close {
+  .gmb-infobubble__header {
     position: absolute;
 
-    right: 5px;
-    top: 5px;
+    top: 0;
 
-    cursor: pointer;
+    left: 0;
+    right: 0;
+
+    height: 16px;
+  }
+
+    .gmb-infobubble__close {
+      position: absolute;
+
+      right: 5px;
+      top: 5px;
+
+      cursor: pointer;
+    }
+
+  .gmb-infobubble__content {
+    background-color: #FFF;
+
+    overflow: auto;
+  }
+
+  .gmb-infobubble__content {
+    background-color: #fff;
+
+    height: 10px;
+    width: 10px;
+
+    position: absolute;
+
+    bottom: 0;
+
+    border: 10px solid #fff;
+    border-bottom: 0;
   }
 
   p {
