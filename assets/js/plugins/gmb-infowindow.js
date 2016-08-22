@@ -138,7 +138,7 @@ GMB_InfoWindow.prototype.panToView = function () {
         return;
     }
 
-    var anchorHeight = this.marker.anchorPoint.y();
+    var anchorHeight = this.marker.anchorPoint.y;
     var height = this.container.offsetHeight + anchorHeight;
     var map = this.get('map');
     var mapDiv = map.getDiv();
