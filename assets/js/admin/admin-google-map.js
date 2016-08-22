@@ -403,9 +403,7 @@ var gmb_data;
         }
 
         //InfoBubble - Contains the place's information and content
-        info_bubble = new google.maps.InfoWindow({
-            maxWidth: 315
-        });
+        info_bubble = new GMB_InfoWindow();
 
         /**
          * Map Event Listeners
