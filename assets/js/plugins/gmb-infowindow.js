@@ -18,6 +18,7 @@ function GMB_InfoWindow() {
     this.layer = null;
     this.marker = null;
     this.position = null;
+    this.redrawn = false;
 }
 
 // Attach our function to the window
@@ -74,6 +75,14 @@ GMB_InfoWindow.prototype.draw = function() {
         'top': this.position.y - cHeight + 'px',
         'left': this.position.x - cWidth + 'px'
     });
+
+    // Draw twice
+    if (false === this.redrawn) {
+        this.redrawn = true;
+        this.draw();
+    } else {
+        this.redrawn = false;
+    }
 };
 GMB_InfoWindow.prototype['draw'] = GMB_InfoWindow.prototype.draw;
 
