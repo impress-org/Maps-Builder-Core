@@ -122,9 +122,52 @@ GMB_InfoWindow.prototype['close'] = GMB_InfoWindow.prototype.close;
 
 /**
  * Centre the marker in the window on click
+ *
+ * Sourced from InfoBubble's panToView function.
  */
 GMB_InfoWindow.prototype.panToView = function () {
+    var projection = this.getProjection();
 
+    if (!projection) {
+        // The map projection is not ready yet so do nothing
+        return;
+    }
+
+    if (!this.container) {
+        // No Bubble yet so do nothing
+        return;
+    }
+
+    var anchorHeight = this.marker.anchorPoint.y();
+    var height = this.container.offsetHeight + anchorHeight;
+    var map = this.get('map');
+    var mapDiv = map.getDiv();
+    var mapHeight = mapDiv.offsetHeight;
+
+    var latLng = this.marker.getPosition();
+    var centerPos = projection.fromLatLngToContainerPixel(map.getCenter());
+    var pos = projection.fromLatLngToContainerPixel(latLng);
+
+    // Find out how much space at the top is free
+    var spaceTop = centerPos.y - height;
+
+    // Fine out how much space at the bottom is free
+    var spaceBottom = mapHeight - centerPos.y;
+
+    var needsTop = spaceTop < 0;
+    var deltaY = 0;
+
+    if (needsTop) {
+        spaceTop *= -1;
+        deltaY = (spaceTop + spaceBottom) / 2;
+    }
+
+    pos.y -= deltaY;
+    latLng = projection.fromContainerPixelToLatLng(pos);
+
+    if (map.getCenter() != latLng) {
+        map.panTo(latLng);
+    }
 };
 GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
 
