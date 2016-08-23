@@ -65,9 +65,17 @@ GMB_InfoWindow.prototype.draw = function() {
         return;
     }
 
+    // Set standard amount to move the container
+    var markerWidth = 10;
+
+    // If a non-standard marker, modify how much we move the container
+    if (this.marker.anchorPoint.x !== 0) {
+        markerWidth -= this.marker.anchorPoint.x;
+    }
+
     // Get information about the dimensions of the container
     var cHeight = this.container.outerHeight() - this.marker.anchorPoint.y, // use marker's built-in height property
-        cWidth = this.container.width() / 2 + 10;
+        cWidth = this.container.width() / 2 + markerWidth;
 
     this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
 
