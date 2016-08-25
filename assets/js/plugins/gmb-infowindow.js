@@ -77,7 +77,13 @@ GMB_InfoWindow.prototype.draw = function() {
     var cHeight = this.container.outerHeight(), // use marker's built-in height property
         cWidth = this.container.outerWidth() / 2;
 
-    this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
+    this.position = projection.fromLatLngToDivPixel(this.marker.get('position'));
+
+    console.log('anchorX: ' + this.marker.anchorPoint.x);
+    console.log('anchorY: ' + this.marker.anchorPoint.y);
+    console.log('height: ' + cHeight);
+    console.log('width: ' + cWidth);
+    console.log('position: ' + this.position);
 
     this.container.css({
         'top': this.position.y - cHeight + this.marker.anchorPoint.y + 'px',
@@ -86,9 +92,12 @@ GMB_InfoWindow.prototype.draw = function() {
 
     // Draw twice
     if (false === this.redrawn) {
+        console.log('redrawing----------------------');
         this.redrawn = true;
         this.draw();
     } else {
+        console.log('it was already redrawn');
+        console.log('===============================');
         this.redrawn = false;
     }
 };
@@ -107,7 +116,6 @@ GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
  */
 GMB_InfoWindow.prototype.setContent = function( html ) {
     this.container.find('.gmb-infobubble__content').html(html);
-    this.draw();
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 
@@ -205,3 +213,15 @@ GMB_InfoWindow.prototype.addEvents_ = function() {
     }
 };
 GMB_InfoWindow.prototype['addEvents_'] = GMB_InfoWindow.prototype.addEvents_;
+
+/**
+ * Set the position of the InfoBubble
+ *
+ * @param {google.maps.LatLng} position The position to set.
+ */
+GMB_InfoWindow.prototype.setPosition = function(position) {
+    if (position) {
+        this.set('position', position);
+    }
+};
+GMB_InfoWindow.prototype['setPosition'] = GMB_InfoWindow.prototype.setPosition;
