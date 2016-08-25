@@ -80,8 +80,8 @@ GMB_InfoWindow.prototype.draw = function() {
     this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
 
     this.container.css({
-        'top': this.position.y - cHeight - this.marker.anchorPoint.y + 'px',
-        'left': this.position.x - cWidth + markerWidth / 2 + 'px'
+        'top': this.position.y - cHeight + this.marker.anchorPoint.y + 'px',
+        'left': this.position.x - cWidth - markerWidth / 2 + 'px'
     });
 
     // Draw twice
