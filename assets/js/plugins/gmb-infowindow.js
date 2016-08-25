@@ -74,14 +74,14 @@ GMB_InfoWindow.prototype.draw = function() {
     }
 
     // Get information about the dimensions of the container
-    var cHeight = this.container.outerHeight() - this.marker.anchorPoint.y, // use marker's built-in height property
-        cWidth = this.container.outerWidth() / 2 + markerWidth / 2;
+    var cHeight = this.container.outerHeight(), // use marker's built-in height property
+        cWidth = this.container.outerWidth() / 2;
 
     this.position = projection.fromLatLngToDivPixel(this.marker.getPosition());
 
     this.container.css({
-        'top': this.position.y - cHeight + 'px',
-        'left': this.position.x - cWidth + 'px'
+        'top': this.position.y - cHeight - this.marker.anchorPoint.y + 'px',
+        'left': this.position.x - cWidth + markerWidth / 2 + 'px'
     });
 
     // Draw twice
