@@ -66,7 +66,7 @@ GMB_InfoWindow.prototype.draw = function() {
     }
 
     // Set standard amount to move the container
-    var markerWidth = 10;
+    var markerWidth = 0;
 
     // If a non-standard marker, modify how much we move the container
     if (this.marker.anchorPoint.x !== 0) {
