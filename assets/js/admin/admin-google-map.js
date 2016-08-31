@@ -610,10 +610,10 @@ var gmb_data;
 
         //toolbar
         info_window_content += '<div class="infowindow-toolbar clear"><ul id="save-toolbar">' +
-            '<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn hint--bottom" aria-label="Save changes" data-index="' + index + '">Save</div></li>' +
-            '<li class="info-window-cancel"><div class="google-btn-default google-btn google-cancel-btn hint--bottom" aria-label="Cancel edit" data-index="' + index + '">Cancel</div></li>' +
+            '<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn hint--bottom hint--no-animate" aria-label="Save changes" data-index="' + index + '">Save</div></li>' +
+            '<li class="info-window-cancel"><div class="google-btn-default google-btn google-cancel-btn hint--bottom hint--no-animate" aria-label="Cancel edit" data-index="' + index + '">Cancel</div></li>' +
             '</ul>' +
-            '<span class="marker-edit-link-wrap" data-index="' + index + '"><i class="hint--with-icon hint--bottom" aria-label="Change icon"><a href="#" data-target="marker-icon-modal" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline"></a></i></span>' +
+            '<span class="marker-edit-link-wrap" data-index="' + index + '"><i class="hint--with-icon hint--bottom hint--no-animate" aria-label="Change icon"><a href="#" data-target="marker-icon-modal" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline"></a></i></span>' +
             '</div>';
 
         //Set info_window content
@@ -1710,8 +1710,8 @@ var gmb_data;
      */
     gmb.set_marker_edit_icons = function (marker_index) {
         return '<div class="infowindow-toolbar"><ul id="edit-toolbar">' +
-            '<li class="hint--bottom edit-info" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_edit_marker + '"></li>' +
-            '<li class="hint--bottom trash-marker" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_delete_marker + '"></li>' +
+            '<li class="hint--bottom hint--no-animate edit-info" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_edit_marker + '"></li>' +
+            '<li class="hint--bottom hint--no-animate trash-marker" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_delete_marker + '"></li>' +
             '</ul>' +
             '</div>';
     };
