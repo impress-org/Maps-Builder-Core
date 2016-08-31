@@ -1710,8 +1710,8 @@ var gmb_data;
      */
     gmb.set_marker_edit_icons = function (marker_index) {
         return '<div class="infowindow-toolbar"><ul id="edit-toolbar">' +
-            '<li class="edit-info" data-index="' + marker_index + '" data-tooltip="' + gmb_data.i18n.btn_edit_marker + '"></li>' +
-            '<li class="trash-marker" data-index="' + marker_index + '" data-tooltip="' + gmb_data.i18n.btn_delete_marker + '"></li>' +
+            '<li class="hint--bottom" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_edit_marker + '"><span class="edit-info"></span></li>' +
+            '<li class="hint--bottom" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_delete_marker + '"><span class="trash-marker"></span></li>' +
             '</ul>' +
             '</div>';
     };
