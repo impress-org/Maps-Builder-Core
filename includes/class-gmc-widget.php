@@ -107,7 +107,7 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>"><?php _e( 'Select a Map:', $this->plugin_slug ); ?>
-				<i class="hint--with-icon hint--top" aria-label="<?php _e( 'Select a map that you would like to embed in this widget area.', $this->plugin_slug ); ?>"><span class="dashicons gmb-tooltip-icon"></span></i>
+				<i class="hint--with-icon hint--top hint--no-animate" aria-label="<?php _e( 'Select a map that you would like to embed in this widget area.', $this->plugin_slug ); ?>"><span class="dashicons gmb-tooltip-icon"></span></i>
 			</label>
 			<select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>">
 				<option value="current"><?php _e( 'Please select...', $this->plugin_slug ); ?></option>
