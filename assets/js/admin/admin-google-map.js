@@ -610,10 +610,10 @@ var gmb_data;
 
         //toolbar
         info_window_content += '<div class="infowindow-toolbar clear"><ul id="save-toolbar">' +
-            '<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn" data-tooltip="Save changes" data-index="' + index + '">Save</div></li>' +
-            '<li class="info-window-cancel"><div class="google-btn-default google-btn google-cancel-btn" data-tooltip="Cancel edit" data-index="' + index + '">Cancel</div></li>' +
+            '<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn hint--bottom" aria-label="Save changes" data-index="' + index + '">Save</div></li>' +
+            '<li class="info-window-cancel"><div class="google-btn-default google-btn google-cancel-btn hint--bottom" aria-label="Cancel edit" data-index="' + index + '">Cancel</div></li>' +
             '</ul>' +
-            '<span class="marker-edit-link-wrap" data-index="' + index + '"><a href="#" data-target="marker-icon-modal" data-tooltip="Change icon" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline"></a></span>' +
+            '<span class="marker-edit-link-wrap" data-index="' + index + '"><i class="hint--with-icon hint--bottom" aria-label="Change icon"><a href="#" data-target="marker-icon-modal" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline"></a></i></span>' +
             '</div>';
 
         //Set info_window content
