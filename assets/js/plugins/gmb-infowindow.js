@@ -9,22 +9,29 @@
  *     - https://codepen.io/emgerold/pen/kjivC
  *     - https://developers.google.com/maps/documentation/javascript/customoverlays
  */
-
 function GMB_InfoWindow() {
-    // Inherit from OverlayView
+
+    // Inherit from OverlayView.
     this.extend(GMB_InfoWindow, google.maps.OverlayView);
 
     this.container = jQuery('<div class="gmb-infobubble"><div class="gmb-infobubble__header"><div class="gmb-infobubble__close">×</div></div><div class="gmb-infobubble__window"><div class="gmb-infobubble__content"></div></div><div class="gmb-infobubble__arrow"></div></div>');
     this.layer = null;
     this.marker = null;
     this.position = null;
-    this.redrawn = false;
+
 }
 
 // Attach our function to the window
 window['GMB_InfoWindow'] = GMB_InfoWindow;
 
-// Extension method from InfoBubble
+/**
+ * Extend.
+ *
+ * Extension method from InfoBubble.
+ *
+ * @param obj1
+ * @param obj2
+ */
 GMB_InfoWindow.prototype.extend = function (obj1, obj2) {
     return (function (object) {
         for (var property in object.prototype) {
@@ -34,8 +41,11 @@ GMB_InfoWindow.prototype.extend = function (obj1, obj2) {
     }).apply(obj1, [obj2]);
 };
 
+
 /**
- * Called when window is added to map
+ * On add.
+ *
+ * Called when custom overlay window is added to map.
  */
 GMB_InfoWindow.prototype.onAdd = function () {
     this.layer = jQuery(this.getPanes().floatPane);
@@ -55,51 +65,13 @@ GMB_InfoWindow.prototype.onAdd = function () {
 GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
 
 /**
- * Redraws the window any time something happens to affect its position
+ * Draw GMB_InfoWindow.
+ *
+ * Redraws the window any time something happens to affect its position.
  */
 GMB_InfoWindow.prototype.draw = function () {
-    var projection = this.getProjection();
 
-    if (!projection) {
-        // The map projection is not ready yet so do nothing
-        return;
-    }
 
-    // Set standard amount to move the container
-    var markerWidth = 0;
-
-    // If a non-standard marker, modify how much we move the container
-    if (this.marker.anchorPoint.x !== 0) {
-        markerWidth -= this.marker.anchorPoint.x;
-    }
-
-    // Get information about the dimensions of the container
-    var cHeight = this.container.outerHeight(), // use marker's built-in height property
-        cWidth = this.container.outerWidth() / 2;
-
-    this.position = projection.fromLatLngToDivPixel(this.marker.get('position'));
-
-    console.log('anchorX: ' + this.marker.anchorPoint.x);
-    console.log('anchorY: ' + this.marker.anchorPoint.y);
-    console.log('height: ' + cHeight);
-    console.log('width: ' + cWidth);
-    console.log('position: ' + this.position);
-
-    this.container.css({
-        'top': this.position.y - cHeight + this.marker.anchorPoint.y + 'px',
-        'left': this.position.x - cWidth - markerWidth / 2 + 'px'
-    });
-
-    // Draw twice
-    if (false === this.redrawn) {
-        console.log('redrawing----------------------');
-        this.redrawn = true;
-        this.draw();
-    } else {
-        console.log('it was already redrawn');
-        console.log('===============================');
-        this.redrawn = false;
-    }
 };
 GMB_InfoWindow.prototype['draw'] = GMB_InfoWindow.prototype.draw;
 
@@ -112,24 +84,59 @@ GMB_InfoWindow.prototype.onRemove = function () {
 GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
 
 /**
- * Set the contents of the overlay container
+ * Set Content.
+ *
+ * Set the contents of the overlay container.
  */
 GMB_InfoWindow.prototype.setContent = function (html) {
     this.container.find('.gmb-infobubble__content').html(html);
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 
+
 /**
- * Add the window to a specific map marker (thus displaying it)
+ * Set Anchor.
+ *
+ * @param anchor
+ */
+GMB_InfoWindow.prototype.setAnchor = function (anchor) {
+    if (anchor) {
+        this.set('anchor', anchor);
+        this.bindTo('anchorPoint', anchor);
+        this.bindTo('position', anchor);
+    } else if (this.get('anchor')) {
+        this.set('anchor', null);
+        this.unbind('anchorPoint');
+        this.unbind('position');
+    }
+};
+GMB_InfoWindow.prototype['setAnchor'] = GMB_InfoWindow.prototype.setAnchor;
+
+/**
+ * Set the position of the InfoBubble.
+ *
+ * @param {google.maps.LatLng} position The position to set.
+ */
+GMB_InfoWindow.prototype.setPosition = function (position) {
+    if (position) {
+        this.setAnchor(null);
+        this.set('position', position);
+    }
+};
+GMB_InfoWindow.prototype['setPosition'] = GMB_InfoWindow.prototype.setPosition;
+
+/**
+ * Add the window to a specific map marker (thus displaying it).
  */
 GMB_InfoWindow.prototype.open = function (map, marker) {
     this.marker = marker;
     this.setMap(map);
+    GMB_InfoWindow.prototype.setPosition(123);
 };
 GMB_InfoWindow.prototype['open'] = GMB_InfoWindow.prototype.open;
 
 /**
- * Remove the window from any specific map (thus hiding it)
+ * Remove the window from any specific map (thus hiding it).
  */
 GMB_InfoWindow.prototype.close = function () {
     this.setMap(null);
@@ -137,7 +144,7 @@ GMB_InfoWindow.prototype.close = function () {
 GMB_InfoWindow.prototype['close'] = GMB_InfoWindow.prototype.close;
 
 /**
- * Centre the marker in the window on click
+ * Centre the marker in the window on click.
  *
  * Sourced from InfoBubble's panToView function.
  */
@@ -185,7 +192,7 @@ GMB_InfoWindow.prototype.panToView = function () {
         map.panTo(latLng);
     }
 };
-GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
+//GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
 
 /**
  * Prevent various events from propagating to the map layer
@@ -213,15 +220,3 @@ GMB_InfoWindow.prototype.addEvents_ = function () {
     }
 };
 GMB_InfoWindow.prototype['addEvents_'] = GMB_InfoWindow.prototype.addEvents_;
-
-/**
- * Set the position of the InfoBubble
- *
- * @param {google.maps.LatLng} position The position to set.
- */
-GMB_InfoWindow.prototype.setPosition = function (position) {
-    if (position) {
-        this.set('position', position);
-    }
-};
-GMB_InfoWindow.prototype['setPosition'] = GMB_InfoWindow.prototype.setPosition;
