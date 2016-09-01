@@ -70,6 +70,42 @@ GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
  * Redraws the window any time something happens to affect its position.
  */
 GMB_InfoWindow.prototype.draw = function () {
+    var projection = this.getProjection();
+
+    if (!projection) {
+        // The map projection is not ready yet so do nothing
+        return;
+    }
+    // Set standard amount to move the container
+    var markerWidth = 0;
+
+    // If a non-standard marker, modify how much we move the container
+    if (this.marker.anchorPoint.x !== 0) {
+        markerWidth -= this.marker.anchorPoint.x;
+    }
+    // Get information about the dimensions of the container
+    var cHeight = this.container.outerHeight(), // use marker's built-in height property
+        cWidth = this.container.outerWidth() / 2;
+    this.position = projection.fromLatLngToDivPixel(this.marker.get('position'));
+    console.log('anchorX: ' + this.marker.anchorPoint.x);
+    console.log('anchorY: ' + this.marker.anchorPoint.y);
+    console.log('height: ' + cHeight);
+    console.log('width: ' + cWidth);
+    console.log('position: ' + this.position);
+    this.container.css({
+        'top': this.position.y - cHeight + this.marker.anchorPoint.y + 'px',
+        'left': this.position.x - cWidth - markerWidth / 2 + 'px'
+    });
+    // Draw twice
+    if (false === this.redrawn) {
+        console.log('redrawing----------------------');
+        this.redrawn = true;
+        this.draw();
+    } else {
+        console.log('it was already redrawn');
+        console.log('===============================');
+        this.redrawn = false;
+    }
 
 
 };
