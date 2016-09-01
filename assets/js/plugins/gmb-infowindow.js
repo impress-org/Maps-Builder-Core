@@ -25,8 +25,8 @@ function GMB_InfoWindow() {
 window['GMB_InfoWindow'] = GMB_InfoWindow;
 
 // Extension method from InfoBubble
-GMB_InfoWindow.prototype.extend = function(obj1, obj2) {
-    return (function(object) {
+GMB_InfoWindow.prototype.extend = function (obj1, obj2) {
+    return (function (object) {
         for (var property in object.prototype) {
             this.prototype[property] = object.prototype[property];
         }
@@ -37,11 +37,11 @@ GMB_InfoWindow.prototype.extend = function(obj1, obj2) {
 /**
  * Called when window is added to map
  */
-GMB_InfoWindow.prototype.onAdd = function() {
+GMB_InfoWindow.prototype.onAdd = function () {
     this.layer = jQuery(this.getPanes().floatPane);
     this.layer.append(this.container);
 
-    this.container.find('.gmb-infobubble__close').on('click', _.bind(function() {
+    this.container.find('.gmb-infobubble__close').on('click', _.bind(function () {
         // Close info window on click
         this.close();
     }, this));
@@ -57,7 +57,7 @@ GMB_InfoWindow.prototype['onAdd'] = GMB_InfoWindow.prototype.onAdd;
 /**
  * Redraws the window any time something happens to affect its position
  */
-GMB_InfoWindow.prototype.draw = function() {
+GMB_InfoWindow.prototype.draw = function () {
     var projection = this.getProjection();
 
     if (!projection) {
@@ -106,7 +106,7 @@ GMB_InfoWindow.prototype['draw'] = GMB_InfoWindow.prototype.draw;
 /**
  * Cleanup function when the window is removed from map
  */
-GMB_InfoWindow.prototype.onRemove = function() {
+GMB_InfoWindow.prototype.onRemove = function () {
     this.container.remove();
 };
 GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
@@ -114,7 +114,7 @@ GMB_InfoWindow.prototype['onRemove'] = GMB_InfoWindow.prototype.onRemove;
 /**
  * Set the contents of the overlay container
  */
-GMB_InfoWindow.prototype.setContent = function( html ) {
+GMB_InfoWindow.prototype.setContent = function (html) {
     this.container.find('.gmb-infobubble__content').html(html);
 };
 GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
@@ -122,7 +122,7 @@ GMB_InfoWindow.prototype['setContent'] = GMB_InfoWindow.prototype.setContent;
 /**
  * Add the window to a specific map marker (thus displaying it)
  */
-GMB_InfoWindow.prototype.open = function( map, marker ) {
+GMB_InfoWindow.prototype.open = function (map, marker) {
     this.marker = marker;
     this.setMap(map);
 };
@@ -131,7 +131,7 @@ GMB_InfoWindow.prototype['open'] = GMB_InfoWindow.prototype.open;
 /**
  * Remove the window from any specific map (thus hiding it)
  */
-GMB_InfoWindow.prototype.close = function() {
+GMB_InfoWindow.prototype.close = function () {
     this.setMap(null);
 };
 GMB_InfoWindow.prototype['close'] = GMB_InfoWindow.prototype.close;
@@ -192,7 +192,7 @@ GMB_InfoWindow.prototype['panToView'] = GMB_InfoWindow.prototype.panToView;
  *
  * This is a slightly modified version of the InfoBubble plugin's approach.
  */
-GMB_InfoWindow.prototype.addEvents_ = function() {
+GMB_InfoWindow.prototype.addEvents_ = function () {
     // We want to cancel all the events so they do not go to the map
     var events = ['mousedown', 'mousemove', 'mouseover', 'mouseout', 'mouseup',
         'mousewheel', 'DOMMouseScroll', 'touchstart', 'touchend', 'touchmove',
@@ -219,7 +219,7 @@ GMB_InfoWindow.prototype['addEvents_'] = GMB_InfoWindow.prototype.addEvents_;
  *
  * @param {google.maps.LatLng} position The position to set.
  */
-GMB_InfoWindow.prototype.setPosition = function(position) {
+GMB_InfoWindow.prototype.setPosition = function (position) {
     if (position) {
         this.set('position', position);
     }
