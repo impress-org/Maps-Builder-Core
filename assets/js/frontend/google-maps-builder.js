@@ -13,10 +13,7 @@
     var info_window;
     var directionsDisplay = [];
     var search_markers = [];
-    var info_window_args = {
-        maxWidth: 355,
-        disableAutoPan: true
-    };
+
 
     gmb.init = function () {
         var google_maps = $('.google-maps-builder');
@@ -24,9 +21,7 @@
          * Loop through maps and initialize
          */
         google_maps.each(function (index, value) {
-
             gmb.initialize_map($(google_maps[index]));
-
         });
 
         // fix for bootstrap tabs
@@ -96,8 +91,6 @@
 
         var map_id = $(map_canvas).data('map-id');
         var map_data = gmb_data[map_id];
-
-
         var latitude = (map_data.map_params.latitude) ? map_data.map_params.latitude : '32.713240';
         var longitude = (map_data.map_params.longitude) ? map_data.map_params.longitude : '-117.159443';
         var map_options = {
@@ -277,9 +270,25 @@
      */
     gmb.set_map_markers = function (map, map_data, info_window_content) {
 
+        gmb.info_window_args = {
+            map: map,
+            shadowStyle: 0,
+            padding: 0,
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderRadius: 3,
+            arrowSize: 15,
+            minHeight: 50,
+            maxHeight: 355,
+            minWidth: 220,
+            maxWidth: 355,
+            borderWidth: 0,
+            disableAutoPan: true,
+            backgroundClassName: 'gmb-infobubble',
+            closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
+        };
         var map_markers = map_data.map_markers;
         var markers = [];
-        var info_window = new InfoBubble();
+        map.info_window = new InfoBubble(gmb.info_window_args);
 
         //Loop through repeatable field of markers
         $(map_markers).each(function (index, marker_data) {
