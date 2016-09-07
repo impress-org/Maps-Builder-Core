@@ -403,7 +403,7 @@ var gmb_data;
         }
 
         //InfoBubble - Contains the place's information and content
-        info_bubble = new InfoBubble();
+        info_bubble = new GMB_InfoBubble();
 
         /**
          * Map Event Listeners

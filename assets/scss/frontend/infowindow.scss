@@ -9,8 +9,8 @@
 */
 
 div[id^='google-maps-builder'] .gmb-infobubble {
-  padding: 8px 10px;
-  margin: 0;
+  padding: 0;
+  margin: 10px;
   min-width: 0;
   max-height: 355px;
   box-sizing: border-box;
@@ -40,7 +40,7 @@ div[id^='google-maps-builder'] .gmb-infobubble {
   }
 
   .place-thumb {
-    margin: 5px 0 10px;
+    margin: 0 0 10px;
   }
 
   .loading {

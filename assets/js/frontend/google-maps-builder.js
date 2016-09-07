@@ -10,7 +10,6 @@
     var map;
     var places_service;
     var place;
-    var info_window;
     var directionsDisplay = [];
     var search_markers = [];
 
@@ -122,7 +121,7 @@
 
         //Display places?
         if (map_data.places_api.show_places === 'yes') {
-            perform_places_search(map, map_data, info_window);
+            perform_places_search(map, map_data);
         }
 
 
@@ -283,12 +282,13 @@
             maxWidth: 355,
             borderWidth: 0,
             disableAutoPan: true,
+            disableAnimation: true,
             backgroundClassName: 'gmb-infobubble',
             closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
         };
         var map_markers = map_data.map_markers;
         var markers = [];
-        map.info_window = new InfoBubble(gmb.info_window_args);
+        map.info_window = new GMB_InfoBubble(gmb.info_window_args);
 
         //Loop through repeatable field of markers
         $(map_markers).each(function (index, marker_data) {
@@ -353,14 +353,14 @@
             location_marker.setVisible(true);
 
             google.maps.event.addListener(location_marker, 'click', function () {
-                gmb.set_info_window_content(marker_data, info_window);
-                info_window.open(map, location_marker);
+                gmb.set_info_window_content(marker_data, map);
+                map.info_window.open(map, location_marker);
 
                 //Marker Centers Map on Click?
                 if (map_data.marker_centered == 'yes') {
                     window.setTimeout(function () {
                         // Pan into view, done in a time out to make it feel nicer :)
-                        info_window.panToView();
+                        map.info_window.panToView();
                     }, 200);
                 }
             });
@@ -369,9 +369,9 @@
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
-                    info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
-                    gmb.set_info_window_content(marker_data, info_window);
-                    info_window.open(map, location_marker);
+                    map.info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
+                    gmb.set_info_window_content(marker_data, map);
+                    map.info_window.open(map, location_marker);
 
 
                 });
@@ -393,9 +393,9 @@
      * Queries to get Google Place Details information
      *
      * @param marker_data
-     * @param info_window
+     * @param map
      */
-    gmb.set_info_window_content = function (marker_data, info_window) {
+    gmb.set_info_window_content = function (marker_data, map) {
 
         var info_window_content = '';
 
@@ -423,13 +423,12 @@
 
                     info_window_content += gmb.set_place_content_in_info_window(place);
 
-                    info_window.setContent(info_window_content); //set marker content
+                    map.info_window.setContent(info_window_content); //set marker content
 
                 }
             });
         } else {
-            info_window.setContent(info_window_content); //set marker content
-
+            map.info_window.setContent(info_window_content); //set marker content
         }
 
 
@@ -479,12 +478,12 @@
 
         return info_window_content;
 
-    }
+    };
 
     /**
      * Google Places Nearby Search
      */
-    function perform_places_search(map, map_data, info_window) {
+    function perform_places_search(map, map_data) {
 
         var map_center = map.getCenter();
         var types_array = map_data.places_api.search_places;
@@ -515,7 +514,7 @@
 
                     //place new markers
                     for (i = 0; result = results[i]; i++) {
-                        gmb.create_search_result_marker(map, results[i], info_window);
+                        gmb.create_search_result_marker(map, results[i]);
                     }
 
                     //show all pages of results @see: http://stackoverflow.com/questions/11665684/more-than-20-results-by-pagination-with-google-places-api
@@ -537,13 +536,13 @@
      *
      * @param map
      * @param place
-     * @param info_window
      */
-    gmb.create_search_result_marker = function (map, place, info_window) {
+    gmb.create_search_result_marker = function (map, place) {
 
         var search_marker = new google.maps.Marker({
             map: map
         });
+
         //setup marker icon
         search_marker.setIcon(/** @type {google.maps.Icon} */({
             url: place.icon,
@@ -558,16 +557,16 @@
 
         google.maps.event.addListener(search_marker, 'click', function () {
 
-            info_window.close();
-            info_window.setContent('<div class="gmb-infobubble__loading"></div>');
+            map.info_window.close();
+            map.info_window.setContent('<div class="gmb-infobubble__loading"></div>');
 
             var marker_data = {
                 title: place.name,
                 place_id: place.place_id
             };
 
-            gmb.set_info_window_content(marker_data, info_window);
-            info_window.open(map, search_marker);
+            gmb.set_info_window_content(marker_data, map);
+            map.info_window.open(map, search_marker);
 
         });
 

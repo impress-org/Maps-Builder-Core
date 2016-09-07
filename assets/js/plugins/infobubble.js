@@ -1,40 +1,18 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// @externs_url https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/maps/google_maps_api_v3_16.js
-// ==/ClosureCompiler==
-
 /**
- * @name CSS3 InfoBubble with tabs for Google Maps API V3
- * @version 0.8
- * @author Luke Mahe
- * @fileoverview
- * This library is a CSS Infobubble with tabs. It uses css3 rounded corners and
- * drop shadows and animations. It also allows tabs
- */
-
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Custom InfoBubble for Google Maps Builder
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Forked from: https://github.com/googlemaps/js-info-bubble/
  */
 
 
 /**
- * A CSS3 InfoBubble v0.8
+ * A CSS3 GMB_InfoBubble v0.8
  * @param {Object.<string, *>=} opt_options Optional properties to set.
  * @extends {google.maps.OverlayView}
  * @constructor
  */
-function InfoBubble(opt_options) {
-    this.extend(InfoBubble, google.maps.OverlayView);
+function GMB_InfoBubble(opt_options) {
+    this.extend(GMB_InfoBubble, google.maps.OverlayView);
     this.tabs_ = [];
     this.activeTab_ = null;
     this.baseZIndex_ = 100;
@@ -97,7 +75,7 @@ function InfoBubble(opt_options) {
     this.buildDom_();
     this.setValues(options);
 }
-window['InfoBubble'] = InfoBubble;
+window['GMB_InfoBubble'] = GMB_InfoBubble;
 
 
 /**
@@ -105,7 +83,7 @@ window['InfoBubble'] = InfoBubble;
  * @const
  * @private
  */
-InfoBubble.prototype.ARROW_SIZE_ = 15;
+GMB_InfoBubble.prototype.ARROW_SIZE_ = 15;
 
 
 /**
@@ -113,7 +91,7 @@ InfoBubble.prototype.ARROW_SIZE_ = 15;
  * @const
  * @private
  */
-InfoBubble.prototype.ARROW_STYLE_ = 0;
+GMB_InfoBubble.prototype.ARROW_STYLE_ = 0;
 
 
 /**
@@ -121,7 +99,7 @@ InfoBubble.prototype.ARROW_STYLE_ = 0;
  * @const
  * @private
  */
-InfoBubble.prototype.SHADOW_STYLE_ = 1;
+GMB_InfoBubble.prototype.SHADOW_STYLE_ = 1;
 
 
 /**
@@ -129,7 +107,7 @@ InfoBubble.prototype.SHADOW_STYLE_ = 1;
  * @const
  * @private
  */
-InfoBubble.prototype.MIN_WIDTH_ = 50;
+GMB_InfoBubble.prototype.MIN_WIDTH_ = 50;
 
 
 /**
@@ -137,7 +115,7 @@ InfoBubble.prototype.MIN_WIDTH_ = 50;
  * @const
  * @private
  */
-InfoBubble.prototype.ARROW_POSITION_ = 50;
+GMB_InfoBubble.prototype.ARROW_POSITION_ = 50;
 
 
 /**
@@ -145,7 +123,7 @@ InfoBubble.prototype.ARROW_POSITION_ = 50;
  * @const
  * @private
  */
-InfoBubble.prototype.PADDING_ = 10;
+GMB_InfoBubble.prototype.PADDING_ = 10;
 
 
 /**
@@ -153,7 +131,7 @@ InfoBubble.prototype.PADDING_ = 10;
  * @const
  * @private
  */
-InfoBubble.prototype.BORDER_WIDTH_ = 1;
+GMB_InfoBubble.prototype.BORDER_WIDTH_ = 1;
 
 
 /**
@@ -161,7 +139,7 @@ InfoBubble.prototype.BORDER_WIDTH_ = 1;
  * @const
  * @private
  */
-InfoBubble.prototype.BORDER_COLOR_ = '#ccc';
+GMB_InfoBubble.prototype.BORDER_COLOR_ = '#ccc';
 
 
 /**
@@ -169,7 +147,7 @@ InfoBubble.prototype.BORDER_COLOR_ = '#ccc';
  * @const
  * @private
  */
-InfoBubble.prototype.BORDER_RADIUS_ = 10;
+GMB_InfoBubble.prototype.BORDER_RADIUS_ = 10;
 
 
 /**
@@ -177,14 +155,14 @@ InfoBubble.prototype.BORDER_RADIUS_ = 10;
  * @const
  * @private
  */
-InfoBubble.prototype.BACKGROUND_COLOR_ = '#fff';
+GMB_InfoBubble.prototype.BACKGROUND_COLOR_ = '#fff';
 
 /**
  * Default close image source
  * @const
  * @private
  */
-InfoBubble.prototype.CLOSE_SRC_ = 'https://maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif';
+GMB_InfoBubble.prototype.CLOSE_SRC_ = 'https://maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif';
 
 /**
  * Extends a objects prototype by anothers.
@@ -194,8 +172,8 @@ InfoBubble.prototype.CLOSE_SRC_ = 'https://maps.gstatic.com/intl/en_us/mapfiles/
  * @return {Object} The new extended object.
  * @ignore
  */
-InfoBubble.prototype.extend = function(obj1, obj2) {
-    return (function(object) {
+GMB_InfoBubble.prototype.extend = function (obj1, obj2) {
+    return (function (object) {
         for (var property in object.prototype) {
             this.prototype[property] = object.prototype[property];
         }
@@ -205,10 +183,10 @@ InfoBubble.prototype.extend = function(obj1, obj2) {
 
 
 /**
- * Builds the InfoBubble dom
+ * Builds the GMB_InfoBubble dom
  * @private
  */
-InfoBubble.prototype.buildDom_ = function() {
+GMB_InfoBubble.prototype.buildDom_ = function () {
     var bubble = this.bubble_ = document.createElement('DIV');
     bubble.style['position'] = 'absolute';
     bubble.style['zIndex'] = this.baseZIndex_;
@@ -225,7 +203,7 @@ InfoBubble.prototype.buildDom_ = function() {
     close.src = this.get('closeSrc');
 
     var that = this;
-    google.maps.event.addDomListener(close, 'click', function() {
+    google.maps.event.addDomListener(close, 'click', function () {
         that.close();
         google.maps.event.trigger(that, 'closeclick');
     });
@@ -262,7 +240,7 @@ InfoBubble.prototype.buildDom_ = function() {
     var bubbleShadow = this.bubbleShadow_ = document.createElement('DIV');
     bubbleShadow.style['position'] = 'absolute';
 
-    // Hide the InfoBubble by default
+    // Hide the GMB_InfoBubble by default
     bubble.style['display'] = bubbleShadow.style['display'] = 'none';
 
     bubble.appendChild(this.tabsContainer_);
@@ -276,7 +254,7 @@ InfoBubble.prototype.buildDom_ = function() {
     stylesheet.setAttribute('type', 'text/css');
 
     /**
-     * The animation for the infobubble
+     * The animation for the GMB_InfoBubble
      * @type {string}
      */
     this.animationName_ = '_ibani_' + Math.round(Math.random() * 10000);
@@ -298,19 +276,19 @@ InfoBubble.prototype.buildDom_ = function() {
  *
  * @param {string} className The class name to set.
  */
-InfoBubble.prototype.setBackgroundClassName = function(className) {
+GMB_InfoBubble.prototype.setBackgroundClassName = function (className) {
     this.set('backgroundClassName', className);
 };
-InfoBubble.prototype['setBackgroundClassName'] = InfoBubble.prototype.setBackgroundClassName;
+GMB_InfoBubble.prototype['setBackgroundClassName'] = GMB_InfoBubble.prototype.setBackgroundClassName;
 
 
 /**
  * changed MVC callback
  */
-InfoBubble.prototype.backgroundClassName_changed = function() {
+GMB_InfoBubble.prototype.backgroundClassName_changed = function () {
     this.content_.className = this.get('backgroundClassName');
 };
-InfoBubble.prototype['backgroundClassName_changed'] = InfoBubble.prototype.backgroundClassName_changed;
+GMB_InfoBubble.prototype['backgroundClassName_changed'] = GMB_InfoBubble.prototype.backgroundClassName_changed;
 
 
 /**
@@ -318,19 +296,19 @@ InfoBubble.prototype['backgroundClassName_changed'] = InfoBubble.prototype.backg
  *
  * @param {string} className the class name to set.
  */
-InfoBubble.prototype.setTabClassName = function(className) {
+GMB_InfoBubble.prototype.setTabClassName = function (className) {
     this.set('tabClassName', className);
 };
-InfoBubble.prototype['setTabClassName'] = InfoBubble.prototype.setTabClassName;
+GMB_InfoBubble.prototype['setTabClassName'] = GMB_InfoBubble.prototype.setTabClassName;
 
 
 /**
  * tabClassName changed MVC callback
  */
-InfoBubble.prototype.tabClassName_changed = function() {
+GMB_InfoBubble.prototype.tabClassName_changed = function () {
     this.updateTabStyles_();
 };
-InfoBubble.prototype['tabClassName_changed'] = InfoBubble.prototype.tabClassName_changed;
+GMB_InfoBubble.prototype['tabClassName_changed'] = GMB_InfoBubble.prototype.tabClassName_changed;
 
 
 /**
@@ -339,7 +317,7 @@ InfoBubble.prototype['tabClassName_changed'] = InfoBubble.prototype.tabClassName
  * @private
  * @return {number} The style of the arrow.
  */
-InfoBubble.prototype.getArrowStyle_ = function() {
+GMB_InfoBubble.prototype.getArrowStyle_ = function () {
     return parseInt(this.get('arrowStyle'), 10) || 0;
 };
 
@@ -349,19 +327,19 @@ InfoBubble.prototype.getArrowStyle_ = function() {
  *
  * @param {number} style The style of the arrow.
  */
-InfoBubble.prototype.setArrowStyle = function(style) {
+GMB_InfoBubble.prototype.setArrowStyle = function (style) {
     this.set('arrowStyle', style);
 };
-InfoBubble.prototype['setArrowStyle'] = InfoBubble.prototype.setArrowStyle;
+GMB_InfoBubble.prototype['setArrowStyle'] = GMB_InfoBubble.prototype.setArrowStyle;
 
 
 /**
  * Arrow style changed MVC callback
  */
-InfoBubble.prototype.arrowStyle_changed = function() {
+GMB_InfoBubble.prototype.arrowStyle_changed = function () {
     this.arrowSize_changed();
 };
-InfoBubble.prototype['arrowStyle_changed'] = InfoBubble.prototype.arrowStyle_changed;
+GMB_InfoBubble.prototype['arrowStyle_changed'] = GMB_InfoBubble.prototype.arrowStyle_changed;
 
 
 /**
@@ -370,7 +348,7 @@ InfoBubble.prototype['arrowStyle_changed'] = InfoBubble.prototype.arrowStyle_cha
  * @private
  * @return {number} The size of the arrow.
  */
-InfoBubble.prototype.getArrowSize_ = function() {
+GMB_InfoBubble.prototype.getArrowSize_ = function () {
     return parseInt(this.get('arrowSize'), 10) || 0;
 };
 
@@ -380,39 +358,39 @@ InfoBubble.prototype.getArrowSize_ = function() {
  *
  * @param {number} size The size of the arrow.
  */
-InfoBubble.prototype.setArrowSize = function(size) {
+GMB_InfoBubble.prototype.setArrowSize = function (size) {
     this.set('arrowSize', size);
 };
-InfoBubble.prototype['setArrowSize'] = InfoBubble.prototype.setArrowSize;
+GMB_InfoBubble.prototype['setArrowSize'] = GMB_InfoBubble.prototype.setArrowSize;
 
 
 /**
  * Arrow size changed MVC callback
  */
-InfoBubble.prototype.arrowSize_changed = function() {
+GMB_InfoBubble.prototype.arrowSize_changed = function () {
     this.borderWidth_changed();
 };
-InfoBubble.prototype['arrowSize_changed'] = InfoBubble.prototype.arrowSize_changed;
+GMB_InfoBubble.prototype['arrowSize_changed'] = GMB_InfoBubble.prototype.arrowSize_changed;
 
 
 /**
- * Set the position of the InfoBubble arrow
+ * Set the position of the GMB_InfoBubble arrow
  *
  * @param {number} pos The position to set.
  */
-InfoBubble.prototype.setArrowPosition = function(pos) {
+GMB_InfoBubble.prototype.setArrowPosition = function (pos) {
     this.set('arrowPosition', pos);
 };
-InfoBubble.prototype['setArrowPosition'] = InfoBubble.prototype.setArrowPosition;
+GMB_InfoBubble.prototype['setArrowPosition'] = GMB_InfoBubble.prototype.setArrowPosition;
 
 
 /**
- * Get the position of the InfoBubble arrow
+ * Get the position of the GMB_InfoBubble arrow
  *
  * @private
  * @return {number} The position..
  */
-InfoBubble.prototype.getArrowPosition_ = function() {
+GMB_InfoBubble.prototype.getArrowPosition_ = function () {
     return parseInt(this.get('arrowPosition'), 10) || 0;
 };
 
@@ -420,32 +398,32 @@ InfoBubble.prototype.getArrowPosition_ = function() {
 /**
  * arrowPosition changed MVC callback
  */
-InfoBubble.prototype.arrowPosition_changed = function() {
+GMB_InfoBubble.prototype.arrowPosition_changed = function () {
     var pos = this.getArrowPosition_();
     this.arrowOuter_.style['left'] = this.arrowInner_.style['left'] = pos + '%';
 
     this.redraw_();
 };
-InfoBubble.prototype['arrowPosition_changed'] = InfoBubble.prototype.arrowPosition_changed;
+GMB_InfoBubble.prototype['arrowPosition_changed'] = GMB_InfoBubble.prototype.arrowPosition_changed;
 
 
 /**
- * Set the zIndex of the InfoBubble
+ * Set the zIndex of the GMB_InfoBubble
  *
  * @param {number} zIndex The zIndex to set.
  */
-InfoBubble.prototype.setZIndex = function(zIndex) {
+GMB_InfoBubble.prototype.setZIndex = function (zIndex) {
     this.set('zIndex', zIndex);
 };
-InfoBubble.prototype['setZIndex'] = InfoBubble.prototype.setZIndex;
+GMB_InfoBubble.prototype['setZIndex'] = GMB_InfoBubble.prototype.setZIndex;
 
 
 /**
- * Get the zIndex of the InfoBubble
+ * Get the zIndex of the GMB_InfoBubble
  *
  * @return {number} The zIndex to set.
  */
-InfoBubble.prototype.getZIndex = function() {
+GMB_InfoBubble.prototype.getZIndex = function () {
     return parseInt(this.get('zIndex'), 10) || this.baseZIndex_;
 };
 
@@ -453,13 +431,13 @@ InfoBubble.prototype.getZIndex = function() {
 /**
  * zIndex changed MVC callback
  */
-InfoBubble.prototype.zIndex_changed = function() {
+GMB_InfoBubble.prototype.zIndex_changed = function () {
     var zIndex = this.getZIndex();
 
     this.bubble_.style['zIndex'] = this.baseZIndex_ = zIndex;
     this.close_.style['zIndex'] = zIndex + 1;
 };
-InfoBubble.prototype['zIndex_changed'] = InfoBubble.prototype.zIndex_changed;
+GMB_InfoBubble.prototype['zIndex_changed'] = GMB_InfoBubble.prototype.zIndex_changed;
 
 
 /**
@@ -467,10 +445,10 @@ InfoBubble.prototype['zIndex_changed'] = InfoBubble.prototype.zIndex_changed;
  *
  * @param {number} shadowStyle The style of the shadow.
  */
-InfoBubble.prototype.setShadowStyle = function(shadowStyle) {
+GMB_InfoBubble.prototype.setShadowStyle = function (shadowStyle) {
     this.set('shadowStyle', shadowStyle);
 };
-InfoBubble.prototype['setShadowStyle'] = InfoBubble.prototype.setShadowStyle;
+GMB_InfoBubble.prototype['setShadowStyle'] = GMB_InfoBubble.prototype.setShadowStyle;
 
 
 /**
@@ -479,7 +457,7 @@ InfoBubble.prototype['setShadowStyle'] = InfoBubble.prototype.setShadowStyle;
  * @private
  * @return {number} The style of the shadow.
  */
-InfoBubble.prototype.getShadowStyle_ = function() {
+GMB_InfoBubble.prototype.getShadowStyle_ = function () {
     return parseInt(this.get('shadowStyle'), 10) || 0;
 };
 
@@ -487,7 +465,7 @@ InfoBubble.prototype.getShadowStyle_ = function() {
 /**
  * shadowStyle changed MVC callback
  */
-InfoBubble.prototype.shadowStyle_changed = function() {
+GMB_InfoBubble.prototype.shadowStyle_changed = function () {
     var shadowStyle = this.getShadowStyle_();
 
     var display = '';
@@ -498,12 +476,12 @@ InfoBubble.prototype.shadowStyle_changed = function() {
             display = 'none';
             break;
         case 1:
-            shadow = '40px 15px 10px rgba(33,33,33,0.3)';
+            shadow = '0 0 3px rgba(0,0,0,0.2)';
             backgroundColor = 'transparent';
             break;
         case 2:
-            shadow = '0 0 2px rgba(33,33,33,0.3)';
-            backgroundColor = 'rgba(33,33,33,0.35)';
+            shadow = '0 0 3px rgba(0,0,0,0.2)';
+            backgroundColor = 'transparent';
             break;
     }
     this.bubbleShadow_.style['boxShadow'] =
@@ -515,34 +493,34 @@ InfoBubble.prototype.shadowStyle_changed = function() {
         this.draw();
     }
 };
-InfoBubble.prototype['shadowStyle_changed'] = InfoBubble.prototype.shadowStyle_changed;
+GMB_InfoBubble.prototype['shadowStyle_changed'] = GMB_InfoBubble.prototype.shadowStyle_changed;
 
 
 /**
  * Show the close button
  */
-InfoBubble.prototype.showCloseButton = function() {
+GMB_InfoBubble.prototype.showCloseButton = function () {
     this.set('hideCloseButton', false);
 };
-InfoBubble.prototype['showCloseButton'] = InfoBubble.prototype.showCloseButton;
+GMB_InfoBubble.prototype['showCloseButton'] = GMB_InfoBubble.prototype.showCloseButton;
 
 
 /**
  * Hide the close button
  */
-InfoBubble.prototype.hideCloseButton = function() {
+GMB_InfoBubble.prototype.hideCloseButton = function () {
     this.set('hideCloseButton', true);
 };
-InfoBubble.prototype['hideCloseButton'] = InfoBubble.prototype.hideCloseButton;
+GMB_InfoBubble.prototype['hideCloseButton'] = GMB_InfoBubble.prototype.hideCloseButton;
 
 
 /**
  * hideCloseButton changed MVC callback
  */
-InfoBubble.prototype.hideCloseButton_changed = function() {
+GMB_InfoBubble.prototype.hideCloseButton_changed = function () {
     this.close_.style['display'] = this.get('hideCloseButton') ? 'none' : '';
 };
-InfoBubble.prototype['hideCloseButton_changed'] = InfoBubble.prototype.hideCloseButton_changed;
+GMB_InfoBubble.prototype['hideCloseButton_changed'] = GMB_InfoBubble.prototype.hideCloseButton_changed;
 
 
 /**
@@ -550,18 +528,18 @@ InfoBubble.prototype['hideCloseButton_changed'] = InfoBubble.prototype.hideClose
  *
  * @param {string} color The color to set.
  */
-InfoBubble.prototype.setBackgroundColor = function(color) {
+GMB_InfoBubble.prototype.setBackgroundColor = function (color) {
     if (color) {
         this.set('backgroundColor', color);
     }
 };
-InfoBubble.prototype['setBackgroundColor'] = InfoBubble.prototype.setBackgroundColor;
+GMB_InfoBubble.prototype['setBackgroundColor'] = GMB_InfoBubble.prototype.setBackgroundColor;
 
 
 /**
  * backgroundColor changed MVC callback
  */
-InfoBubble.prototype.backgroundColor_changed = function() {
+GMB_InfoBubble.prototype.backgroundColor_changed = function () {
     var backgroundColor = this.get('backgroundColor');
     this.contentContainer_.style['backgroundColor'] = backgroundColor;
 
@@ -569,7 +547,7 @@ InfoBubble.prototype.backgroundColor_changed = function() {
         ' transparent transparent';
     this.updateTabStyles_();
 };
-InfoBubble.prototype['backgroundColor_changed'] = InfoBubble.prototype.backgroundColor_changed;
+GMB_InfoBubble.prototype['backgroundColor_changed'] = GMB_InfoBubble.prototype.backgroundColor_changed;
 
 
 /**
@@ -577,18 +555,18 @@ InfoBubble.prototype['backgroundColor_changed'] = InfoBubble.prototype.backgroun
  *
  * @param {string} color The border color.
  */
-InfoBubble.prototype.setBorderColor = function(color) {
+GMB_InfoBubble.prototype.setBorderColor = function (color) {
     if (color) {
         this.set('borderColor', color);
     }
 };
-InfoBubble.prototype['setBorderColor'] = InfoBubble.prototype.setBorderColor;
+GMB_InfoBubble.prototype['setBorderColor'] = GMB_InfoBubble.prototype.setBorderColor;
 
 
 /**
  * borderColor changed MVC callback
  */
-InfoBubble.prototype.borderColor_changed = function() {
+GMB_InfoBubble.prototype.borderColor_changed = function () {
     var borderColor = this.get('borderColor');
 
     var contentContainer = this.contentContainer_;
@@ -604,7 +582,7 @@ InfoBubble.prototype.borderColor_changed = function() {
 
     this.updateTabStyles_();
 };
-InfoBubble.prototype['borderColor_changed'] = InfoBubble.prototype.borderColor_changed;
+GMB_InfoBubble.prototype['borderColor_changed'] = GMB_InfoBubble.prototype.borderColor_changed;
 
 
 /**
@@ -612,10 +590,10 @@ InfoBubble.prototype['borderColor_changed'] = InfoBubble.prototype.borderColor_c
  *
  * @param {number} radius The radius of the border.
  */
-InfoBubble.prototype.setBorderRadius = function(radius) {
+GMB_InfoBubble.prototype.setBorderRadius = function (radius) {
     this.set('borderRadius', radius);
 };
-InfoBubble.prototype['setBorderRadius'] = InfoBubble.prototype.setBorderRadius;
+GMB_InfoBubble.prototype['setBorderRadius'] = GMB_InfoBubble.prototype.setBorderRadius;
 
 
 /**
@@ -624,7 +602,7 @@ InfoBubble.prototype['setBorderRadius'] = InfoBubble.prototype.setBorderRadius;
  * @private
  * @return {number} The radius of the border.
  */
-InfoBubble.prototype.getBorderRadius_ = function() {
+GMB_InfoBubble.prototype.getBorderRadius_ = function () {
     return parseInt(this.get('borderRadius'), 10) || 0;
 };
 
@@ -632,7 +610,7 @@ InfoBubble.prototype.getBorderRadius_ = function() {
 /**
  * borderRadius changed MVC callback
  */
-InfoBubble.prototype.borderRadius_changed = function() {
+GMB_InfoBubble.prototype.borderRadius_changed = function () {
     var borderRadius = this.getBorderRadius_();
     var borderWidth = this.getBorderWidth_();
 
@@ -649,7 +627,7 @@ InfoBubble.prototype.borderRadius_changed = function() {
 
     this.redraw_();
 };
-InfoBubble.prototype['borderRadius_changed'] = InfoBubble.prototype.borderRadius_changed;
+GMB_InfoBubble.prototype['borderRadius_changed'] = GMB_InfoBubble.prototype.borderRadius_changed;
 
 
 /**
@@ -658,7 +636,7 @@ InfoBubble.prototype['borderRadius_changed'] = InfoBubble.prototype.borderRadius
  * @private
  * @return {number} width The width of the border.
  */
-InfoBubble.prototype.getBorderWidth_ = function() {
+GMB_InfoBubble.prototype.getBorderWidth_ = function () {
     return parseInt(this.get('borderWidth'), 10) || 0;
 };
 
@@ -668,16 +646,16 @@ InfoBubble.prototype.getBorderWidth_ = function() {
  *
  * @param {number} width The width of the border.
  */
-InfoBubble.prototype.setBorderWidth = function(width) {
+GMB_InfoBubble.prototype.setBorderWidth = function (width) {
     this.set('borderWidth', width);
 };
-InfoBubble.prototype['setBorderWidth'] = InfoBubble.prototype.setBorderWidth;
+GMB_InfoBubble.prototype['setBorderWidth'] = GMB_InfoBubble.prototype.setBorderWidth;
 
 
 /**
  * borderWidth change MVC callback
  */
-InfoBubble.prototype.borderWidth_changed = function() {
+GMB_InfoBubble.prototype.borderWidth_changed = function () {
     var borderWidth = this.getBorderWidth_();
 
     this.contentContainer_.style['borderWidth'] = this.px(borderWidth);
@@ -688,14 +666,14 @@ InfoBubble.prototype.borderWidth_changed = function() {
     this.borderRadius_changed();
     this.redraw_();
 };
-InfoBubble.prototype['borderWidth_changed'] = InfoBubble.prototype.borderWidth_changed;
+GMB_InfoBubble.prototype['borderWidth_changed'] = GMB_InfoBubble.prototype.borderWidth_changed;
 
 
 /**
  * Update the arrow style
  * @private
  */
-InfoBubble.prototype.updateArrowStyle_ = function() {
+GMB_InfoBubble.prototype.updateArrowStyle_ = function () {
     var borderWidth = this.getBorderWidth_();
     var arrowSize = this.getArrowSize_();
     var arrowStyle = this.getArrowStyle_();
@@ -742,14 +720,14 @@ InfoBubble.prototype.updateArrowStyle_ = function() {
 
 
 /**
- * Set the padding of the InfoBubble
+ * Set the padding of the GMB_InfoBubble
  *
  * @param {number} padding The padding to apply.
  */
-InfoBubble.prototype.setPadding = function(padding) {
+GMB_InfoBubble.prototype.setPadding = function (padding) {
     this.set('padding', padding);
 };
-InfoBubble.prototype['setPadding'] = InfoBubble.prototype.setPadding;
+GMB_InfoBubble.prototype['setPadding'] = GMB_InfoBubble.prototype.setPadding;
 
 
 /**
@@ -757,21 +735,21 @@ InfoBubble.prototype['setPadding'] = InfoBubble.prototype.setPadding;
  *
  * @param {string} src The url of the image used as a close icon
  */
-InfoBubble.prototype.setCloseSrc = function(src) {
+GMB_InfoBubble.prototype.setCloseSrc = function (src) {
     if (src && this.close_) {
         this.close_.src = src;
     }
 };
-InfoBubble.prototype['setCloseSrc'] = InfoBubble.prototype.setCloseSrc;
+GMB_InfoBubble.prototype['setCloseSrc'] = GMB_InfoBubble.prototype.setCloseSrc;
 
 
 /**
- * Set the padding of the InfoBubble
+ * Set the padding of the GMB_InfoBubble
  *
  * @private
  * @return {number} padding The padding to apply.
  */
-InfoBubble.prototype.getPadding_ = function() {
+GMB_InfoBubble.prototype.getPadding_ = function () {
     return parseInt(this.get('padding'), 10) || 0;
 };
 
@@ -779,14 +757,14 @@ InfoBubble.prototype.getPadding_ = function() {
 /**
  * padding changed MVC callback
  */
-InfoBubble.prototype.padding_changed = function() {
+GMB_InfoBubble.prototype.padding_changed = function () {
     var padding = this.getPadding_();
     this.contentContainer_.style['padding'] = this.px(padding);
     this.updateTabStyles_();
 
     this.redraw_();
 };
-InfoBubble.prototype['padding_changed'] = InfoBubble.prototype.padding_changed;
+GMB_InfoBubble.prototype['padding_changed'] = GMB_InfoBubble.prototype.padding_changed;
 
 
 /**
@@ -795,7 +773,7 @@ InfoBubble.prototype['padding_changed'] = InfoBubble.prototype.padding_changed;
  * @param {number} num The number to wrap.
  * @return {string|number} A wrapped number.
  */
-InfoBubble.prototype.px = function(num) {
+GMB_InfoBubble.prototype.px = function (num) {
     if (num) {
         // 0 doesn't need to be wrapped
         return num + 'px';
@@ -808,7 +786,7 @@ InfoBubble.prototype.px = function(num) {
  * Add events to stop propagation
  * @private
  */
-InfoBubble.prototype.addEvents_ = function() {
+GMB_InfoBubble.prototype.addEvents_ = function () {
     // We want to cancel all the events so they do not go to the map
     var events = ['mousedown', 'mousemove', 'mouseover', 'mouseout', 'mouseup',
         'mousewheel', 'DOMMouseScroll', 'touchstart', 'touchend', 'touchmove',
@@ -818,7 +796,7 @@ InfoBubble.prototype.addEvents_ = function() {
     this.listeners_ = [];
     for (var i = 0, event; event = events[i]; i++) {
         this.listeners_.push(
-            google.maps.event.addDomListener(bubble, event, function(e) {
+            google.maps.event.addDomListener(bubble, event, function (e) {
                 e.cancelBubble = true;
                 if (e.stopPropagation) {
                     e.stopPropagation();
@@ -830,10 +808,10 @@ InfoBubble.prototype.addEvents_ = function() {
 
 
 /**
- * On Adding the InfoBubble to a map
+ * On Adding the GMB_InfoBubble to a map
  * Implementing the OverlayView interface
  */
-InfoBubble.prototype.onAdd = function() {
+GMB_InfoBubble.prototype.onAdd = function () {
     if (!this.bubble_) {
         this.buildDom_();
     }
@@ -846,17 +824,17 @@ InfoBubble.prototype.onAdd = function() {
         panes.floatShadow.appendChild(this.bubbleShadow_);
     }
 
-    /* once the infoBubble has been added to the DOM, fire 'domready' event */
+    /* once the GMB_InfoBubble has been added to the DOM, fire 'domready' event */
     google.maps.event.trigger(this, 'domready');
 };
-InfoBubble.prototype['onAdd'] = InfoBubble.prototype.onAdd;
+GMB_InfoBubble.prototype['onAdd'] = GMB_InfoBubble.prototype.onAdd;
 
 
 /**
- * Draw the InfoBubble
+ * Draw the GMB_InfoBubble
  * Implementing the OverlayView interface
  */
-InfoBubble.prototype.draw = function() {
+GMB_InfoBubble.prototype.draw = function () {
     var projection = this.getProjection();
 
     if (!projection) {
@@ -930,13 +908,13 @@ InfoBubble.prototype.draw = function() {
             break;
     }
 };
-InfoBubble.prototype['draw'] = InfoBubble.prototype.draw;
+GMB_InfoBubble.prototype['draw'] = GMB_InfoBubble.prototype.draw;
 
 
 /**
- * Removing the InfoBubble from a map
+ * Removing the GMB_InfoBubble from a map
  */
-InfoBubble.prototype.onRemove = function() {
+GMB_InfoBubble.prototype.onRemove = function () {
     if (this.bubble_ && this.bubble_.parentNode) {
         this.bubble_.parentNode.removeChild(this.bubble_);
     }
@@ -948,24 +926,24 @@ InfoBubble.prototype.onRemove = function() {
         google.maps.event.removeListener(listener);
     }
 };
-InfoBubble.prototype['onRemove'] = InfoBubble.prototype.onRemove;
+GMB_InfoBubble.prototype['onRemove'] = GMB_InfoBubble.prototype.onRemove;
 
 
 /**
- * Is the InfoBubble open
+ * Is the GMB_InfoBubble open
  *
- * @return {boolean} If the InfoBubble is open.
+ * @return {boolean} If the GMB_InfoBubble is open.
  */
-InfoBubble.prototype.isOpen = function() {
+GMB_InfoBubble.prototype.isOpen = function () {
     return this.isOpen_;
 };
-InfoBubble.prototype['isOpen'] = InfoBubble.prototype.isOpen;
+GMB_InfoBubble.prototype['isOpen'] = GMB_InfoBubble.prototype.isOpen;
 
 
 /**
- * Close the InfoBubble
+ * Close the GMB_InfoBubble
  */
-InfoBubble.prototype.close = function() {
+GMB_InfoBubble.prototype.close = function () {
     if (this.bubble_) {
         this.bubble_.style['display'] = 'none';
         // Remove the animation so we next time it opens it will animate again
@@ -980,30 +958,30 @@ InfoBubble.prototype.close = function() {
     }
     this.isOpen_ = false;
 };
-InfoBubble.prototype['close'] = InfoBubble.prototype.close;
+GMB_InfoBubble.prototype['close'] = GMB_InfoBubble.prototype.close;
 
 
 /**
- * Open the InfoBubble (asynchronous).
+ * Open the GMB_InfoBubble (asynchronous).
  *
  * @param {google.maps.Map=} opt_map Optional map to open on.
  * @param {google.maps.MVCObject=} opt_anchor Optional anchor to position at.
  */
-InfoBubble.prototype.open = function(opt_map, opt_anchor) {
+GMB_InfoBubble.prototype.open = function (opt_map, opt_anchor) {
     var that = this;
-    window.setTimeout(function() {
+    window.setTimeout(function () {
         that.open_(opt_map, opt_anchor);
     }, 0);
 };
 
 
 /**
- * Open the InfoBubble
+ * Open the GMB_InfoBubble
  * @private
  * @param {google.maps.Map=} opt_map Optional map to open on.
  * @param {google.maps.MVCObject=} opt_anchor Optional anchor to position at.
  */
-InfoBubble.prototype.open_ = function(opt_map, opt_anchor) {
+GMB_InfoBubble.prototype.open_ = function (opt_map, opt_anchor) {
     this.updateContent_();
 
     if (opt_map) {
@@ -1032,52 +1010,52 @@ InfoBubble.prototype.open_ = function(opt_map, opt_anchor) {
     var pan = !this.get('disableAutoPan');
     if (pan) {
         var that = this;
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             // Pan into view, done in a time out to make it feel nicer :)
             that.panToView();
         }, 200);
     }
 };
-InfoBubble.prototype['open'] = InfoBubble.prototype.open;
+GMB_InfoBubble.prototype['open'] = GMB_InfoBubble.prototype.open;
 
 
 /**
- * Set the position of the InfoBubble
+ * Set the position of the GMB_InfoBubble
  *
  * @param {google.maps.LatLng} position The position to set.
  */
-InfoBubble.prototype.setPosition = function(position) {
+GMB_InfoBubble.prototype.setPosition = function (position) {
     if (position) {
         this.set('position', position);
     }
 };
-InfoBubble.prototype['setPosition'] = InfoBubble.prototype.setPosition;
+GMB_InfoBubble.prototype['setPosition'] = GMB_InfoBubble.prototype.setPosition;
 
 
 /**
- * Returns the position of the InfoBubble
+ * Returns the position of the GMB_InfoBubble
  *
  * @return {google.maps.LatLng} the position.
  */
-InfoBubble.prototype.getPosition = function() {
+GMB_InfoBubble.prototype.getPosition = function () {
     return /** @type {google.maps.LatLng} */ (this.get('position'));
 };
-InfoBubble.prototype['getPosition'] = InfoBubble.prototype.getPosition;
+GMB_InfoBubble.prototype['getPosition'] = GMB_InfoBubble.prototype.getPosition;
 
 
 /**
  * position changed MVC callback
  */
-InfoBubble.prototype.position_changed = function() {
+GMB_InfoBubble.prototype.position_changed = function () {
     this.draw();
 };
-InfoBubble.prototype['position_changed'] = InfoBubble.prototype.position_changed;
+GMB_InfoBubble.prototype['position_changed'] = GMB_InfoBubble.prototype.position_changed;
 
 
 /**
- * Pan the InfoBubble into view
+ * Pan the GMB_InfoBubble into view
  */
-InfoBubble.prototype.panToView = function() {
+GMB_InfoBubble.prototype.panToView = function () {
     var projection = this.getProjection();
 
     if (!projection) {
@@ -1121,7 +1099,7 @@ InfoBubble.prototype.panToView = function() {
         map.panTo(latLng);
     }
 };
-InfoBubble.prototype['panToView'] = InfoBubble.prototype.panToView;
+GMB_InfoBubble.prototype['panToView'] = GMB_InfoBubble.prototype.panToView;
 
 
 /**
@@ -1131,7 +1109,7 @@ InfoBubble.prototype['panToView'] = InfoBubble.prototype.panToView;
  * @return {Node} A HTML document fragment.
  * @private
  */
-InfoBubble.prototype.htmlToDocumentFragment_ = function(htmlString) {
+GMB_InfoBubble.prototype.htmlToDocumentFragment_ = function (htmlString) {
     htmlString = htmlString.replace(/^\s*([\S\s]*)\b\s*$/, '$1');
     var tempDiv = document.createElement('DIV');
     tempDiv.innerHTML = htmlString;
@@ -1153,7 +1131,7 @@ InfoBubble.prototype.htmlToDocumentFragment_ = function(htmlString) {
  * @param {Node} node The node to remove all children from.
  * @private
  */
-InfoBubble.prototype.removeChildren_ = function(node) {
+GMB_InfoBubble.prototype.removeChildren_ = function (node) {
     if (!node) {
         return;
     }
@@ -1166,31 +1144,31 @@ InfoBubble.prototype.removeChildren_ = function(node) {
 
 
 /**
- * Sets the content of the infobubble.
+ * Sets the content of the GMB_InfoBubble.
  *
  * @param {string|Node} content The content to set.
  */
-InfoBubble.prototype.setContent = function(content) {
+GMB_InfoBubble.prototype.setContent = function (content) {
     this.set('content', content);
 };
-InfoBubble.prototype['setContent'] = InfoBubble.prototype.setContent;
+GMB_InfoBubble.prototype['setContent'] = GMB_InfoBubble.prototype.setContent;
 
 
 /**
- * Get the content of the infobubble.
+ * Get the content of the GMB_InfoBubble.
  *
  * @return {string|Node} The marker content.
  */
-InfoBubble.prototype.getContent = function() {
+GMB_InfoBubble.prototype.getContent = function () {
     return /** @type {Node|string} */ (this.get('content'));
 };
-InfoBubble.prototype['getContent'] = InfoBubble.prototype.getContent;
+GMB_InfoBubble.prototype['getContent'] = GMB_InfoBubble.prototype.getContent;
 
 
 /**
  * Sets the marker content and adds loading events to images
  */
-InfoBubble.prototype.updateContent_ = function() {
+GMB_InfoBubble.prototype.updateContent_ = function () {
     if (!this.content_) {
         // The Content area doesnt exist.
         return;
@@ -1210,7 +1188,7 @@ InfoBubble.prototype.updateContent_ = function() {
             // Because we don't know the size of an image till it loads, add a
             // listener to the image load so the marker can resize and reposition
             // itself to be the correct height.
-            google.maps.event.addDomListener(image, 'load', function() {
+            google.maps.event.addDomListener(image, 'load', function () {
                 that.imageLoaded_();
             });
         }
@@ -1223,7 +1201,7 @@ InfoBubble.prototype.updateContent_ = function() {
  * Image loaded
  * @private
  */
-InfoBubble.prototype.imageLoaded_ = function() {
+GMB_InfoBubble.prototype.imageLoaded_ = function () {
     var pan = !this.get('disableAutoPan');
     this.redraw_();
     if (pan && (this.tabs_.length == 0 || this.activeTab_.index == 0)) {
@@ -1236,7 +1214,7 @@ InfoBubble.prototype.imageLoaded_ = function() {
  * Updates the styles of the tabs
  * @private
  */
-InfoBubble.prototype.updateTabStyles_ = function() {
+GMB_InfoBubble.prototype.updateTabStyles_ = function () {
     if (this.tabs_ && this.tabs_.length) {
         for (var i = 0, tab; tab = this.tabs_[i]; i++) {
             this.setTabStyle_(tab.tab);
@@ -1255,7 +1233,7 @@ InfoBubble.prototype.updateTabStyles_ = function() {
  * @private
  * @param {Element} tab The tab to style.
  */
-InfoBubble.prototype.setTabStyle_ = function(tab) {
+GMB_InfoBubble.prototype.setTabStyle_ = function (tab) {
     var backgroundColor = this.get('backgroundColor');
     var borderColor = this.get('borderColor');
     var borderRadius = this.getBorderRadius_();
@@ -1306,9 +1284,9 @@ InfoBubble.prototype.setTabStyle_ = function(tab) {
  * @private
  * @param {Object} tab The tab to add the actions to.
  */
-InfoBubble.prototype.addTabActions_ = function(tab) {
+GMB_InfoBubble.prototype.addTabActions_ = function (tab) {
     var that = this;
-    tab.listener_ = google.maps.event.addDomListener(tab, 'click', function() {
+    tab.listener_ = google.maps.event.addDomListener(tab, 'click', function () {
         that.setTabActive_(this);
     });
 };
@@ -1319,14 +1297,14 @@ InfoBubble.prototype.addTabActions_ = function(tab) {
  *
  * @param {number} index The index of the tab.
  */
-InfoBubble.prototype.setTabActive = function(index) {
+GMB_InfoBubble.prototype.setTabActive = function (index) {
     var tab = this.tabs_[index - 1];
 
     if (tab) {
         this.setTabActive_(tab.tab);
     }
 };
-InfoBubble.prototype['setTabActive'] = InfoBubble.prototype.setTabActive;
+GMB_InfoBubble.prototype['setTabActive'] = GMB_InfoBubble.prototype.setTabActive;
 
 
 /**
@@ -1334,7 +1312,7 @@ InfoBubble.prototype['setTabActive'] = InfoBubble.prototype.setTabActive;
  * @private
  * @param {Object} tab The tab to set active.
  */
-InfoBubble.prototype.setTabActive_ = function(tab) {
+GMB_InfoBubble.prototype.setTabActive_ = function (tab) {
     if (!tab) {
         this.setContent('');
         this.updateContent_();
@@ -1366,83 +1344,83 @@ InfoBubble.prototype.setTabActive_ = function(tab) {
 
 
 /**
- * Set the max width of the InfoBubble
+ * Set the max width of the GMB_InfoBubble
  *
  * @param {number} width The max width.
  */
-InfoBubble.prototype.setMaxWidth = function(width) {
+GMB_InfoBubble.prototype.setMaxWidth = function (width) {
     this.set('maxWidth', width);
 };
-InfoBubble.prototype['setMaxWidth'] = InfoBubble.prototype.setMaxWidth;
+GMB_InfoBubble.prototype['setMaxWidth'] = GMB_InfoBubble.prototype.setMaxWidth;
 
 
 /**
  * maxWidth changed MVC callback
  */
-InfoBubble.prototype.maxWidth_changed = function() {
+GMB_InfoBubble.prototype.maxWidth_changed = function () {
     this.redraw_();
 };
-InfoBubble.prototype['maxWidth_changed'] = InfoBubble.prototype.maxWidth_changed;
+GMB_InfoBubble.prototype['maxWidth_changed'] = GMB_InfoBubble.prototype.maxWidth_changed;
 
 
 /**
- * Set the max height of the InfoBubble
+ * Set the max height of the GMB_InfoBubble
  *
  * @param {number} height The max height.
  */
-InfoBubble.prototype.setMaxHeight = function(height) {
+GMB_InfoBubble.prototype.setMaxHeight = function (height) {
     this.set('maxHeight', height);
 };
-InfoBubble.prototype['setMaxHeight'] = InfoBubble.prototype.setMaxHeight;
+GMB_InfoBubble.prototype['setMaxHeight'] = GMB_InfoBubble.prototype.setMaxHeight;
 
 
 /**
  * maxHeight changed MVC callback
  */
-InfoBubble.prototype.maxHeight_changed = function() {
+GMB_InfoBubble.prototype.maxHeight_changed = function () {
     this.redraw_();
 };
-InfoBubble.prototype['maxHeight_changed'] = InfoBubble.prototype.maxHeight_changed;
+GMB_InfoBubble.prototype['maxHeight_changed'] = GMB_InfoBubble.prototype.maxHeight_changed;
 
 
 /**
- * Set the min width of the InfoBubble
+ * Set the min width of the GMB_InfoBubble
  *
  * @param {number} width The min width.
  */
-InfoBubble.prototype.setMinWidth = function(width) {
+GMB_InfoBubble.prototype.setMinWidth = function (width) {
     this.set('minWidth', width);
 };
-InfoBubble.prototype['setMinWidth'] = InfoBubble.prototype.setMinWidth;
+GMB_InfoBubble.prototype['setMinWidth'] = GMB_InfoBubble.prototype.setMinWidth;
 
 
 /**
  * minWidth changed MVC callback
  */
-InfoBubble.prototype.minWidth_changed = function() {
+GMB_InfoBubble.prototype.minWidth_changed = function () {
     this.redraw_();
 };
-InfoBubble.prototype['minWidth_changed'] = InfoBubble.prototype.minWidth_changed;
+GMB_InfoBubble.prototype['minWidth_changed'] = GMB_InfoBubble.prototype.minWidth_changed;
 
 
 /**
- * Set the min height of the InfoBubble
+ * Set the min height of the GMB_InfoBubble
  *
  * @param {number} height The min height.
  */
-InfoBubble.prototype.setMinHeight = function(height) {
+GMB_InfoBubble.prototype.setMinHeight = function (height) {
     this.set('minHeight', height);
 };
-InfoBubble.prototype['setMinHeight'] = InfoBubble.prototype.setMinHeight;
+GMB_InfoBubble.prototype['setMinHeight'] = GMB_InfoBubble.prototype.setMinHeight;
 
 
 /**
  * minHeight changed MVC callback
  */
-InfoBubble.prototype.minHeight_changed = function() {
+GMB_InfoBubble.prototype.minHeight_changed = function () {
     this.redraw_();
 };
-InfoBubble.prototype['minHeight_changed'] = InfoBubble.prototype.minHeight_changed;
+GMB_InfoBubble.prototype['minHeight_changed'] = GMB_InfoBubble.prototype.minHeight_changed;
 
 
 /**
@@ -1451,7 +1429,7 @@ InfoBubble.prototype['minHeight_changed'] = InfoBubble.prototype.minHeight_chang
  * @param {string} label The label of the tab.
  * @param {string|Element} content The content of the tab.
  */
-InfoBubble.prototype.addTab = function(label, content) {
+GMB_InfoBubble.prototype.addTab = function (label, content) {
     var tab = document.createElement('DIV');
     tab.innerHTML = label;
 
@@ -1477,7 +1455,7 @@ InfoBubble.prototype.addTab = function(label, content) {
 
     this.redraw_();
 };
-InfoBubble.prototype['addTab'] = InfoBubble.prototype.addTab;
+GMB_InfoBubble.prototype['addTab'] = GMB_InfoBubble.prototype.addTab;
 
 
 /**
@@ -1487,7 +1465,7 @@ InfoBubble.prototype['addTab'] = InfoBubble.prototype.addTab;
  * @param {?string} opt_label The label to change to.
  * @param {?string} opt_content The content to update to.
  */
-InfoBubble.prototype.updateTab = function(index, opt_label, opt_content) {
+GMB_InfoBubble.prototype.updateTab = function (index, opt_label, opt_content) {
     if (!this.tabs_.length || index < 0 || index >= this.tabs_.length) {
         return;
     }
@@ -1507,7 +1485,7 @@ InfoBubble.prototype.updateTab = function(index, opt_label, opt_content) {
     }
     this.redraw_();
 };
-InfoBubble.prototype['updateTab'] = InfoBubble.prototype.updateTab;
+GMB_InfoBubble.prototype['updateTab'] = GMB_InfoBubble.prototype.updateTab;
 
 
 /**
@@ -1515,7 +1493,7 @@ InfoBubble.prototype['updateTab'] = InfoBubble.prototype.updateTab;
  *
  * @param {number} index The index of the tab to remove.
  */
-InfoBubble.prototype.removeTab = function(index) {
+GMB_InfoBubble.prototype.removeTab = function (index) {
     if (!this.tabs_.length || index < 0 || index >= this.tabs_.length) {
         return;
     }
@@ -1551,7 +1529,7 @@ InfoBubble.prototype.removeTab = function(index) {
 
     this.redraw_();
 };
-InfoBubble.prototype['removeTab'] = InfoBubble.prototype.removeTab;
+GMB_InfoBubble.prototype['removeTab'] = GMB_InfoBubble.prototype.removeTab;
 
 
 /**
@@ -1562,8 +1540,8 @@ InfoBubble.prototype['removeTab'] = InfoBubble.prototype.removeTab;
  * @param {number=} opt_maxHeight Optional max height of the element.
  * @return {google.maps.Size} The size of the element.
  */
-InfoBubble.prototype.getElementSize_ = function(element, opt_maxWidth,
-                                                opt_maxHeight) {
+GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth,
+                                                     opt_maxHeight) {
     var sizer = document.createElement('DIV');
     sizer.style['display'] = 'inline';
     sizer.style['position'] = 'absolute';
@@ -1598,10 +1576,10 @@ InfoBubble.prototype.getElementSize_ = function(element, opt_maxWidth,
 
 
 /**
- * Redraw the InfoBubble
+ * Redraw the GMB_InfoBubble
  * @private
  */
-InfoBubble.prototype.redraw_ = function() {
+GMB_InfoBubble.prototype.redraw_ = function () {
     this.figureOutSize_();
     this.positionCloseButton_();
     this.draw();
@@ -1609,10 +1587,10 @@ InfoBubble.prototype.redraw_ = function() {
 
 
 /**
- * Figure out the optimum size of the InfoBubble
+ * Figure out the optimum size of the GMB_InfoBubble
  * @private
  */
-InfoBubble.prototype.figureOutSize_ = function() {
+GMB_InfoBubble.prototype.figureOutSize_ = function () {
     var map = this.get('map');
 
     if (!map) {
@@ -1731,7 +1709,7 @@ InfoBubble.prototype.figureOutSize_ = function() {
  *  @private
  *  @return {number} The height of the anchor.
  */
-InfoBubble.prototype.getAnchorHeight_ = function() {
+GMB_InfoBubble.prototype.getAnchorHeight_ = function () {
     var anchor = this.get('anchor');
     if (anchor) {
         var anchorPoint = /** @type google.maps.Point */(this.get('anchorPoint'));
@@ -1743,17 +1721,17 @@ InfoBubble.prototype.getAnchorHeight_ = function() {
     return 0;
 };
 
-InfoBubble.prototype.anchorPoint_changed = function() {
+GMB_InfoBubble.prototype.anchorPoint_changed = function () {
     this.draw();
 };
-InfoBubble.prototype['anchorPoint_changed'] = InfoBubble.prototype.anchorPoint_changed;
+GMB_InfoBubble.prototype['anchorPoint_changed'] = GMB_InfoBubble.prototype.anchorPoint_changed;
 
 
 /**
  * Position the close button in the right spot.
  * @private
  */
-InfoBubble.prototype.positionCloseButton_ = function() {
+GMB_InfoBubble.prototype.positionCloseButton_ = function () {
     var br = this.getBorderRadius_();
     var bw = this.getBorderWidth_();
 
