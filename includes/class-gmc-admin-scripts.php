@@ -101,7 +101,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	/**
 	 * Load admin scripts
 	 *
-	 * @since 0.1.0
+	 * @since 1.0
 	 *
 	 * @param string $js_plugins
 	 * @param string $suffix
