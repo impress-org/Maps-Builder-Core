@@ -97,8 +97,6 @@
         var map_id = $(map_canvas).data('map-id');
         var map_data = gmb_data[map_id];
 
-        //info_window - Contains the place's information and content
-        gmb.info_window = new InfoBubble();
 
         var latitude = (map_data.map_params.latitude) ? map_data.map_params.latitude : '32.713240';
         var longitude = (map_data.map_params.longitude) ? map_data.map_params.longitude : '-117.159443';
@@ -123,7 +121,7 @@
 
         gmb.set_map_options(map, map_data);
         gmb.set_map_theme(map, map_data);
-        gmb.set_map_markers(map, map_data, info_window);
+        gmb.set_map_markers(map, map_data);
         gmb.set_mashup_markers(map, map_data);
         gmb.set_map_directions(map, map_data);
         gmb.set_map_layers(map, map_data);
@@ -281,6 +279,7 @@
 
         var map_markers = map_data.map_markers;
         var markers = [];
+        var info_window = new InfoBubble();
 
         //Loop through repeatable field of markers
         $(map_markers).each(function (index, marker_data) {
@@ -345,14 +344,14 @@
             location_marker.setVisible(true);
 
             google.maps.event.addListener(location_marker, 'click', function () {
-                gmb.set_info_window_content(marker_data, info_window_content);
-                gmb.info_window.open(map, location_marker);
+                gmb.set_info_window_content(marker_data, info_window);
+                info_window.open(map, location_marker);
 
                 //Marker Centers Map on Click?
                 if (map_data.marker_centered == 'yes') {
                     window.setTimeout(function () {
                         // Pan into view, done in a time out to make it feel nicer :)
-                        gmb.info_window.panToView();
+                        info_window.panToView();
                     }, 200);
                 }
             });
@@ -361,9 +360,9 @@
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
-                    gmb.info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
-                    gmb.set_info_window_content(marker_data, gmb.info_window);
-                    gmb.info_window.open(map, location_marker);
+                    info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
+                    gmb.set_info_window_content(marker_data, info_window);
+                    info_window.open(map, location_marker);
 
 
                 });
@@ -385,7 +384,7 @@
      * Queries to get Google Place Details information
      *
      * @param marker_data
-     * @param gmb.info_window
+     * @param info_window
      */
     gmb.set_info_window_content = function (marker_data, info_window) {
 
@@ -415,12 +414,12 @@
 
                     info_window_content += gmb.set_place_content_in_info_window(place);
 
-                    gmb.info_window.setContent(info_window_content); //set marker content
+                    info_window.setContent(info_window_content); //set marker content
 
                 }
             });
         } else {
-            gmb.info_window.setContent(info_window_content); //set marker content
+            info_window.setContent(info_window_content); //set marker content
 
         }
 
@@ -526,6 +525,7 @@
      * Create Search Result Marker
      *
      * Used with Places Search to place markers on map
+     *
      * @param map
      * @param place
      * @param info_window
@@ -549,8 +549,8 @@
 
         google.maps.event.addListener(search_marker, 'click', function () {
 
-            gmb.info_window.close();
-            gmb.info_window.setContent('<div class="gmb-infobubble__loading"></div>');
+            info_window.close();
+            info_window.setContent('<div class="gmb-infobubble__loading"></div>');
 
             var marker_data = {
                 title: place.name,
@@ -558,7 +558,7 @@
             };
 
             gmb.set_info_window_content(marker_data, info_window);
-            gmb.info_window.open(map, search_marker);
+            info_window.open(map, search_marker);
 
         });
 
