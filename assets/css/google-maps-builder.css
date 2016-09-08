@@ -52,18 +52,17 @@ div[id^='google-maps-builder'] img {
  * @license:     http://opensource.org/licenses/gpl-2.0.php GNU Public License
 */
 div[id^='google-maps-builder'] .gmb-infobubble {
-  padding: 0;
+  padding: 12px;
   margin: 0;
-  min-width: 0;
-  max-height: 355px;
   box-sizing: border-box;
   cursor: default; }
-  div[id^='google-maps-builder'] .gmb-infobubble p {
-    font-size: 12px;
+  div[id^='google-maps-builder'] .gmb-infobubble p, div[id^='google-maps-builder'] .gmb-infobubble div.place-description {
+    font-size: 13px;
     margin: 0 0 7px;
     color: #2C2C2C; }
+  div[id^='google-maps-builder'] .gmb-infobubble div.place-description {
+    margin-bottom: 0; }
   div[id^='google-maps-builder'] .gmb-infobubble p.place-title {
-    border: 1px solid #FFF;
     font-family: Roboto, Arial, sans-serif;
     font-size: 16px;
     line-height: 21px;
@@ -80,45 +79,48 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     background: url("../img/loading-large.gif") no-repeat center center #FFF;
     height: 60px; }
 
-/* Place Details */
-.gmb-infobubble {
-  /* Ratings */ }
-  .gmb-infobubble .marker-info-wrapper {
-    background-color: #F1F1F1;
-    margin: 8px 0;
-    padding: 12px;
-    font-size: 13px;
-    display: block; }
-  .gmb-infobubble .rating-wrap {
-    overflow: hidden;
-    margin: 4px 0 0; }
-    .gmb-infobubble .rating-wrap .numeric-rating {
-      font-size: 16px;
-      color: #DD4B39;
-      font-weight: 400;
-      float: left;
-      margin: 0 5px 0 0;
-      line-height: 1; }
-    .gmb-infobubble .rating-wrap .star-rating-wrap {
-      background: url("../img/review_stars.png") no-repeat 0 0 transparent;
-      height: 13px;
-      width: 67px;
-      float: left;
-      margin: 1px 0 0; }
-    .gmb-infobubble .rating-wrap .star-rating-size {
-      background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
-      height: 13px; }
-  .gmb-infobubble .gmb-mashup-single-link {
-    font-size: 14px;
-    display: block;
-    margin: 8px 0; }
+div.gmb-infobubble-container {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
+
+.gmb-infobubble .place-title + .marker-info-wrapper, .gmb-infobubble .place-description + .marker-info-wrapper {
+  margin: 8px 0 0; }
+
+.gmb-infobubble .marker-info-wrapper {
+  background-color: #F1F1F1;
+  padding: 12px;
+  font-size: 13px;
+  display: block; }
+
+.gmb-infobubble .rating-wrap {
+  overflow: hidden;
+  margin: 4px 0 0; }
+  .gmb-infobubble .rating-wrap .numeric-rating {
+    font-size: 16px;
+    color: #DD4B39;
+    font-weight: 400;
+    float: left;
+    margin: 0 5px 0 0;
+    line-height: 1; }
+  .gmb-infobubble .rating-wrap .star-rating-wrap {
+    background: url("../img/review_stars.png") no-repeat 0 0 transparent;
+    height: 13px;
+    width: 67px;
+    float: left;
+    margin: 1px 0 0; }
+  .gmb-infobubble .rating-wrap .star-rating-size {
+    background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
+    height: 13px; }
+
+.gmb-infobubble .gmb-mashup-single-link {
+  font-size: 14px;
+  display: block;
+  margin: 8px 0; }
 
 @media screen and (max-width: 440px) {
   .gmb-infobubble {
     min-width: inherit;
     overflow: visible; } }
 
-/* Maps Icons */
 div[id^='google-maps-builder'] .marker-label {
   z-index: 99;
   position: absolute;

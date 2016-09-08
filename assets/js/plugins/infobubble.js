@@ -210,6 +210,7 @@ GMB_InfoBubble.prototype.buildDom_ = function () {
 
     // Content area
     var contentContainer = this.contentContainer_ = document.createElement('DIV');
+    contentContainer.className = 'gmb-infobubble-container';
     contentContainer.style['overflowX'] = 'auto';
     contentContainer.style['overflowY'] = 'auto';
     contentContainer.style['cursor'] = 'default';
@@ -1542,11 +1543,11 @@ GMB_InfoBubble.prototype['removeTab'] = GMB_InfoBubble.prototype.removeTab;
  */
 GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_maxHeight) {
 
-    console.log(element);
     var sizer = document.createElement('DIV');
-    sizer.style['display'] = 'inline';
+    sizer.className = 'inner-sizer';
+    sizer.style.display = 'inline';
     sizer.style['position'] = 'absolute';
-    sizer.style['visibility'] = 'hidden';
+    // sizer.style['visibility'] = 'hidden';
 
     if (typeof element == 'string') {
         sizer.innerHTML = element;
@@ -1554,24 +1555,62 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
         sizer.appendChild(element.cloneNode(true));
     }
 
-    document.body.appendChild(sizer);
+    //The info_window's map element
+    var map_el = jQuery('#google-maps-builder-' + this.map_data.id);
+    map_el.append(sizer);
+
+    //Original size.
     var size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
 
-    // If the width is bigger than the max width then set the width and size again
+
+    //Now test size within a container (preventing scrollbars)
+    //@see http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript
+    var outer = document.createElement('div');
+    outer.className = 'outer-sizer';
+    outer.style.position = 'relative';
+    // outer.style.visibility = 'hidden';
+    outer.style.overflowY = 'auto';
+    outer.style.overflowX = 'auto';
+    outer.style.width = sizer.offsetWidth + 'px';
+    outer.style.height = sizer.offsetHeight + 'px';
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    map_el.append(outer);
+
+    //Add sizer div into outer sizer
+    jQuery(sizer).appendTo(outer);
+
+    var scroll_width = outer.offsetWidth - sizer.offsetWidth;
+    var scroll_height = outer.offsetHeight - sizer.offsetHeight;
+
+    console.log(scroll_width);
+    console.log(outer.offsetWidth);
+    console.log(scroll_height);
+    console.log(outer.offsetHeight);
+
+    if(scroll_width > 0) {
+        sizer.style['width'] = this.px(sizer.offsetWidth + scroll_width);
+
+
+        sizer.style['height'] = this.px(size.offsetHeight + scroll_width);
+        // size.width = sizer.offsetWidth + scroll_width;
+        size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
+    }
+
+    // If the width is bigger than the max width then set the width and size again.
     if (opt_maxWidth && size.width > opt_maxWidth) {
         sizer.style['width'] = this.px(opt_maxWidth);
         size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
     }
 
-    // If the height is bigger than the max height then set the height and size
-    // again
+    // If the height is bigger than the max height then set the height and size again.
     if (opt_maxHeight && size.height > opt_maxHeight) {
         sizer.style['height'] = this.px(opt_maxHeight);
         size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
     }
 
-    document.body.removeChild(sizer);
-    delete sizer;
+
+    // jQuery(outer).remove();
+    // delete sizer;
     return size;
 };
 
@@ -1602,7 +1641,6 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
     var borderWidth = this.getBorderWidth_();
     var borderRadius = this.getBorderRadius_();
     var arrowSize = this.getArrowSize_();
-
     var mapDiv = map.getDiv();
     var gutter = arrowSize * 2;
     var mapWidth = mapDiv.offsetWidth - gutter;
@@ -1618,7 +1656,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
     var tabWidth = 0;
     if (this.tabs_.length) {
-        // If there are tabs then you need to check the size of each tab's content
+        // If there are tabs then you need to check the size of each tab's content.
         for (var i = 0, tab; tab = this.tabs_[i]; i++) {
             var tabSize = this.getElementSize_(tab.tab, maxWidth, maxHeight);
             var contentSize = this.getElementSize_(tab.content, maxWidth, maxHeight);
@@ -1627,8 +1665,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
                 width = tabSize.width;
             }
 
-            // Add up all the tab widths because they might end up being wider than
-            // the content
+            // Add up all the tab widths because they might end up being wider than the content.
             tabWidth += tabSize.width;
 
             if (height < tabSize.height) {
@@ -1666,7 +1703,6 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
         }
     }
 
-    console.log(contentSize);
 
     if (maxWidth) {
         width = Math.min(width, maxWidth);
@@ -1674,6 +1710,13 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
     if (maxHeight) {
         height = Math.min(height, maxHeight);
+    }
+
+
+    //Account for the info_window's padding.
+    if (padding) {
+        height = height + (padding * 2);
+        width = width + (padding * 2);
     }
 
     width = Math.max(width, tabWidth);
@@ -1685,16 +1728,6 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
     arrowSize = arrowSize * 2;
     width = Math.max(width, arrowSize);
 
-    // Maybe add this as a option so they can go bigger than the map if the user
-    // wants
-    if (width > mapWidth) {
-        width = mapWidth;
-    }
-
-    if (height > mapHeight) {
-        height = mapHeight - tabHeight;
-    }
-
     if (this.tabsContainer_) {
         this.tabHeight_ = tabHeight;
         this.tabsContainer_.style['width'] = this.px(tabWidth);
@@ -1702,6 +1735,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
     this.contentContainer_.style['width'] = this.px(width);
     this.contentContainer_.style['height'] = this.px(height);
+
 };
 
 
@@ -1730,6 +1764,30 @@ GMB_InfoBubble.prototype.anchorPoint_changed = function () {
 };
 GMB_InfoBubble.prototype['anchorPoint_changed'] = GMB_InfoBubble.prototype.anchorPoint_changed;
 
+// GMB_InfoBubble.prototype.getScrollbarWidth_ = function () {
+//     var outer = document.createElement("div");
+//     outer.style.visibility = "hidden";
+//     outer.style.width = "100px";
+//     outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+//
+//     document.body.appendChild(outer);
+//
+//     var widthNoScroll = outer.offsetWidth;
+//     // force scrollbars
+//     outer.style.overflow = "scroll";
+//
+//     // add innerdiv
+//     var inner = document.createElement("div");
+//     inner.style.width = "100%";
+//     outer.appendChild(inner);
+//
+//     var widthWithScroll = inner.offsetWidth;
+//
+//     // remove divs
+//     outer.parentNode.removeChild(outer);
+//
+//     return widthNoScroll - widthWithScroll;
+// };
 
 /**
  * Position the close button in the right spot.

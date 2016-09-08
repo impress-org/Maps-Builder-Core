@@ -51,7 +51,7 @@
     };
 
     /*
-     * Global load function for other plugins / themes to use
+     * Global load function for other plugins / themes to use.
      *
      * ex: MapsBuilder.google_maps_builder_load( object );
      */
@@ -63,9 +63,9 @@
     };
 
     /**
-     * Map Init after the fact
+     * Map Init after the fact.
      *
-     * Good for tabs / ajax - pass in wrapper div class/id
+     * Good for tabs / ajax - pass in wrapper div class/id.
      *
      * @since 2.0
      */
@@ -82,9 +82,9 @@
     };
 
     /**
-     * Map Initialize
+     * Map Initialize.
      *
-     * Sets up and configures the Google Map
+     * Sets up and configures the Google Map.
      *
      * @param map_canvas
      */
@@ -127,13 +127,13 @@
         }
 
 
-    }; //end initialize_map
+    }; //end initialize_map.
 
 
     /**
-     * Set Map Theme
+     * Set Map Theme.
      *
-     * Sets up map theme
+     * Sets up map theme.
      *
      */
     gmb.set_map_theme = function (map, map_data) {
@@ -141,7 +141,7 @@
         var map_type = map_data.map_theme.map_type.toUpperCase();
         var map_theme = map_data.map_theme.map_theme_json;
 
-        //Custom (Snazzy) Theme
+        //Custom (Snazzy) Theme.
         if (map_type === 'ROADMAP' && map_theme !== 'none') {
 
             map.setOptions({
@@ -150,7 +150,7 @@
             });
 
         } else {
-            //standard theme
+            //Standard theme.
             map.setOptions({
                 mapTypeId: google.maps.MapTypeId[map_type],
                 styles: false
@@ -162,14 +162,13 @@
     };
 
     /**
-     * Set Map Options
+     * Set Map Options.
      *
-     * Sets up map controls
-     *
+     * Sets up map controls.
      */
     gmb.set_map_options = function (map, map_data) {
 
-        //Zoom control
+        //Zoom control.
         var zoom_control = map_data.map_controls.zoom_control.toLowerCase();
 
         if (zoom_control == 'none') {
@@ -185,7 +184,7 @@
             });
         }
 
-        //Mouse Wheel Zoom
+        //Mouse Wheel Zoom.
         var mouse_zoom = map_data.map_controls.wheel_zoom.toLowerCase();
         if (mouse_zoom === 'none') {
             map.setOptions({
@@ -197,7 +196,7 @@
             });
         }
 
-        //Pan Control
+        //Pan Control.
         var pan = map_data.map_controls.pan_control.toLowerCase();
         if (pan === 'none') {
             map.setOptions({
@@ -209,7 +208,7 @@
             });
         }
 
-        //Mouse Type Control
+        //Mouse Type Control.
         var map_type_control = map_data.map_controls.map_type_control;
         if (map_type_control == 'none') {
             map.setOptions({
@@ -224,7 +223,7 @@
             });
         }
 
-        //Street View Control
+        //Street View Control.
         var street_view = map_data.map_controls.street_view.toLowerCase();
         if (street_view === 'none') {
             map.setOptions({
@@ -236,7 +235,7 @@
             });
         }
 
-        //Map Double Click
+        //Map Double Click.
         var double_click_zoom = map_data.map_controls.double_click_zoom.toLowerCase();
         if (double_click_zoom === 'none') {
             map.setOptions({
@@ -248,7 +247,7 @@
             });
         }
 
-        //Map Draggable
+        //Map Draggable.
         var draggable = map_data.map_controls.draggable.toLowerCase();
         if (draggable === 'none') {
             map.setOptions({
@@ -263,31 +262,32 @@
     };
 
     /**
-     * Set Map Markers
+     * Set Map Markers.
      *
      * @param map
      * @param map_data
-     * @param info_window_content
      */
-    gmb.set_map_markers = function (map, map_data, info_window_content) {
+    gmb.set_map_markers = function (map, map_data) {
 
         gmb.info_window_args = {
             map: map,
+            map_data: map_data,
             shadowStyle: 0,
-            padding: 10,
+            padding: 0,
             backgroundColor: 'rgb(255, 255, 255)',
             borderRadius: 3,
             arrowSize: 15,
-            minHeight: 50,
-            maxHeight: 355,
-            minWidth: 220,
-            maxWidth: 355,
+            minHeight: 20,
+            maxHeight: 350,
+            minWidth: 200,
+            maxWidth: 350,
             borderWidth: 0,
             disableAutoPan: true,
             disableAnimation: true,
             backgroundClassName: '',
             closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
         };
+
         var map_markers = map_data.map_markers;
         var markers = [];
         map.info_window = new GMB_InfoBubble(gmb.info_window_args);
@@ -310,13 +310,11 @@
             //Plugin included marker image
             if (included_marker_icon) {
                 marker_icon = map_data.plugin_url + included_marker_icon;
-            }
-            //Custom Marker Upload? Check if image is set
-            else if (custom_marker_icon) {
+            } else if (custom_marker_icon) {
+                //Custom Marker Upload? Check if image is set
                 marker_icon = custom_marker_icon;
-            }
-            //SVG Icon
-            else if ((typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0)) {
+            } else if ((typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0)) {
+                //SVG Icon
                 marker_icon = eval('(' + marker_data.marker + ')');
                 marker_label = marker_data.label
             }
@@ -351,12 +349,17 @@
             //Marker for map
             var location_marker = new Marker(marker_args);
             markers.push(location_marker);
-
             location_marker.setVisible(true);
 
+            //Add event listener for infowindows upon a marker being clicked.
             google.maps.event.addListener(location_marker, 'click', function () {
-                gmb.set_info_window_content(marker_data, map);
-                map.info_window.open(map, location_marker);
+
+                gmb.set_info_window_content(marker_data, map).done(function () {
+
+                    map.info_window.open(map, location_marker);
+
+                });
+
 
                 //Marker Centers Map on Click?
                 if (map_data.marker_centered == 'yes') {
@@ -367,13 +370,15 @@
                 }
             });
 
-            //Opened by default?
+            //Should this marker's info_window be opened by default?
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
                     map.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
-                    gmb.set_info_window_content(marker_data, map);
-                    map.info_window.open(map, location_marker);
+
+                    gmb.set_info_window_content(marker_data, map).done(function () {
+                        map.info_window.open(map, location_marker);
+                    });
 
 
                 });
@@ -381,7 +386,7 @@
 
         }); //end $.each()
 
-        //Cluster?
+        //Cluster the markers?
         if (map_data.marker_cluster === 'yes') {
             var markerCluster = new MarkerClusterer(map, markers);
         }
@@ -399,19 +404,30 @@
      */
     gmb.set_info_window_content = function (marker_data, map) {
 
-        var info_window_content;
+        //Create a deferred object.
+        //This will allow us to wait for the Google places getDetails call via jquery's .done method.
+        var done_trigger = $.Deferred();
 
-        //place name
-        if (marker_data.title) {
-            info_window_content = '<p class="place-title">' + marker_data.title + '</p>';
+        //The info_window content string.
+        var info_window_content = '';
+
+        //The place name.
+        if (typeof marker_data.title !== 'undefined') {
+            info_window_content += '<p class="place-title">' + marker_data.title + '</p>';
         }
 
-        if (marker_data.description) {
+        //The place description.
+        if (typeof marker_data.description !== 'undefined') {
             info_window_content += '<div class="place-description">' + marker_data.description + '</div>';
         }
 
-        //Does this marker have a place_id
-        if (marker_data.place_id && marker_data.hide_details !== 'on') {
+        //Conditions to output place information
+        // a. Does this marker have a place_id?
+        // b. Does the marker have a place ID value set
+        // c. Ensure the hide details override isn't on.
+        if (typeof marker_data.place_id !== 'undefined'
+            && marker_data.place_id
+            && marker_data.hide_details !== 'on') {
 
             var request = {
                 key: gmb_data.api_key,
@@ -423,17 +439,20 @@
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     info_window_content += gmb.set_place_content_in_info_window(place);
+                    map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>');
+                    done_trigger.resolve();
                 }
-
-                map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>');
 
             });
 
         } else {
 
+            done_trigger.resolve();
             map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>'); //set marker content
 
         }
+
+        return done_trigger;
 
     };
 
