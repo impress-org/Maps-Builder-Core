@@ -63,9 +63,10 @@
     };
 
     /**
-     * Map Init After the fact
+     * Map Init after the fact
      *
-     * @description Good for tabs / ajax - pass in wrapper div class/id
+     * Good for tabs / ajax - pass in wrapper div class/id
+     *
      * @since 2.0
      */
     gmb.load_hidden_map = function (parent) {
@@ -74,7 +75,8 @@
             return;
         }
         google_hidden_maps.each(function (index, value) {
-            //google.maps.event.trigger( map, 'resize' ); //TODO: Ideally we'd resize the map rather than reinitialize for faster performance, but that requires a bit of rewrite in how the plugin works
+            //google.maps.event.trigger( map, 'resize' );
+            // TODO: Ideally we'd resize the map rather than reinitialize for faster performance, but that requires a bit of rewrite in how the plugin works
             gmb.initialize_map($(google_hidden_maps[index]));
         });
     };
@@ -272,7 +274,7 @@
         gmb.info_window_args = {
             map: map,
             shadowStyle: 0,
-            padding: 0,
+            padding: 10,
             backgroundColor: 'rgb(255, 255, 255)',
             borderRadius: 3,
             arrowSize: 15,
@@ -283,7 +285,7 @@
             borderWidth: 0,
             disableAutoPan: true,
             disableAnimation: true,
-            backgroundClassName: 'gmb-infobubble',
+            backgroundClassName: '',
             closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
         };
         var map_markers = map_data.map_markers;
@@ -369,7 +371,7 @@
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
 
-                    map.info_window.setContent('<div id="infobubble-content" class="gmb-infobubble__loading"></div>');
+                    map.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
                     gmb.set_info_window_content(marker_data, map);
                     map.info_window.open(map, location_marker);
 
@@ -397,11 +399,11 @@
      */
     gmb.set_info_window_content = function (marker_data, map) {
 
-        var info_window_content = '';
+        var info_window_content;
 
         //place name
         if (marker_data.title) {
-            info_window_content += '<p class="place-title">' + marker_data.title + '</p>';
+            info_window_content = '<p class="place-title">' + marker_data.title + '</p>';
         }
 
         if (marker_data.description) {
@@ -416,21 +418,22 @@
                 placeId: marker_data.place_id
             };
 
-            //Get details from Google on this place
+            //Get details from Google on this place.
             places_service.getDetails(request, function (place, status) {
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
-
                     info_window_content += gmb.set_place_content_in_info_window(place);
-
-                    map.info_window.setContent(info_window_content); //set marker content
-
                 }
-            });
-        } else {
-            map.info_window.setContent(info_window_content); //set marker content
-        }
 
+                map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>');
+
+            });
+
+        } else {
+
+            map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>'); //set marker content
+
+        }
 
     };
 

@@ -1170,7 +1170,7 @@ GMB_InfoBubble.prototype['getContent'] = GMB_InfoBubble.prototype.getContent;
  */
 GMB_InfoBubble.prototype.updateContent_ = function () {
     if (!this.content_) {
-        // The Content area doesnt exist.
+        // The Content area doesn't exist.
         return;
     }
 
@@ -1540,8 +1540,9 @@ GMB_InfoBubble.prototype['removeTab'] = GMB_InfoBubble.prototype.removeTab;
  * @param {number=} opt_maxHeight Optional max height of the element.
  * @return {google.maps.Size} The size of the element.
  */
-GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth,
-                                                     opt_maxHeight) {
+GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_maxHeight) {
+
+    console.log(element);
     var sizer = document.createElement('DIV');
     sizer.style['display'] = 'inline';
     sizer.style['position'] = 'absolute';
@@ -1652,6 +1653,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
             content = this.htmlToDocumentFragment_(content);
         }
         if (content) {
+
             var contentSize = this.getElementSize_(content, maxWidth, maxHeight);
 
             if (width < contentSize.width) {
@@ -1663,6 +1665,8 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
             }
         }
     }
+
+    console.log(contentSize);
 
     if (maxWidth) {
         width = Math.min(width, maxWidth);
