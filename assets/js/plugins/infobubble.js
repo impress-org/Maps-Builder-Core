@@ -218,6 +218,7 @@ GMB_InfoBubble.prototype.buildDom_ = function () {
     contentContainer.style['position'] = 'relative';
 
     var content = this.content_ = document.createElement('DIV');
+
     contentContainer.appendChild(content);
 
     // Arrow
@@ -1544,10 +1545,9 @@ GMB_InfoBubble.prototype['removeTab'] = GMB_InfoBubble.prototype.removeTab;
 GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_maxHeight) {
 
     var sizer = document.createElement('DIV');
-    sizer.className = 'inner-sizer';
-    sizer.style.display = 'inline';
+    sizer.style['display'] = 'inline';
     sizer.style['position'] = 'absolute';
-    // sizer.style['visibility'] = 'hidden';
+    sizer.style['visibility'] = 'hidden';
 
     if (typeof element == 'string') {
         sizer.innerHTML = element;
@@ -1555,62 +1555,24 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
         sizer.appendChild(element.cloneNode(true));
     }
 
-    //The info_window's map element
-    var map_el = jQuery('#google-maps-builder-' + this.map_data.id);
-    map_el.append(sizer);
-
-    //Original size.
+    document.body.appendChild(sizer);
     var size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
 
-
-    //Now test size within a container (preventing scrollbars)
-    //@see http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript
-    var outer = document.createElement('div');
-    outer.className = 'outer-sizer';
-    outer.style.position = 'relative';
-    // outer.style.visibility = 'hidden';
-    outer.style.overflowY = 'auto';
-    outer.style.overflowX = 'auto';
-    outer.style.width = sizer.offsetWidth + 'px';
-    outer.style.height = sizer.offsetHeight + 'px';
-    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    map_el.append(outer);
-
-    //Add sizer div into outer sizer
-    jQuery(sizer).appendTo(outer);
-
-    var scroll_width = outer.offsetWidth - sizer.offsetWidth;
-    var scroll_height = outer.offsetHeight - sizer.offsetHeight;
-
-    console.log(scroll_width);
-    console.log(outer.offsetWidth);
-    console.log(scroll_height);
-    console.log(outer.offsetHeight);
-
-    if(scroll_width > 0) {
-        sizer.style['width'] = this.px(sizer.offsetWidth + scroll_width);
-
-
-        sizer.style['height'] = this.px(size.offsetHeight + scroll_width);
-        // size.width = sizer.offsetWidth + scroll_width;
-        size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
-    }
-
-    // If the width is bigger than the max width then set the width and size again.
+    // If the width is bigger than the max width then set the width and size again
     if (opt_maxWidth && size.width > opt_maxWidth) {
         sizer.style['width'] = this.px(opt_maxWidth);
         size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
     }
 
-    // If the height is bigger than the max height then set the height and size again.
+    // If the height is bigger than the max height then set the height and size
+    // again
     if (opt_maxHeight && size.height > opt_maxHeight) {
         sizer.style['height'] = this.px(opt_maxHeight);
         size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
     }
 
-
-    // jQuery(outer).remove();
-    // delete sizer;
+    document.body.removeChild(sizer);
+    delete sizer;
     return size;
 };
 

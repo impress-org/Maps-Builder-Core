@@ -284,7 +284,7 @@
             borderWidth: 0,
             disableAutoPan: true,
             disableAnimation: true,
-            backgroundClassName: '',
+            backgroundClassName: 'gmb-infobubble',
             closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
         };
 
@@ -439,7 +439,7 @@
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     info_window_content += gmb.set_place_content_in_info_window(place);
-                    map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>');
+                    map.info_window.setContent(info_window_content);
                     done_trigger.resolve();
                 }
 
@@ -448,7 +448,7 @@
         } else {
 
             done_trigger.resolve();
-            map.info_window.setContent('<div class="gmb-infobubble">' + info_window_content + '</div>'); //set marker content
+            map.info_window.setContent(info_window_content); //set marker content
 
         }
 
@@ -580,7 +580,7 @@
         google.maps.event.addListener(search_marker, 'click', function () {
 
             map.info_window.close();
-            map.info_window.setContent('<div class="gmb-infobubble__loading"></div>');
+            map.info_window.setContent('<div class="gmb-infobubble-loading"></div>');
 
             var marker_data = {
                 title: place.name,
