@@ -278,7 +278,7 @@
             borderRadius: 3,
             arrowSize: 15,
             minHeight: 20,
-            maxHeight: 350,
+            maxHeight: 450,
             minWidth: 200,
             maxWidth: 350,
             borderWidth: 0,
