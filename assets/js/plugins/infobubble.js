@@ -1548,8 +1548,8 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
     var inner = document.createElement('DIV');
     inner.className = 'gmb-infobubble';
     inner.style.display = 'inline';
-    inner.style['position'] = 'absolute';
-    inner.style['visibility'] = 'hidden';
+    inner.style.position = 'absolute';
+    inner.style.padding = this.padding + 'px';
 
     if (typeof element == 'string') {
         inner.innerHTML = element;
@@ -1566,46 +1566,47 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
 
     //Now test size within a container (preventing scrollbars)
     //@see http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript
-    var outer = document.createElement('div');
-    outer.className = 'gmb-infobubble-container';
-    outer.style.position = 'relative';
-    // outer.style.visibility = 'hidden';
-    outer.style.overflowY = 'auto';
-    outer.style.overflowX = 'auto';
-    outer.style.width = inner.offsetWidth + 'px';
-    outer.style.height = inner.offsetHeight + 'px';
-    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    map_el.append(outer);
+    // var outer = document.createElement('div');
+    // outer.className = 'gmb-infobubble-container';
+    // outer.style.position = 'relative';
+    // // outer.style.visibility = 'hidden';
+    // outer.style.overflowY = 'auto';
+    // outer.style.overflowX = 'auto';
+    // outer.style.width = inner.offsetWidth + 'px';
+    // outer.style.height = inner.offsetHeight + 'px';
+    // // outer.style.visibility = 'hidden';
+    // outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    // map_el.append(outer);
 
     //Add inner div into outer inner
-    jQuery(inner).appendTo(outer);
+    // jQuery(inner).appendTo(outer);
 
-    var scroll_width = outer.offsetWidth - inner.offsetWidth;
+    // var scroll_width = outer.offsetWidth - inner.offsetWidth;
     // var scroll_height = outer.offsetHeight - inner.offsetHeight;
 
-    if(scroll_width > 0) {
-        outer.style['width'] = this.px(inner.offsetWidth + scroll_width);
-        // inner.style['height'] = this.px(size.offsetHeight + scroll_width);
-        // size.width = inner.offsetWidth + scroll_width;
-        size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
-    }
+    //If there's a vertical scrollbar
+    // if (scroll_width > 0) {
+    //     outer.style.width = inner.offsetWidth + scroll_width + 'px';
+    //     // inner.style['height'] = this.px(inner.offsetHeight + scroll_height);
+    //     // size.width = inner.offsetWidth + scroll_width;
+    //     size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
+    // }
 
-    console.log(size);
 
     // If the width is bigger than the max width then set the width and size again.
     if (opt_maxWidth && size.width > opt_maxWidth) {
-        inner.style['width'] = this.px(opt_maxWidth);
+        inner.style.width = this.px(opt_maxWidth);
         size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
     }
 
     // If the height is bigger than the max height then set the height and size again.
     if (opt_maxHeight && size.height > opt_maxHeight) {
-        inner.style['height'] = this.px(opt_maxHeight);
+        inner.style.height = this.px(opt_maxHeight);
         size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
     }
 
 
-    jQuery(outer).remove();
+    // jQuery(outer).remove();
     return size;
 
 };
@@ -1688,6 +1689,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
             var contentSize = this.getElementSize_(content, maxWidth, maxHeight);
 
+            //If content width is l
             if (width < contentSize.width) {
                 width = contentSize.width;
             }
@@ -1707,12 +1709,6 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
         height = Math.min(height, maxHeight);
     }
 
-
-    //Account for the info_window's padding.
-    if (padding) {
-        height = height + (padding * 2);
-        width = width + (padding * 2);
-    }
 
     width = Math.max(width, tabWidth);
 
@@ -1735,7 +1731,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
 
 /**
- *  Get the height of the anchor
+ *  Get the height of the anchor.
  *
  *  This function is a hack for now and doesn't really work that good, need to
  *  wait for pixelBounds to be correctly exposed.

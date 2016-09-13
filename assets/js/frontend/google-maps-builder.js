@@ -273,7 +273,7 @@
             map: map,
             map_data: map_data,
             shadowStyle: 0,
-            padding: 0,
+            padding: 12,
             backgroundColor: 'rgb(255, 255, 255)',
             borderRadius: 3,
             arrowSize: 15,
