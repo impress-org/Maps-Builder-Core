@@ -2,7 +2,7 @@
 /**
  * Represents the view for the administration dashboard.
  *
- * This includes the header, options, and other information that should provide
+ * This includes the header, options, and other information that should provide.
  * The User Interface to the end user.
  *
  * @package   Google_Maps_Builder
@@ -16,11 +16,9 @@
 <div class="wrap">
 
 	<?php
-
 	global $current_user;
 	$user_id = $current_user->ID;
-
-	// Check that the user hasn't already clicked to ignore the welcome message and that they have appropriate permissions
+	// Check that the user hasn't already clicked to ignore the welcome message and that they have appropriate permissions.
 	if ( ! get_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() ) && current_user_can( 'install_plugins' ) ) {
 		?>
 		<div class="container welcome-header gmb-clearfix">
