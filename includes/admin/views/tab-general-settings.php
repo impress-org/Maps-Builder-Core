@@ -3,10 +3,10 @@
  * General Settings: Represents the tab view for Google Maps Builder.
  *
  * @package   Google_Maps_Builder
- * @author    Devin Walker <devin@wordimpress.com>
+ * @author    WordImpress
  * @license   GPL-2.0+
  * @link      http://wordimpress.com
- * @copyright 2015 WordImpress, Devin Walker
+ * @copyright 2016 WordImpress
  */
 
 ?>

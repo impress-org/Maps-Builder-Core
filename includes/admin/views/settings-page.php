@@ -6,7 +6,7 @@
  * The User Interface to the end user.
  *
  * @package   Google_Maps_Builder
- * @author    Devin Walker <devin@wordimpress.com>
+ * @author    WordImpress
  * @license   GPL-2.0+
  * @link      http://wordimpress.com
  * @copyright 2016 WordImpress, Devin Walker

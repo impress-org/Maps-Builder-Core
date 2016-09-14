@@ -3,16 +3,18 @@
  * Represents the view for the public-facing component
  *
  * @package   Google_Maps_Builder
- * @author    Devin Walker <devin@wordimpress.com>
+ * @author    WordImpress
  * @license   GPL-2.0+
  * @link      http://wordimpress.com
- * @copyright 2015 WordImpress, Devin Walker
+ * @copyright 2016 WordImpress, WordImpress
  */
+
+global $post;
 $map_width = isset( $visual_info['width'] ) ? $visual_info['width'] : '100';
 $map_width .= isset( $visual_info['map_width_unit'] ) ? $visual_info['map_width_unit'] : '%';
 $map_height = isset( $visual_info['height'] ) ? $visual_info['height'] : '500';
 $map_height .= isset( $visual_info['map_height_unit'] ) ? $visual_info['map_height_unit'] : 'px';
-if( ! isset( $text_directions ) ){
+if ( ! isset( $text_directions ) ) {
 	$text_directions = '';
 }
 ?>
