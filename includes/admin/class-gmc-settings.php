@@ -168,7 +168,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 				),
 				array(
 					'name'    => __( 'Menu Position', 'google-maps-builder' ),
-					'desc'    => sprintf( __( 'Set the menu position for Google Maps Builder. See the %1$smenu_position arg%2$s.', 'google-maps-builder' ), '<a href="' . esc_url( 'http://codex.wordpress.org/Function_Reference/register_post_type#menu_position' ) . '" class="new-window" target="_blank">', '</a>' ),
+					'desc'    => sprintf( __( 'Set the menu position for Google Maps Builder. See the %1$smenu_position arg%2$s.', 'google-maps-builder' ), '<a href="' . esc_url( 'https://codex.wordpress.org/Function_Reference/register_post_type#menu_position' ) . '" class="new-window" target="_blank">', '</a>' ),
 					'default' => '21.3',
 					'id'      => $prefix . 'menu_position',
 					'type'    => 'text_small'

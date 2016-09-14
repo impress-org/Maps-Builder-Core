@@ -219,7 +219,7 @@ abstract class Google_Maps_Builder_Core {
 			load_plugin_textdomain( 'google-maps-builder', false, $gmb_lang_dir );
 		}
 	}
-	
+
 	/**
 	 * Get the user meta key for marking welcome message as dismissed
 	 *
