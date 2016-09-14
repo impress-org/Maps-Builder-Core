@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for loading scripts
+ * Base class for loading scripts.
  *
  * @package     GMB
  * @subpackage  Functions

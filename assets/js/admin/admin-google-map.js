@@ -403,7 +403,9 @@ var gmb_data;
         }
 
         //InfoBubble - Contains the place's information and content
-        info_bubble = new GMB_InfoBubble();
+        info_bubble = new google.maps.InfoWindow({
+            maxWidth: 350
+        });
 
         /**
          * Map Event Listeners
@@ -527,9 +529,9 @@ var gmb_data;
     };
 
     /**
-     * info_bubble Content for Place Details.
+     * info_bubble Content for Place Details
      *
-     * This marker contains more information about the place.
+     * This marker contains more information about the place
      *
      * @param place
      */
@@ -768,7 +770,13 @@ var gmb_data;
      */
     gmb.set_info_window_wrapper = function (content) {
 
-        return $('<div id="infobubble-content" class="main-place-infobubble-content">' + content + '</div>');
+        var info_window_content = '<div id="infobubble-content" class="main-place-infobubble-content">';
+
+        info_window_content += content;
+
+        info_window_content += '</div>';
+
+        return info_window_content;
 
     };
 
@@ -930,8 +938,9 @@ var gmb_data;
     };
 
     /**
-     * Queries to get Google Place Details information.
+     * Queries to get Google Place Details information
      *
+     * Help function
      * @param index
      * @param marker
      */
@@ -989,14 +998,8 @@ var gmb_data;
         info_bubble.setContent(content); //set infowindow content
         gmb.initialize_tooltips(); //refresh tooltips
 
-        console.log(content);
-        console.log(info_bubble);
-        console.log($('.edit-info', info_bubble));
-        console.log($('.edit-info'));
-        console.log($('.trash-marker'));
-
         //edit button event
-        google.maps.event.addDomListener($('.edit-info'), 'click', function () {
+        google.maps.event.addDomListener($('.edit-info')[0], 'click', function () {
             //Edit Marker
             gmb.get_editable_info_window($(this).data('index'), marker);
         });
@@ -1800,5 +1803,3 @@ jQuery(window).load(function () {
     var gmb_init = new CustomEvent('MapBuilderAdminInit');
     window.dispatchEvent(gmb_init);
 });
-
-

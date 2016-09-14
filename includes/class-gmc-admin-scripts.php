@@ -120,10 +120,6 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		wp_register_script( 'google-maps-builder-admin-magnific-popup', $js_plugins . 'gmb-magnific' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
 		wp_enqueue_script( 'google-maps-builder-admin-magnific-popup' );
 
-		//Infobubble script
-		wp_register_script( 'google-maps-builder-infowindows', GMB_CORE_URL . 'assets/js/plugins/infobubble' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
-		wp_enqueue_script( 'google-maps-builder-infowindows' );
-
 		//Core plugin scripts.
 		wp_register_script( 'google-maps-builder-admin-gmaps', $google_maps_api_url, array( 'jquery' ) );
 		wp_enqueue_script( 'google-maps-builder-admin-gmaps' );
@@ -143,7 +139,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		), GMB_VERSION );
 		wp_enqueue_script( 'google-maps-builder-admin-map-builder' );
 
-		//Modal magnific
+		//Modal magnific builder
 		wp_register_script( 'google-maps-builder-admin-magnific-builder', $js_dir . 'admin-maps-magnific' . $suffix . '.js', array(
 			'jquery',
 			'wp-color-picker'
