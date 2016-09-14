@@ -1,18 +1,17 @@
 /**
- * Maps Builder JS
+ * Maps Builder JS.
  *
- * Frontend form rendering
+ * Frontend form rendering.
  */
 
 (function ($, gmb) {
-    "use strict";
+    'use strict';
 
     var map;
     var places_service;
     var place;
     var directionsDisplay = [];
     var search_markers = [];
-
 
     gmb.init = function () {
         var google_maps = $('.google-maps-builder');
