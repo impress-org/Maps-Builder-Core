@@ -1544,7 +1544,6 @@ GMB_InfoBubble.prototype['removeTab'] = GMB_InfoBubble.prototype.removeTab;
  */
 GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_maxHeight) {
 
-
     var inner = document.createElement('DIV');
     inner.className = 'gmb-infobubble';
     inner.style.display = 'inline';
@@ -1566,31 +1565,28 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
 
     //Now test size within a container (preventing scrollbars)
     //@see http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript
-    // var outer = document.createElement('div');
-    // outer.className = 'gmb-infobubble-container';
-    // outer.style.position = 'relative';
-    // // outer.style.visibility = 'hidden';
-    // outer.style.overflowY = 'auto';
-    // outer.style.overflowX = 'auto';
-    // outer.style.width = inner.offsetWidth + 'px';
-    // outer.style.height = inner.offsetHeight + 'px';
-    // // outer.style.visibility = 'hidden';
-    // outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    // map_el.append(outer);
+    var outer = document.createElement('div');
+    outer.className = 'gmb-infobubble-container';
+    outer.style.position = 'relative';
+    outer.style.overflowY = 'auto';
+    outer.style.overflowX = 'auto';
+    outer.style.width = inner.offsetWidth + 2 + 'px';
+    outer.style.height = inner.offsetHeight + 2 + 'px';
+    outer.style.visibility = 'hidden';
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps.
+    map_el.append(outer);
 
-    //Add inner div into outer inner
-    // jQuery(inner).appendTo(outer);
+    //Add inner div into outer inner.
+    jQuery(inner).appendTo(outer);
 
-    // var scroll_width = outer.offsetWidth - inner.offsetWidth;
-    // var scroll_height = outer.offsetHeight - inner.offsetHeight;
+    //Calculate scrollbar width.
+    var scroll_width = outer.offsetWidth - inner.offsetWidth;
 
     //If there's a vertical scrollbar
-    // if (scroll_width > 0) {
-    //     outer.style.width = inner.offsetWidth + scroll_width + 'px';
-    //     // inner.style['height'] = this.px(inner.offsetHeight + scroll_height);
-    //     // size.width = inner.offsetWidth + scroll_width;
-    //     size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
-    // }
+    if (scroll_width > 0) {
+        outer.style.width = inner.offsetWidth + scroll_width + 4 + 'px';
+        size = new google.maps.Size(outer.offsetWidth, outer.offsetHeight);
+    }
 
 
     // If the width is bigger than the max width then set the width and size again.
@@ -1605,8 +1601,7 @@ GMB_InfoBubble.prototype.getElementSize_ = function (element, opt_maxWidth, opt_
         size = new google.maps.Size(inner.offsetWidth, inner.offsetHeight);
     }
 
-
-    // jQuery(outer).remove();
+    jQuery(outer).remove();
     return size;
 
 };
@@ -1710,6 +1705,12 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
     }
 
 
+    //Account for the info_window's padding.
+    // if (padding) {
+    //     height = height + (padding * 2);
+    //     width = width + (padding * 2);
+    // }
+
     width = Math.max(width, tabWidth);
 
     if (width == tabWidth) {
@@ -1731,7 +1732,7 @@ GMB_InfoBubble.prototype.figureOutSize_ = function () {
 
 
 /**
- *  Get the height of the anchor.
+ *  Get the height of the anchor
  *
  *  This function is a hack for now and doesn't really work that good, need to
  *  wait for pixelBounds to be correctly exposed.
@@ -1754,31 +1755,6 @@ GMB_InfoBubble.prototype.anchorPoint_changed = function () {
     this.draw();
 };
 GMB_InfoBubble.prototype['anchorPoint_changed'] = GMB_InfoBubble.prototype.anchorPoint_changed;
-
-// GMB_InfoBubble.prototype.getScrollbarWidth_ = function () {
-//     var outer = document.createElement("div");
-//     outer.style.visibility = "hidden";
-//     outer.style.width = "100px";
-//     outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-//
-//     document.body.appendChild(outer);
-//
-//     var widthNoScroll = outer.offsetWidth;
-//     // force scrollbars
-//     outer.style.overflow = "scroll";
-//
-//     // add innerdiv
-//     var inner = document.createElement("div");
-//     inner.style.width = "100%";
-//     outer.appendChild(inner);
-//
-//     var widthWithScroll = inner.offsetWidth;
-//
-//     // remove divs
-//     outer.parentNode.removeChild(outer);
-//
-//     return widthNoScroll - widthWithScroll;
-// };
 
 /**
  * Position the close button in the right spot.
