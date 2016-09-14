@@ -181,10 +181,11 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Marker Description', $this->plugin_slug ),
-			'description' => __( 'Write a short description for this marker', $this->plugin_slug ),
-			'id'          => 'description',
-			'type'        => 'textarea_small',
+			'name'            => __( 'Marker Description', $this->plugin_slug ),
+			'description'     => __( 'Write a short description for this marker', $this->plugin_slug ),
+			'id'              => 'description',
+			'type'            => 'textarea_small',
+			'sanitization_cb' => false
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Reference', $this->plugin_slug ),
