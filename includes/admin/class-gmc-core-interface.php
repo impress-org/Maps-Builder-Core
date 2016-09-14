@@ -37,7 +37,7 @@ abstract class Google_Maps_Builder_Core_Interface {
 	 * @return array
 	 */
 	protected function view_data( $data = array(), $merge = false ) {
-		$_data = array( 'plugin_slug' => $this->plugin_slug );
+		$_data = array( 'plugin_slug' => 'google-maps-builder' );
 		if ( empty( $data ) ) {
 			$data = $_data;
 		} elseif ( ! empty ( $data ) && false != $merge && is_array( $data ) ) {

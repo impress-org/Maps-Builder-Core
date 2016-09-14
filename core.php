@@ -219,19 +219,7 @@ abstract class Google_Maps_Builder_Core {
 			load_plugin_textdomain( 'google-maps-builder', false, $gmb_lang_dir );
 		}
 	}
-
-
-	/**
-	 * Return the plugin slug.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return   string.
-	 */
-	public function get_plugin_slug() {
-		return $this->plugin_slug;
-	}
-
+	
 	/**
 	 * Get the user meta key for marking welcome message as dismissed
 	 *

@@ -379,8 +379,8 @@ class Google_Maps_Builder_Core_Activate {
 		$current_user = wp_get_current_user();
 
 		//Pointer Content
-		$pointer_content = '<h3>' . __( 'Welcome to', $this->plugin_slug ) . ' ' . $this->plugin_name() . '</h3>';
-		$pointer_content .= '<p>' . __( sprintf( 'Thank you for activating %s for WordPress.  Sign up for the latest plugin updates, enhancements, and news.', $this->plugin_name() ), $this->plugin_slug ) . '</p>';
+		$pointer_content = '<h3>' . __( 'Welcome to', 'google-maps-builder' ) . ' ' . $this->plugin_name() . '</h3>';
+		$pointer_content .= '<p>' . __( sprintf( 'Thank you for activating %s for WordPress.  Sign up for the latest plugin updates, enhancements, and news.', $this->plugin_name() ), 'google-maps-builder' ) . '</p>';
 
 		//MailChimp Form
 		$pointer_content .= '<div id="mc_embed_signup" style="padding: 0 15px;"><form action="//wordimpress.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=cf1af2563c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>';
@@ -553,20 +553,20 @@ class Google_Maps_Builder_Core_Activate {
 		$has_archive   = isset( $settings['gmb_has_archive'] ) ? filter_var( $settings['gmb_has_archive'], FILTER_VALIDATE_BOOLEAN ) : '';
 
 		$labels = array(
-			'name'               => _x( 'Google Maps', 'post type general name', $this->plugin_slug ),
-			'singular_name'      => _x( 'Map', 'post type singular name', $this->plugin_slug ),
-			'menu_name'          => _x( 'Google Maps', 'admin menu', $this->plugin_slug ),
-			'name_admin_bar'     => _x( 'Google Maps', 'add new on admin bar', $this->plugin_slug ),
-			'add_new'            => _x( 'Add New', 'map', $this->plugin_slug ),
-			'add_new_item'       => __( 'Add New Map', $this->plugin_slug ),
-			'new_item'           => __( 'New Map', $this->plugin_slug ),
-			'edit_item'          => __( 'Edit Map', $this->plugin_slug ),
-			'view_item'          => __( 'View Map', $this->plugin_slug ),
-			'all_items'          => __( 'All Maps', $this->plugin_slug ),
-			'search_items'       => __( 'Search Maps', $this->plugin_slug ),
-			'parent_item_colon'  => __( 'Parent Maps:', $this->plugin_slug ),
-			'not_found'          => __( 'No Maps found.', $this->plugin_slug ),
-			'not_found_in_trash' => __( 'No Maps found in Trash.', $this->plugin_slug ),
+			'name'               => _x( 'Google Maps', 'post type general name', 'google-maps-builder' ),
+			'singular_name'      => _x( 'Map', 'post type singular name', 'google-maps-builder' ),
+			'menu_name'          => _x( 'Google Maps', 'admin menu', 'google-maps-builder' ),
+			'name_admin_bar'     => _x( 'Google Maps', 'add new on admin bar', 'google-maps-builder' ),
+			'add_new'            => _x( 'Add New', 'map', 'google-maps-builder' ),
+			'add_new_item'       => __( 'Add New Map', 'google-maps-builder' ),
+			'new_item'           => __( 'New Map', 'google-maps-builder' ),
+			'edit_item'          => __( 'Edit Map', 'google-maps-builder' ),
+			'view_item'          => __( 'View Map', 'google-maps-builder' ),
+			'all_items'          => __( 'All Maps', 'google-maps-builder' ),
+			'search_items'       => __( 'Search Maps', 'google-maps-builder' ),
+			'parent_item_colon'  => __( 'Parent Maps:', 'google-maps-builder' ),
+			'not_found'          => __( 'No Maps found.', 'google-maps-builder' ),
+			'not_found_in_trash' => __( 'No Maps found in Trash.', 'google-maps-builder' ),
 		);
 
 		$args = array(

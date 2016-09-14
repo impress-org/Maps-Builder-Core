@@ -61,7 +61,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 		// Initial data to pass to the `gmb_data` front-end JS object.
 		$maps_data = apply_filters( 'gmb_frontend_data_array', array(
 				'i18n'            => array(
-					'get_directions' => __( 'Get Directions', $this->plugin_slug ),
+					'get_directions' => __( 'Get Directions', 'google-maps-builder' ),
 				),
 				'infobubble_args' => array(
 					'shadowStyle'         => 0,

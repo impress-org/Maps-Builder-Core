@@ -169,16 +169,16 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			'site_name'         => get_bloginfo( 'name' ),
 			'site_url'          => get_bloginfo( 'url' ),
 			'i18n'              => array(
-				'update_map'               => $post_status == 'publish' ? __( 'Update Map', $this->plugin_slug ) : __( 'Publish Map', $this->plugin_slug ),
-				'set_place_types'          => __( 'Update Map', $this->plugin_slug ),
-				'places_selection_changed' => __( 'Place selections have changed.', $this->plugin_slug ),
-				'multiple_places'          => __( 'Hmm, it looks like there are multiple places in this area. Please confirm which place you would like this marker to display:', $this->plugin_slug ),
-				'btn_drop_marker'          => '<span class="dashicons dashicons-location"></span>' . __( 'Drop a Marker', $this->plugin_slug ),
-				'btn_drop_marker_click'    => __( 'Click on the Map', $this->plugin_slug ),
-				'btn_edit_marker'          => __( 'Edit Marker', $this->plugin_slug ),
-				'btn_delete_marker'        => __( 'Delete Marker', $this->plugin_slug ),
-				'visit_website'            => __( 'Visit Website', $this->plugin_slug ),
-				'get_directions'           => __( 'Get Directions', $this->plugin_slug ),
+				'update_map'               => $post_status == 'publish' ? __( 'Update Map', 'google-maps-builder' ) : __( 'Publish Map', 'google-maps-builder' ),
+				'set_place_types'          => __( 'Update Map', 'google-maps-builder' ),
+				'places_selection_changed' => __( 'Place selections have changed.', 'google-maps-builder' ),
+				'multiple_places'          => __( 'Hmm, it looks like there are multiple places in this area. Please confirm which place you would like this marker to display:', 'google-maps-builder' ),
+				'btn_drop_marker'          => '<span class="dashicons dashicons-location"></span>' . __( 'Drop a Marker', 'google-maps-builder' ),
+				'btn_drop_marker_click'    => __( 'Click on the Map', 'google-maps-builder' ),
+				'btn_edit_marker'          => __( 'Edit Marker', 'google-maps-builder' ),
+				'btn_delete_marker'        => __( 'Delete Marker', 'google-maps-builder' ),
+				'visit_website'            => __( 'Visit Website', 'google-maps-builder' ),
+				'get_directions'           => __( 'Get Directions', 'google-maps-builder' ),
 				'api_key_required'         => sprintf( __( '%1$sGoogle API Error:%2$s Please include your Google Maps API key in the %3$splugin settings%5$s to start using the plugin. An API key with Maps and Places APIs is now required due to recent changes by Google. Getting an API key is free and easy. %4$sView Documentation%5$s', 'google-maps-builder' ), '<strong>', '</strong>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank" class="new-window">', '</a>' )
 			)
 		);
