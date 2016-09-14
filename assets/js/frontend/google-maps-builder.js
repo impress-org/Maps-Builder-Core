@@ -272,20 +272,20 @@
         gmb.info_window_args = {
             map: map,
             map_data: map_data,
-            shadowStyle: 0,
-            padding: 12,
-            backgroundColor: 'rgb(255, 255, 255)',
-            borderRadius: 3,
-            arrowSize: 15,
-            minHeight: 20,
-            maxHeight: 450,
-            minWidth: 200,
-            maxWidth: 350,
-            borderWidth: 0,
-            disableAutoPan: true,
-            disableAnimation: true,
-            backgroundClassName: 'gmb-infobubble',
-            closeSrc: 'https://www.google.com/intl/en_us/mapfiles/close.gif'
+            shadowStyle: gmb_data.infobubble_args.shadowStyle,
+            padding: gmb_data.infobubble_args.padding,
+            backgroundColor: gmb_data.infobubble_args.backgroundColor,
+            borderRadius: gmb_data.infobubble_args.borderRadius,
+            arrowSize: gmb_data.infobubble_args.arrowSize,
+            minHeight: gmb_data.infobubble_args.minHeight,
+            maxHeight: gmb_data.infobubble_args.maxHeight,
+            minWidth: gmb_data.infobubble_args.minWidth,
+            maxWidth: gmb_data.infobubble_args.maxWidth,
+            borderWidth: gmb_data.infobubble_args.borderWidth,
+            disableAutoPan: gmb_data.infobubble_args.disableAutoPan,
+            disableAnimation: gmb_data.infobubble_args.disableAnimation,
+            backgroundClassName: gmb_data.infobubble_args.backgroundClassName,
+            closeSrc: gmb_data.infobubble_args.closeSrc
         };
 
         var map_markers = map_data.map_markers;

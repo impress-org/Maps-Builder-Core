@@ -66,9 +66,17 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     font-family: Roboto, Arial, sans-serif;
     font-size: 16px;
     line-height: 21px;
+    margin-bottom: 0;
     font-weight: 700;
     min-height: 21px;
     white-space: normal; }
+  div[id^='google-maps-builder'] .gmb-infobubble p.place-title + div.place-description, div[id^='google-maps-builder'] .gmb-infobubble .place-title + .marker-info-wrapper, div[id^='google-maps-builder'] .gmb-infobubble .place-description + .marker-info-wrapper {
+    margin-top: 8px; }
+  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper {
+    background-color: #F1F1F1;
+    padding: 12px;
+    font-size: 13px;
+    display: block; }
   div[id^='google-maps-builder'] .gmb-infobubble .place-description {
     white-space: normal; }
   div[id^='google-maps-builder'] .gmb-infobubble img {
@@ -78,43 +86,32 @@ div[id^='google-maps-builder'] .gmb-infobubble {
   div[id^='google-maps-builder'] .gmb-infobubble .loading {
     background: url("../img/loading-large.gif") no-repeat center center #FFF;
     height: 60px; }
+  div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap {
+    overflow: hidden;
+    margin: 4px 0 0; }
+    div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .numeric-rating {
+      font-size: 16px;
+      color: #DD4B39;
+      font-weight: 400;
+      float: left;
+      margin: 0 5px 0 0;
+      line-height: 1; }
+    div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .star-rating-wrap {
+      background: url("../img/review_stars.png") no-repeat 0 0 transparent;
+      height: 13px;
+      width: 67px;
+      float: left;
+      margin: 1px 0 0; }
+    div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .star-rating-size {
+      background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
+      height: 13px; }
+  div[id^='google-maps-builder'] .gmb-infobubble .gmb-mashup-single-link {
+    font-size: 14px;
+    display: block;
+    margin: 8px 0; }
 
 div.gmb-infobubble-container {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
-
-.gmb-infobubble .place-title + .marker-info-wrapper, .gmb-infobubble .place-description + .marker-info-wrapper {
-  margin: 8px 0 0; }
-
-.gmb-infobubble .marker-info-wrapper {
-  background-color: #F1F1F1;
-  padding: 12px;
-  font-size: 13px;
-  display: block; }
-
-.gmb-infobubble .rating-wrap {
-  overflow: hidden;
-  margin: 4px 0 0; }
-  .gmb-infobubble .rating-wrap .numeric-rating {
-    font-size: 16px;
-    color: #DD4B39;
-    font-weight: 400;
-    float: left;
-    margin: 0 5px 0 0;
-    line-height: 1; }
-  .gmb-infobubble .rating-wrap .star-rating-wrap {
-    background: url("../img/review_stars.png") no-repeat 0 0 transparent;
-    height: 13px;
-    width: 67px;
-    float: left;
-    margin: 1px 0 0; }
-  .gmb-infobubble .rating-wrap .star-rating-size {
-    background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
-    height: 13px; }
-
-.gmb-infobubble .gmb-mashup-single-link {
-  font-size: 14px;
-  display: block;
-  margin: 8px 0; }
 
 @media screen and (max-width: 440px) {
   .gmb-infobubble {
