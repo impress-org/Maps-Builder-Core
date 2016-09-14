@@ -42,18 +42,12 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 
 		$js_dir     = $this->paths->front_end_js_dir();
 		$js_plugins = $this->paths->front_end_js_url();
-		$suffix     = $this->paths->suffix();
 
-		// Use minified libraries if SCRIPT_DEBUG is turned off
-//		wp_register_script( 'google-maps-builder-infowindows', GMB_CORE_URL . 'assets/js/plugins/gmb-infowindow' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
-//		wp_enqueue_script( 'google-maps-builder-infowindows' );
+		// Use minified libraries if SCRIPT_DEBUG is turned off.
+		$suffix = $this->paths->suffix();
 
-
-		wp_register_script( 'google-maps-builder-infowindows', GMB_CORE_URL . 'assets/js/plugins/infobubble' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
+		wp_register_script( 'google-maps-builder-infowindows', $js_plugins . '/gmb-infobubble' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
 		wp_enqueue_script( 'google-maps-builder-infowindows' );
-
-
-
 
 		wp_register_script( 'google-maps-builder-plugin-script', $js_dir . 'google-maps-builder' . $suffix . '.js', array(
 			'jquery',
