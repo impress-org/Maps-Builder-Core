@@ -120,7 +120,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 * @since  1.0
 	 */
 	public function settings_init() {
-		register_setting( $this->plugin_slug, $this->plugin_slug );
+		register_setting( 'google-maps-builder', 'google-maps-builder');
 	}
 
 	/**

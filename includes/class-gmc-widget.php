@@ -36,8 +36,6 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
-
 		parent::__construct(
 			'gmb_maps_widget', // Base ID
 			__( 'Maps Builder Widget', $this->plugin_slug ), // Name
@@ -62,8 +60,8 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		//Widget Script
 		if ( $hook == 'widgets.php' ) {
 
-			wp_register_style( $this->plugin_slug . '-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
-			wp_enqueue_style( $this->plugin_slug . '-admin-styles' );
+			wp_register_style( 'google-maps-builder-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-admin-styles' );
 
 			wp_register_script( 'gmb-qtip', GMB_CORE_URL . 'assets/js/plugins/jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
 			wp_enqueue_script( 'gmb-qtip' );

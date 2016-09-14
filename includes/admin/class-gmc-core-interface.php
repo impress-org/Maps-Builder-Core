@@ -25,14 +25,14 @@ abstract class Google_Maps_Builder_Core_Interface {
 	 * Google_Maps_Builder_Core_Interface constructor.
 	 */
 	public function __construct() {
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
+		//Silencio.
 	}
 
 	/**
 	 * Prepare data to be included in a view loaded with gmb_include_view()
 	 *
 	 * @param array $data Optional. Data to include. If empty, the default, plugin slug is used.
-	 * @param bool $merge Optional. If true and $data isn't empty, $data will be merged with defaults.
+	 * @param bool  $merge Optional. If true and $data isn't empty, $data will be merged with defaults.
 	 *
 	 * @return array
 	 */

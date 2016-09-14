@@ -37,8 +37,6 @@ class Google_Maps_Builder_Core_Activate {
 	 */
 	public function __construct() {
 
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
-
 		$this->nag_meta_key = 'gmb_api_activation_ignore';
 
 		// Activate plugin when new blog is added

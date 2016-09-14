@@ -82,7 +82,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 			)
 		);
 
-		wp_localize_script( $this->plugin_slug . '-plugin-script', 'gmb_data', $maps_data );
+		wp_localize_script( 'google-maps-builder-plugin-script', 'gmb_data', $maps_data );
 
 	}
 
