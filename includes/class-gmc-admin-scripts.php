@@ -1,16 +1,18 @@
 <?php
 
 /**
- * Load admin scripts
+ * Load admin scripts.
  *
  * @package     GMB-Core
  * @subpackage  Functions
  * @copyright   Copyright (c) 2016, WordImpress
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.1.0
  */
 class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Scripts {
 
+	/**
+	 *
+	 */
 	protected function hooks() {
 		add_action( 'admin_head', array( $this, 'icon_style' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -19,9 +21,9 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	}
 
 	/**
-	 * Admin Dashicon
+	 * Admin Dashicon.
 	 *
-	 * @description Displays a cute lil map dashicon on our CPT
+	 * Displays a cute lil map dashicon on our CPT.
 	 */
 	function icon_style() {
 		?>
@@ -52,11 +54,11 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		//Only enqueue scripts for CPT on post type screen
 		if ( ( $hook == 'post-new.php' || $hook == 'post.php' ) && 'google_maps' === $post->post_type || $hook == 'google_maps_page_gmb_settings' || $hook == 'google_maps_page_gmb_import_export' ) {
 
-			wp_register_style( $this->plugin_slug . '-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
-			wp_enqueue_style( $this->plugin_slug . '-admin-styles' );
+			wp_register_style( 'google-maps-builder-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-admin-styles' );
 
-			wp_register_style( $this->plugin_slug . '-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/css/map-icons.css', array(), GMB_VERSION );
-			wp_enqueue_style( $this->plugin_slug . '-map-icons' );
+			wp_register_style( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/css/map-icons.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-map-icons' );
 
 		}
 
@@ -89,8 +91,8 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 
 		//Setting Scripts
 		if ( $hook == 'google_maps_page_gmb_settings' ) {
-			wp_register_script( $this->plugin_slug . '-admin-settings', $js_dir . 'admin-settings' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
-			wp_enqueue_script( $this->plugin_slug . '-admin-settings' );
+			wp_register_script( 'google-maps-builder-admin-settings', $js_dir . 'admin-settings' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
+			wp_enqueue_script( 'google-maps-builder-admin-settings' );
 
 		}
 		wp_enqueue_style( 'dashicons' );
@@ -101,47 +103,52 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	/**
 	 * Load admin scripts
 	 *
-	 * @since 0.1.0
+	 * @since 1.0
 	 *
-	 * @param string $js_plugins
-	 * @param string $suffix
-	 * @param string $google_maps_api_url
-	 * @param string $js_dir
-	 * @param WP_Post $post
+	 * @param string      $js_plugins
+	 * @param string      $suffix
+	 * @param string      $google_maps_api_url
+	 * @param string      $js_dir
+	 * @param WP_Post     $post
 	 * @param bool|string $signed_in_option
 	 */
 	protected function admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, $signed_in_option ) {
+
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_register_script( $this->plugin_slug . '-admin-magnific-popup', $js_plugins . 'gmb-magnific' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
-		wp_enqueue_script( $this->plugin_slug . '-admin-magnific-popup' );
+		//Magnific popup
+		wp_register_script( 'google-maps-builder-admin-magnific-popup', $js_plugins . 'gmb-magnific' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
+		wp_enqueue_script( 'google-maps-builder-admin-magnific-popup' );
 
-		wp_register_script( $this->plugin_slug . '-admin-gmaps', $google_maps_api_url, array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_slug . '-admin-gmaps' );
+		//Core plugin scripts.
+		wp_register_script( 'google-maps-builder-admin-gmaps', $google_maps_api_url, array( 'jquery' ) );
+		wp_enqueue_script( 'google-maps-builder-admin-gmaps' );
 
-		wp_register_script( $this->plugin_slug . '-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/js/map-icons.js', array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_slug . '-map-icons' );
+		//Maps icons
+		wp_register_script( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/js/map-icons.js', array( 'jquery' ) );
+		wp_enqueue_script( 'google-maps-builder-map-icons' );
 
-		wp_register_script( $this->plugin_slug . '-admin-qtip', $js_plugins . 'jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
-		wp_enqueue_script( $this->plugin_slug . '-admin-qtip' );
+		//Qtip
+		wp_register_script( 'google-maps-builder-admin-qtip', $js_plugins . 'jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
+		wp_enqueue_script( 'google-maps-builder-admin-qtip' );
 
 		//Map base
-		wp_register_script( $this->plugin_slug . '-admin-map-builder', $js_dir . 'admin-google-map' . $suffix . '.js', array(
+		wp_register_script( 'google-maps-builder-admin-map-builder', $js_dir . 'admin-google-map' . $suffix . '.js', array(
 			'jquery',
 			'wp-color-picker'
 		), GMB_VERSION );
-		wp_enqueue_script( $this->plugin_slug . '-admin-map-builder' );
+		wp_enqueue_script( 'google-maps-builder-admin-map-builder' );
 
-		//Modal magnific
-		wp_register_script( $this->plugin_slug . '-admin-magnific-builder', $js_dir . 'admin-maps-magnific' . $suffix . '.js', array(
+		//Modal magnific builder
+		wp_register_script( 'google-maps-builder-admin-magnific-builder', $js_dir . 'admin-maps-magnific' . $suffix . '.js', array(
 			'jquery',
 			'wp-color-picker'
 		), GMB_VERSION );
-		wp_enqueue_script( $this->plugin_slug . '-admin-magnific-builder' );
+		wp_enqueue_script( 'google-maps-builder-admin-magnific-builder' );
 
 		//Map Controls
-		wp_register_script( $this->plugin_slug . '-admin-map-controls', $js_dir . 'admin-maps-controls' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
-		wp_enqueue_script( $this->plugin_slug . '-admin-map-controls' );
+		wp_register_script( 'google-maps-builder-admin-map-controls', $js_dir . 'admin-maps-controls' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
+		wp_enqueue_script( 'google-maps-builder-admin-map-controls' );
 
 		$api_key     = gmb_get_option( 'gmb_maps_api_key' );
 		$geolocate   = gmb_get_option( 'gmb_lat_lng' );
@@ -176,7 +183,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			)
 		);
 
-		wp_localize_script( $this->plugin_slug . '-admin-map-builder', 'gmb_data', $maps_data );
+		wp_localize_script( 'google-maps-builder-admin-map-builder', 'gmb_data', $maps_data );
 
 	}
 

@@ -404,7 +404,7 @@ var gmb_data;
 
         //InfoBubble - Contains the place's information and content
         info_bubble = new google.maps.InfoWindow({
-            maxWidth: 315
+            maxWidth: 350
         });
 
         /**
@@ -1803,5 +1803,3 @@ jQuery(window).load(function () {
     var gmb_init = new CustomEvent('MapBuilderAdminInit');
     window.dispatchEvent(gmb_init);
 });
-
-

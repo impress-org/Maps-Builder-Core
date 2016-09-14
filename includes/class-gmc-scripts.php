@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for loading scripts
+ * Base class for loading scripts.
  *
  * @package     GMB
  * @subpackage  Functions
@@ -68,7 +68,7 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	/**
 	 * Use to add hooks in parent class
 	 *
-	 * @since 0.1.0
+	 * @since 1.0
 	 *
 	 * @return string
 	 */
