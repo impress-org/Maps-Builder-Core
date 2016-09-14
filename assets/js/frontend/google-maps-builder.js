@@ -294,19 +294,19 @@
         //Loop through repeatable field of markers
         $(map_markers).each(function (index, marker_data) {
 
-            // Make sure we have latitude and longitude before creating the marker
+            // Make sure we have latitude and longitude before creating the marker.
             if (marker_data.lat == '' || marker_data.lng == '') {
                 return;
             }
 
             var marker_label = '';
 
-            //check for custom marker and label data
+            //check for custom marker and label data.
             var custom_marker_icon = (marker_data.marker_img && !isNaN(marker_data.marker_img_id)) ? marker_data.marker_img : '';
             var marker_icon = map_data.map_params.default_marker; //Default marker icon here
             var included_marker_icon = marker_data.marker_included_img !== '' ? marker_data.marker_included_img : '';
 
-            //Plugin included marker image
+            //Plugin included marker image.
             if (included_marker_icon) {
                 marker_icon = map_data.plugin_url + included_marker_icon;
             } else if (custom_marker_icon) {

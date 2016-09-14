@@ -1,15 +1,16 @@
 <?php
 
 /**
+ * Class Google_Maps_Builder_Core_Engine
+ *
  * Google Maps Builder Engine
  *
  * The Google Maps engine class for WordPress Google Maps Builder
  *
  * @package   Google_Maps_Builder
- * @author    Devin Walker <devin@wordimpress.com>
  * @license   GPL-2.0+
  * @link      http://wordimpress.com
- * @copyright 2015 WordImpress, Devin Walker
+ * @copyright 2016 WordImpress, Devin Walker
  */
 abstract class Google_Maps_Builder_Core_Engine {
 
@@ -36,8 +37,9 @@ abstract class Google_Maps_Builder_Core_Engine {
 	/**
 	 * Google Map display on Single Posts.
 	 *
-	 * the [google_maps] shortcode will be prepended/appended to the post body, once for each map
-	 * The shortcode is used so it can be filtered - for example WordPress will remove it in excerpts by default.
+	 * The [google_maps] shortcode will be prepended/appended to the post body,
+	 * once for each map. The shortcode is used so it can be filtered.
+	 * For example WordPress will remove it in excerpts by default.
 	 *
 	 * @param $content
 	 *
