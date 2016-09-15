@@ -15,15 +15,6 @@
 abstract class Google_Maps_Builder_Core_Scripts {
 
 	/**
-	 * The plugin's menu slug
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var string
-	 */
-	protected $plugin_slug;
-
-	/**
 	 * The plugin's settings
 	 *
 	 * @since 2.0.0

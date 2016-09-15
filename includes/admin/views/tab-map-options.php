@@ -17,10 +17,10 @@
 		<div class="col-md-10">
 
 			<h3>
-				<?php _e('Default Map Settings', $plugin_slug); ?>
+				<?php _e('Default Map Settings', 'google-maps-builder'); ?>
 			</h3>
 			<p>
-				<?php _e('The following settings change the default map options that display when created a new map.', $plugin_slug); ?>
+				<?php _e('The following settings change the default map options that display when created a new map.', 'google-maps-builder'); ?>
 			</p>
 			<?php cmb2_metabox_form( $map_option_fields, $key ); ?>
 		</div>

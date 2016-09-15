@@ -72,20 +72,6 @@ function Google_Maps_Builder() {
 abstract class Google_Maps_Builder_Core {
 
 	/**
-	 * Unique identifier for plugin.
-	 *
-	 * The variable name is used as the text domain when internationalizing strings
-	 * of text. Its value should match the Text Domain file header in the main
-	 * plugin file.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      string
-	 */
-	protected $plugin_slug = 'google-maps-builder';
-
-
-	/**
 	 * Activation Object
 	 *
 	 * @var Google_Maps_Builder_Activate

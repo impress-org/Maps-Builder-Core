@@ -15,13 +15,6 @@
 abstract class Google_Maps_Builder_Core_Interface {
 
 	/**
-	 * Slug for plugin
-	 *
-	 * @var string
-	 */
-	public $plugin_slug;
-
-	/**
 	 * Google_Maps_Builder_Core_Interface constructor.
 	 */
 	public function __construct() {

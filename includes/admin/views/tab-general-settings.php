@@ -15,14 +15,12 @@
 	<div class="row">
 		<div class="col-md-10">
 
-			<h3><?php _e( 'General Options', $plugin_slug ); ?></h3>
+			<h3><?php _e( 'General Options', 'google-maps-builder' ); ?></h3>
 
-			<p><?php _e( 'Customize how Google Maps Builder functions within WordPress.', $plugin_slug ); ?></p>
+			<p><?php _e( 'Customize how Google Maps Builder functions within WordPress.', 'google-maps-builder' ); ?></p>
 
 			<?php cmb2_metabox_form( $general_option_fields, $key ); ?>
 		</div>
-		<div class="col-md-2">
-
-				</div>
+		<div class="col-md-2"></div>
 	</div>
 </div>

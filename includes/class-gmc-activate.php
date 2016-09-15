@@ -15,13 +15,6 @@
 class Google_Maps_Builder_Core_Activate {
 
 	/**
-	 * Plugin slug
-	 *
-	 * @var $plugin_slug
-	 */
-	protected $plugin_slug;
-
-	/**
 	 * API Nag Meta Tag
 	 *
 	 * @var $nag_meta_key

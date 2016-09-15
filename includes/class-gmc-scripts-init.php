@@ -9,14 +9,6 @@
  * @since       0.1.0
  */
 abstract class Google_Maps_Builder_Core_Scripts_Init {
-	/**
-	 * Plugin slug
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var string
-	 */
-	protected $plugin_slug;
 
 	/**
 	 * Asset paths

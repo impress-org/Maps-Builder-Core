@@ -416,7 +416,7 @@
         }
 
         //The place description.
-        if (typeof marker_data.description !== 'undefined') {
+        if (typeof marker_data.description !== 'undefined' && marker_data.description.length !== 0) {
             info_window_content += '<div class="place-description">' + marker_data.description + '</div>';
         }
 

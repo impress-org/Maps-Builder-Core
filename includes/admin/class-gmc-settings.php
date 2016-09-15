@@ -287,7 +287,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 		$output .= '<label class="no-label label-left"><input id="geolocate_map_no" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="no" ' . ( ( $meta['geolocate_map'] === 'no' ) ? 'checked="checked"' : '' ) . ' >' . __( 'No', 'google-maps-builder' ) . '</label>';
 		$output .= '</div>';
-		$output .= '<p class="cmb2-metabox-description clear">' . sprintf( __( 'When creating a new map the plugin will use your current longitude and latitude for the base location. Please note, Chrome 50+ %1$srequires a secure https connection%2$s (SSL certificate) to access geolocation features and other browsers may soon follow suit. Use this feature with caution.', 'google-maps-builder' ), '<a href="https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only" class="new-window" target="_blank">', '</a>' ) . '</p>';
+		$output .= '<p class="cmb2-metabox-description clear">' . sprintf( __( 'When creating a new map the plugin will use your current longitude and latitude for the base location. Please note, Chrome 50+ %1$srequires a secure https connection%2$s (SSL certificate) to access geolocation features and other browsers may soon follow suit.', 'google-maps-builder' ), '<a href="https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only" class="new-window" target="_blank">', '</a>' ) . '</p>';
 
 		$output .= '</div><!--/end. geolocate-wrap -->';
 
