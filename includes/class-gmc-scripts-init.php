@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Base class for both plugins to extend in order to setoff the asset loading process
+ * Base class for both plugins to extend in order to trigger the asset loading process.
  *
  * @package     GMB-Core
  * @subpackage  Functions
@@ -11,7 +12,7 @@
 abstract class Google_Maps_Builder_Core_Scripts_Init {
 
 	/**
-	 * Asset paths
+	 * Asset paths.
 	 *
 	 * @since 2.1.0
 	 *
@@ -20,19 +21,19 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	protected $paths;
 
 	/**
-	 * Load scripts by context
+	 * Load scripts by context.
 	 *
 	 * @since 2.0.0
 	 */
-	public function __construct(){
+	public function __construct() {
 
 		$this->paths = Google_Maps_Builder_Core_Asset_Paths::get_instance();
 
-		if( is_admin() ){
+		if ( is_admin() ) {
 			new Google_Maps_Builder_Core_Admin_Scripts();
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_hooks' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_late'), 50 );
-		}else{
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_late' ), 50 );
+		} else {
 			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_hooks' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_late' ), 50 );
 			new Google_Maps_Builder_Core_Front_End_Scripts();
@@ -42,7 +43,7 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	}
 
 	/**
-	 * Enqueue admin scripts that need to run late
+	 * Enqueue admin scripts that need to run late.
 	 *
 	 * @since 2.1.0
 	 *
@@ -50,10 +51,11 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 *
 	 * @param $hook
 	 */
-	public function admin_late( $hook ){}
+	public function admin_late( $hook ) {
+	}
 
 	/**
-	 * Load additional admin scripts
+	 * Load additional admin scripts.
 	 *
 	 * @since 2.1.0
 	 *
@@ -61,21 +63,23 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 *
 	 * @param $hook
 	 */
-	public function admin_hooks( $hook ){}
+	public function admin_hooks( $hook ) {
+	}
 
 	/**
-	 * Load additional front-end scripts
+	 * Load additional front-end scripts.
 	 *
 	 * @since 2.1.0
 	 *
 	 * @uses "enqueue_scripts"
 	 *
 	 */
-	public function front_end_hooks(){}
+	public function front_end_hooks() {
+	}
 
 
 	/**
-	 * Enqueue front-end scripts that need to run late
+	 * Enqueue front-end scripts that need to run late.
 	 *
 	 * @since 2.1.0
 	 *
@@ -83,8 +87,8 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 *
 	 * @param $hook
 	 */
-	public function front_end_late( $hook ){}
-
+	public function front_end_late( $hook ) {
+	}
 
 
 }
