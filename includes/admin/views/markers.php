@@ -65,37 +65,37 @@
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-art-gallery"></span>
-							<?php _e( 'art-gallery', 'google-maps-builder' ); ?>
+							<?php _e( 'Art gallery', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-campground"></span>
-							<?php _e( 'campground', 'google-maps-builder' ); ?>
+							<?php _e( 'Campground', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-bank"></span>
-							<?php _e( 'bank', 'google-maps-builder' ); ?>
+							<?php _e( 'Bank', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-hair-care"></span>
-							<?php _e( 'hair-care', 'google-maps-builder' ); ?>
+							<?php _e( 'Haircare', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-gym"></span>
-							<?php _e( 'gym', 'google-maps-builder' ); ?>
+							<?php _e( 'Gym', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-point-of-interest"></span>
-							<?php _e( 'point-of-interest', 'google-maps-builder' ); ?>
+							<?php _e( 'Point-of-interest', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
@@ -107,121 +107,115 @@
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-post-office"></span>
-							<?php _e( 'post-office', 'google-maps-builder' ); ?>
+							<?php _e( 'Post office', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-university"></span>
-							<?php _e( 'university', 'google-maps-builder' ); ?>
+							<?php _e( 'University', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-beauty-salon"></span>
-							<?php _e( 'beauty-salon', 'google-maps-builder' ); ?>
+							<?php _e( 'Beauty salon', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-atm"></span>
-							<?php _e( 'atm', 'google-maps-builder' ); ?>
+							<?php _e( 'ATM', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-rv-park"></span>
-							<?php _e( 'rv-park', 'google-maps-builder' ); ?>
+							<?php _e( 'RV park', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-school"></span>
-							<?php _e( 'school', 'google-maps-builder' ); ?>
+							<?php _e( 'School', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-library"></span>
-							<?php _e( 'library', 'google-maps-builder' ); ?>
+							<?php _e( 'Library', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-spa"></span>
-							<?php _e( 'spa', 'google-maps-builder' ); ?>
+							<?php _e( 'Spa', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-route"></span>
-							<?php _e( 'route', 'google-maps-builder' ); ?>
+							<?php _e( 'Route', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-postal-code"></span>
-							<?php _e( 'postal-code', 'google-maps-builder' ); ?>
+							<?php _e( 'Postal code', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-stadium"></span>
-							<?php _e( 'stadium', 'google-maps-builder' ); ?>
-						</div>
-					</div>
-					<div class="icon">
-						<div class="icon-inner">
-							<span class="map-icon-postal-code-prefix"></span>
-							<?php _e( 'postal-code-prefix', 'google-maps-builder' ); ?>
+							<?php _e( 'Stadium', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-museum"></span>
-							<?php _e( 'museum', 'google-maps-builder' ); ?>
+							<?php _e( 'Museum', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-finance"></span>
-							<?php _e( 'finance', 'google-maps-builder' ); ?>
+							<?php _e( 'Finance', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-natural-feature"></span>
-							<?php _e( 'natural-feature', 'google-maps-builder' ); ?>
+							<?php _e( 'Natural feature', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-funeral-home"></span>
-							<?php _e( 'funeral-home', 'google-maps-builder' ); ?>
+							<?php _e( 'Funeral home', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-cemetery"></span>
-							<?php _e( 'cemetery', 'google-maps-builder' ); ?>
+							<?php _e( 'Cemetery', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-park"></span>
-							<?php _e( 'park', 'google-maps-builder' ); ?>
+							<?php _e( 'Park', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 					<div class="icon">
 						<div class="icon-inner">
 							<span class="map-icon-lodging"></span>
-							<?php _e( 'lodging', 'google-maps-builder' ); ?>
+							<?php _e( 'Lodging', 'google-maps-builder' ); ?>
 						</div>
 					</div>
 
 					<?php
 					/**
-					 * Use this action to add additional markers after
+					 * Use this action to add additional markers after.
 					 */
 					do_action( 'gmb_svg_markers_list_after' ); ?>
 
