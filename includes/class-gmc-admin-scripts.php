@@ -179,7 +179,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 				'btn_delete_marker'        => __( 'Delete Marker', 'google-maps-builder' ),
 				'visit_website'            => __( 'Visit Website', 'google-maps-builder' ),
 				'get_directions'           => __( 'Get Directions', 'google-maps-builder' ),
-				'api_key_required'         => sprintf( __( '%1$sGoogle API Error:%2$s Please include your Google Maps API key in the %3$splugin settings%5$s to start using the plugin. An API key with Maps and Places APIs is now required due to recent changes by Google. Getting an API key is free and easy. %4$sView Documentation%5$s', 'google-maps-builder' ), '<strong>', '</strong>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank" class="new-window">', '</a>' )
+				'api_key_required'         => sprintf( __( '%1$sGoogle API Error:%2$s Please include your Google Maps API key in the %3$splugin settings%5$s to start using the plugin. An valid API key with Google Maps and Places API access to your website is now required due to recent changes by Google. Getting an API key is free and easy. %4$sLearn how to obtain a Google Maps API key%5$s', 'google-maps-builder' ), '<strong>', '</strong>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=google_maps&page=gmb_settings' ) ) . '">', '<a href="https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/" target="_blank" class="new-window">', '</a>' )
 			)
 		);
 

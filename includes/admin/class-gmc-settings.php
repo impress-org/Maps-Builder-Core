@@ -218,7 +218,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 			'fields'     => array(
 				array(
 					'name' => __( 'Google Maps API Key', 'google-maps-builder' ),
-					'desc' => sprintf( __( 'The Google Maps JavaScript API requires a valid API key to function correctly. %1$sLearn how to obtain a Google Maps API key%2$s.', 'google-maps-builder' ), '<a href="' . esc_url( 'https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/' ) . '" target="_blank" class="new-window">', '</a>' ),
+					'desc' => sprintf( __( 'Google now requires a valid Google Maps JavaScript API key to function. <br><a href="%1$s" target="_blank" class="new-window">Learn how to obtain a Google Maps API key</a>.', 'google-maps-builder' ),  esc_url( 'https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/' ) ),
 					'id'   => $prefix . 'maps_api_key',
 					'type' => 'text',
 				),
@@ -251,9 +251,9 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 
 	/**
-	 * CMB Lat Lng
+	 * CMB Lat Lng.
 	 *
-	 * Custom CMB field for Gmap latitude and longitude
+	 * Custom CMB field for Gmap latitude and longitude.
 	 *
 	 * @param $field
 	 * @param $meta
