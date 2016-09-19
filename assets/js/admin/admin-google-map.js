@@ -92,7 +92,7 @@ var gmb_data;
         //Update lat lng message
         $('.lat-lng-update-btn, .update-lat-lng').on('click', function (e) {
             e.preventDefault();
-            $(this).attr('disabled', 'disabled').removeClass('button-primary');
+            $('.lat-lng-update-btn, .update-lat-lng').attr('disabled', 'disabled').removeClass('button-primary');
             $('.lat-lng-change-message').slideUp();
             $('#gmb_lat_lng-latitude').val($(this).attr('data-lat'));
             $('#gmb_lat_lng-longitude').val($(this).attr('data-lng'));
