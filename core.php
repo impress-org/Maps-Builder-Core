@@ -195,19 +195,19 @@ abstract class Google_Maps_Builder_Core {
 		$mofile_global = WP_LANG_DIR . '/gmb/' . $mofile;
 
 		if ( file_exists( $mofile_global ) ) {
-			// Look in global /wp-content/languages/gmb folder
+			// Look in global /wp-content/languages/gmb folder.
 			load_textdomain( 'google-maps-builder', $mofile_global );
 		} elseif ( file_exists( $mofile_local ) ) {
-			// Look in local /wp-content/plugins/gmb/languages/ folder
+			// Look in local /wp-content/plugins/gmb/languages/ folder.
 			load_textdomain( 'google-maps-builder', $mofile_local );
 		} else {
-			// Load the default language files
+			// Load the default language files.
 			load_plugin_textdomain( 'google-maps-builder', false, $gmb_lang_dir );
 		}
 	}
 
 	/**
-	 * Get the user meta key for marking welcome message as dismissed
+	 * Get the user meta key for marking welcome message as dismissed.
 	 *
 	 * @since 2.1.0
 	 *
@@ -230,7 +230,8 @@ abstract class Google_Maps_Builder_Core {
 	/**
 	 * Get the CMB2 bootstrap!
 	 *
-	 * Checks to see if CMB2 plugin is installed first the uses included CMB2; we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin
+	 * Checks to see if CMB2 plugin is installed first the uses included CMB2;
+	 * we can still use it even it it's not active. This prevents fatal error conflicts with other themes and users of the CMB2 WP.org plugin.
 	 *
 	 */
 	public function cmb2_load() {
@@ -247,7 +248,7 @@ abstract class Google_Maps_Builder_Core {
 
 
 	/**
-	 * Load activation classes
+	 * Load activation classes.
 	 *
 	 * @since 2.1.0
 	 */
@@ -257,7 +258,7 @@ abstract class Google_Maps_Builder_Core {
 	}
 
 	/**
-	 * Load maps admin
+	 * Load maps admin.
 	 *
 	 * @since 2.1.0
 	 */
@@ -269,7 +270,7 @@ abstract class Google_Maps_Builder_Core {
 	}
 
 	/**
-	 * Load files needed in both front-end and admin
+	 * Load files needed in both front-end and admin.
 	 *
 	 * @since 2.1.0
 	 */
@@ -286,7 +287,7 @@ abstract class Google_Maps_Builder_Core {
 	}
 
 	/**
-	 * Load files that we need in the admin
+	 * Load files that we need in the admin.
 	 *
 	 * @since 2.1.0
 	 */
@@ -294,13 +295,13 @@ abstract class Google_Maps_Builder_Core {
 
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-core-interface.php';
 
-		//Upgrades
+		//Upgrades.
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrades.php';
 		require_once GMB_CORE_PATH . 'includes/admin/system-info.php';
 		require_once GMB_CORE_PATH . 'includes/admin/admin-actions.php';
 
-		//shortcode generator
+		//shortcode generator.
 		//@todo load conditionally
 		require_once GMB_CORE_PATH . 'includes/admin/class-gmc-shortcode-generator.php';
 		require_once GMB_PLUGIN_PATH . 'includes/admin/class-gmb-shortcode-generator.php';
@@ -309,7 +310,7 @@ abstract class Google_Maps_Builder_Core {
 	}
 
 	/**
-	 * Base classes that need to load first
+	 * Base classes that need to load first.
 	 *
 	 * @since 2.1.0
 	 */
