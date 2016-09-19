@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Google Maps Admin
+ * Class Google_Maps_Builder_Core_Admin
  *
- * The admin is considered the single post view where you build maps
+ * Google Maps Admin - The admin is considered the single post view where you build maps.
  *
  * @package   Google_Maps_Builder_Admin
  * @author    WordImpress
@@ -13,9 +13,8 @@
  */
 abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_Interface {
 
-
 	/**
-	 * Markerbox CMB2 object
+	 * Markerbox CMB2 object.
 	 *
 	 * @since 2.1.0
 	 *
@@ -24,7 +23,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	protected $marker_box;
 
 	/**
-	 * Markerbox group field ID
+	 * Markerbox group field ID.
 	 *
 	 * @since 2.1.0
 	 *
@@ -33,7 +32,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	protected $marker_box_group_field_id;
 
 	/**
-	 * Search options CMB2 object
+	 * Search options CMB2 object.
 	 *
 	 * @since 2.1.0
 	 *
@@ -42,8 +41,25 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	protected $search_options;
 
 	/**
-	 * Initialize the plugin by loading admin scripts & styles and adding a
-	 * settings page and menu.
+	 * Display options CMB2 object.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var CMB2
+	 */
+	protected $display_options;
+
+	/**
+	 * Control options CMB2 object.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @var CMB2
+	 */
+	protected $control_options;
+
+	/**
+	 * Initialize the plugin by loading admin scripts & styles and adding a settings page and menu.
 	 *
 	 * @since     1.0.0
 	 */
@@ -95,9 +111,10 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	}
 
 	/**
-	 * Get Default Map Options
+	 * Get Default Map Options.
 	 *
-	 * Helper function that returns default map options from settings
+	 * Helper function that returns default map options from settings.
+	 *
 	 * @return array
 	 */
 	public function get_default_map_options() {
@@ -116,23 +133,27 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	}
 
 	/**
-	 * Register our setting to WP
+	 * Register our settings with WP.
+	 *
 	 * @since  1.0
 	 */
 	public function settings_init() {
-		register_setting( 'google-maps-builder', 'google-maps-builder');
+		register_setting( 'google-maps-builder', 'google-maps-builder' );
 	}
 
 	/**
-	 * Defines the Google Places CPT metabox and field configuration
+	 * Defines the Google Places CPT metabox and field configuration.
+	 *
 	 * @since  1.0.0
 	 * @return array
 	 */
 	public function cpt2_metaboxes_fields() {
 
 		$prefix          = 'gmb_';
+
 		$default_options = $this->get_default_map_options();
-		// MAP PREVIEW
+
+		// Google map preview.
 		$preview_box = cmb2_get_metabox( array(
 			'id'           => 'google_maps_preview_metabox',
 			'title'        => __( 'Google Map Preview', 'google-maps-builder' ),
@@ -148,7 +169,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'default' => '',
 		) );
 
-		// MARKERS
+		// Google maps markers.
 		$this->marker_box = cmb2_get_metabox( array(
 			'id'           => 'google_maps_markers',
 			'title'        => __( 'Map Markers', 'google-maps-builder' ),
@@ -241,7 +262,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'type'        => 'textarea_code',
 		) );
 
-		// SEARCH OPTIONS
+		// Search options.
 		$this->search_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_search_options',
 			'title'        => __( 'Google Places', 'google-maps-builder' ),
@@ -384,7 +405,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		/**
 		 * Display Options
 		 */
-		$display_options = cmb2_get_metabox( array(
+		$this->display_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_options',
 			'title'        => __( 'Display Options', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
@@ -393,7 +414,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'show_names'   => true, // Show field names on the left
 		) );
 
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'           => __( 'Map Size', 'google-maps-builder' ),
 			'id'             => $prefix . 'width_height',
 			'type'           => 'width_height',
@@ -402,7 +423,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'height_std'     => $default_options['height'],
 			'desc'           => '',
 		) );
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'    => __( 'Map Location', 'google-maps-builder' ),
 			'id'      => $prefix . 'lat_lng',
 			'type'    => 'lat_lng',
@@ -410,7 +431,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'lng_std' => '',
 			'desc'    => '',
 		) );
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'    => __( 'Map Type', 'google-maps-builder' ),
 			'id'      => $prefix . 'type',
 			'type'    => 'select',
@@ -422,7 +443,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'Terrain'   => __( 'Terrain', 'google-maps-builder' )
 			),
 		) );
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'    => 'Zoom',
 			'desc'    => __( 'Adjust the map zoom (0-21)', 'google-maps-builder' ),
 			'id'      => $prefix . 'zoom',
@@ -454,7 +475,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				)
 			)
 		) );
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'              => 'Map Layers',
 			'desc'              => __( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' ),
 			'id'                => $prefix . 'layers',
@@ -468,100 +489,100 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			)
 		) );
 
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name'    => __( 'Map Theme', 'google-maps-builder' ),
 			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
 			'id'      => $prefix . 'theme',
 			'type'    => 'select',
 			'default' => 'none',
 			'options' => apply_filters( 'gmb_snazzy_maps', array(
-				'none'   => __( 'None', 'google-maps-builder' ),
-				'68'     => __( 'Aqua', 'google-maps-builder' ),
-				'73'     => __( 'A Dark World', 'google-maps-builder' ),
-				'42'     => __( 'Apple Maps-esque', 'google-maps-builder' ),
-				'35'     => __( 'Avocado World', 'google-maps-builder' ),
-				'23'     => __( 'Bates Green', 'google-maps-builder' ),
-				'43'     => __( 'Bentley', 'google-maps-builder' ),
-				'74'     => __( 'Becomeadinosaur', 'google-maps-builder' ),
-				'79'     => __( 'Black and White', 'google-maps-builder' ),
-				'28'     => __( 'Bluish', 'google-maps-builder' ),
-				'11'     => __( 'Blue', 'google-maps-builder' ),
-				'60'     => __( 'Blue Gray', 'google-maps-builder' ),
-				'61'     => __( 'Blue Essence', 'google-maps-builder' ),
-				'25'     => __( 'Blue water', 'google-maps-builder' ),
-				'67'     => __( 'Blueprint', 'google-maps-builder' ),
-				'66'     => __( 'Blueprint (No Labels)', 'google-maps-builder' ),
-				'17'     => __( 'Bright & Bubbly', 'google-maps-builder' ),
-				'45'     => __( 'Candy Colours', 'google-maps-builder' ),
-				'63'     => __( 'Caribbean Mountain', 'google-maps-builder' ),
-				'77'     => __( 'Clean Cut', 'google-maps-builder' ),
-				'30'     => __( 'Cobalt', 'google-maps-builder' ),
-				'80'     => __( 'Cool Grey', 'google-maps-builder' ),
-				'6'      => __( 'Countries', 'google-maps-builder' ),
-				'9'      => __( 'Chilled', 'google-maps-builder' ),
-				'32'     => __( 'Deep Green', 'google-maps-builder' ),
-				'56'     => __( 'Esperanto', 'google-maps-builder' ),
-				'36'     => __( 'Flat Green', 'google-maps-builder' ),
-				'53'     => __( 'Flat Map', 'google-maps-builder' ),
-				'82'     => __( 'Grass is Greener', 'google-maps-builder' ),
-				'5'      => __( 'Greyscale', 'google-maps-builder' ),
-				'20'     => __( 'Gowalla', 'google-maps-builder' ),
-				'48'     => __( 'Hard edges', 'google-maps-builder' ),
-				'76'     => __( 'HashtagNineNineNine', 'google-maps-builder' ),
-				'21'     => __( 'Hopper', 'google-maps-builder' ),
-				'69'     => __( 'Holiday', 'google-maps-builder' ),
-				'46'     => __( 'Homage to Toner', 'google-maps-builder' ),
-				'24'     => __( 'Hot Pink', 'google-maps-builder' ),
-				'41'     => __( 'Hints of Gold', 'google-maps-builder' ),
-				'81'     => __( 'Ilustracao', 'google-maps-builder' ),
-				'7'      => __( 'Icy Blue', 'google-maps-builder' ),
-				'33'     => __( 'Jane Iredale', 'google-maps-builder' ),
-				'71'     => __( 'Jazzygreen', 'google-maps-builder' ),
-				'65'     => __( 'Just places', 'google-maps-builder' ),
-				'59'     => __( 'Light Green', 'google-maps-builder' ),
-				'29'     => __( 'Light Monochrome', 'google-maps-builder' ),
-				'37'     => __( 'Lunar Landscape', 'google-maps-builder' ),
-				'44'     => __( 'MapBox', 'google-maps-builder' ),
-				'2'      => __( 'Midnight Commander', 'google-maps-builder' ),
-				'57'     => __( 'Military Flat', 'google-maps-builder' ),
-				'10'     => __( 'Mixed', 'google-maps-builder' ),
-				'83'     => __( 'Muted Blue', 'google-maps-builder' ),
-				'47'     => __( 'Nature', 'google-maps-builder' ),
-				'34'     => __( 'Neon World', 'google-maps-builder' ),
-				'13'     => __( 'Neutral Blue', 'google-maps-builder' ),
-				'62'     => __( 'Night vision', 'google-maps-builder' ),
-				'64'     => __( 'Old Dry Mud', 'google-maps-builder' ),
-				'22'     => __( 'Old Timey', 'google-maps-builder' ),
-				'1'      => __( 'Pale Dawn', 'google-maps-builder' ),
-				'39'     => __( 'Paper', 'google-maps-builder' ),
-				'78'     => __( 'Pink & Blue', 'google-maps-builder' ),
-				'3'      => __( 'Red Alert', 'google-maps-builder' ),
-				'31'     => __( 'Red Hues', 'google-maps-builder' ),
-				'18'     => __( 'Retro', 'google-maps-builder' ),
-				'51'     => __( 'Roadtrip At Night', 'google-maps-builder' ),
-				'54'     => __( 'RouteXL', 'google-maps-builder' ),
-				'75'     => __( 'Shade of Green', 'google-maps-builder' ),
-				'38'     => __( 'Shades of Grey', 'google-maps-builder' ),
-				'27'     => __( 'Shift Worker', 'google-maps-builder' ),
-				'58'     => __( 'Simple Labels', 'google-maps-builder' ),
-				'52'     => __( 'Souldisco', 'google-maps-builder' ),
-				'12'     => __( 'Snazzy Maps', 'google-maps-builder' ),
-				'19'     => __( 'Subtle', 'google-maps-builder' ),
-				'49'     => __( 'Subtle Green', 'google-maps-builder' ),
-				'15'     => __( 'Subtle Grayscale', 'google-maps-builder' ),
-				'55'     => __( 'Subtle Grayscale Map', 'google-maps-builder' ),
-				'50'     => __( 'The Endless Atlas', 'google-maps-builder' ),
-				'4'      => __( 'Tripitty', 'google-maps-builder' ),
-				'72'     => __( 'Transport for London', 'google-maps-builder' ),
-				'8'      => __( 'Turquoise Water', 'google-maps-builder' ),
-				'16'     => __( 'Unimposed Topography', 'google-maps-builder' ),
-				'70'     => __( 'Unsaturated Browns', 'google-maps-builder' ),
-				'14'     => __( 'Vintage', 'google-maps-builder' ),
-				'26'     => __( 'Vintage Blue', 'google-maps-builder' ),
-				'40'     => __( 'Vitamin C', 'google-maps-builder' ),
+				'none' => __( 'None', 'google-maps-builder' ),
+				'68'   => __( 'Aqua', 'google-maps-builder' ),
+				'73'   => __( 'A Dark World', 'google-maps-builder' ),
+				'42'   => __( 'Apple Maps-esque', 'google-maps-builder' ),
+				'35'   => __( 'Avocado World', 'google-maps-builder' ),
+				'23'   => __( 'Bates Green', 'google-maps-builder' ),
+				'43'   => __( 'Bentley', 'google-maps-builder' ),
+				'74'   => __( 'Becomeadinosaur', 'google-maps-builder' ),
+				'79'   => __( 'Black and White', 'google-maps-builder' ),
+				'28'   => __( 'Bluish', 'google-maps-builder' ),
+				'11'   => __( 'Blue', 'google-maps-builder' ),
+				'60'   => __( 'Blue Gray', 'google-maps-builder' ),
+				'61'   => __( 'Blue Essence', 'google-maps-builder' ),
+				'25'   => __( 'Blue water', 'google-maps-builder' ),
+				'67'   => __( 'Blueprint', 'google-maps-builder' ),
+				'66'   => __( 'Blueprint (No Labels)', 'google-maps-builder' ),
+				'17'   => __( 'Bright & Bubbly', 'google-maps-builder' ),
+				'45'   => __( 'Candy Colours', 'google-maps-builder' ),
+				'63'   => __( 'Caribbean Mountain', 'google-maps-builder' ),
+				'77'   => __( 'Clean Cut', 'google-maps-builder' ),
+				'30'   => __( 'Cobalt', 'google-maps-builder' ),
+				'80'   => __( 'Cool Grey', 'google-maps-builder' ),
+				'6'    => __( 'Countries', 'google-maps-builder' ),
+				'9'    => __( 'Chilled', 'google-maps-builder' ),
+				'32'   => __( 'Deep Green', 'google-maps-builder' ),
+				'56'   => __( 'Esperanto', 'google-maps-builder' ),
+				'36'   => __( 'Flat Green', 'google-maps-builder' ),
+				'53'   => __( 'Flat Map', 'google-maps-builder' ),
+				'82'   => __( 'Grass is Greener', 'google-maps-builder' ),
+				'5'    => __( 'Greyscale', 'google-maps-builder' ),
+				'20'   => __( 'Gowalla', 'google-maps-builder' ),
+				'48'   => __( 'Hard edges', 'google-maps-builder' ),
+				'76'   => __( 'HashtagNineNineNine', 'google-maps-builder' ),
+				'21'   => __( 'Hopper', 'google-maps-builder' ),
+				'69'   => __( 'Holiday', 'google-maps-builder' ),
+				'46'   => __( 'Homage to Toner', 'google-maps-builder' ),
+				'24'   => __( 'Hot Pink', 'google-maps-builder' ),
+				'41'   => __( 'Hints of Gold', 'google-maps-builder' ),
+				'81'   => __( 'Ilustracao', 'google-maps-builder' ),
+				'7'    => __( 'Icy Blue', 'google-maps-builder' ),
+				'33'   => __( 'Jane Iredale', 'google-maps-builder' ),
+				'71'   => __( 'Jazzygreen', 'google-maps-builder' ),
+				'65'   => __( 'Just places', 'google-maps-builder' ),
+				'59'   => __( 'Light Green', 'google-maps-builder' ),
+				'29'   => __( 'Light Monochrome', 'google-maps-builder' ),
+				'37'   => __( 'Lunar Landscape', 'google-maps-builder' ),
+				'44'   => __( 'MapBox', 'google-maps-builder' ),
+				'2'    => __( 'Midnight Commander', 'google-maps-builder' ),
+				'57'   => __( 'Military Flat', 'google-maps-builder' ),
+				'10'   => __( 'Mixed', 'google-maps-builder' ),
+				'83'   => __( 'Muted Blue', 'google-maps-builder' ),
+				'47'   => __( 'Nature', 'google-maps-builder' ),
+				'34'   => __( 'Neon World', 'google-maps-builder' ),
+				'13'   => __( 'Neutral Blue', 'google-maps-builder' ),
+				'62'   => __( 'Night vision', 'google-maps-builder' ),
+				'64'   => __( 'Old Dry Mud', 'google-maps-builder' ),
+				'22'   => __( 'Old Timey', 'google-maps-builder' ),
+				'1'    => __( 'Pale Dawn', 'google-maps-builder' ),
+				'39'   => __( 'Paper', 'google-maps-builder' ),
+				'78'   => __( 'Pink & Blue', 'google-maps-builder' ),
+				'3'    => __( 'Red Alert', 'google-maps-builder' ),
+				'31'   => __( 'Red Hues', 'google-maps-builder' ),
+				'18'   => __( 'Retro', 'google-maps-builder' ),
+				'51'   => __( 'Roadtrip At Night', 'google-maps-builder' ),
+				'54'   => __( 'RouteXL', 'google-maps-builder' ),
+				'75'   => __( 'Shade of Green', 'google-maps-builder' ),
+				'38'   => __( 'Shades of Grey', 'google-maps-builder' ),
+				'27'   => __( 'Shift Worker', 'google-maps-builder' ),
+				'58'   => __( 'Simple Labels', 'google-maps-builder' ),
+				'52'   => __( 'Souldisco', 'google-maps-builder' ),
+				'12'   => __( 'Snazzy Maps', 'google-maps-builder' ),
+				'19'   => __( 'Subtle', 'google-maps-builder' ),
+				'49'   => __( 'Subtle Green', 'google-maps-builder' ),
+				'15'   => __( 'Subtle Grayscale', 'google-maps-builder' ),
+				'55'   => __( 'Subtle Grayscale Map', 'google-maps-builder' ),
+				'50'   => __( 'The Endless Atlas', 'google-maps-builder' ),
+				'4'    => __( 'Tripitty', 'google-maps-builder' ),
+				'72'   => __( 'Transport for London', 'google-maps-builder' ),
+				'8'    => __( 'Turquoise Water', 'google-maps-builder' ),
+				'16'   => __( 'Unimposed Topography', 'google-maps-builder' ),
+				'70'   => __( 'Unsaturated Browns', 'google-maps-builder' ),
+				'14'   => __( 'Vintage', 'google-maps-builder' ),
+				'26'   => __( 'Vintage Blue', 'google-maps-builder' ),
+				'40'   => __( 'Vitamin C', 'google-maps-builder' ),
 			) )
 		) );
-		$display_options->add_field( array(
+		$this->display_options->add_field( array(
 			'name' => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
 			'desc' => __( 'Paste the Snazzy Map JSON code into the field above to set the theme.', 'google-maps-builder' ),
 			'id'   => $prefix . 'theme_json',
@@ -569,8 +590,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 
 
-		// CONTROL OPTIONS
-		$control_options = cmb2_get_metabox( array(
+		// Control options.
+		$this->control_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_control_options',
 			'title'        => __( 'Map Controls', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
@@ -579,7 +600,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'show_names'   => true, // Show field names on the left
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Zoom Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'zoom_control',
 			'type'    => 'select',
@@ -592,7 +613,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Street View', 'google-maps-builder' ),
 			'id'      => $prefix . 'street_view',
 			'type'    => 'select',
@@ -603,7 +624,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Pan Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'pan',
 			'type'    => 'select',
@@ -614,7 +635,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Map Type Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'map_type_control',
 			'type'    => 'select',
@@ -626,7 +647,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Draggable Map', 'google-maps-builder' ),
 			'id'      => $prefix . 'draggable',
 			'type'    => 'select',
@@ -637,7 +658,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Double Click to Zoom', 'google-maps-builder' ),
 			'id'      => $prefix . 'double_click',
 			'type'    => 'select',
@@ -648,7 +669,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 
-		$control_options->add_field( array(
+		$this->control_options->add_field( array(
 			'name'    => __( 'Mouse Wheel to Zoom', 'google-maps-builder' ),
 			'id'      => $prefix . 'wheel_zoom',
 			'type'    => 'select',
