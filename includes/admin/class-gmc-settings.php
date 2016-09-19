@@ -130,7 +130,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	}
 
 	/**
-	 * Common data for settings page
+	 * Common data for settings page.
 	 *
 	 * @since 2.1.0
 	 *

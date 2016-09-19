@@ -23,7 +23,7 @@ class Google_Maps_Builder_Core_Activate {
 
 
 	/**
-	 * Initialize the plugin by setting localization and loading public scripts
+	 * Initialize the plugin by setting localization and loading public scripts.
 	 * and styles.
 	 *
 	 * @since     1.0.0
@@ -32,17 +32,17 @@ class Google_Maps_Builder_Core_Activate {
 
 		$this->nag_meta_key = 'gmb_api_activation_ignore';
 
-		// Activate plugin when new blog is added
+		// Activate plugin when new blog is added.
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
-		//Activation tooltips
+		//Activation tooltips.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_pointer_script_style' ) );
 
-		//Init CPT (after CMB2 -> hence the 10000 priority)
+		//Init CPT (after CMB2 -> hence the 10000 priority).
 		add_action( 'init', array( $this, 'setup_post_type' ), 10000 );
 
 
-		//API Admin Notice for New Installs
+		//API Admin Notice for New Installs.
 		add_action( 'current_screen', array( $this, 'api_notice_ignore' ) );
 		add_action( 'admin_notices', array( $this, 'activation_notice' ) );
 
@@ -347,16 +347,16 @@ class Google_Maps_Builder_Core_Activate {
 //			add_action( 'admin_print_footer_scripts', array( $this, 'welcome_pointer_print_scripts' ) );
 		}
 
-		// Map Customizer Tooltip - Check if our pointer is not among dismissed ones
+		// Map Customizer Tooltip - Check if our pointer is not among dismissed ones.
 		if ( ! in_array( 'gmb_customizer_pointer', $dismissed_pointers ) && isset( $post->post_type ) && $post->post_type === 'google_maps' ) {
 
 			$enqueue_pointer_script_style = true;
 
-			// Add footer scripts using callback function
+			// Add footer scripts using callback function.
 			add_action( 'admin_print_footer_scripts', array( $this, 'maps_customizer_tooltip' ) );
 		}
 
-		// Enqueue pointer CSS and JS files, if needed
+		// Enqueue pointer CSS and JS files, if needed.
 		if ( $enqueue_pointer_script_style ) {
 			wp_enqueue_style( 'wp-pointer' );
 			wp_enqueue_script( 'wp-pointer' );
