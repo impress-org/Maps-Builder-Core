@@ -40,7 +40,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	public function __construct() {
 
 		parent::__construct();
-		$this->page_name = __( 'Maps Builder Settings', $this->plugin_slug );
+		$this->page_name = __( 'Maps Builder Settings', 'google-maps-builder' );
 
 		//Create Settings submenu
 		add_action( 'admin_init', array( $this, 'mninit' ) );
@@ -75,7 +75,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 		$this->options_page = add_submenu_page(
 			'edit.php?post_type=google_maps',
 			$this->page_name,
-			__( 'Settings', $this->plugin_slug ),
+			__( 'Settings', 'google-maps-builder' ),
 			'manage_options',
 			self::$key,
 			array( $this, 'admin_page_display' )
@@ -138,7 +138,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	 */
 	protected function common_settings_page_data() {
 		return array(
-			'plugin_slug'           => $this->plugin_slug,
+			'plugin_slug'           => 'google-maps-builder',
 			'key'                   => $this->key(),
 			'general_option_fields' => $this->general_option_fields(),
 			'map_option_fields'     => $this->map_option_fields()
@@ -160,23 +160,23 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name'    => __( 'Post Type Slug', $this->plugin_slug ),
-					'desc'    => sprintf( __( 'Customize the default slug for the Maps Builder post type. %1$sResave (flush) permalinks%2$s after customizing.', $this->plugin_slug ), '<a href="' . esc_url( '/wp-admin/options-permalink.php' ) . '">"', '</a>' ),
+					'name'    => __( 'Post Type Slug', 'google-maps-builder' ),
+					'desc'    => sprintf( __( 'Customize the default slug for the Maps Builder post type. %1$sResave (flush) permalinks%2$s after customizing.', 'google-maps-builder' ), '<a href="' . esc_url( '/wp-admin/options-permalink.php' ) . '">"', '</a>' ),
 					'default' => 'google-maps',
 					'id'      => $prefix . 'custom_slug',
 					'type'    => 'text_small'
 				),
 				array(
-					'name'    => __( 'Menu Position', $this->plugin_slug ),
-					'desc'    => sprintf( __( 'Set the menu position for Google Maps Builder. See the %1$smenu_position arg%2$s.', $this->plugin_slug ), '<a href="' . esc_url( 'http://codex.wordpress.org/Function_Reference/register_post_type#menu_position' ) . '" class="new-window" target="_blank">', '</a>' ),
+					'name'    => __( 'Menu Position', 'google-maps-builder' ),
+					'desc'    => sprintf( __( 'Set the menu position for Google Maps Builder. See the %1$smenu_position arg%2$s.', 'google-maps-builder' ), '<a href="' . esc_url( 'https://codex.wordpress.org/Function_Reference/register_post_type#menu_position' ) . '" class="new-window" target="_blank">', '</a>' ),
 					'default' => '21.3',
 					'id'      => $prefix . 'menu_position',
 					'type'    => 'text_small'
 				),
 				array(
-					'name'    => __( 'Has Archive', $this->plugin_slug ),
+					'name'    => __( 'Has Archive', 'google-maps-builder' ),
 					'id'      => $prefix . 'has_archive',
-					'desc'    => sprintf( __( 'Controls the post type archive page. See <a href="%s">Resave (flush) permalinks</a> after customizing.', $this->plugin_slug ), esc_url( '/wp-admin/options-permalink.php' ) ),
+					'desc'    => sprintf( __( 'Controls the post type archive page. See <a href="%s">Resave (flush) permalinks</a> after customizing.', 'google-maps-builder' ), esc_url( '/wp-admin/options-permalink.php' ) ),
 					'type'    => 'radio_inline',
 					'options' => array(
 						'true'  => __( 'Yes', 'cmb' ),
@@ -184,9 +184,9 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 					),
 				),
 				array(
-					'name'    => __( 'Opening Map Builder', $this->plugin_slug ),
+					'name'    => __( 'Opening Map Builder', 'google-maps-builder' ),
 					'id'      => $prefix . 'open_builder',
-					'desc'    => __( 'Do you want the Map Builder customizer to open by default when editing maps?', $this->plugin_slug ),
+					'desc'    => __( 'Do you want the Map Builder customizer to open by default when editing maps?', 'google-maps-builder' ),
 					'type'    => 'radio_inline',
 					'options' => array(
 						'true'  => __( 'Yes', 'cmb' ),
@@ -217,13 +217,13 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 			'show_names' => true,
 			'fields'     => array(
 				array(
-					'name' => __( 'Google Maps API Key', $this->plugin_slug ),
-					'desc' => sprintf( __( 'The Google Maps JavaScript API requires a valid API key to function correctly. %1$sLearn how to obtain a Google Maps API key%2$s.', $this->plugin_slug ), '<a href="' . esc_url( 'https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/' ) . '" target="_blank" class="new-window">', '</a>' ),
+					'name' => __( 'Google Maps API Key', 'google-maps-builder' ),
+					'desc' => sprintf( __( 'The Google Maps JavaScript API requires a valid API key to function correctly. %1$sLearn how to obtain a Google Maps API key%2$s.', 'google-maps-builder' ), '<a href="' . esc_url( 'https://wordimpress.com/documentation/maps-builder-pro/creating-maps-api-key/' ) . '" target="_blank" class="new-window">', '</a>' ),
 					'id'   => $prefix . 'maps_api_key',
 					'type' => 'text',
 				),
 				array(
-					'name'           => __( 'Map Size', $this->plugin_slug ),
+					'name'           => __( 'Map Size', 'google-maps-builder' ),
 					'id'             => $prefix . 'width_height',
 					'type'           => 'width_height',
 					'width_std'      => '100',
@@ -234,7 +234,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 					'desc'           => '',
 				),
 				array(
-					'name'    => __( 'Default Location', $this->plugin_slug ),
+					'name'    => __( 'Default Location', 'google-maps-builder' ),
 					'id'      => $prefix . 'lat_lng',
 					'type'    => 'lat_lng_default',
 					'lat_std' => '32.7153292',
@@ -270,24 +270,24 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 
 		//lat_lng
 		$output = '<div id="lat-lng-wrap"><div class="coordinates-wrap clear">';
-		$output .= '<div class="lat-lng-wrap lat-wrap clear"><span>' . __( 'Latitude', $this->plugin_slug ) . ': </span>
-						<input type="text" class="regular-text latitude" name="' . $field->args['id'] . '[latitude]" id="' . $field->args['id'] . '-latitude" value="' . ( $meta['latitude'] ? $meta['latitude'] : $field->args['lat_std'] ) . '" /></div><div class="lat-lng-wrap lng-wrap clear"><span>' . __( 'Longitude', $this->plugin_slug ) . ': </span>
+		$output .= '<div class="lat-lng-wrap lat-wrap clear"><span>' . __( 'Latitude', 'google-maps-builder' ) . ': </span>
+						<input type="text" class="regular-text latitude" name="' . $field->args['id'] . '[latitude]" id="' . $field->args['id'] . '-latitude" value="' . ( $meta['latitude'] ? $meta['latitude'] : $field->args['lat_std'] ) . '" /></div><div class="lat-lng-wrap lng-wrap clear"><span>' . __( 'Longitude', 'google-maps-builder' ) . ': </span>
 						<input type="text" class="regular-text longitude" name="' . $field->args['id'] . '[longitude]" id="' . $field->args['id'] . '-longitude" value="' . ( $meta['longitude'] ? $meta['longitude'] : $field->args['lng_std'] ) . '" />
 				</div>';
 
-		$output .= '<p class="small-desc">' . sprintf( __( 'For quick lat/lng lookup use %1$sthis service%2$s', $this->plugin_slug ), '<a href="' . esc_url( 'http://www.latlong.net/' ) . '" class="new-window" target="_blank">', '</a>' ) . '</p>';
+		$output .= '<p class="small-desc">' . sprintf( __( 'For quick lat/lng lookup use %1$sthis service%2$s', 'google-maps-builder' ), '<a href="' . esc_url( 'http://www.latlong.net/' ) . '" class="new-window" target="_blank">', '</a>' ) . '</p>';
 		$output .= '</div><!-- /.search-coordinates-wrap -->';
 		$output .= '</div>';
 
 		//Geolocate
 		$output .= '<div id="geolocate-wrap" class="clear">';
-		$output .= '<label class="geocode-label size-label">' . __( 'Geolocate Position', $this->plugin_slug ) . ':</label>';
+		$output .= '<label class="geocode-label size-label">' . __( 'Geolocate Position', 'google-maps-builder' ) . ':</label>';
 		$output .= '<div class="geolocate-radio-wrap size-labels-wrap">';
-		$output .= '<label class="yes-label label-left"><input id="geolocate_map_yes" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="yes" ' . ( $meta['geolocate_map'] === 'yes' ? 'checked="checked"' : '' ) . '>' . __( 'Yes', $this->plugin_slug ) . '</label>';
+		$output .= '<label class="yes-label label-left"><input id="geolocate_map_yes" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="yes" ' . ( $meta['geolocate_map'] === 'yes' ? 'checked="checked"' : '' ) . '>' . __( 'Yes', 'google-maps-builder' ) . '</label>';
 
-		$output .= '<label class="no-label label-left"><input id="geolocate_map_no" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="no" ' . ( ( $meta['geolocate_map'] === 'no' ) ? 'checked="checked"' : '' ) . ' >' . __( 'No', $this->plugin_slug ) . '</label>';
+		$output .= '<label class="no-label label-left"><input id="geolocate_map_no" type="radio" name="' . $field->args['id'] . '[geolocate_map]" class="geolocate_map_radio radio-left" value="no" ' . ( ( $meta['geolocate_map'] === 'no' ) ? 'checked="checked"' : '' ) . ' >' . __( 'No', 'google-maps-builder' ) . '</label>';
 		$output .= '</div>';
-		$output .= '<p class="cmb2-metabox-description clear">' . sprintf( __( 'When creating a new map the plugin will use your current longitude and latitude for the base location. Please note, Chrome 50+ %1$srequires a secure https connection%2$s (SSL certificate) to access geolocation features and other browsers may soon follow suit. Use this feature with caution.', $this->plugin_slug ), '<a href="https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only" class="new-window" target="_blank">', '</a>' ) . '</p>';
+		$output .= '<p class="cmb2-metabox-description clear">' . sprintf( __( 'When creating a new map the plugin will use your current longitude and latitude for the base location. Please note, Chrome 50+ %1$srequires a secure https connection%2$s (SSL certificate) to access geolocation features and other browsers may soon follow suit.', 'google-maps-builder' ), '<a href="https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only" class="new-window" target="_blank">', '</a>' ) . '</p>';
 
 		$output .= '</div><!--/end. geolocate-wrap -->';
 
@@ -319,7 +319,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 		if ( $file == GMB_PLUGIN_BASE ) {
 
 			// Add Widget Page link to our plugin
-			$settings_link = '<a href="edit.php?post_type=google_maps&page=' . self::$key . '" title="' . __( 'Visit the Google Maps Builder plugin settings page', $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>';
+			$settings_link = '<a href="edit.php?post_type=google_maps&page=' . self::$key . '" title="' . __( 'Visit the Google Maps Builder plugin settings page', 'google-maps-builder' ) . '">' . __( 'Settings', 'google-maps-builder' ) . '</a>';
 
 			array_unshift( $links, $settings_link );
 
@@ -341,8 +341,8 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	function add_plugin_meta_links( $meta, $file ) {
 
 		if ( $file == GMB_PLUGIN_BASE ) {
-			$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/google-maps-builder' target='_blank' title='" . __( 'Rate Google Maps Builder on WordPress.org', $this->plugin_slug ) . "'>" . __( 'Rate Plugin', $this->plugin_slug ) . "</a>";
-			$meta[] = '<a href="http://wordpress.org/support/plugin/google-maps-builder/" target="_blank" title="' . __( 'Get plugin support via the WordPress community', $this->plugin_slug ) . '">' . __( 'Support', $this->plugin_slug ) . '</a>';
+			$meta[] = "<a href='https://wordpress.org/support/view/plugin-reviews/google-maps-builder' target='_blank' title='" . __( 'Rate Google Maps Builder on WordPress.org', 'google-maps-builder' ) . "'>" . __( 'Rate Plugin', 'google-maps-builder' ) . "</a>";
+			$meta[] = '<a href="https://wordpress.org/support/plugin/google-maps-builder/" target="_blank" title="' . __( 'Get plugin support via the WordPress community', 'google-maps-builder' ) . '">' . __( 'Support', 'google-maps-builder' ) . '</a>';
 
 		}
 

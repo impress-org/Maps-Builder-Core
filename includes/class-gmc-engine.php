@@ -24,8 +24,6 @@ abstract class Google_Maps_Builder_Core_Engine {
 	 */
 	public function __construct() {
 
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
-
 		// Filter to automatically add maps to post type content
 		add_filter( 'the_content', array( $this, 'the_content' ), 2 );
 
@@ -107,10 +105,10 @@ abstract class Google_Maps_Builder_Core_Engine {
 	 */
 	function array_push_localized_script( $localized_data ) {
 		global $wp_scripts;
-		$data = $wp_scripts->get_data( $this->plugin_slug . '-plugin-script', 'data' );
+		$data = $wp_scripts->get_data( 'google-maps-builder-plugin-script', 'data' );
 
 		if ( empty( $data ) ) {
-			wp_localize_script( $this->plugin_slug . '-plugin-script', 'gmb_data', $localized_data );
+			wp_localize_script( 'google-maps-builder-plugin-script', 'gmb_data', $localized_data );
 		} else {
 
 			if ( ! is_array( $data ) ) {
@@ -123,8 +121,8 @@ abstract class Google_Maps_Builder_Core_Engine {
 				$localized_data[ $key ] = $value;
 			}
 
-			$wp_scripts->add_data( $this->plugin_slug . '-plugin-script', 'data', '' );
-			wp_localize_script( $this->plugin_slug . '-plugin-script', 'gmb_data', $localized_data );
+			$wp_scripts->add_data( 'google-maps-builder-plugin-script', 'data', '' );
+			wp_localize_script( 'google-maps-builder-plugin-script', 'gmb_data', $localized_data );
 
 		}
 

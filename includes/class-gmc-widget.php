@@ -36,14 +36,12 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 
-		$this->plugin_slug = Google_Maps_Builder()->get_plugin_slug();
-
 		parent::__construct(
 			'gmb_maps_widget', // Base ID
-			__( 'Maps Builder Widget', $this->plugin_slug ), // Name
+			__( 'Maps Builder Widget', 'google-maps-builder' ), // Name
 			array(
 				'classname'   => 'gmb-maps-widget',
-				'description' => __( 'Display a Google Map in your theme\'s widget powered sidebar.', $this->plugin_slug )
+				'description' => __( 'Display a Google Map in your theme\'s widget powered sidebar.', 'google-maps-builder' )
 			) //Args
 		);
 
@@ -62,8 +60,8 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		//Widget Script
 		if ( $hook == 'widgets.php' ) {
 
-			wp_register_style( $this->plugin_slug . '-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
-			wp_enqueue_style( $this->plugin_slug . '-admin-styles' );
+			wp_register_style( 'google-maps-builder-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-admin-styles' );
 
 			wp_register_script( 'gmb-qtip', GMB_CORE_URL . 'assets/js/plugins/jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
 			wp_enqueue_script( 'gmb-qtip' );
@@ -106,11 +104,11 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		$gmb_forms = get_posts( $args );
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>"><?php _e( 'Select a Map:', $this->plugin_slug ); ?>
-				<span class="dashicons gmb-tooltip-icon" data-tooltip="<?php _e( 'Select a map that you would like to embed in this widget area.', $this->plugin_slug ); ?>"></span>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>"><?php _e( 'Select a Map:', 'google-maps-builder' ); ?>
+				<span class="dashicons gmb-tooltip-icon" data-tooltip="<?php _e( 'Select a map that you would like to embed in this widget area.', 'google-maps-builder' ); ?>"></span>
 			</label>
 			<select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>">
-				<option value="current"><?php _e( 'Please select...', $this->plugin_slug ); ?></option>
+				<option value="current"><?php _e( 'Please select...', 'google-maps-builder' ); ?></option>
 				<?php foreach ( $gmb_forms as $gmb_form ) { ?>
 					<option <?php selected( absint( $instance['id'] ), $gmb_form->ID ); ?> value="<?php echo esc_attr( $gmb_form->ID ); ?>"><?php echo $gmb_form->post_title; ?></option>
 				<?php } ?>

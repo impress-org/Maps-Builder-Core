@@ -84,10 +84,10 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		//Only enqueue scripts for CPT on post type screen
 		if ( 'google_maps' === $post->post_type ) {
-			echo '<a href="#" class="button disabled button-primary" id="map-builder"><span class="dashicons dashicons-location-alt"></span>' . __( 'Open Map Builder', $this->plugin_slug ) . '</a>';
+			echo '<a href="#" class="button disabled button-primary" id="map-builder"><span class="dashicons dashicons-location-alt"></span>' . __( 'Open Map Builder', 'google-maps-builder' ) . '</a>';
 			//Shortcode column with select all input
 			$shortcode = htmlentities( '[google_maps id="' . $post->ID . '"]' );
-			echo '<div class="shortcode-wrap box-sizing"><label>' . __( 'Map Shortcode:', $this->plugin_slug ) . '</label><input onClick="this.setSelectionRange(0, this.value.length)" type="text" class="shortcode-input" readonly value="' . $shortcode . '"></div>';
+			echo '<div class="shortcode-wrap box-sizing"><label>' . __( 'Map Shortcode:', 'google-maps-builder' ) . '</label><input onClick="this.setSelectionRange(0, this.value.length)" type="text" class="shortcode-input" readonly value="' . $shortcode . '"></div>';
 
 		}
 
@@ -120,7 +120,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 * @since  1.0
 	 */
 	public function settings_init() {
-		register_setting( $this->plugin_slug, $this->plugin_slug );
+		register_setting( 'google-maps-builder', 'google-maps-builder');
 	}
 
 	/**
@@ -135,14 +135,14 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		// MAP PREVIEW
 		$preview_box = cmb2_get_metabox( array(
 			'id'           => 'google_maps_preview_metabox',
-			'title'        => __( 'Google Map Preview', $this->plugin_slug ),
+			'title'        => __( 'Google Map Preview', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
 			'context'      => 'normal', //  'normal', 'advanced', or 'side'
 			'priority'     => 'high', //  'high', 'core', 'default' or 'low'
 			'show_names'   => false, // Show field names on the left
 		) );
 		$preview_box->add_field( array(
-			'name'    => __( 'Map Preview', $this->plugin_slug ),
+			'name'    => __( 'Map Preview', 'google-maps-builder' ),
 			'id'      => $prefix . 'preview',
 			'type'    => 'google_maps_preview',
 			'default' => '',
@@ -151,91 +151,91 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		// MARKERS
 		$this->marker_box = cmb2_get_metabox( array(
 			'id'           => 'google_maps_markers',
-			'title'        => __( 'Map Markers', $this->plugin_slug ),
+			'title'        => __( 'Map Markers', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
 			'context'      => 'normal', //  'normal', 'advanced', or 'side'
 			'priority'     => 'high', //  'high', 'core', 'default' or 'low'
 			'show_names'   => true, // Show field names on the left
 		) );
 		$this->marker_box->add_field( array(
-			'name' => __( 'Create Marker', $this->plugin_slug ),
+			'name' => __( 'Create Marker', 'google-maps-builder' ),
 			'id'   => $prefix . 'geocoder',
 			'type' => 'google_geocoder'
 		) );
 
 		$this->marker_box_group_field_id = $this->marker_box->add_field( array(
-			'name'        => __( 'Existing Markers', $this->plugin_slug ),
+			'name'        => __( 'Existing Markers', 'google-maps-builder' ),
 			'id'          => $prefix . 'markers_group',
 			'type'        => 'group',
-			'description' => __( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map.', $this->plugin_slug ) . '<a href="#" class="button button-small toggle-repeater-groups">' . __( 'Toggle Marker Groups', $this->plugin_slug ) . '</a>',
+			'description' => __( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map.', 'google-maps-builder' ) . '<a href="#" class="button button-small toggle-repeater-groups">' . __( 'Toggle Marker Groups', 'google-maps-builder' ) . '</a>',
 			'options'     => array(
 				'group_title'   => __( 'Marker: {#}', 'cmb' ),
-				'add_button'    => __( 'Add Another Marker', $this->plugin_slug ),
-				'remove_button' => __( 'Remove Marker', $this->plugin_slug ),
+				'add_button'    => __( 'Add Another Marker', 'google-maps-builder' ),
+				'remove_button' => __( 'Remove Marker', 'google-maps-builder' ),
 				'sortable'      => true, // beta
 			),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Title', $this->plugin_slug ),
+			'name' => __( 'Marker Title', 'google-maps-builder' ),
 			'id'   => 'title',
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'            => __( 'Marker Description', $this->plugin_slug ),
-			'description'     => __( 'Write a short description for this marker', $this->plugin_slug ),
+			'name'            => __( 'Marker Description', 'google-maps-builder' ),
+			'description'     => __( 'Write a short description for this marker', 'google-maps-builder' ),
 			'id'              => 'description',
 			'type'            => 'textarea_small',
 			'sanitization_cb' => false
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Reference', $this->plugin_slug ),
+			'name' => __( 'Marker Reference', 'google-maps-builder' ),
 			'id'   => 'reference',
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Place ID', $this->plugin_slug ),
+			'name' => __( 'Marker Place ID', 'google-maps-builder' ),
 			'id'   => 'place_id',
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Hide Place Details', $this->plugin_slug ),
+			'name' => __( 'Hide Place Details', 'google-maps-builder' ),
 			'id'   => 'hide_details',
 			'type' => 'checkbox',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Latitude', $this->plugin_slug ),
+			'name' => __( 'Marker Latitude', 'google-maps-builder' ),
 			'id'   => 'lat',
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Longitude', $this->plugin_slug ),
+			'name' => __( 'Marker Longitude', 'google-maps-builder' ),
 			'id'   => 'lng',
 			'type' => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Custom Marker Image', $this->plugin_slug ),
+			'name'        => __( 'Custom Marker Image', 'google-maps-builder' ),
 			'id'          => 'marker_img',
 			'row_classes' => 'gmb-hidden',
 			'type'        => 'file',
 			'options'     => array(
 				'url'                  => false,
-				'add_upload_file_text' => __( 'Add Marker Image', $this->plugin_slug )
+				'add_upload_file_text' => __( 'Add Marker Image', 'google-maps-builder' )
 			),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Included Marker Icon', $this->plugin_slug ),
+			'name'        => __( 'Included Marker Icon', 'google-maps-builder' ),
 			'row_classes' => 'gmb-hidden',
 			'id'          => 'marker_included_img',
 			'type'        => 'text',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Marker Data', $this->plugin_slug ),
+			'name'        => __( 'Marker Data', 'google-maps-builder' ),
 			'row_classes' => 'gmb-hidden',
 			'id'          => 'marker',
 			'type'        => 'textarea_code',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'        => __( 'Marker Label Data', $this->plugin_slug ),
+			'name'        => __( 'Marker Label Data', 'google-maps-builder' ),
 			'row_classes' => 'gmb-hidden',
 			'id'          => 'label',
 			'type'        => 'textarea_code',
@@ -244,7 +244,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		// SEARCH OPTIONS
 		$this->search_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_search_options',
-			'title'        => __( 'Google Places', $this->plugin_slug ),
+			'title'        => __( 'Google Places', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
 			'context'      => 'normal', //  'normal', 'advanced', or 'side'
 			'priority'     => 'core', //  'high', 'core', 'default' or 'low'
@@ -253,8 +253,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'    => __( 'Show Places?', $this->plugin_slug ),
-				'desc'    => __( 'Display establishments, prominent points of interest, geographic locations, and more.', $this->plugin_slug ),
+				'name'    => __( 'Show Places?', 'google-maps-builder' ),
+				'desc'    => __( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' ),
 				'id'      => $prefix . 'show_places',
 				'type'    => 'radio_inline',
 				'options' => array(
@@ -266,8 +266,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'    => __( 'Search Radius', $this->plugin_slug ),
-				'desc'    => __( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', $this->plugin_slug ),
+				'name'    => __( 'Search Radius', 'google-maps-builder' ),
+				'desc'    => __( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' ),
 				'default' => '3000',
 				'id'      => $prefix . 'search_radius',
 				'type'    => 'text_small'
@@ -276,107 +276,107 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'    => __( 'Place Types', $this->plugin_slug ),
-				'desc'    => __( 'Select which type of places you would like to display on this map.', $this->plugin_slug ),
+				'name'    => __( 'Place Types', 'google-maps-builder' ),
+				'desc'    => __( 'Select which type of places you would like to display on this map.', 'google-maps-builder' ),
 				'id'      => $prefix . 'places_search_multicheckbox',
 				'type'    => 'multicheck',
 				'options' => apply_filters( 'gmb_place_types', array(
-					'accounting'              => __( 'Accounting', $this->plugin_slug ),
-					'airport'                 => __( 'Airport', $this->plugin_slug ),
-					'amusement_park'          => __( 'Amusement Park', $this->plugin_slug ),
-					'aquarium'                => __( 'Aquarium', $this->plugin_slug ),
-					'art_gallery'             => __( 'Art Gallery', $this->plugin_slug ),
-					'atm'                     => __( 'ATM', $this->plugin_slug ),
-					'bakery'                  => __( 'Bakery', $this->plugin_slug ),
-					'bank'                    => __( 'Bank', $this->plugin_slug ),
-					'bar'                     => __( 'Bar', $this->plugin_slug ),
-					'beauty_salon'            => __( 'Beauty Salon', $this->plugin_slug ),
-					'bicycle_store'           => __( 'Bicycle Store', $this->plugin_slug ),
-					'book_store'              => __( 'Book Store', $this->plugin_slug ),
-					'bowling_alley'           => __( 'Bowling Alley', $this->plugin_slug ),
-					'bus_station'             => __( 'Bus Station', $this->plugin_slug ),
-					'cafe'                    => __( 'Cafe', $this->plugin_slug ),
-					'campground'              => __( 'Campground', $this->plugin_slug ),
-					'car_dealer'              => __( 'Car Dealer', $this->plugin_slug ),
-					'car_rental'              => __( 'Car Rental', $this->plugin_slug ),
-					'car_repair'              => __( 'Car Repair', $this->plugin_slug ),
-					'car_wash'                => __( 'Car Wash', $this->plugin_slug ),
-					'casino'                  => __( 'Casino', $this->plugin_slug ),
-					'cemetery'                => __( 'Cemetery', $this->plugin_slug ),
-					'church'                  => __( 'Church', $this->plugin_slug ),
-					'city_hall'               => __( 'City Hall', $this->plugin_slug ),
-					'clothing_store'          => __( 'Clothing Store', $this->plugin_slug ),
-					'convenience_store'       => __( 'Convenience Store', $this->plugin_slug ),
-					'courthouse'              => __( 'Courthouse', $this->plugin_slug ),
-					'dentist'                 => __( 'Dentist', $this->plugin_slug ),
-					'department_store'        => __( 'Department Store', $this->plugin_slug ),
-					'doctor'                  => __( 'Doctor', $this->plugin_slug ),
-					'electrician'             => __( 'Electrician', $this->plugin_slug ),
-					'electronics_store'       => __( 'Electronics Store', $this->plugin_slug ),
-					'embassy'                 => __( 'Embassy', $this->plugin_slug ),
-					'establishment'           => __( 'Establishment', $this->plugin_slug ),
-					'finance'                 => __( 'Finance', $this->plugin_slug ),
-					'fire_station'            => __( 'Fire Station', $this->plugin_slug ),
-					'florist'                 => __( 'Florist', $this->plugin_slug ),
-					'food'                    => __( 'Food', $this->plugin_slug ),
-					'funeral_home'            => __( 'Funeral Home', $this->plugin_slug ),
-					'furniture_store'         => __( 'Furniture_store', $this->plugin_slug ),
-					'gas_station'             => __( 'Gas Station', $this->plugin_slug ),
-					'general_contractor'      => __( 'General Contractor', $this->plugin_slug ),
-					'grocery_or_supermarket'  => __( 'Grocery or Supermarket', $this->plugin_slug ),
-					'gym'                     => __( 'Gym', $this->plugin_slug ),
-					'hair_care'               => __( 'Hair Care', $this->plugin_slug ),
-					'hardware_store'          => __( 'Hardware Store', $this->plugin_slug ),
-					'health'                  => __( 'Health', $this->plugin_slug ),
-					'hindu_temple'            => __( 'Hindu Temple', $this->plugin_slug ),
-					'home_goods_store'        => __( 'Home Goods Store', $this->plugin_slug ),
-					'hospital'                => __( 'Hospital', $this->plugin_slug ),
-					'insurance_agency'        => __( 'Insurance Agency', $this->plugin_slug ),
-					'jewelry_store'           => __( 'Jewelry Store', $this->plugin_slug ),
-					'laundry'                 => __( 'Laundry', $this->plugin_slug ),
-					'lawyer'                  => __( 'Lawyer', $this->plugin_slug ),
-					'library'                 => __( 'Library', $this->plugin_slug ),
-					'liquor_store'            => __( 'Liquor Store', $this->plugin_slug ),
-					'local_government_office' => __( 'Local Government Office', $this->plugin_slug ),
-					'locksmith'               => __( 'Locksmith', $this->plugin_slug ),
-					'lodging'                 => __( 'Lodging', $this->plugin_slug ),
-					'meal_delivery'           => __( 'Meal Delivery', $this->plugin_slug ),
-					'meal_takeaway'           => __( 'Meal Takeaway', $this->plugin_slug ),
-					'mosque'                  => __( 'Mosque', $this->plugin_slug ),
-					'movie_rental'            => __( 'Movie Rental', $this->plugin_slug ),
-					'movie_theater'           => __( 'Movie Theater', $this->plugin_slug ),
-					'moving_company'          => __( 'Moving Company', $this->plugin_slug ),
-					'museum'                  => __( 'Museum', $this->plugin_slug ),
-					'night_club'              => __( 'Night Club', $this->plugin_slug ),
-					'painter'                 => __( 'Painter', $this->plugin_slug ),
-					'park'                    => __( 'Park', $this->plugin_slug ),
-					'parking'                 => __( 'Parking', $this->plugin_slug ),
-					'pet_store'               => __( 'Pet Store', $this->plugin_slug ),
-					'pharmacy'                => __( 'Pharmacy', $this->plugin_slug ),
-					'physiotherapist'         => __( 'Physiotherapist', $this->plugin_slug ),
-					'place_of_worship'        => __( 'Place of Worship', $this->plugin_slug ),
-					'plumber'                 => __( 'Plumber', $this->plugin_slug ),
-					'police'                  => __( 'Police', $this->plugin_slug ),
-					'post_office'             => __( 'Post Office', $this->plugin_slug ),
-					'real_estate_agency'      => __( 'Real Estate Agency', $this->plugin_slug ),
-					'restaurant'              => __( 'Restaurant', $this->plugin_slug ),
-					'roofing_contractor'      => __( 'Roofing Contractor', $this->plugin_slug ),
-					'rv_park'                 => __( 'RV Park', $this->plugin_slug ),
-					'school'                  => __( 'School', $this->plugin_slug ),
-					'shoe_store'              => __( 'Shoe Store', $this->plugin_slug ),
-					'shopping_mall'           => __( 'Shopping Mall', $this->plugin_slug ),
-					'spa'                     => __( 'Spa', $this->plugin_slug ),
-					'stadium'                 => __( 'Stadium', $this->plugin_slug ),
-					'storage'                 => __( 'Storage', $this->plugin_slug ),
-					'store'                   => __( 'Store', $this->plugin_slug ),
-					'subway_station'          => __( 'Subway Station', $this->plugin_slug ),
-					'synagogue'               => __( 'Synagogue', $this->plugin_slug ),
-					'taxi_stand'              => __( 'Taxi Stand', $this->plugin_slug ),
-					'train_station'           => __( 'Train Station', $this->plugin_slug ),
-					'travel_agency'           => __( 'Travel Agency', $this->plugin_slug ),
-					'university'              => __( 'University', $this->plugin_slug ),
-					'veterinary_care'         => __( 'Veterinary Care', $this->plugin_slug ),
-					'zoo'                     => __( 'Zoo', $this->plugin_slug )
+					'accounting'              => __( 'Accounting', 'google-maps-builder' ),
+					'airport'                 => __( 'Airport', 'google-maps-builder' ),
+					'amusement_park'          => __( 'Amusement Park', 'google-maps-builder' ),
+					'aquarium'                => __( 'Aquarium', 'google-maps-builder' ),
+					'art_gallery'             => __( 'Art Gallery', 'google-maps-builder' ),
+					'atm'                     => __( 'ATM', 'google-maps-builder' ),
+					'bakery'                  => __( 'Bakery', 'google-maps-builder' ),
+					'bank'                    => __( 'Bank', 'google-maps-builder' ),
+					'bar'                     => __( 'Bar', 'google-maps-builder' ),
+					'beauty_salon'            => __( 'Beauty Salon', 'google-maps-builder' ),
+					'bicycle_store'           => __( 'Bicycle Store', 'google-maps-builder' ),
+					'book_store'              => __( 'Book Store', 'google-maps-builder' ),
+					'bowling_alley'           => __( 'Bowling Alley', 'google-maps-builder' ),
+					'bus_station'             => __( 'Bus Station', 'google-maps-builder' ),
+					'cafe'                    => __( 'Cafe', 'google-maps-builder' ),
+					'campground'              => __( 'Campground', 'google-maps-builder' ),
+					'car_dealer'              => __( 'Car Dealer', 'google-maps-builder' ),
+					'car_rental'              => __( 'Car Rental', 'google-maps-builder' ),
+					'car_repair'              => __( 'Car Repair', 'google-maps-builder' ),
+					'car_wash'                => __( 'Car Wash', 'google-maps-builder' ),
+					'casino'                  => __( 'Casino', 'google-maps-builder' ),
+					'cemetery'                => __( 'Cemetery', 'google-maps-builder' ),
+					'church'                  => __( 'Church', 'google-maps-builder' ),
+					'city_hall'               => __( 'City Hall', 'google-maps-builder' ),
+					'clothing_store'          => __( 'Clothing Store', 'google-maps-builder' ),
+					'convenience_store'       => __( 'Convenience Store', 'google-maps-builder' ),
+					'courthouse'              => __( 'Courthouse', 'google-maps-builder' ),
+					'dentist'                 => __( 'Dentist', 'google-maps-builder' ),
+					'department_store'        => __( 'Department Store', 'google-maps-builder' ),
+					'doctor'                  => __( 'Doctor', 'google-maps-builder' ),
+					'electrician'             => __( 'Electrician', 'google-maps-builder' ),
+					'electronics_store'       => __( 'Electronics Store', 'google-maps-builder' ),
+					'embassy'                 => __( 'Embassy', 'google-maps-builder' ),
+					'establishment'           => __( 'Establishment', 'google-maps-builder' ),
+					'finance'                 => __( 'Finance', 'google-maps-builder' ),
+					'fire_station'            => __( 'Fire Station', 'google-maps-builder' ),
+					'florist'                 => __( 'Florist', 'google-maps-builder' ),
+					'food'                    => __( 'Food', 'google-maps-builder' ),
+					'funeral_home'            => __( 'Funeral Home', 'google-maps-builder' ),
+					'furniture_store'         => __( 'Furniture_store', 'google-maps-builder' ),
+					'gas_station'             => __( 'Gas Station', 'google-maps-builder' ),
+					'general_contractor'      => __( 'General Contractor', 'google-maps-builder' ),
+					'grocery_or_supermarket'  => __( 'Grocery or Supermarket', 'google-maps-builder' ),
+					'gym'                     => __( 'Gym', 'google-maps-builder' ),
+					'hair_care'               => __( 'Hair Care', 'google-maps-builder' ),
+					'hardware_store'          => __( 'Hardware Store', 'google-maps-builder' ),
+					'health'                  => __( 'Health', 'google-maps-builder' ),
+					'hindu_temple'            => __( 'Hindu Temple', 'google-maps-builder' ),
+					'home_goods_store'        => __( 'Home Goods Store', 'google-maps-builder' ),
+					'hospital'                => __( 'Hospital', 'google-maps-builder' ),
+					'insurance_agency'        => __( 'Insurance Agency', 'google-maps-builder' ),
+					'jewelry_store'           => __( 'Jewelry Store', 'google-maps-builder' ),
+					'laundry'                 => __( 'Laundry', 'google-maps-builder' ),
+					'lawyer'                  => __( 'Lawyer', 'google-maps-builder' ),
+					'library'                 => __( 'Library', 'google-maps-builder' ),
+					'liquor_store'            => __( 'Liquor Store', 'google-maps-builder' ),
+					'local_government_office' => __( 'Local Government Office', 'google-maps-builder' ),
+					'locksmith'               => __( 'Locksmith', 'google-maps-builder' ),
+					'lodging'                 => __( 'Lodging', 'google-maps-builder' ),
+					'meal_delivery'           => __( 'Meal Delivery', 'google-maps-builder' ),
+					'meal_takeaway'           => __( 'Meal Takeaway', 'google-maps-builder' ),
+					'mosque'                  => __( 'Mosque', 'google-maps-builder' ),
+					'movie_rental'            => __( 'Movie Rental', 'google-maps-builder' ),
+					'movie_theater'           => __( 'Movie Theater', 'google-maps-builder' ),
+					'moving_company'          => __( 'Moving Company', 'google-maps-builder' ),
+					'museum'                  => __( 'Museum', 'google-maps-builder' ),
+					'night_club'              => __( 'Night Club', 'google-maps-builder' ),
+					'painter'                 => __( 'Painter', 'google-maps-builder' ),
+					'park'                    => __( 'Park', 'google-maps-builder' ),
+					'parking'                 => __( 'Parking', 'google-maps-builder' ),
+					'pet_store'               => __( 'Pet Store', 'google-maps-builder' ),
+					'pharmacy'                => __( 'Pharmacy', 'google-maps-builder' ),
+					'physiotherapist'         => __( 'Physiotherapist', 'google-maps-builder' ),
+					'place_of_worship'        => __( 'Place of Worship', 'google-maps-builder' ),
+					'plumber'                 => __( 'Plumber', 'google-maps-builder' ),
+					'police'                  => __( 'Police', 'google-maps-builder' ),
+					'post_office'             => __( 'Post Office', 'google-maps-builder' ),
+					'real_estate_agency'      => __( 'Real Estate Agency', 'google-maps-builder' ),
+					'restaurant'              => __( 'Restaurant', 'google-maps-builder' ),
+					'roofing_contractor'      => __( 'Roofing Contractor', 'google-maps-builder' ),
+					'rv_park'                 => __( 'RV Park', 'google-maps-builder' ),
+					'school'                  => __( 'School', 'google-maps-builder' ),
+					'shoe_store'              => __( 'Shoe Store', 'google-maps-builder' ),
+					'shopping_mall'           => __( 'Shopping Mall', 'google-maps-builder' ),
+					'spa'                     => __( 'Spa', 'google-maps-builder' ),
+					'stadium'                 => __( 'Stadium', 'google-maps-builder' ),
+					'storage'                 => __( 'Storage', 'google-maps-builder' ),
+					'store'                   => __( 'Store', 'google-maps-builder' ),
+					'subway_station'          => __( 'Subway Station', 'google-maps-builder' ),
+					'synagogue'               => __( 'Synagogue', 'google-maps-builder' ),
+					'taxi_stand'              => __( 'Taxi Stand', 'google-maps-builder' ),
+					'train_station'           => __( 'Train Station', 'google-maps-builder' ),
+					'travel_agency'           => __( 'Travel Agency', 'google-maps-builder' ),
+					'university'              => __( 'University', 'google-maps-builder' ),
+					'veterinary_care'         => __( 'Veterinary Care', 'google-maps-builder' ),
+					'zoo'                     => __( 'Zoo', 'google-maps-builder' )
 				) )
 			)
 		);
@@ -386,7 +386,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		 */
 		$display_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_options',
-			'title'        => __( 'Display Options', $this->plugin_slug ),
+			'title'        => __( 'Display Options', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
 			'context'      => 'side', //  'normal', 'advanced', or 'side'
 			'priority'     => 'default', //  'high', 'core', 'default' or 'low'
@@ -394,7 +394,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 
 		$display_options->add_field( array(
-			'name'           => __( 'Map Size', $this->plugin_slug ),
+			'name'           => __( 'Map Size', 'google-maps-builder' ),
 			'id'             => $prefix . 'width_height',
 			'type'           => 'width_height',
 			'width_std'      => $default_options['width'],
@@ -403,7 +403,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'desc'           => '',
 		) );
 		$display_options->add_field( array(
-			'name'    => __( 'Map Location', $this->plugin_slug ),
+			'name'    => __( 'Map Location', 'google-maps-builder' ),
 			'id'      => $prefix . 'lat_lng',
 			'type'    => 'lat_lng',
 			'lat_std' => '',
@@ -411,20 +411,20 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'desc'    => '',
 		) );
 		$display_options->add_field( array(
-			'name'    => __( 'Map Type', $this->plugin_slug ),
+			'name'    => __( 'Map Type', 'google-maps-builder' ),
 			'id'      => $prefix . 'type',
 			'type'    => 'select',
 			'default' => 'default',
 			'options' => array(
-				'RoadMap'   => __( 'Road Map', $this->plugin_slug ),
-				'Satellite' => __( 'Satellite', $this->plugin_slug ),
-				'Hybrid'    => __( 'Hybrid', $this->plugin_slug ),
-				'Terrain'   => __( 'Terrain', $this->plugin_slug )
+				'RoadMap'   => __( 'Road Map', 'google-maps-builder' ),
+				'Satellite' => __( 'Satellite', 'google-maps-builder' ),
+				'Hybrid'    => __( 'Hybrid', 'google-maps-builder' ),
+				'Terrain'   => __( 'Terrain', 'google-maps-builder' )
 			),
 		) );
 		$display_options->add_field( array(
 			'name'    => 'Zoom',
-			'desc'    => __( 'Adjust the map zoom (0-21)', $this->plugin_slug ),
+			'desc'    => __( 'Adjust the map zoom (0-21)', 'google-maps-builder' ),
 			'id'      => $prefix . 'zoom',
 			'type'    => 'select',
 			'default' => '15',
@@ -456,115 +456,115 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 		$display_options->add_field( array(
 			'name'              => 'Map Layers',
-			'desc'              => __( 'Layers provide additional information overlayed on the map.', $this->plugin_slug ),
+			'desc'              => __( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' ),
 			'id'                => $prefix . 'layers',
 			'type'              => 'multicheck',
 			'select_all_button' => false,
 			'options'           => apply_filters( 'gmb_map_zoom_levels', array(
-					'traffic' => __( 'Traffic', $this->plugin_slug ),
-					'transit' => __( 'Transit', $this->plugin_slug ),
-					'bicycle' => __( 'Bicycle', $this->plugin_slug ),
+					'traffic' => __( 'Traffic', 'google-maps-builder' ),
+					'transit' => __( 'Transit', 'google-maps-builder' ),
+					'bicycle' => __( 'Bicycle', 'google-maps-builder' ),
 				)
 			)
 		) );
 
 		$display_options->add_field( array(
-			'name'    => __( 'Map Theme', $this->plugin_slug ),
-			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles above or use your own style.', $this->plugin_slug ), esc_url( 'http://snazzymaps.com' ) ) . '<a href="#" class="button button-small custom-snazzy-toggle">' . __( 'Set a Custom Snazzy Map', $this->plugin_slug ) . '</a>',
+			'name'    => __( 'Map Theme', 'google-maps-builder' ),
+			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles above or use your own style.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ) . '<a href="#" class="button button-small custom-snazzy-toggle">' . __( 'Set a Custom Snazzy Map', 'google-maps-builder' ) . '</a>',
 			'id'      => $prefix . 'theme',
 			'type'    => 'select',
 			'default' => 'none',
 			'options' => apply_filters( 'gmb_snazzy_maps', array(
-				'none'   => __( 'None', $this->plugin_slug ),
-				'custom' => __( 'Custom', $this->plugin_slug ),
-				'68'     => __( 'Aqua', $this->plugin_slug ),
-				'73'     => __( 'A Dark World', $this->plugin_slug ),
-				'42'     => __( 'Apple Maps-esque', $this->plugin_slug ),
-				'35'     => __( 'Avocado World', $this->plugin_slug ),
-				'23'     => __( 'Bates Green', $this->plugin_slug ),
-				'43'     => __( 'Bentley', $this->plugin_slug ),
-				'74'     => __( 'Becomeadinosaur', $this->plugin_slug ),
-				'79'     => __( 'Black and White', $this->plugin_slug ),
-				'28'     => __( 'Bluish', $this->plugin_slug ),
-				'11'     => __( 'Blue', $this->plugin_slug ),
-				'60'     => __( 'Blue Gray', $this->plugin_slug ),
-				'61'     => __( 'Blue Essence', $this->plugin_slug ),
-				'25'     => __( 'Blue water', $this->plugin_slug ),
-				'67'     => __( 'Blueprint', $this->plugin_slug ),
-				'66'     => __( 'Blueprint (No Labels)', $this->plugin_slug ),
-				'17'     => __( 'Bright & Bubbly', $this->plugin_slug ),
-				'45'     => __( 'Candy Colours', $this->plugin_slug ),
-				'63'     => __( 'Caribbean Mountain', $this->plugin_slug ),
-				'77'     => __( 'Clean Cut', $this->plugin_slug ),
-				'30'     => __( 'Cobalt', $this->plugin_slug ),
-				'80'     => __( 'Cool Grey', $this->plugin_slug ),
-				'6'      => __( 'Countries', $this->plugin_slug ),
-				'9'      => __( 'Chilled', $this->plugin_slug ),
-				'32'     => __( 'Deep Green', $this->plugin_slug ),
-				'56'     => __( 'Esperanto', $this->plugin_slug ),
-				'36'     => __( 'Flat Green', $this->plugin_slug ),
-				'53'     => __( 'Flat Map', $this->plugin_slug ),
-				'82'     => __( 'Grass is Greener', $this->plugin_slug ),
-				'5'      => __( 'Greyscale', $this->plugin_slug ),
-				'20'     => __( 'Gowalla', $this->plugin_slug ),
-				'48'     => __( 'Hard edges', $this->plugin_slug ),
-				'76'     => __( 'HashtagNineNineNine', $this->plugin_slug ),
-				'21'     => __( 'Hopper', $this->plugin_slug ),
-				'69'     => __( 'Holiday', $this->plugin_slug ),
-				'46'     => __( 'Homage to Toner', $this->plugin_slug ),
-				'24'     => __( 'Hot Pink', $this->plugin_slug ),
-				'41'     => __( 'Hints of Gold', $this->plugin_slug ),
-				'81'     => __( 'Ilustracao', $this->plugin_slug ),
-				'7'      => __( 'Icy Blue', $this->plugin_slug ),
-				'33'     => __( 'Jane Iredale', $this->plugin_slug ),
-				'71'     => __( 'Jazzygreen', $this->plugin_slug ),
-				'65'     => __( 'Just places', $this->plugin_slug ),
-				'59'     => __( 'Light Green', $this->plugin_slug ),
-				'29'     => __( 'Light Monochrome', $this->plugin_slug ),
-				'37'     => __( 'Lunar Landscape', $this->plugin_slug ),
-				'44'     => __( 'MapBox', $this->plugin_slug ),
-				'2'      => __( 'Midnight Commander', $this->plugin_slug ),
-				'57'     => __( 'Military Flat', $this->plugin_slug ),
-				'10'     => __( 'Mixed', $this->plugin_slug ),
-				'83'     => __( 'Muted Blue', $this->plugin_slug ),
-				'47'     => __( 'Nature', $this->plugin_slug ),
-				'34'     => __( 'Neon World', $this->plugin_slug ),
-				'13'     => __( 'Neutral Blue', $this->plugin_slug ),
-				'62'     => __( 'Night vision', $this->plugin_slug ),
-				'64'     => __( 'Old Dry Mud', $this->plugin_slug ),
-				'22'     => __( 'Old Timey', $this->plugin_slug ),
-				'1'      => __( 'Pale Dawn', $this->plugin_slug ),
-				'39'     => __( 'Paper', $this->plugin_slug ),
-				'78'     => __( 'Pink & Blue', $this->plugin_slug ),
-				'3'      => __( 'Red Alert', $this->plugin_slug ),
-				'31'     => __( 'Red Hues', $this->plugin_slug ),
-				'18'     => __( 'Retro', $this->plugin_slug ),
-				'51'     => __( 'Roadtrip At Night', $this->plugin_slug ),
-				'54'     => __( 'RouteXL', $this->plugin_slug ),
-				'75'     => __( 'Shade of Green', $this->plugin_slug ),
-				'38'     => __( 'Shades of Grey', $this->plugin_slug ),
-				'27'     => __( 'Shift Worker', $this->plugin_slug ),
-				'58'     => __( 'Simple Labels', $this->plugin_slug ),
-				'52'     => __( 'Souldisco', $this->plugin_slug ),
-				'12'     => __( 'Snazzy Maps', $this->plugin_slug ),
-				'19'     => __( 'Subtle', $this->plugin_slug ),
-				'49'     => __( 'Subtle Green', $this->plugin_slug ),
-				'15'     => __( 'Subtle Grayscale', $this->plugin_slug ),
-				'55'     => __( 'Subtle Grayscale Map', $this->plugin_slug ),
-				'50'     => __( 'The Endless Atlas', $this->plugin_slug ),
-				'4'      => __( 'Tripitty', $this->plugin_slug ),
-				'72'     => __( 'Transport for London', $this->plugin_slug ),
-				'8'      => __( 'Turquoise Water', $this->plugin_slug ),
-				'16'     => __( 'Unimposed Topography', $this->plugin_slug ),
-				'70'     => __( 'Unsaturated Browns', $this->plugin_slug ),
-				'14'     => __( 'Vintage', $this->plugin_slug ),
-				'26'     => __( 'Vintage Blue', $this->plugin_slug ),
-				'40'     => __( 'Vitamin C', $this->plugin_slug ),
+				'none'   => __( 'None', 'google-maps-builder' ),
+				'custom' => __( 'Custom', 'google-maps-builder' ),
+				'68'     => __( 'Aqua', 'google-maps-builder' ),
+				'73'     => __( 'A Dark World', 'google-maps-builder' ),
+				'42'     => __( 'Apple Maps-esque', 'google-maps-builder' ),
+				'35'     => __( 'Avocado World', 'google-maps-builder' ),
+				'23'     => __( 'Bates Green', 'google-maps-builder' ),
+				'43'     => __( 'Bentley', 'google-maps-builder' ),
+				'74'     => __( 'Becomeadinosaur', 'google-maps-builder' ),
+				'79'     => __( 'Black and White', 'google-maps-builder' ),
+				'28'     => __( 'Bluish', 'google-maps-builder' ),
+				'11'     => __( 'Blue', 'google-maps-builder' ),
+				'60'     => __( 'Blue Gray', 'google-maps-builder' ),
+				'61'     => __( 'Blue Essence', 'google-maps-builder' ),
+				'25'     => __( 'Blue water', 'google-maps-builder' ),
+				'67'     => __( 'Blueprint', 'google-maps-builder' ),
+				'66'     => __( 'Blueprint (No Labels)', 'google-maps-builder' ),
+				'17'     => __( 'Bright & Bubbly', 'google-maps-builder' ),
+				'45'     => __( 'Candy Colours', 'google-maps-builder' ),
+				'63'     => __( 'Caribbean Mountain', 'google-maps-builder' ),
+				'77'     => __( 'Clean Cut', 'google-maps-builder' ),
+				'30'     => __( 'Cobalt', 'google-maps-builder' ),
+				'80'     => __( 'Cool Grey', 'google-maps-builder' ),
+				'6'      => __( 'Countries', 'google-maps-builder' ),
+				'9'      => __( 'Chilled', 'google-maps-builder' ),
+				'32'     => __( 'Deep Green', 'google-maps-builder' ),
+				'56'     => __( 'Esperanto', 'google-maps-builder' ),
+				'36'     => __( 'Flat Green', 'google-maps-builder' ),
+				'53'     => __( 'Flat Map', 'google-maps-builder' ),
+				'82'     => __( 'Grass is Greener', 'google-maps-builder' ),
+				'5'      => __( 'Greyscale', 'google-maps-builder' ),
+				'20'     => __( 'Gowalla', 'google-maps-builder' ),
+				'48'     => __( 'Hard edges', 'google-maps-builder' ),
+				'76'     => __( 'HashtagNineNineNine', 'google-maps-builder' ),
+				'21'     => __( 'Hopper', 'google-maps-builder' ),
+				'69'     => __( 'Holiday', 'google-maps-builder' ),
+				'46'     => __( 'Homage to Toner', 'google-maps-builder' ),
+				'24'     => __( 'Hot Pink', 'google-maps-builder' ),
+				'41'     => __( 'Hints of Gold', 'google-maps-builder' ),
+				'81'     => __( 'Ilustracao', 'google-maps-builder' ),
+				'7'      => __( 'Icy Blue', 'google-maps-builder' ),
+				'33'     => __( 'Jane Iredale', 'google-maps-builder' ),
+				'71'     => __( 'Jazzygreen', 'google-maps-builder' ),
+				'65'     => __( 'Just places', 'google-maps-builder' ),
+				'59'     => __( 'Light Green', 'google-maps-builder' ),
+				'29'     => __( 'Light Monochrome', 'google-maps-builder' ),
+				'37'     => __( 'Lunar Landscape', 'google-maps-builder' ),
+				'44'     => __( 'MapBox', 'google-maps-builder' ),
+				'2'      => __( 'Midnight Commander', 'google-maps-builder' ),
+				'57'     => __( 'Military Flat', 'google-maps-builder' ),
+				'10'     => __( 'Mixed', 'google-maps-builder' ),
+				'83'     => __( 'Muted Blue', 'google-maps-builder' ),
+				'47'     => __( 'Nature', 'google-maps-builder' ),
+				'34'     => __( 'Neon World', 'google-maps-builder' ),
+				'13'     => __( 'Neutral Blue', 'google-maps-builder' ),
+				'62'     => __( 'Night vision', 'google-maps-builder' ),
+				'64'     => __( 'Old Dry Mud', 'google-maps-builder' ),
+				'22'     => __( 'Old Timey', 'google-maps-builder' ),
+				'1'      => __( 'Pale Dawn', 'google-maps-builder' ),
+				'39'     => __( 'Paper', 'google-maps-builder' ),
+				'78'     => __( 'Pink & Blue', 'google-maps-builder' ),
+				'3'      => __( 'Red Alert', 'google-maps-builder' ),
+				'31'     => __( 'Red Hues', 'google-maps-builder' ),
+				'18'     => __( 'Retro', 'google-maps-builder' ),
+				'51'     => __( 'Roadtrip At Night', 'google-maps-builder' ),
+				'54'     => __( 'RouteXL', 'google-maps-builder' ),
+				'75'     => __( 'Shade of Green', 'google-maps-builder' ),
+				'38'     => __( 'Shades of Grey', 'google-maps-builder' ),
+				'27'     => __( 'Shift Worker', 'google-maps-builder' ),
+				'58'     => __( 'Simple Labels', 'google-maps-builder' ),
+				'52'     => __( 'Souldisco', 'google-maps-builder' ),
+				'12'     => __( 'Snazzy Maps', 'google-maps-builder' ),
+				'19'     => __( 'Subtle', 'google-maps-builder' ),
+				'49'     => __( 'Subtle Green', 'google-maps-builder' ),
+				'15'     => __( 'Subtle Grayscale', 'google-maps-builder' ),
+				'55'     => __( 'Subtle Grayscale Map', 'google-maps-builder' ),
+				'50'     => __( 'The Endless Atlas', 'google-maps-builder' ),
+				'4'      => __( 'Tripitty', 'google-maps-builder' ),
+				'72'     => __( 'Transport for London', 'google-maps-builder' ),
+				'8'      => __( 'Turquoise Water', 'google-maps-builder' ),
+				'16'     => __( 'Unimposed Topography', 'google-maps-builder' ),
+				'70'     => __( 'Unsaturated Browns', 'google-maps-builder' ),
+				'14'     => __( 'Vintage', 'google-maps-builder' ),
+				'26'     => __( 'Vintage Blue', 'google-maps-builder' ),
+				'40'     => __( 'Vitamin C', 'google-maps-builder' ),
 			) )
 		) );
 		$display_options->add_field( array(
-			'name' => __( 'Custom Map Theme JSON', $this->plugin_slug ),
-			'desc' => __( 'Paste the Snazzy Map JSON code into the field above to set the theme.', $this->plugin_slug ),
+			'name' => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
+			'desc' => __( 'Paste the Snazzy Map JSON code into the field above to set the theme.', 'google-maps-builder' ),
 			'id'   => $prefix . 'theme_json',
 			'type' => 'textarea_code'
 		) );
@@ -573,7 +573,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		// CONTROL OPTIONS
 		$control_options = cmb2_get_metabox( array(
 			'id'           => 'google_maps_control_options',
-			'title'        => __( 'Map Controls', $this->plugin_slug ),
+			'title'        => __( 'Map Controls', 'google-maps-builder' ),
 			'object_types' => array( 'google_maps' ), // post type
 			'context'      => 'side', //  'normal', 'advanced', or 'side'
 			'priority'     => 'default', //  'high', 'core', 'default' or 'low'
@@ -581,82 +581,82 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Zoom Control', $this->plugin_slug ),
+			'name'    => __( 'Zoom Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'zoom_control',
 			'type'    => 'select',
 			'default' => 'default',
 			'options' => array(
-				'none'    => __( 'None', $this->plugin_slug ),
-				'small'   => __( 'Small', $this->plugin_slug ),
-				'large'   => __( 'Large', $this->plugin_slug ),
-				'default' => __( 'Default', $this->plugin_slug ),
+				'none'    => __( 'None', 'google-maps-builder' ),
+				'small'   => __( 'Small', 'google-maps-builder' ),
+				'large'   => __( 'Large', 'google-maps-builder' ),
+				'default' => __( 'Default', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Street View', $this->plugin_slug ),
+			'name'    => __( 'Street View', 'google-maps-builder' ),
 			'id'      => $prefix . 'street_view',
 			'type'    => 'select',
 			'default' => 'true',
 			'options' => array(
-				'none' => __( 'None', $this->plugin_slug ),
-				'true' => __( 'Standard', $this->plugin_slug ),
+				'none' => __( 'None', 'google-maps-builder' ),
+				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Pan Control', $this->plugin_slug ),
+			'name'    => __( 'Pan Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'pan',
 			'type'    => 'select',
 			'default' => 'true',
 			'options' => array(
-				'none' => __( 'None', $this->plugin_slug ),
-				'true' => __( 'Standard', $this->plugin_slug ),
+				'none' => __( 'None', 'google-maps-builder' ),
+				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Map Type Control', $this->plugin_slug ),
+			'name'    => __( 'Map Type Control', 'google-maps-builder' ),
 			'id'      => $prefix . 'map_type_control',
 			'type'    => 'select',
 			'default' => 'horizontal_bar',
 			'options' => array(
-				'none'           => __( 'None', $this->plugin_slug ),
-				'dropdown_menu'  => __( 'Dropdown Menu', $this->plugin_slug ),
-				'horizontal_bar' => __( 'Horizontal Bar', $this->plugin_slug ),
+				'none'           => __( 'None', 'google-maps-builder' ),
+				'dropdown_menu'  => __( 'Dropdown Menu', 'google-maps-builder' ),
+				'horizontal_bar' => __( 'Horizontal Bar', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Draggable Map', $this->plugin_slug ),
+			'name'    => __( 'Draggable Map', 'google-maps-builder' ),
 			'id'      => $prefix . 'draggable',
 			'type'    => 'select',
 			'default' => 'true',
 			'options' => array(
-				'none' => __( 'None', $this->plugin_slug ),
-				'true' => __( 'Standard', $this->plugin_slug ),
+				'none' => __( 'None', 'google-maps-builder' ),
+				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Double Click to Zoom', $this->plugin_slug ),
+			'name'    => __( 'Double Click to Zoom', 'google-maps-builder' ),
 			'id'      => $prefix . 'double_click',
 			'type'    => 'select',
 			'default' => 'true',
 			'options' => array(
-				'none' => __( 'None', $this->plugin_slug ),
-				'true' => __( 'Standard', $this->plugin_slug ),
+				'none' => __( 'None', 'google-maps-builder' ),
+				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
 
 		$control_options->add_field( array(
-			'name'    => __( 'Mouse Wheel to Zoom', $this->plugin_slug ),
+			'name'    => __( 'Mouse Wheel to Zoom', 'google-maps-builder' ),
 			'id'      => $prefix . 'wheel_zoom',
 			'type'    => 'select',
 			'default' => 'true',
 			'options' => array(
-				'none' => __( 'Disabled', $this->plugin_slug ),
-				'true' => __( 'Standard', $this->plugin_slug ),
+				'none' => __( 'Disabled', 'google-maps-builder' ),
+				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
 
@@ -686,7 +686,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		//width
 		$output .= '<div id="width_wrap" class="clear">';
-		$output .= '<label class="width-label size-label">' . __( 'Width', $this->plugin_slug ) . ':</label><input type="text" class="regular-text map-width" name="' . $field->args( 'id' ) . '[width]" id="' . $field->args( 'id' ) . '-width" value="' . ( $meta['width'] ? $meta['width'] : $field->args( 'width_std' ) ) . '" />';
+		$output .= '<label class="width-label size-label">' . __( 'Width', 'google-maps-builder' ) . ':</label><input type="text" class="regular-text map-width" name="' . $field->args( 'id' ) . '[width]" id="' . $field->args( 'id' ) . '-width" value="' . ( $meta['width'] ? $meta['width'] : $field->args( 'width_std' ) ) . '" />';
 		$output .= '<div class="size-labels-wrap">';
 		$output .= '<input id="width_unit_percent" type="radio" name="' . $field->args( 'id' ) . '[map_width_unit]" class="width_radio" value="%" ' . ( $meta['map_width_unit'] === '%' || $field->args( 'width_unit_std' ) === '%' ? 'checked="checked"' : '' ) . '><label class="width_unit_label">%</label>';
 		$output .= '<input id="width_unit_px" type="radio" name="' . $field->args( 'id' ) . '[map_width_unit]" class="width_radio" value="px" ' . ( $meta['map_width_unit'] === 'px' ? 'checked="checked"' : '' ) . ' ><label class="width_unit_label">px</label>';
@@ -695,7 +695,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		//height
 		$output .= '<div id="height_wrap" class="clear clearfix">';
-		$output .= '<label for="' . $field->args( 'id' ) . '[height]" class="height-label size-label">' . __( 'Height', $this->plugin_slug ) . ':</label><input type="text" class="regular-text map-height" name="' . $field->args( 'id' ) . '[height]" id="' . $field->args( 'id' ) . '-height" value="' . ( $meta['height'] ? $meta['height'] : $field->args( 'height_std' ) ) . '" />';
+		$output .= '<label for="' . $field->args( 'id' ) . '[height]" class="height-label size-label">' . __( 'Height', 'google-maps-builder' ) . ':</label><input type="text" class="regular-text map-height" name="' . $field->args( 'id' ) . '[height]" id="' . $field->args( 'id' ) . '-height" value="' . ( $meta['height'] ? $meta['height'] : $field->args( 'height_std' ) ) . '" />';
 
 		$output .= '<div class="size-labels-wrap">';
 		$output .= '<input id="height_unit_percent" type="radio" name="' . $field->args( 'id' ) . '[map_height_unit]" class="height_radio" value="%" ' . ( $meta['map_height_unit'] === '%' || $field->args( 'height_unit_std' ) === '%' ? 'checked="checked"' : '' ) . '><label class="height_unit_label">%</label>';
@@ -703,7 +703,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '</div>';
 		$output .= '</div>';
 
-		$output .= '<p class="cmb2-metabox-description">' . __( 'Configure the default map width and height.', $this->plugin_slug ) . '</p>';
+		$output .= '<p class="cmb2-metabox-description">' . __( 'Configure the default map width and height.', 'google-maps-builder' ) . '</p>';
 
 		$output .= '</div>'; //end #width_height_wrap
 
@@ -733,13 +733,13 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		//lat lng
 		$output = '<div id="lat-lng-wrap">
 					<div class="coordinates-wrap clear">
-							<div class="lat-lng-wrap lat-wrap clear"><span>' . __( 'Latitude:', $this->plugin_slug ) . '</span>
+							<div class="lat-lng-wrap lat-wrap clear"><span>' . __( 'Latitude:', 'google-maps-builder' ) . '</span>
 							<input type="text" class="regular-text latitude" name="' . $field->args( 'id' ) . '[latitude]" id="' . $field->args( 'id' ) . '-latitude" value="' . ( $meta['latitude'] ? $meta['latitude'] : $field->args( 'lat_std' ) ) . '" />
 							</div>
-							<div class="lat-lng-wrap lng-wrap clear"><span>' . __( 'Longitude:', $this->plugin_slug ) . '</span>
+							<div class="lat-lng-wrap lng-wrap clear"><span>' . __( 'Longitude:', 'google-maps-builder' ) . '</span>
 							<input type="text" class="regular-text longitude" name="' . $field->args( 'id' ) . '[longitude]" id="' . $field->args( 'id' ) . '-longitude" value="' . ( $meta['longitude'] ? $meta['longitude'] : $field->args( 'lng_std' ) ) . '" />
 							</div>';
-		$output .= '<div class="wpgp-message lat-lng-change-message clear"><p>' . __( 'Lat/lng changed', $this->plugin_slug ) . '</p><a href="#" class="button lat-lng-update-btn button-small" data-lat="" data-lng="">' . __( 'Update', $this->plugin_slug ) . '</a></div>';
+		$output .= '<div class="wpgp-message lat-lng-change-message clear"><p>' . __( 'Lat/lng changed', 'google-maps-builder' ) . '</p><a href="#" class="button lat-lng-update-btn button-small" data-lat="" data-lng="">' . __( 'Update', 'google-maps-builder' ) . '</a></div>';
 		$output .= '</div><!-- /.coordinates-wrap -->
 						</div>';
 
@@ -767,7 +767,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		);
 
 		echo '<div class="autocomplete-wrap"><input type="text" name="' . $field->args( 'id' ) . '[geocode]" id="' . $field->args( 'id' ) . '" value="" class="search-autocomplete" /><p class="autocomplete-description">' .
-		     sprintf( __( 'Enter the name of a place or an address above to create a map marker or %1$sDrop a Marker%2$s', $this->plugin_slug ), '<a href="#" class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>', '</a>' ) .
+		     sprintf( __( 'Enter the name of a place or an address above to create a map marker or %1$sDrop a Marker%2$s', 'google-maps-builder' ), '<a href="#" class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>', '</a>' ) .
 		     '</p></div>';
 
 	}
@@ -784,21 +784,21 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$default_options = $this->get_default_map_options();
 
 
-		$output = '<div class="places-loading wpgp-loading">' . __( 'Loading Places', $this->plugin_slug ) . '</div>';
+		$output = '<div class="places-loading wpgp-loading">' . __( 'Loading Places', 'google-maps-builder' ) . '</div>';
 		$output .= '<div id="google-map-wrap">';
 		$output .= '<div id="map" style="height:600px; width:100%;"></div>';
 
 		//Toolbar
 		$output .= '<div id="map-toolbar">';
-		$output .= '<button class="add-location button button-small gmb-magnific-inline" data-target="cmb2-id-gmb-geocoder" data-auto-focus="true"><span class="dashicons dashicons-pressthis"></span>' . __( 'Add Location', $this->plugin_slug ) . '</button>';
-		$output .= '<button class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>' . __( 'Drop a Marker', $this->plugin_slug ) . '</button>';
-		$output .= '<button class="goto-location button button-small gmb-magnific-inline" data-target="map-autocomplete-wrap" data-auto-focus="true"><span class="dashicons dashicons-admin-site"></span>' . __( 'Goto Location', $this->plugin_slug ) . '</button>';
-		$output .= '<button class="edit-title button  button-small gmb-magnific-inline" data-target="map-title-wrap" data-auto-focus="true"><span class="dashicons dashicons-edit"></span>' . __( 'Edit Map Title', $this->plugin_slug ) . '</button>';
+		$output .= '<button class="add-location button button-small gmb-magnific-inline" data-target="cmb2-id-gmb-geocoder" data-auto-focus="true"><span class="dashicons dashicons-pressthis"></span>' . __( 'Add Location', 'google-maps-builder' ) . '</button>';
+		$output .= '<button class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>' . __( 'Drop a Marker', 'google-maps-builder' ) . '</button>';
+		$output .= '<button class="goto-location button button-small gmb-magnific-inline" data-target="map-autocomplete-wrap" data-auto-focus="true"><span class="dashicons dashicons-admin-site"></span>' . __( 'Goto Location', 'google-maps-builder' ) . '</button>';
+		$output .= '<button class="edit-title button  button-small gmb-magnific-inline" data-target="map-title-wrap" data-auto-focus="true"><span class="dashicons dashicons-edit"></span>' . __( 'Edit Map Title', 'google-maps-builder' ) . '</button>';
 
 		$output .= '<div class="live-lat-lng-wrap clearfix">';
-		$output .= '<button disabled class="update-lat-lng button button-small">' . __( 'Set Lat/Lng', $this->plugin_slug ) . '</button>';
-		$output .= '<div class="live-latitude-wrap"><span class="live-latitude-label">' . __( 'Lat:', $this->plugin_slug ) . '</span><span class="live-latitude">' . ( isset( $lat_lng['latitude'] ) ? $lat_lng['latitude'] : '' ) . '</span></div>';
-		$output .= '<div class="live-longitude-wrap"><span class="live-longitude-label">' . __( 'Lng:', $this->plugin_slug ) . '</span><span class="live-longitude">' . ( isset( $lat_lng['longitude'] ) ? $lat_lng['longitude'] : '' ) . '</span></div>';
+		$output .= '<button disabled class="update-lat-lng button button-small">' . __( 'Set Lat/Lng', 'google-maps-builder' ) . '</button>';
+		$output .= '<div class="live-latitude-wrap"><span class="live-latitude-label">' . __( 'Lat:', 'google-maps-builder' ) . '</span><span class="live-latitude">' . ( isset( $lat_lng['latitude'] ) ? $lat_lng['latitude'] : '' ) . '</span></div>';
+		$output .= '<div class="live-longitude-wrap"><span class="live-longitude-label">' . __( 'Lng:', 'google-maps-builder' ) . '</span><span class="live-longitude">' . ( isset( $lat_lng['longitude'] ) ? $lat_lng['longitude'] : '' ) . '</span></div>';
 		$output .= '</div>'; //End .live-lat-lng-wrap
 		$output .= '</div>'; //End #map-toolbar
 		$output .= '</div>'; //End #map
@@ -807,9 +807,9 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '<div class="inner-modal-wrap">';
 		$output .= '<div class="inner-modal-container">';
 		$output .= '<div class="inner-modal">';
-		$output .= '<label for="post_title" class="map-title">' . __( 'Map Title', $this->plugin_slug ) . '</label>';
-		$output .= '<p class="cmb2-metabox-description">' . __( 'Give your Map a descriptive title', $this->plugin_slug ) . '</p>';
-		$output .= '<input type="text" name="model_post_title" size="30" value="' . get_the_title() . '" id="modal_title" spellcheck="true" autocomplete="off" placeholder="' . __( 'Enter map title', $this->plugin_slug ) . '">';
+		$output .= '<label for="post_title" class="map-title">' . __( 'Map Title', 'google-maps-builder' ) . '</label>';
+		$output .= '<p class="cmb2-metabox-description">' . __( 'Give your Map a descriptive title', 'google-maps-builder' ) . '</p>';
+		$output .= '<input type="text" name="model_post_title" size="30" value="' . get_the_title() . '" id="modal_title" spellcheck="true" autocomplete="off" placeholder="' . __( 'Enter map title', 'google-maps-builder' ) . '">';
 		$output .= '<button type="button" class="gmb-modal-close">&times;</button>';
 		$output .= '</div>';
 		$output .= '</div>';
@@ -820,8 +820,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '<div class="inner-modal-wrap">';
 		$output .= '<div class="inner-modal-container">';
 		$output .= '<div class="inner-modal">';
-		$output .= '<label for="map-location-autocomplete" class="map-title">' . __( 'Enter a Location', $this->plugin_slug ) . '</label>';
-		$output .= '<p class="cmb2-metabox-description">' . __( 'Type your point of interest below and the map will be re-centered over that location', $this->plugin_slug ) . '</p>';
+		$output .= '<label for="map-location-autocomplete" class="map-title">' . __( 'Enter a Location', 'google-maps-builder' ) . '</label>';
+		$output .= '<p class="cmb2-metabox-description">' . __( 'Type your point of interest below and the map will be re-centered over that location', 'google-maps-builder' ) . '</p>';
 		$output .= '<button type="button" class="gmb-modal-close">&times;</button>';
 		$output .= '<input type="text" name="" size="30" id="map-location-autocomplete">';
 		$output .= '</div>';
@@ -849,9 +849,9 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	function setup_custom_columns( $columns ) {
 		$columns = array(
 			'cb'        => '<input type="checkbox" />',
-			'title'     => __( 'Google Map Title', $this->plugin_slug ),
-			'shortcode' => __( 'Shortcode', $this->plugin_slug ),
-			'date'      => __( 'Creation Date', $this->plugin_slug )
+			'title'     => __( 'Google Map Title', 'google-maps-builder' ),
+			'shortcode' => __( 'Shortcode', 'google-maps-builder' ),
+			'date'      => __( 'Creation Date', 'google-maps-builder' )
 		);
 
 		return $columns;

@@ -15,15 +15,6 @@
 abstract class Google_Maps_Builder_Core_Scripts {
 
 	/**
-	 * The plugin's menu slug
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var string
-	 */
-	protected $plugin_slug;
-
-	/**
 	 * The plugin's settings
 	 *
 	 * @since 2.0.0
@@ -54,7 +45,6 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 */
 	public function __construct(){
 		$this->paths = Google_Maps_Builder_Core_Asset_Paths::get_instance();
-		$this->plugin_slug     = Google_Maps_Builder()->get_plugin_slug();
 		$this->plugin_settings = get_option( 'gmb_settings' );
 		if( is_admin() ) {
 			add_action( 'admin_print_scripts', array( $this, 'check_for_multiple_google_maps_api_calls' ) );

@@ -35,7 +35,7 @@
 		<!--/.google-plus -->
 
 		<div class="wordimpress-logo">
-			<a href="http://wordimpress.com" title="<?php _e( 'Visit the Developers site of Google Maps Builder', $plugin_slug ); ?>" target="_blank" class="logo-link"></a>
+			<a href="https://wordimpress.com" title="<?php _e( 'Visit the Developers site of Google Maps Builder', 'google-maps-builder' ); ?>" target="_blank" class="logo-link"></a>
 		</div>
 		<?php do_action( 'gmb_social_media_after_logo' ); ?>
 
@@ -43,8 +43,8 @@
 	<!-- /.social-items-wrap -->
 
 
-	<a href="#" class="hide-welcome" title="<?php _e( 'Hide the welcome message', $plugin_slug ); ?>">
-		<?php _e( 'Hide Welcome', $plugin_slug ); ?><span></span>
+	<a href="#" class="hide-welcome" title="<?php _e( 'Hide the welcome message', 'google-maps-builder' ); ?>">
+		<?php _e( 'Hide Welcome', 'google-maps-builder' ); ?><span></span>
 	</a>
 
 </div>

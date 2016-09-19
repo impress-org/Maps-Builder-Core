@@ -9,14 +9,6 @@
  * @since       0.1.0
  */
 abstract class Google_Maps_Builder_Core_Scripts_Init {
-	/**
-	 * Plugin slug
-	 *
-	 * @since 2.0.0
-	 *
-	 * @var string
-	 */
-	protected $plugin_slug;
 
 	/**
 	 * Asset paths
@@ -33,8 +25,9 @@ abstract class Google_Maps_Builder_Core_Scripts_Init {
 	 * @since 2.0.0
 	 */
 	public function __construct(){
-		$this->plugin_slug = Google_Maps_Builder::instance()->get_plugin_slug();
+
 		$this->paths = Google_Maps_Builder_Core_Asset_Paths::get_instance();
+
 		if( is_admin() ){
 			new Google_Maps_Builder_Core_Admin_Scripts();
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_hooks' ) );
