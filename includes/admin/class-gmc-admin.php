@@ -470,13 +470,12 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$display_options->add_field( array(
 			'name'    => __( 'Map Theme', 'google-maps-builder' ),
-			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles above or use your own style.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ) . '<a href="#" class="button button-small custom-snazzy-toggle">' . __( 'Set a Custom Snazzy Map', 'google-maps-builder' ) . '</a>',
+			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
 			'id'      => $prefix . 'theme',
 			'type'    => 'select',
 			'default' => 'none',
 			'options' => apply_filters( 'gmb_snazzy_maps', array(
 				'none'   => __( 'None', 'google-maps-builder' ),
-				'custom' => __( 'Custom', 'google-maps-builder' ),
 				'68'     => __( 'Aqua', 'google-maps-builder' ),
 				'73'     => __( 'A Dark World', 'google-maps-builder' ),
 				'42'     => __( 'Apple Maps-esque', 'google-maps-builder' ),
