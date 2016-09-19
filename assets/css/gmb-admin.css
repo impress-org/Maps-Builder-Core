@@ -1968,11 +1968,13 @@ Map Edit Quick Toolbar
   border-top: 1px solid #DDD;
   border-left: 1px solid #DDD;
   border-right: 1px solid #DDD;
-  min-width: 580px; }
+  min-width: 582px; }
   #map-toolbar #title {
     padding: 3px; }
-  #map-toolbar .drop-marker .dashicons {
-    margin: 5px 0 0; }
+  #map-toolbar .drop-marker {
+    width: 105px; }
+    #map-toolbar .drop-marker .dashicons {
+      margin: 5px 0 0; }
   #map-toolbar button {
     margin: 0 2px; }
     #map-toolbar button .dashicons {

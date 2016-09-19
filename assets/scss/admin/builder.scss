@@ -422,15 +422,20 @@ Map Edit Quick Toolbar
   border-top: 1px solid #DDD;
   border-left: 1px solid #DDD;
   border-right: 1px solid #DDD;
-  min-width: 580px;
+  min-width: 582px;
 
   #title {
 	padding: 3px;
   }
 
-  .drop-marker .dashicons {
-	margin: 5px 0 0;
+  .drop-marker{
+    width: 105px;
+    .dashicons {
+      margin: 5px 0 0;
+    }
   }
+
+
 
   button {
 	margin: 0 2px;
