@@ -405,7 +405,7 @@ var placeSearchAutocomplete;
     };
 
     /**
-     * Update Toolbar Lat/Lng
+     * Update Toolbar Lat/Lng.
      */
     gmb.set_toolbar_lat_lng = function () {
 
@@ -422,8 +422,10 @@ var placeSearchAutocomplete;
         lat_lng_sidebar_btn.attr('data-lat', map_center.lat());
         lat_lng_sidebar_btn.attr('data-lng', map_center.lng());
 
-        lat_lng_sidebar_btn.removeAttr('disabled');
-        lat_lng_toolbar_btn.removeAttr('disabled');
+        lat_lng_sidebar_btn.removeAttr('disabled').addClass('button-primary');
+        lat_lng_toolbar_btn.removeAttr('disabled').addClass('button-primary');
+
+
 
     };
 
