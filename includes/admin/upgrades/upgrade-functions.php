@@ -1,41 +1,40 @@
 <?php
 /**
- *  Handles Upgrade Functionality
+ * Handles Upgrade Functionality.
  *
  * @copyright   Copyright (c) 2016, WordImpress
  * @since       : 2.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 /**
- * Display Upgrade Notices
+ * Display Upgrade Notices.
  *
  * @since 2.0
  * @return void
  */
 function gmb_show_upgrade_notices() {
 
-	// Don't show notices on the upgrades page
+	// Don't show notices on the upgrades page.
 	if ( isset( $_GET['page'] ) && $_GET['page'] == 'gmb-upgrades' ) {
 		return;
 	}
 
-	//Check to see if we have any posts
+	//Check to see if we have any posts.
 	$gmb_posts = get_posts( array( 'post_type' => 'google_maps', 'posts_per_page' => 10 ) );
 	if ( empty( $gmb_posts ) ) {
-		update_option( 'gmb_refid_upgraded', 'upgraded' ); //mark as updated
+		update_option( 'gmb_refid_upgraded', 'upgraded' ); //mark as updated.
 		return; //Don't run if there's no posts!
 	}
 
 	$gmb_version = get_option( 'gmb_version' );
 
 	if ( ! $gmb_version ) {
-		// 2.0 is the first version to use this option so we must add it
+		// 2.0 is the first version to use this option so we must add it.
 		$gmb_version = '2.0';
 	}
 	update_option( 'gmb_version', GMB_VERSION );
@@ -50,7 +49,7 @@ function gmb_show_upgrade_notices() {
 		);
 	} elseif ( version_compare( $gmb_version, '2.1', '<=' ) && ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
 		printf(
-			'<div class="updated"><p><strong>' . __( 'Maps Builder Update Required', 'google-maps-builder' ) . ':</strong> ' . esc_html__( 'An upgrade is required to your Google maps. We highly recommend performing a backup prior to upgrading. %sClick here to upgrade your maps%s', 'google-maps-builder' ) . '</p></div>',
+			'<div class="updated"><p><strong>' . __( 'Maps Builder Update Required', 'google-maps-builder' ) . ':</strong> ' . esc_html__( 'An upgrade is required to update your Google maps with the latest plugin version. Please perform a site backup and then upgrade. %sClick here to upgrade your maps%s', 'google-maps-builder' ) . '</p></div>',
 			'<br><a href="' . esc_url( admin_url( 'options.php?page=gmb-upgrades' ) ) . '" class="button button-primary" style="margin-top:10px;">',
 			'</a>'
 		);
@@ -63,9 +62,9 @@ add_action( 'admin_notices', 'gmb_show_upgrade_notices' );
 
 
 /**
- * Creates the upgrade page
+ * Creates the upgrade page.
  *
- * links to global variables
+ * links to global variables.
  *
  * @since 2.0
  */
@@ -161,14 +160,17 @@ function gmb_trigger_upgrades() {
 
 	//Is the option above in the db?
 	if ( ! $gmb_version ) {
-		// 2.0 is the first version to use this option so we must add it
+		// 2.0 is the first version to use this option so we must add it.
 		$gmb_version = '2.0';
 		add_option( 'gmb_version', $gmb_version );
 	}
-
+	//Version 2.0 upgrades
 	if ( version_compare( GMB_VERSION, '2.0', '>=' ) && ! get_option( 'gmb_refid_upgraded' ) ) {
 		gmb_v2_upgrades();
-	} elseif ( version_compare( GMB_VERSION, '2.1', '>=' ) ) {
+	}
+
+	//Version 2.1 upgrades
+	if ( version_compare( GMB_VERSION, '2.1', '>=' ) ) {
 		if ( ! gmb_has_upgrade_completed( 'gmb_markers_upgraded' ) ) {
 			gmb_v21_marker_upgrades();
 		}
@@ -202,6 +204,7 @@ function gmb_upgrades_screen() {
 	$custom = isset( $_GET['custom'] ) ? absint( $_GET['custom'] ) : 0;
 	$number = isset( $_GET['number'] ) ? absint( $_GET['number'] ) : 100;
 	$steps  = round( ( $total / $number ), 0 );
+
 
 	$doing_upgrade_args = array(
 		'page'        => 'gmb-upgrades',
@@ -260,11 +263,11 @@ function gmb_upgrades_screen() {
 						if (response == 'complete') {
 
 							el_upgrade_status.hide();
-							el_upgrade_status.after('<div class="updated"><p><strong><?php __( 'Upgrade Successful:', 'google-maps-builder' ); ?></strong> <?php __( 'The upgrade process has completed successfully. Hooray! You will now be redirected back to your previous page.', 'google-maps-builder' ); ?></p></div>');
+							el_upgrade_status.after('<div class="updated"><p><strong><?php _e( 'Upgrade Successful:', 'google-maps-builder' ); ?></strong> <?php _e( 'The upgrade process has completed successfully. You will now be redirected to your admin dashboard.', 'google-maps-builder' ); ?></p></div>');
 
 							//Send user back to prev page
 							setTimeout(function () {
-								history.back();
+								window.location = '<?php echo admin_url(); ?>';
 							}, 4000);
 
 						}

@@ -379,7 +379,6 @@
                         map.info_window.open(map, location_marker);
                     });
 
-
                 });
             }
 

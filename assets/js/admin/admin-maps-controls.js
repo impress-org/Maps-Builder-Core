@@ -252,7 +252,6 @@ var placeSearchAutocomplete;
      * Set up Places Search Field.
      *
      * Creates the Google Map custom control with autocomplete enabled.
-     *
      */
     gmb.set_map_places_search_field = function () {
         var input = /** @type {HTMLInputElement} */(

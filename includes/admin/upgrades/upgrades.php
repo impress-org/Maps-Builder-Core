@@ -114,9 +114,9 @@ function gmb_v2_upgrades() {
 }
 
 /**
- * Upgrade Marker Paths
+ * Upgrade Marker Paths.
  *
- * Marker paths were hard coded into the db causing issues when structures change
+ * Marker paths were hard coded into the db causing issues when structures change.
  *
  * @since 2.1
  * @return void
@@ -226,9 +226,9 @@ function gmb_v21_marker_upgrades() {
 }
 
 /**
- * Upgrade API Keys
+ * Upgrade API Keys.
  *
- * API keys were stored under several option values over plugin versions, requiring reconciliation
+ * API keys were stored under several option values over plugin versions, requiring reconciliation.
  *
  * @since 2.1
  * @return void
