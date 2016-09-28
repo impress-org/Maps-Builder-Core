@@ -496,7 +496,7 @@
 
         //Star rating.
         if (place.rating) {
-            info_window_content += '<div class="rating-wrap clear">' +
+            info_window_content += '<div class="rating-wrap">' +
                 '<p class="numeric-rating">' + place.rating + '</p>' +
                 '<div class="star-rating-wrap">' +
                 '<div class="star-rating-size" style="width:' + (65 * place.rating / 5) + 'px;"></div>' +

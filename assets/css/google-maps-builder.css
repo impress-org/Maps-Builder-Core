@@ -83,19 +83,20 @@ div[id^='google-maps-builder'] .gmb-infobubble {
     height: 60px; }
   div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap {
     overflow: hidden;
-    margin: 0 0 5px; }
+    margin: 0 0 3px;
+    text-align: right; }
     div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .numeric-rating {
       font-size: 16px;
       color: #DD4B39;
       font-weight: 400;
-      float: left;
+      display: inline-block;
       margin: 0 5px 0 0;
       line-height: 1; }
     div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .star-rating-wrap {
       background: url("../img/review_stars.png") no-repeat 0 0 transparent;
       height: 13px;
       width: 67px;
-      float: left;
+      display: inline-block;
       margin: 1px 0 0; }
     div[id^='google-maps-builder'] .gmb-infobubble .rating-wrap .star-rating-size {
       background: url("../img/review_stars.png") no-repeat 0 -13px transparent;
@@ -122,21 +123,25 @@ div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper {
     display: inline-block;
     margin: 0 2px -6px -3px; }
   div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address {
-    float: right;
+    float: left;
     width: 50%;
     font-style: italic;
-    text-align: right; }
+    text-align: left; }
     div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address .place-directions-link {
-      display: block; }
+      display: block;
+      margin: 3px 0 0; }
       div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address .place-directions-link > span {
         background-position: 0 -226px;
         margin-right: 0; }
   div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-phone {
+    text-align: right;
     margin: 0 0 3px; }
     div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-phone span.place-icon {
       background-position: 0 -355px; }
-  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-website span.place-icon {
-    background-position: 0 -291px; }
+  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-website {
+    text-align: right; }
+    div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-website span.place-icon {
+      background-position: 0 -291px; }
 
 @media screen and (max-width: 440px) {
   .gmb-infobubble {
