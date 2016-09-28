@@ -974,16 +974,7 @@ GMB_InfoBubble.prototype.open = function (opt_map, opt_anchor, map_data) {
     var that = this;
     window.setTimeout(function () {
         that.open_(opt_map, opt_anchor);
-
-        //Center markers on click option.
-        //Timeout required to calculate height properly.
-        if (map_data.marker_centered == 'yes') {
-            window.setTimeout(function () {
-                that.panToView();
-            }, 100);
-        }
-
-    }, 250); //Adjusting the timeout here appears to calculate height more efficiently.
+    }, 230); //Adjusting the timeout here appears to calculate height more efficiently.
 };
 
 

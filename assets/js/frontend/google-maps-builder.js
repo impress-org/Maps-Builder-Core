@@ -357,6 +357,13 @@
                 gmb.set_info_window_content(marker_data, map, map_data).done(function () {
                     map.info_window.open(map, location_marker, map_data);
 
+                    //Center markers on click option.
+                    //Timeout required to calculate height properly.
+                    if (map_data.marker_centered == 'yes') {
+                        window.setTimeout(function () {
+                            map.info_window.panToView();
+                        }, 300);
+                    }
                 });
 
             });
@@ -587,8 +594,15 @@
                 place_id: place.place_id
             };
 
-            gmb.set_info_window_content(marker_data, map, map_data).done(function(){
+            gmb.set_info_window_content(marker_data, map, map_data).done(function () {
                 map.info_window.open(map, search_marker, map_data);
+                //Center markers on click option.
+                //Timeout required to calculate height properly.
+                if (map_data.marker_centered == 'yes') {
+                    window.setTimeout(function () {
+                        map.info_window.panToView();
+                    }, 300);
+                }
             });
 
         });
