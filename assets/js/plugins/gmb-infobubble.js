@@ -968,12 +968,22 @@ GMB_InfoBubble.prototype['close'] = GMB_InfoBubble.prototype.close;
  *
  * @param {google.maps.Map=} opt_map Optional map to open on.
  * @param {google.maps.MVCObject=} opt_anchor Optional anchor to position at.
+ * @param map_data Data containing all the Maps Builder options.
  */
-GMB_InfoBubble.prototype.open = function (opt_map, opt_anchor) {
+GMB_InfoBubble.prototype.open = function (opt_map, opt_anchor, map_data) {
     var that = this;
     window.setTimeout(function () {
         that.open_(opt_map, opt_anchor);
-    }, 200);
+
+        //Center markers on click option.
+        //Timeout required to calculate height properly.
+        if (map_data.marker_centered == 'yes') {
+            window.setTimeout(function () {
+                that.panToView();
+            }, 100);
+        }
+
+    }, 250); //Adjusting the timeout here appears to calculate height more efficiently.
 };
 
 
@@ -1075,6 +1085,7 @@ GMB_InfoBubble.prototype.panToView = function () {
     var map = this.get('map');
     var mapDiv = map.getDiv();
     var mapHeight = mapDiv.offsetHeight;
+
 
     var latLng = this.getPosition();
     var centerPos = projection.fromLatLngToContainerPixel(map.getCenter());

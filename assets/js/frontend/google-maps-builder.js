@@ -354,18 +354,10 @@
             google.maps.event.addListener(location_marker, 'click', function () {
 
                 //Set marker content in info_window.
-                gmb.set_info_window_content(marker_data, map).done(function () {
-                    map.info_window.open(map, location_marker);
+                gmb.set_info_window_content(marker_data, map, map_data).done(function () {
+                    map.info_window.open(map, location_marker, map_data);
                 });
 
-
-                //Marker Centers Map on Click?
-                if (map_data.marker_centered == 'yes') {
-                    window.setTimeout(function () {
-                        // Pan into view, done in a time out to make it feel nicer :)
-                        map.info_window.panToView();
-                    }, 500);
-                }
             });
 
             //Should this marker's info_window be opened by default?
@@ -374,8 +366,8 @@
 
                     map.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
 
-                    gmb.set_info_window_content(marker_data, map).done(function () {
-                        map.info_window.open(map, location_marker);
+                    gmb.set_info_window_content(marker_data, map, map_data).done(function () {
+                        map.info_window.open(map, location_marker, map_data);
                     });
 
                 });
@@ -398,8 +390,9 @@
      *
      * @param marker_data
      * @param map
+     * @param map_data
      */
-    gmb.set_info_window_content = function (marker_data, map) {
+    gmb.set_info_window_content = function (marker_data, map, map_data) {
 
         //Create a deferred object.
         //This will allow us to wait for the Google places getDetails call via jquery's .done method.
@@ -438,8 +431,19 @@
                     info_window_content += gmb.set_place_content_in_info_window(place);
                     map.info_window.setContent(info_window_content);
                     map.info_window.updateContent_();
-                    map.info_window.open(map, marker);
+                    map.info_window.open();
                     done_trigger.resolve();
+
+                    //Marker Centers Map on Click?
+                    // This ensures that the map centers AFTER the loaded via AJAX.
+                    if (map_data.marker_centered == 'yes') {
+                        window.setTimeout(function () {
+                            // Pan into view, done in a time out to make it feel nicer :)
+                            map.info_window.panToView();
+                        }, 300);
+                    }
+
+
                 }
 
             });
@@ -535,7 +539,7 @@
 
                     //place new markers
                     for (i = 0; result = results[i]; i++) {
-                        gmb.create_search_result_marker(map, results[i]);
+                        gmb.create_search_result_marker(map, results[i], map_data);
                     }
 
                     //show all pages of results @see: http://stackoverflow.com/questions/11665684/more-than-20-results-by-pagination-with-google-places-api
@@ -558,7 +562,7 @@
      * @param map
      * @param place
      */
-    gmb.create_search_result_marker = function (map, place) {
+    gmb.create_search_result_marker = function (map, place, map_data) {
 
         var search_marker = new google.maps.Marker({
             map: map
@@ -586,8 +590,8 @@
                 place_id: place.place_id
             };
 
-            gmb.set_info_window_content(marker_data, map);
-            map.info_window.open(map, search_marker);
+            gmb.set_info_window_content(marker_data, map, map_data);
+            map.info_window.open(map, search_marker, map_data);
 
         });
 
