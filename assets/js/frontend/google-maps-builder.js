@@ -353,10 +353,9 @@
             //Add event listener for infowindows upon a marker being clicked.
             google.maps.event.addListener(location_marker, 'click', function () {
 
+                //Set marker content in info_window.
                 gmb.set_info_window_content(marker_data, map).done(function () {
-
                     map.info_window.open(map, location_marker);
-
                 });
 
 
@@ -365,7 +364,7 @@
                     window.setTimeout(function () {
                         // Pan into view, done in a time out to make it feel nicer :)
                         map.info_window.panToView();
-                    }, 200);
+                    }, 500);
                 }
             });
 
@@ -438,6 +437,8 @@
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     info_window_content += gmb.set_place_content_in_info_window(place);
                     map.info_window.setContent(info_window_content);
+                    map.info_window.updateContent_();
+                    map.info_window.open(map, marker);
                     done_trigger.resolve();
                 }
 
