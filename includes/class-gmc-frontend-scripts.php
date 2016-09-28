@@ -62,6 +62,7 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 		$maps_data = apply_filters( 'gmb_frontend_data_array', array(
 				'i18n'            => array(
 					'get_directions' => __( 'Get Directions', 'google-maps-builder' ),
+					'visit_website'  => __( 'Visit Website', 'google-maps-builder' ),
 				),
 				'infobubble_args' => array(
 					'shadowStyle'         => 0,

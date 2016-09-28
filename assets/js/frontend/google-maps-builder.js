@@ -476,19 +476,15 @@
 
         var info_window_content;
 
+        console.log(place);
+
         //additional info wrapper
         info_window_content = '<div class="marker-info-wrapper">';
 
         //place address
-        info_window_content += ((place.formatted_address) ? '<div class="place-address">' + place.formatted_address + '</div>' : '' );
+        info_window_content += ((place.adr_address) ? '<div class="place-address">' + place.adr_address + '</div>' : '' );
 
-        //place phone
-        info_window_content += ((place.formatted_phone_number) ? '<div class="place-phone">' + place.formatted_phone_number + '</div>' : '' );
-
-        //place website
-        info_window_content += ((place.website) ? '<div class="place-website"><a href="' + place.website + '" target="_blank" rel="nofollow" title="Click to visit the ' + place.name + ' website">Website</a></div>' : '' );
-
-        //rating
+        //Star rating.
         if (place.rating) {
             info_window_content += '<div class="rating-wrap clear">' +
                 '<p class="numeric-rating">' + place.rating + '</p>' +
@@ -497,6 +493,12 @@
                 '</div>' +
                 '</div>'
         }
+
+        //place phone
+        info_window_content += ((place.formatted_phone_number) ? '<div class="place-phone"><a href="tel:' + place.international_phone_number.replace(/\s+/g, '') + '" class="place-tel-link">' + place.formatted_phone_number + '</a></div>' : '' );
+
+        //place website
+        info_window_content += ((place.website) ? '<div class="place-website"><a href="' + place.website + '" target="_blank" rel="nofollow">' + gmb_data.i18n.visit_website + '</a></div>' : '' );
 
         //Directions Option
         if (place.formatted_address) {
