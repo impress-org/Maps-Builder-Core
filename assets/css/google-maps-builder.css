@@ -115,13 +115,28 @@ div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper {
   display: block;
   min-width: 260px;
   overflow: hidden; }
+  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper span.place-icon {
+    background: no-repeat url("../img/google-icons.png");
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    margin: 0 2px -6px -3px; }
   div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address {
     float: right;
     width: 50%;
     font-style: italic;
     text-align: right; }
-  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-phone, div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-website {
+    div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address .place-directions-link {
+      display: block; }
+      div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-address .place-directions-link > span {
+        background-position: 0 -226px;
+        margin-right: 0; }
+  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-phone {
     margin: 0 0 3px; }
+    div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-phone span.place-icon {
+      background-position: 0 -355px; }
+  div[id^='google-maps-builder'] .gmb-infobubble .marker-info-wrapper .place-website span.place-icon {
+    background-position: 0 -291px; }
 
 @media screen and (max-width: 440px) {
   .gmb-infobubble {

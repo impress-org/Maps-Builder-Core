@@ -476,13 +476,23 @@
 
         var info_window_content;
 
-        console.log(place);
-
         //additional info wrapper
         info_window_content = '<div class="marker-info-wrapper">';
 
         //place address
-        info_window_content += ((place.adr_address) ? '<div class="place-address">' + place.adr_address + '</div>' : '' );
+        if(place.adr_address) {
+            info_window_content += '<div class="place-address">';
+            info_window_content += place.adr_address;
+            //Directions Option
+            if (place.formatted_address) {
+                info_window_content += '<a href="https://www.google.com/maps/dir/Current+Location/' + encodeURIComponent(place.formatted_address) + '" class="place-directions-link" target="_blank" title="' + gmb_data.i18n.get_directions + '"><span class="place-icon"></span>' + gmb_data.i18n.get_directions + '</a>';
+            }
+
+            info_window_content += '</div>';
+        }
+
+
+
 
         //Star rating.
         if (place.rating) {
@@ -495,15 +505,10 @@
         }
 
         //place phone
-        info_window_content += ((place.formatted_phone_number) ? '<div class="place-phone"><a href="tel:' + place.international_phone_number.replace(/\s+/g, '') + '" class="place-tel-link">' + place.formatted_phone_number + '</a></div>' : '' );
+        info_window_content += ((place.formatted_phone_number) ? '<div class="place-phone"><a href="tel:' + place.international_phone_number.replace(/\s+/g, '') + '" class="place-tel-link"><span  class="place-icon"></span>' + place.formatted_phone_number + '</a></div>' : '' );
 
         //place website
-        info_window_content += ((place.website) ? '<div class="place-website"><a href="' + place.website + '" target="_blank" rel="nofollow">' + gmb_data.i18n.visit_website + '</a></div>' : '' );
-
-        //Directions Option
-        if (place.formatted_address) {
-            info_window_content += '<a href="https://www.google.com/maps/dir/Current+Location/' + encodeURIComponent(place.formatted_address) + '" target="_blank" title="' + gmb_data.i18n.get_directions + '">' + gmb_data.i18n.get_directions + '</a>';
-        }
+        info_window_content += ((place.website) ? '<div class="place-website"><a href="' + place.website + '" target="_blank" rel="nofollow"><span class="place-icon"></span>' + gmb_data.i18n.visit_website + '</a></div>' : '' );
 
         //close wrapper
         info_window_content += '</div>';
