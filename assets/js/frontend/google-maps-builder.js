@@ -352,10 +352,11 @@
 
             //Add event listener for infowindows upon a marker being clicked.
             google.maps.event.addListener(location_marker, 'click', function () {
-
+                map.info_window.close();
                 //Set marker content in info_window.
                 gmb.set_info_window_content(marker_data, map, map_data).done(function () {
                     map.info_window.open(map, location_marker, map_data);
+
                 });
 
             });
@@ -363,8 +364,6 @@
             //Should this marker's info_window be opened by default?
             if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
                 google.maps.event.addListenerOnce(map, 'idle', function () {
-
-                    map.info_window.setContent('<div id="infobubble-content" class="loading"></div>');
 
                     gmb.set_info_window_content(marker_data, map, map_data).done(function () {
                         map.info_window.open(map, location_marker, map_data);
@@ -431,7 +430,6 @@
                     info_window_content += gmb.set_place_content_in_info_window(place);
                     map.info_window.setContent(info_window_content);
                     map.info_window.updateContent_();
-                    map.info_window.open();
                     done_trigger.resolve();
 
                     //Marker Centers Map on Click?
@@ -583,15 +581,15 @@
         google.maps.event.addListener(search_marker, 'click', function () {
 
             map.info_window.close();
-            map.info_window.setContent('<div class="gmb-infobubble-loading"></div>');
 
             var marker_data = {
                 title: place.name,
                 place_id: place.place_id
             };
 
-            gmb.set_info_window_content(marker_data, map, map_data);
-            map.info_window.open(map, search_marker, map_data);
+            gmb.set_info_window_content(marker_data, map, map_data).done(function(){
+                map.info_window.open(map, search_marker, map_data);
+            });
 
         });
 
@@ -697,6 +695,3 @@ jQuery(document).ready(function () {
 window.google_maps_builder_load = function (map_canvas) {
     return MapsBuilder.global_load(map_canvas);
 };
-
-
-
