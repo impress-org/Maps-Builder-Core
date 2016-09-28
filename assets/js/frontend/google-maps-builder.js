@@ -400,13 +400,13 @@
         //The info_window content string.
         var info_window_content = '';
 
-        //The place name.
-        if (typeof marker_data.title !== 'undefined') {
+        //The place name if present.
+        if (typeof marker_data.title !== 'undefined' && marker_data.title.length > 0) {
             info_window_content += '<p class="place-title">' + marker_data.title + '</p>';
         }
 
-        //The place description.
-        if (typeof marker_data.description !== 'undefined' && marker_data.description.length !== 0) {
+        //The place description if present.
+        if (typeof marker_data.description !== 'undefined' && marker_data.description.length > 0) {
             info_window_content += '<div class="place-description">' + marker_data.description + '</div>';
         }
 
@@ -652,15 +652,6 @@
         });
 
     };
-
-    //pro only functions
-    gmb.set_map_directions = function (map, map_data) {
-    };
-    gmb.set_map_layers = function (map, map_data) {
-    };
-    gmb.set_map_places_search = function (map, map_data) {
-    };
-
 
 }(jQuery, window.MapsBuilder || ( window.MapsBuilder = {} )) );
 
