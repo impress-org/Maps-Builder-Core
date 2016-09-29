@@ -17,9 +17,12 @@
 
 	<?php
 	global $current_user;
-	$user_id = $current_user->ID;
-	// Check that the user hasn't already clicked to ignore the welcome message and that they have appropriate permissions.
-	if ( ! get_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key() ) && current_user_can( 'install_plugins' ) ) {
+	$user_id      = $current_user->ID;
+	$hide_welcome = get_user_meta( $user_id, 'gmb_hide_pro_welcome' );
+
+	// Check that the user hasn't already clicked to ignore the welcome message
+	// and that they have appropriate permissions.
+	if ( empty( $hide_welcome ) && current_user_can( 'install_plugins' ) ) {
 		?>
 		<div class="container welcome-header gmb-clearfix">
 			<div class="row">
@@ -44,10 +47,15 @@
 			</div>
 		</div>
 
-	<?php } ?>
+	<?php }
+	//Show Top Right Logo? Only if
+	$hide_side_logo = '';
+	if ( empty( $hide_welcome ) ) {
+		$hide_side_logo = 'style="display:none;"';
+	}
+	?>
 
-	<div class="logo-svg logo-svg-small pull-right" <?php echo( ! get_user_meta( $user_id, 'gmb_hide_pro_welcome' ) ?
-		'style="display:none;"' : '' ); ?>>
+	<div class="logo-svg logo-svg-small pull-right" <?php echo $hide_side_logo; ?>>
 		<div class="gmb-plugin-heading">Google Maps Builder</div>
 		<?php
 		gmb_include_view( 'admin/views/logo-svg.php' );

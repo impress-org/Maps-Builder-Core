@@ -92,7 +92,7 @@ abstract class Google_Maps_Builder_Core_Settings extends Google_Maps_Builder_Cor
 	public function hide_welcome_callback() {
 		global $current_user;
 		$user_id = $current_user->ID;
-		add_user_meta( $user_id, Google_Maps_Builder()->get_hide_welcome_key(), 'true', true );
+		add_user_meta( $user_id, 'gmb_hide_pro_welcome', 'true', true );
 		wp_die(); // ajax call must die to avoid trailing 0 in your response
 	}
 
@@ -431,7 +431,7 @@ function gmb_get_option( $key = '' ) {
 /**
  * Remove an option
  *
- * Removes a setting value in the serialized settings option 
+ * Removes a setting value in the serialized settings option
  *
  * @since 2.1
  *

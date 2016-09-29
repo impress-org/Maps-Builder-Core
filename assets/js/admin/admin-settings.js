@@ -19,6 +19,7 @@
             $.post(ajaxurl, data, function (response) {
 
                 //Do something here if necessary
+                console.log('')
 
             });
 

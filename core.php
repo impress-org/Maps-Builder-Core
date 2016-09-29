@@ -120,15 +120,6 @@ abstract class Google_Maps_Builder_Core {
 	public $html;
 
 	/**
-	 * User meta key for marking welcome message as dismissed
-	 *
-	 * @since 2.1.0
-	 *
-	 * @var string
-	 */
-	protected $hide_welcome_key = 'gmb_hide_pro_welcome';
-
-	/**
 	 * Include required files
 	 *
 	 * OVERRIDE IN PLUGIN
@@ -203,17 +194,6 @@ abstract class Google_Maps_Builder_Core {
 			// Load the default language files.
 			load_plugin_textdomain( 'google-maps-builder', false, $gmb_lang_dir );
 		}
-	}
-
-	/**
-	 * Get the user meta key for marking welcome message as dismissed.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @return string
-	 */
-	public function get_hide_welcome_key() {
-		return $this->hide_welcome_key;
 	}
 
 	/**
