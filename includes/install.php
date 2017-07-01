@@ -54,11 +54,10 @@ register_activation_hook( GMB_PLUGIN_FILE, 'gmb_install' );
  * @return void
  */
 function gmb_run_install() {
+	// Set up post types and flush rewrite rules.
+	Google_Maps_Builder()->activate->activation_flush_rewrites();
 
-	// Clear the permalinks
-	flush_rewrite_rules( false );
-
-	// Add Upgraded From Option
+	// Add Upgraded From Option.
 	$current_version = get_option( 'gmb_version' );
 	if ( $current_version ) {
 		update_option( 'gmb_version_upgraded_from', $current_version );
@@ -68,10 +67,10 @@ function gmb_run_install() {
 
 		require_once GMB_CORE_PATH . 'includes/admin/upgrades/upgrade-functions.php';
 
-		// When new upgrade routines are added, mark them as complete on fresh install
+		// When new upgrade routines are added, mark them as complete on fresh install.
 		$upgrade_routines = array(
 			'gmb_markers_upgraded',
-			'gmb_refid_upgraded'
+			'gmb_refid_upgraded',
 		);
 
 		foreach ( $upgrade_routines as $upgrade ) {
