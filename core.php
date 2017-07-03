@@ -300,6 +300,7 @@ abstract class Google_Maps_Builder_Core {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-admin-scripts.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-frontend-scripts.php';
+		require_once GMB_CORE_PATH . 'includes/class-gmc-html-elements.php';
 	}
 
 
