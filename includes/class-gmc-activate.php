@@ -576,7 +576,7 @@ class Google_Maps_Builder_Core_Activate {
 			'has_archive'        => isset( $has_archive ) ? $has_archive : true,
 			'hierarchical'       => false,
 			'menu_position'      => ! empty( $menu_position ) ? intval( $menu_position ) : '23.1',
-			'supports'           => array( 'title' )
+			'supports'           => array( 'title', 'thumbnail' ),
 		);
 
 		register_post_type( 'google_maps', $args );
