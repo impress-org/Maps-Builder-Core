@@ -541,7 +541,7 @@ class Google_Maps_Builder_Core_Activate {
 	public function setup_post_type() {
 
 		$settings      = get_option( 'gmb_settings' );
-		$post_slug     = isset( $settings['gmb_custom_slug'] ) ? $settings['gmb_custom_slug'] : '';
+		$post_slug     = isset( $settings['gmb_custom_slug'] ) ? sanitize_title( $settings['gmb_custom_slug'] ) : 'google-maps';
 		$menu_position = isset( $settings['gmb_menu_position'] ) ? $settings['gmb_menu_position'] : '';
 		$has_archive   = isset( $settings['gmb_has_archive'] ) ? filter_var( $settings['gmb_has_archive'], FILTER_VALIDATE_BOOLEAN ) : '';
 
@@ -570,13 +570,13 @@ class Google_Maps_Builder_Core_Activate {
 			'show_in_menu'       => true,
 			'query_var'          => true,
 			'rewrite'            => array(
-				'slug' => isset( $post_slug ) ? sanitize_title( $post_slug ) : 'google-maps'
+				'slug' => $post_slug,
 			),
 			'capability_type'    => 'post',
 			'has_archive'        => isset( $has_archive ) ? $has_archive : true,
 			'hierarchical'       => false,
 			'menu_position'      => ! empty( $menu_position ) ? intval( $menu_position ) : '23.1',
-			'supports'           => array( 'title' )
+			'supports'           => array( 'title', 'thumbnail' ),
 		);
 
 		register_post_type( 'google_maps', $args );
