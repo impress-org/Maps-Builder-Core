@@ -29,13 +29,8 @@ class Google_Maps_Builder_Core_Front_End_Scripts extends Google_Maps_Builder_Cor
 	 */
 	function load_frontend_scripts() {
 
-		$libraries        = 'places';
-		$signed_in_option = false;
-		if ( ! empty( $this->plugin_settings['gmb_signed_in'] ) && $this->plugin_settings['gmb_signed_in'] == 'enabled' ) {
-			$signed_in_option = true;
-		}
-
-		$google_maps_api_url = $this->google_maps_url( $signed_in_option, $libraries );
+		$libraries           = 'places';
+		$google_maps_api_url = $this->google_maps_url( false, $libraries );
 
 		wp_register_script( 'google-maps-builder-gmaps', $google_maps_api_url, array( 'jquery' ) );
 		wp_enqueue_script( 'google-maps-builder-gmaps' );
