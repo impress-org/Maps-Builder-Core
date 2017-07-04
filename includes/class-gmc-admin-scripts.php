@@ -163,7 +163,6 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			'snazzy'            => GMB_PLUGIN_URL . 'assets/js/admin/snazzy.json',
 			'modal_default'     => gmb_get_option( 'gmb_open_builder' ),
 			'post_status'       => $post_status,
-			'signed_in_option'  => $deprecated,
 			'site_name'         => get_bloginfo( 'name' ),
 			'site_url'          => get_bloginfo( 'url' ),
 			'i18n'              => array(
