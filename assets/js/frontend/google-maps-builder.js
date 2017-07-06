@@ -125,9 +125,17 @@
 			perform_places_search(map, map_data);
 		}
 
+		/**
+		 * Adds custom event so map can be manipulated after it is initialized.
+		 *
+		 * @since 2.1.2
+		 * @author Tobias Malikowski tobias.malikowski@gmail.com
+		 * @see http://api.jquery.com/trigger/
+		 * @see http://api.jquery.com/on/
+		 */
+		$( document ).trigger( 'gmb.initialize_map', [map, places_service, map_canvas] );
 
 	}; //end initialize_map.
-
 
 	/**
 	 * Set Map Theme.
