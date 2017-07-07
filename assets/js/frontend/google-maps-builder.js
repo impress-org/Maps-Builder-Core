@@ -18,11 +18,9 @@
 	gmb.init = function () {
 		var google_maps = $('.google-maps-builder');
 
-		// Loop through maps and initialize visible maps.
+		// Loop through and initialize maps.
 		google_maps.each(function (index, value) {
-			if ( $( this ).is( ':visible' ) ) {
-				gmb.initialize_map($(google_maps[index]));
-			}
+			gmb.initialize_map($(google_maps[index]));
 		});
 
 		// Tabby Tabs
