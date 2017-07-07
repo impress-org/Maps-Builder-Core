@@ -49,12 +49,10 @@
 			gmb.load_hidden_map( $( '.fl-tab-active' ) );
 		});
 
-// TODO: Refactor these other major platforms to use new hidden map loader.
-
-//		//VC Tabs
-//		$('.vc_tta-tabs a').on('show.vc.tab', function () {
-//			google.maps.event.trigger(window, 'resize', {});
-//		});
+		// Visual Composer Tabs.
+		$( '.vc_tta-tabs' ).on( 'show.vc.tab', function () {
+			gmb.load_hidden_map( $( '.vc_tta-panel.vc_active' ) );
+		});
 	};
 
 	/*
