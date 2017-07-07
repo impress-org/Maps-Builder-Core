@@ -106,6 +106,12 @@
 				// Map already exists. Resize so it renders correctly.
 				console.log( 'Resizing ' + map_id );
 				google.maps.event.trigger( maps[ map_id ], 'resize' );
+
+				// Re-center map.
+				var center_lat = gmb_data[map_id].map_params.latitude;
+				var center_lng = gmb_data[map_id].map_params.longitude;
+				var center = new google.maps.LatLng( center_lat, center_lng );
+				maps[ map_id ].setCenter( center );
 			}
 		});
 	};
