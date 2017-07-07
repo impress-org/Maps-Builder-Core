@@ -35,6 +35,10 @@
 			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
 		});
 
+		// Divi Theme and Divi Builder Tabs.
+		$( document ).on( 'simple_slider_after_move_to', function() {
+			gmb.load_hidden_map( '.et-pb-active-slide' );
+		});
 // TODO: Refactor these other major platforms to use new hidden map loader.
 //		// fix for bootstrap tabs
 //		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
