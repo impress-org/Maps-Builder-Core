@@ -23,36 +23,8 @@
 			gmb.initialize_map($(google_maps[index]));
 		});
 
-		// Tabby Tabs.
-		$( '.responsive-tabs' ).on( 'click', '.responsive-tabs__heading, .responsive-tabs__list__item', function() {
-			gmb.load_hidden_map( '.responsive-tabs__panel--active' );
-		});
-
-		// Elementor Tabs (maps work in front-end tabs but don't display in editor).
-		$( '.elementor-tabs' ).on( 'click', '.elementor-tab-title', function() {
-			var tab = $( this ).data( 'tab' );
-			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
-		});
-
-		// Divi Theme and Divi Builder Tabs.
-		$( document ).on( 'simple_slider_after_move_to', function() {
-			gmb.load_hidden_map( '.et-pb-active-slide' );
-		});
-
-		// Bootstrap Tabs.
-		$( 'a[data-toggle="tab"]' ).on( 'shown.bs.tab', function ( e ) {
-			gmb.load_hidden_map( $( e.target ).attr( 'href' ) );
-		});
-
-		// Beaver Builder Tabs.
-		$( '.fl-tabs-label' ).on( 'click', function () {
-			gmb.load_hidden_map( $( '.fl-tab-active' ) );
-		});
-
-		// Visual Composer Tabs.
-		$( '.vc_tta-tabs' ).on( 'show.vc.tab', function () {
-			gmb.load_hidden_map( $( '.vc_tta-panel.vc_active' ) );
-		});
+		// Add support for popular tab solutions.
+		gmb.add_tab_support();
 	};
 
 	/*
@@ -703,6 +675,44 @@
 
 		});
 
+	};
+
+	/**
+	 * Add support for popular tab solutions.
+	 *
+	 * @since 2.1.2
+	 */
+	gmb.add_tab_support = function () {
+		// Tabby Tabs.
+		$( '.responsive-tabs' ).on( 'click', '.responsive-tabs__heading, .responsive-tabs__list__item', function() {
+			gmb.load_hidden_map( '.responsive-tabs__panel--active' );
+		});
+
+		// Elementor Tabs (maps work in front-end tabs but don't display in editor).
+		$( '.elementor-tabs' ).on( 'click', '.elementor-tab-title', function() {
+			var tab = $( this ).data( 'tab' );
+			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
+		});
+
+		// Divi Theme and Divi Builder Tabs.
+		$( document ).on( 'simple_slider_after_move_to', function() {
+			gmb.load_hidden_map( '.et-pb-active-slide' );
+		});
+
+		// Bootstrap Tabs.
+		$( 'a[data-toggle="tab"]' ).on( 'shown.bs.tab', function ( e ) {
+			gmb.load_hidden_map( $( e.target ).attr( 'href' ) );
+		});
+
+		// Beaver Builder Tabs.
+		$( '.fl-tabs-label' ).on( 'click', function () {
+			gmb.load_hidden_map( $( '.fl-tab-active' ) );
+		});
+
+		// Visual Composer Tabs.
+		$( '.vc_tta-tabs' ).on( 'show.vc.tab', function () {
+			gmb.load_hidden_map( $( '.vc_tta-panel.vc_active' ) );
+		});
 	};
 
 	//pro only functions
