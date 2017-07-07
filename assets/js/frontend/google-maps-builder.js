@@ -23,9 +23,16 @@
 			gmb.initialize_map($(google_maps[index]));
 		});
 
-		// Tabby Tabs
+		// Tabby Tabs.
 		$( '.responsive-tabs' ).on( 'click', '.responsive-tabs__heading, .responsive-tabs__list__item', function() {
 			gmb.load_hidden_map( '.responsive-tabs__panel--active' );
+		});
+
+		// Elementor (maps work in front-end tabs but don't display in editor).
+		$( '.elementor-tabs' ).on( 'click', '.elementor-tab-title', function() {
+			console.log('showing');
+			var tab = $( this ).data( 'tab' );
+			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
 		});
 
 // TODO: Refactor these other major platforms to use new hidden map loader.
