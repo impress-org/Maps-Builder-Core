@@ -44,17 +44,13 @@
 			gmb.load_hidden_map( $( e.target ).attr( 'href' ) );
 		});
 
+		// Beaver Builder Tabs.
+		$( '.fl-tabs-label' ).on( 'click', function () {
+			gmb.load_hidden_map( $( '.fl-tab-active' ) );
+		});
+
 // TODO: Refactor these other major platforms to use new hidden map loader.
-//		//Beaver Builder Tabs
-//		$('.fl-tabs-label').on('click', function (e) {
-//			var panel = $('.fl-tabs-panel-content.fl-tab-active').get(0);
-//			gmb.load_hidden_map(panel);
-//		});
-//		//jQuery UI Accordions
-//		$('.ui-accordion-header').on('click', function (e) {
-//			var panel = $('.ui-accordion-content-active').get(0);
-//			gmb.load_hidden_map(panel);
-//		});
+
 //		//VC Tabs
 //		$('.vc_tta-tabs a').on('show.vc.tab', function () {
 //			google.maps.event.trigger(window, 'resize', {});
