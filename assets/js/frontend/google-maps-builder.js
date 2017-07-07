@@ -28,9 +28,8 @@
 			gmb.load_hidden_map( '.responsive-tabs__panel--active' );
 		});
 
-		// Elementor (maps work in front-end tabs but don't display in editor).
+		// Elementor Tabs (maps work in front-end tabs but don't display in editor).
 		$( '.elementor-tabs' ).on( 'click', '.elementor-tab-title', function() {
-			console.log('showing');
 			var tab = $( this ).data( 'tab' );
 			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
 		});
@@ -39,12 +38,13 @@
 		$( document ).on( 'simple_slider_after_move_to', function() {
 			gmb.load_hidden_map( '.et-pb-active-slide' );
 		});
+
+		// Bootstrap Tabs.
+		$( 'a[data-toggle="tab"]' ).on( 'shown.bs.tab', function ( e ) {
+			gmb.load_hidden_map( $( e.target ).attr( 'href' ) );
+		});
+
 // TODO: Refactor these other major platforms to use new hidden map loader.
-//		// fix for bootstrap tabs
-//		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//			var panel = $(e.target).attr('href');
-//			gmb.load_hidden_map(panel);
-//		});
 //		//Beaver Builder Tabs
 //		$('.fl-tabs-label').on('click', function (e) {
 //			var panel = $('.fl-tabs-panel-content.fl-tab-active').get(0);
