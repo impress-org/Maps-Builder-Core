@@ -13,40 +13,18 @@
 	var directionsDisplay = [];
 	var search_markers = [];
 
+	gmb.maps = [];
+
 	gmb.init = function () {
 		var google_maps = $('.google-maps-builder');
-		/*
-		 * Loop through maps and initialize
-		 */
+
+		// Loop through and initialize maps.
 		google_maps.each(function (index, value) {
 			gmb.initialize_map($(google_maps[index]));
 		});
 
-		// fix for bootstrap tabs
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-			var panel = $(e.target).attr('href');
-			gmb.load_hidden_map(panel);
-		});
-		//Beaver Builder Tabs
-		$('.fl-tabs-label').on('click', function (e) {
-			var panel = $('.fl-tabs-panel-content.fl-tab-active').get(0);
-			gmb.load_hidden_map(panel);
-		});
-		//Tabby Tabs:
-		$('.responsive-tabs__list__item').on('click', function (e) {
-			var panel = $('.responsive-tabs__panel--active').get(0);
-			gmb.load_hidden_map(panel);
-		});
-		//jQuery UI Accordions
-		$('.ui-accordion-header').on('click', function (e) {
-			var panel = $('.ui-accordion-content-active').get(0);
-			gmb.load_hidden_map(panel);
-		});
-		//VC Tabs
-		$('.vc_tta-tabs a').on('show.vc.tab', function () {
-			google.maps.event.trigger(window, 'resize', {});
-		});
-
+		// Add support for popular tab solutions.
+		gmb.add_tab_support();
 	};
 
 	/*
@@ -62,21 +40,54 @@
 	};
 
 	/**
-	 * Map Init after the fact.
+	 * Initializes or resizes a map when it is revealed after page load.
 	 *
-	 * Good for tabs / ajax - pass in wrapper div class/id.
+	 * Gets all map canvases contained by the parent. If the map does not yet
+	 * exist, it is initialized. If the map already exists, a resize is
+	 * triggered so that it displays correctly. Resizing is a much less
+	 * expensive operation compared to initialization. Useful for tabs,
+	 * accordions, or any case where hidden map is revealed.
 	 *
 	 * @since 2.0
+	 * @since 2.1.2 Resize existing maps instead of re-initializing them.
+	 *
+	 * @param {string} parent Container holding one or more map canvases.
 	 */
-	gmb.load_hidden_map = function (parent) {
-		var google_hidden_maps = $(parent).find('.google-maps-builder');
-		if (!google_hidden_maps.length) {
+	gmb.load_hidden_map = function ( parent ) {
+		// Get all map canvases under the parent element.
+		var map_canvases = $(parent).find( '.google-maps-builder' );
+
+		if ( undefined === map_canvases || 0 === map_canvases.length ) {
+			// No map canvases found.
 			return;
 		}
-		google_hidden_maps.each(function (index, value) {
-			//google.maps.event.trigger( map, 'resize' );
-			// TODO: Ideally we'd resize the map rather than reinitialize for faster performance, but that requires a bit of rewrite in how the plugin works
-			gmb.initialize_map($(google_hidden_maps[index]));
+
+		// Get array of all maps already initialized on page.
+		var maps = window.MapsBuilder.maps;
+
+		// Loop through canvases to initialize or resize map.
+		map_canvases.each(function( index, element ) {
+			var map_id = $( element ).data( 'map-id' );
+
+			if ( undefined === map_id || 0 === map_id.length ) {
+				// No map ID could be retrieved from data attribute.
+				return;
+			}
+
+			if ( undefined === maps[ map_id ] ) {
+				// Map does not exist. Initialize map.
+				gmb.initialize_map( map_canvas );
+			} else {
+				// Map already exists. Resize so it renders correctly.
+				console.log( 'Resizing ' + map_id );
+				google.maps.event.trigger( maps[ map_id ], 'resize' );
+
+				// Re-center map.
+				var center_lat = gmb_data[map_id].map_params.latitude;
+				var center_lng = gmb_data[map_id].map_params.longitude;
+				var center = new google.maps.LatLng( center_lat, center_lng );
+				maps[ map_id ].setCenter( center );
+			}
 		});
 	};
 
@@ -109,6 +120,7 @@
 				}
 			]
 		};
+		console.log( 'Initializing ' + map_id );
 		map = new google.maps.Map(map_canvas[0], map_options);
 		places_service = new google.maps.places.PlacesService(map);
 
@@ -124,6 +136,9 @@
 		if (map_data.places_api.show_places === 'yes') {
 			perform_places_search(map, map_data);
 		}
+
+		// Store map for future reference.
+		gmb.maps[ map_id ] = map;
 
 		/**
 		 * Adds custom event so map can be manipulated after it is initialized.
@@ -660,6 +675,44 @@
 
 		});
 
+	};
+
+	/**
+	 * Add support for popular tab solutions.
+	 *
+	 * @since 2.1.2
+	 */
+	gmb.add_tab_support = function () {
+		// Tabby Tabs.
+		$( '.responsive-tabs' ).on( 'click', '.responsive-tabs__heading, .responsive-tabs__list__item', function() {
+			gmb.load_hidden_map( '.responsive-tabs__panel--active' );
+		});
+
+		// Elementor Tabs (maps work in front-end tabs but don't display in editor).
+		$( '.elementor-tabs' ).on( 'click', '.elementor-tab-title', function() {
+			var tab = $( this ).data( 'tab' );
+			gmb.load_hidden_map( '.elementor-tab-content[data-tab="' + tab + '"]' );
+		});
+
+		// Divi Theme and Divi Builder Tabs.
+		$( document ).on( 'simple_slider_after_move_to', function() {
+			gmb.load_hidden_map( '.et-pb-active-slide' );
+		});
+
+		// Bootstrap Tabs.
+		$( 'a[data-toggle="tab"]' ).on( 'shown.bs.tab', function ( e ) {
+			gmb.load_hidden_map( $( e.target ).attr( 'href' ) );
+		});
+
+		// Beaver Builder Tabs.
+		$( '.fl-tabs-label' ).on( 'click', function () {
+			gmb.load_hidden_map( $( '.fl-tab-active' ) );
+		});
+
+		// Visual Composer Tabs.
+		$( '.vc_tta-tabs' ).on( 'show.vc.tab', function () {
+			gmb.load_hidden_map( $( '.vc_tta-panel.vc_active' ) );
+		});
 	};
 
 	//pro only functions
