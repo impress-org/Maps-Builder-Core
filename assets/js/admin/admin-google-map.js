@@ -865,24 +865,6 @@ var gmb_data;
                 custom_label: marker_label
             };
 
-            //Is sign in enabled? And, do we have a place ID for this marker location?
-            if (place_id && gmb_data.signed_in_option === 'enabled') {
-
-                //Remove unnecessary array params
-                delete marker_args.position;
-
-                //Add Proper Params
-                marker_args.place = {
-                    location: {lat: marker_lat, lng: marker_lng},
-                    placeId: place_id
-                };
-                marker_args.attribution = {
-                    source: gmb_data.site_name,
-                    webUrl: gmb_data.site_url
-                };
-
-            }
-
             //Marker for map
             var location_marker = new Marker(marker_args);
             markers.push(location_marker);

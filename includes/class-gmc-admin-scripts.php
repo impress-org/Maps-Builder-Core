@@ -79,21 +79,18 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		$js_dir     = $this->paths->admin_js_dir();
 		$js_plugins = $this->paths->admin_js_url();
 
-		//Builder Google Maps API URL
-		$signed_in_option    = gmb_get_option( 'gmb_signed_in' );
-		$google_maps_api_url = $this->google_maps_url( $signed_in_option );
+		//Build Google Maps API URL
+		$google_maps_api_url = $this->google_maps_url();
 
 		//Only enqueue scripts for CPT on post type screen
 		if ( ( $hook == 'post-new.php' || $hook == 'post.php' ) && 'google_maps' === $post->post_type ) {
-
-			$this->admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, $signed_in_option );
+			$this->admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, false );
 		}
 
 		//Setting Scripts
 		if ( $hook == 'google_maps_page_gmb_settings' ) {
 			wp_register_script( 'google-maps-builder-admin-settings', $js_dir . 'admin-settings' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
 			wp_enqueue_script( 'google-maps-builder-admin-settings' );
-
 		}
 		wp_enqueue_style( 'dashicons' );
 
@@ -104,15 +101,16 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	 * Load admin scripts
 	 *
 	 * @since 1.0
+	 * @since 2.1.2 Deprecated parameter $signed_in_option.
 	 *
 	 * @param string      $js_plugins
 	 * @param string      $suffix
 	 * @param string      $google_maps_api_url
 	 * @param string      $js_dir
 	 * @param WP_Post     $post
-	 * @param bool|string $signed_in_option
+	 * @param bool|string $deprecated Deprecated. Google dropped support for signed-in maps.
 	 */
-	protected function admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, $signed_in_option ) {
+	protected function admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, $deprecated = false ) {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
@@ -165,7 +163,6 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			'snazzy'            => GMB_PLUGIN_URL . 'assets/js/admin/snazzy.json',
 			'modal_default'     => gmb_get_option( 'gmb_open_builder' ),
 			'post_status'       => $post_status,
-			'signed_in_option'  => $signed_in_option,
 			'site_name'         => get_bloginfo( 'name' ),
 			'site_url'          => get_bloginfo( 'url' ),
 			'i18n'              => array(

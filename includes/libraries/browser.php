@@ -217,7 +217,10 @@ class Browser {
 
 	public $OPERATING_SYSTEM_UNKNOWN = 'unknown';
 
-	function Browser($useragent="") {
+	/**
+	 * Sets user agent.
+	 */
+	function __construct($useragent="") {
 		$this->reset();
 		if( $useragent != "" ) {
 			$this->setUserAgent($useragent);

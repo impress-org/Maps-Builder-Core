@@ -40,7 +40,8 @@ div[id^='google-maps-builder'] img {
   max-width: none;
   box-shadow: none;
   -moz-box-shadow: none;
-  -webkit-box-shadow: none; }
+  -webkit-box-shadow: none;
+  width: auto; }
 
 /**
  * Info Bubble (window)

@@ -116,12 +116,14 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	/**
 	 * Construct a Google Maps API URL
 	 *
-	 * @param bool $signed_in_option
+	 * @since 2.1.2 Deprecated parameter $signed_in_option.
+	 *
+	 * @param bool $deprecated Deprecated. Google dropped support for signed-in maps.
 	 * @param string $libraries Optional. Default is 'places,drawing'. Which libraries to load.
 	 *
 	 * @return string
 	 */
-	protected function google_maps_url( $signed_in_option, $libraries = 'places,drawing' ) {
+	protected function google_maps_url( $deprecated = false, $libraries = 'places,drawing' ) {
 
 		$google_maps_api_key = gmb_get_option( 'gmb_maps_api_key' );
 		$gmb_language        = gmb_get_option( 'gmb_language' );
@@ -138,11 +140,6 @@ abstract class Google_Maps_Builder_Core_Scripts {
 		//Preferred Language?
 		if ( ! empty( $google_maps_api_key ) ) {
 			$google_maps_api_url_args[ 'language' ] = $gmb_language;
-		}
-
-		//Signed In?
-		if ( ! empty( $signed_in_option ) && $signed_in_option == 'enabled' ) {
-			$google_maps_api_url_args[ 'signed_in' ] = true;
 		}
 
 		$google_maps_api_url = add_query_arg( $google_maps_api_url_args, 'https://maps.googleapis.com/maps/api/js?v=3.exp' );
