@@ -79,7 +79,6 @@
 				gmb.initialize_map( map_canvas );
 			} else {
 				// Map already exists. Resize so it renders correctly.
-				console.log( 'Resizing ' + map_id );
 				google.maps.event.trigger( maps[ map_id ], 'resize' );
 
 				// Re-center map.
@@ -120,7 +119,7 @@
 				}
 			]
 		};
-		console.log( 'Initializing ' + map_id );
+
 		map = new google.maps.Map(map_canvas[0], map_options);
 		places_service = new google.maps.places.PlacesService(map);
 
