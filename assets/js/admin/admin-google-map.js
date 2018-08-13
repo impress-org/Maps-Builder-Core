@@ -1698,39 +1698,6 @@ var gmb_data;
             '</div>';
     };
 
-    /**
-     * Refresh Tooltips
-     *
-     * Helper function to refresh tooltips when elements added dynamically to DOM
-     */
-    gmb.initialize_tooltips = function () {
-        $('[data-tooltip!=""]').qtip({ // Grab all elements with a non-blank data-tooltip attr.
-            content: {
-                attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
-            },
-            hide: {
-                fixed: true,
-                delay: 100,
-                event: 'mouseleave click'
-            },
-            position: {
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-tipsy'
-            },
-            show: {
-                when: {
-                    event: 'focus'
-                },
-                effect: function () {
-                    $(this).fadeIn(200);
-                }
-            }
-        });
-
-    };
 
     gmb.set_map_theme = function () {
     };

@@ -63,9 +63,6 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 			wp_register_style( 'google-maps-builder-admin-styles', GMB_CORE_URL . 'assets/css/gmb-admin' . $suffix . '.css', array(), GMB_VERSION );
 			wp_enqueue_style( 'google-maps-builder-admin-styles' );
 
-			wp_register_script( 'gmb-qtip', GMB_CORE_URL . 'assets/js/plugins/jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION );
-			wp_enqueue_script( 'gmb-qtip' );
-
 			wp_register_script( 'gmb-admin-widgets-scripts', GMB_CORE_URL . 'assets/js/admin/admin-widget' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, false );
 			wp_enqueue_script( 'gmb-admin-widgets-scripts' );
 		}
