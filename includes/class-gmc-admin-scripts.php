@@ -60,6 +60,10 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			wp_register_style( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/css/map-icons.css', array(), GMB_VERSION );
 			wp_enqueue_style( 'google-maps-builder-map-icons' );
 
+			// Hint.css file registered
+			wp_register_style( 'google-maps-builder-hint', GMB_CORE_URL . 'assets/css/hint.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-hint' );
+
 		}
 
 	}

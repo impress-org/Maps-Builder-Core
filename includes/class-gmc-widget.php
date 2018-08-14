@@ -65,6 +65,10 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 
 			wp_register_script( 'gmb-admin-widgets-scripts', GMB_CORE_URL . 'assets/js/admin/admin-widget' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, false );
 			wp_enqueue_script( 'gmb-admin-widgets-scripts' );
+
+			// hint.css registered
+			wp_register_style( 'google-maps-builder-hint', GMB_CORE_URL . 'assets/css/hint.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-hint' );
 		}
 
 
@@ -102,7 +106,8 @@ class Google_Maps_Builder_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>"><?php _e( 'Select a Map:', 'google-maps-builder' ); ?>
-				<span class="dashicons gmb-tooltip-icon" data-tooltip="<?php _e( 'Select a map that you would like to embed in this widget area.', 'google-maps-builder' ); ?>"></span>
+				<span class="dashicons gmb-tooltip-icon hint--top" aria-label="<?php _e( 'Select a map that you would like to embed in this widget area.', 'google-maps-builder' );
+				?>"></span>
 			</label>
 			<select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>">
 				<option value="current"><?php _e( 'Please select...', 'google-maps-builder' ); ?></option>
