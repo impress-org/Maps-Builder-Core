@@ -2709,4 +2709,11 @@ div.place-thumb {
   div.place-thumb img {
     max-width: 100%; }
 
+.hint--top-multiline:after {
+  white-space: normal !important;
+  min-width: 16em;
+  max-width: 250px;
+  line-height: 1.6 !important;
+}
+
 /*# sourceMappingURL=gmb-admin.css.map */
