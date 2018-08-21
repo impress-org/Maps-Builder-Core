@@ -112,15 +112,14 @@ function gmb_magnific($, gmb) {
 
                 },
 							open: function() {
+								// Callback function for prevent close modal when escape key press
 								$.magnificPopup.instance.close = function( e ) {
 									if ( $( '.modal-placeholder' ).parents( '.mfp-container' ).length == 1 ) {
-										//alert('sss');
 										$( '.inner-modal .gmb-modal-close' ).trigger( 'click' );
 										return false;
 									}
 									$.magnificPopup.proto.close.call( this );
 								};
-
 								google.maps.event.trigger( window.map, 'resize' );
 							},
                 resize: function () {
