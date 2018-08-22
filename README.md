@@ -2,7 +2,7 @@
 
 Core repository for both the Free and Pro [Maps Builder](http://mapsbuilder.wordimpress.com) WordPress Plugin versions. 
 
-##Getting Started
+## Getting Started
 
 1. All issues are tracked in the free plugin repository: https://github.com/WordImpress/Google-Maps-Builder/issues 
 2. Learn how to get started developing on Maps Builder by [visiting the wiki](https://github.com/WordImpress/Google-Maps-Builder/wiki).
