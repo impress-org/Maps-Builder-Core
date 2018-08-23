@@ -60,6 +60,10 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			wp_register_style( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/css/map-icons.css', array(), GMB_VERSION );
 			wp_enqueue_style( 'google-maps-builder-map-icons' );
 
+			// Hint.css file registered
+			wp_register_style( 'google-maps-builder-hint', GMB_CORE_URL . 'assets/css/hint.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-hint' );
+
 		}
 
 	}
@@ -125,10 +129,6 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		//Maps icons
 		wp_register_script( 'google-maps-builder-map-icons', GMB_CORE_URL . 'includes/libraries/map-icons/js/map-icons.js', array( 'jquery' ) );
 		wp_enqueue_script( 'google-maps-builder-map-icons' );
-
-		//Qtip
-		wp_register_script( 'google-maps-builder-admin-qtip', $js_plugins . 'jquery.qtip' . $suffix . '.js', array( 'jquery' ), GMB_VERSION, true );
-		wp_enqueue_script( 'google-maps-builder-admin-qtip' );
 
 		//Map base
 		wp_register_script( 'google-maps-builder-admin-map-builder', $js_dir . 'admin-google-map' . $suffix . '.js', array(
