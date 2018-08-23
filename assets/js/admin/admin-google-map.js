@@ -183,11 +183,13 @@ var gmb_data;
         //Close repeaters
         $('.cmb-repeatable-grouping').addClass('closed');
 
-        //Add Repeater toggle button
-        $('.toggle-repeater-groups').on('click', function (e) {
-            e.preventDefault();
-            $('#gmb_markers_group_repeat').find('.cmb-repeatable-grouping').toggleClass('closed');
-        });
+			//Add Repeater toggle button
+			$( '.toggle-repeater-groups' ).on( 'click', function( e ) {
+				e.preventDefault();
+				var toggleElements = $( '#gmb_markers_group_repeat' ).find( '.cmb-repeatable-grouping' ),
+					openElement = $( '#gmb_markers_group_repeat .cmb-repeatable-grouping:not(.closed)' );
+				openElement.length > 0 ? toggleElements.addClass( 'closed' ) : toggleElements.removeClass( 'closed' );
+			} );
 
         //Window resize
         $(window).on('resize', function () {
