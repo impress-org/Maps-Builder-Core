@@ -1517,6 +1517,40 @@ a.marker-edit-link {
   display: block;
   float: right; }
 
+#infobubble-content .infowindow-toolbar a.marker-edit-link {
+  /* background: url(../img/marker-btn.png) no-repeat; */
+  opacity: 1;
+  display: block;
+  float: right;
+  padding: 5px 10px;
+  background-position: 3px 2px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: #f4f4f4;
+  background-image: -webkit-linear-gradient(top, #F8F8F8, #F1F1F1);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f1f1f1));
+  background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
+  background-image: -o-linear-gradient(top, #f8f8f8, #f1f1f1);
+  background-image: linear-gradient(top, #f8f8f8, #f1f1f1);
+  border: 1px solid rgba(0, 0, 0, .1);
+  color: #333;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+#infobubble-content .infowindow-toolbar a.marker-edit-link:before {
+  content: "";
+  background-image: url('../img/marker-btn.png');
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 5px;
+  background-size: contain;
+  opacity: 0.5;
+}
+
+
 #infobubble-content .edit-place-title {
   width: 290px;
   margin: 0 0 10px; }
