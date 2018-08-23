@@ -12,38 +12,35 @@ var gmb_data;
     /**
      * Initialize on window load
      */
-    gmb.init = function () {
-        gmb.toggle_metabox_fields();
+		gmb.init = function() {
+			gmb.toggle_metabox_fields();
 
-        //tooltips
-        gmb.initialize_tooltips();
+			//Map type Metabox on load
+			gmb.initialize_map( $( '#map' ) );
 
-        //Map type Metabox on load
-        gmb.initialize_map($('#map'));
+			//Latitude on Change
+			$( '#gmb_lat_lng-latitude' ).on( 'change', function() {
+				gmb.lat_lng_field_change( map );
+			} );
+			//Longitude on Change
+			$( '#gmb_lat_lng-longitude' ).on( 'change', function() {
+				gmb.lat_lng_field_change( map );
+			} );
 
-        //Latitude on Change
-        $('#gmb_lat_lng-latitude').on('change', function () {
-            gmb.lat_lng_field_change(map);
-        });
-        //Longitude on Change
-        $('#gmb_lat_lng-longitude').on('change', function () {
-            gmb.lat_lng_field_change(map);
-        });
-
-        //click to add marker
-        $('.drop-marker').on('click', function (e) {
-            e.preventDefault();
-            if ($(this).hasClass('active')) {
-                $(this).html(gmb_data.i18n.btn_drop_marker).removeClass('active');
-                map.setOptions({draggableCursor: null}); //reset cursor
-            } else {
-                $(this).text(gmb_data.i18n.btn_drop_marker_click).addClass('active');
-                map.setOptions({draggableCursor: 'crosshair'});
-                var dropped_marker_event = google.maps.event.addListener(map, 'click', function (event) {
-                    gmb.drop_marker(event.latLng, dropped_marker_event);
-                });
-            }
-        });
+			//click to add marker
+			$( '.drop-marker' ).on( 'click', function( e ) {
+				e.preventDefault();
+				if ( $( this ).hasClass( 'active' ) ) {
+					$( this ).html( gmb_data.i18n.btn_drop_marker ).removeClass( 'active' );
+					map.setOptions( { draggableCursor: null } ); //reset cursor
+				} else {
+					$( this ).text( gmb_data.i18n.btn_drop_marker_click ).addClass( 'active' );
+					map.setOptions( { draggableCursor: 'crosshair' } );
+					var dropped_marker_event = google.maps.event.addListener( map, 'click', function( event ) {
+						gmb.drop_marker( event.latLng, dropped_marker_event );
+					} );
+				}
+			} );
 
         //Radius Fields
         var current_radius;
@@ -580,34 +577,34 @@ var gmb_data;
      * This marker contains more information about the place.
      * @TODO: AJAXify & Clean up
      */
-    gmb.get_editable_info_window = function (index, marker) {
+		gmb.get_editable_info_window = function( index, marker ) {
 
-        info_bubble.close();
+			info_bubble.close();
 
-        info_bubble.setContent('<div id="infobubble-content" class="loading"></div>');
+			info_bubble.setContent( '<div id="infobubble-content" class="loading"></div>' );
 
-        info_bubble.open(map, marker);
+			info_bubble.open( map, marker );
 
-        var info_window_data = gmb.get_info_window_saved_data(index);
+			var info_window_data = gmb.get_info_window_saved_data( index );
 
-        var info_window_content;
+			var info_window_content;
 
-        //default title
-        if (!info_window_data.title) {
-            info_window_data.title = 'Point ' + index;
-        }
+			//default title
+			if ( ! info_window_data.title ) {
+				info_window_data.title = 'Point ' + index;
+			}
 
-        //place name
-        if (info_window_data.title) {
-            info_window_content = '<input class="edit-place-title" data-field="#gmb_markers_group_' + index + '_title" type="text" value="' + info_window_data.title + '">';
-        }
+			//place name
+			if ( info_window_data.title ) {
+				info_window_content = '<input class="edit-place-title" data-field="#gmb_markers_group_' + index + '_title" type="text" value="' + info_window_data.title + '">';
+			}
 
-        if (info_window_data.desc) {
-            info_window_content += '<textarea class="edit-place-description" data-field="#gmb_markers_group_' + index + '_description">' + info_window_data.desc + '</textarea>';
-        } else {
-            info_window_content += '<textarea class="edit-place-description" data-field="#gmb_markers_group_' + index + '_description"></textarea>';
-        }
-
+			if ( info_window_data.desc ) {
+				info_window_content += '<textarea class="edit-place-description" data-field="#gmb_markers_group_' + index + '_description">' + info_window_data.desc + '</textarea>';
+			} else {
+				info_window_content += '<textarea class="edit-place-description" data-field="#gmb_markers_group_' + index + '_description"></textarea>';
+			}
+     
         //toolbar
         info_window_content += '<div class="infowindow-toolbar clear"><ul id="save-toolbar">' +
             '<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn" data-tooltip="Save changes" data-index="' + index + '">Save</div></li>' +
@@ -616,30 +613,29 @@ var gmb_data;
             '<span class="marker-edit-link-wrap" data-index="' + index + '"><a href="#" data-target="marker-icon-modal" data-tooltip="Customize icon" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline">Customize Icon</a></span>' +
             '</div>';
 
-        //Set info_window content
-        info_window_content = gmb.set_info_window_wrapper(info_window_content);
-        info_bubble.setContent(info_window_content);
-        gmb.initialize_tooltips(); //refresh tooltips
+			//Set info_window content
+			info_window_content = gmb.set_info_window_wrapper( info_window_content );
+			info_bubble.setContent( info_window_content );
 
-        //Save info window content
-        google.maps.event.addDomListener($('.google-save-btn')[0], 'click', function () {
+			//Save info window content
+			google.maps.event.addDomListener( $( '.google-save-btn' )[ 0 ], 'click', function() {
 
-            //take info window vals and save to markers' repeatable group
-            var title_field_id = $('.edit-place-title').data('field');
-            var title_field_val = $('.edit-place-title').val();
+				//take info window vals and save to markers' repeatable group
+				var title_field_id = $( '.edit-place-title' ).data( 'field' );
+				var title_field_val = $( '.edit-place-title' ).val();
 
-            var desc_field_id = $('.edit-place-description').data('field');
-            var desc_field_val = $('.edit-place-description').val();
+				var desc_field_id = $( '.edit-place-description' ).data( 'field' );
+				var desc_field_val = $( '.edit-place-description' ).val();
 
-            $(title_field_id).val(title_field_val);
-            $(desc_field_id).val(desc_field_val);
+				$( title_field_id ).val( title_field_val );
+				$( desc_field_id ).val( desc_field_val );
 
-            //close info window and remove marker circle
-            gmb.get_info_window_content($(this).data('index'), marker);
-            google.maps.event.removeListener(save_icon_listener); //remove this event listener
-            google.maps.event.removeListener(edit_marker_icon_button_click); //remove this event listener
+				//close info window and remove marker circle
+				gmb.get_info_window_content( $( this ).data( 'index' ), marker );
+				google.maps.event.removeListener( save_icon_listener ); //remove this event listener
+				google.maps.event.removeListener( edit_marker_icon_button_click ); //remove this event listener
 
-        });
+			} );
 
         //Remove row button/icon also removes icon (CMB2 buttons)
         $('#gmb_markers_group_' + index + '_title').parents('.cmb-repeatable-grouping').find('.cmb-remove-group-row').each(function () {
@@ -974,31 +970,29 @@ var gmb_data;
      * @param content
      * @param marker
      */
-    gmb.add_edit_events = function (content, marker) {
+		gmb.add_edit_events = function( content, marker ) {
 
-        content = gmb.set_info_window_wrapper(content); //wraps the content in div and returns
-        info_bubble.setContent(content); //set infowindow content
-        gmb.initialize_tooltips(); //refresh tooltips
+			content = gmb.set_info_window_wrapper( content ); //wraps the content in div and returns
+			info_bubble.setContent( content ); //set infowindow content
+			//edit button event
+			google.maps.event.addDomListener( $( '.edit-info' )[ 0 ], 'click', function() {
+				//Edit Marker
+				gmb.get_editable_info_window( $( this ).data( 'index' ), marker );
+			} );
 
-        //edit button event
-        google.maps.event.addDomListener($('.edit-info')[0], 'click', function () {
-            //Edit Marker
-            gmb.get_editable_info_window($(this).data('index'), marker);
-        });
+			//trash button event
+			google.maps.event.addDomListener( $( '.trash-marker' )[ 0 ], 'click', function() {
+				var index = $( this ).data( 'index' );
+				//Clear our input values
+				$( 'div[data-iterator="' + index + '"] ' ).find( 'input,textarea' ).val( '' );
+				//trigger remove row button click for this specific markers row
+				$( 'div[data-iterator="' + index + '"]' ).find( '.cmb-remove-group-row' ).trigger( 'click' );
+				//close info window and remove marker
+				info_bubble.close();
+				marker.setVisible( false );
+			} );
 
-        //trash button event
-        google.maps.event.addDomListener($('.trash-marker')[0], 'click', function () {
-            var index = $(this).data('index');
-            //Clear our input values
-            $('div[data-iterator="' + index + '"] ').find('input,textarea').val('');
-            //trigger remove row button click for this specific markers row
-            $('div[data-iterator="' + index + '"]').find('.cmb-remove-group-row').trigger('click');
-            //close info window and remove marker
-            info_bubble.close();
-            marker.setVisible(false);
-        });
-
-    };
+		};
 
     /**
      * Marker Index
@@ -1036,41 +1030,39 @@ var gmb_data;
      * @param place
      * @param marker
      */
-    gmb.get_place_info_window_content = function (place, marker) {
+		gmb.get_place_info_window_content = function( place, marker ) {
 
-        info_bubble.setContent('<div id="infobubble-content" class="loading"></div>');
+			info_bubble.setContent( '<div id="infobubble-content" class="loading"></div>' );
 
-        info_bubble.open(map, marker);
+			info_bubble.open( map, marker );
 
-        var request = {
-            key: gmb_data.api_key,
-            placeId: place.place_id
-        };
+			var request = {
+				key: gmb_data.api_key,
+				placeId: place.place_id
+			};
 
-        places_service.getDetails(request, function (place, status) {
+			places_service.getDetails( request, function( place, status ) {
 
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
+				if ( status == google.maps.places.PlacesServiceStatus.OK ) {
 
-                var info_window_content;
+					var info_window_content;
 
-                //place name
-                info_window_content = '<p class="place-title">' + place.name + '</p>';
+					//place name
+					info_window_content = '<p class="place-title">' + place.name + '</p>';
 
-                info_window_content += gmb.add_place_content_to_info_window(place);
+					info_window_content += gmb.add_place_content_to_info_window( place );
 
-                info_window_content = gmb.set_info_window_wrapper(info_window_content); //wraps the content in div and returns
+					info_window_content = gmb.set_info_window_wrapper( info_window_content ); //wraps the content in div and returns
 
-                info_bubble.setContent(info_window_content);
+					info_bubble.setContent( info_window_content );
 
-                gmb.initialize_tooltips(); //refresh tooltips
+				} else {
+					//There was an API error; display it for the user:
+					info_bubble.setContent( '<p class="place-error">Google API Error: ' + status + '</p>' );
 
-            } else {
-                //There was an API error; display it for the user:
-                info_bubble.setContent('<p class="place-error">Google API Error: ' + status + '</p>');
-
-            }
-        });
-    };
+				}
+			} );
+		};
 
     /**
      * Get Places Types Array
@@ -1692,45 +1684,12 @@ var gmb_data;
      */
     gmb.set_marker_edit_icons = function (marker_index) {
         return '<div class="infowindow-toolbar"><ul id="edit-toolbar">' +
-            '<li class="edit-info" data-index="' + marker_index + '" data-tooltip="' + gmb_data.i18n.btn_edit_marker + '"></li>' +
-            '<li class="trash-marker" data-index="' + marker_index + '" data-tooltip="' + gmb_data.i18n.btn_delete_marker + '"></li>' +
+            '<li class="edit-info hint--top-left" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_edit_marker + '"></li>' +
+            '<li class="trash-marker hint--top-left" data-index="' + marker_index + '" aria-label="' + gmb_data.i18n.btn_delete_marker + '"></li>' +
             '</ul>' +
             '</div>';
     };
 
-    /**
-     * Refresh Tooltips
-     *
-     * Helper function to refresh tooltips when elements added dynamically to DOM
-     */
-    gmb.initialize_tooltips = function () {
-        $('[data-tooltip!=""]').qtip({ // Grab all elements with a non-blank data-tooltip attr.
-            content: {
-                attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
-            },
-            hide: {
-                fixed: true,
-                delay: 100,
-                event: 'mouseleave click'
-            },
-            position: {
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-tipsy'
-            },
-            show: {
-                when: {
-                    event: 'focus'
-                },
-                effect: function () {
-                    $(this).fadeIn(200);
-                }
-            }
-        });
-
-    };
 
     gmb.set_map_theme = function () {
     };
