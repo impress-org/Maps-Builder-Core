@@ -664,101 +664,212 @@ var gmb_data;
 
         });
 
-        //Infowindow pin icon click to open magnific modal
-        var edit_marker_icon_button_click = google.maps.event.addDomListener($('.marker-edit-link-wrap')[0], 'click', function () {
-            $('.save-marker-button').attr('data-marker-index', $(this).data('index')); //Set the index for this marker
-        });
+			//Infowindow pin icon click to open magnific modal
+			var edit_marker_icon_button_click = google.maps.event.addDomListener( $( '.marker-edit-link-wrap' )[ 0 ], 'click', function() {
+				$( '.save-marker-button' ).attr( 'data-marker-index', $( this ).data( 'index' ) ); //Set the index for this marker
+				var saved_marker_included_img = $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker_included_img' ).val();
+				var savedIncludedimgindex = saved_marker_included_img.lastIndexOf( '/' ) + 1;
+				var savedselectedIconpath = saved_marker_included_img.substr( savedIncludedimgindex );
+				if ( $( '#savebtn_' + $( this ).data( 'index' ) ).length <= 0 && $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_label' ).text() == '' && saved_marker_included_img == '' ) {
+					var newDataIndex = $( this ).data( 'index' ) - 1;
+					$( this ).data( 'index', newDataIndex );
+				}
 
-        //Marker Modal Update Icon
-        var save_icon_listener = google.maps.event.addDomListener($('.save-marker-button')[0], 'click', function (e) {
+				if ( $( '#savebtn_' + $( this ).data( 'index' ) ).length > 0 ) {
+					var editDataMarker = $( '#savebtn_' + $( this ).data( 'index' ) ).attr( 'data_marker' );
+					var editMapIcon = $( '#savebtn_' + $( this ).data( 'index' ) ).attr( 'map_icon' );
+					var editDataMarkerColor = $( '#savebtn_' + $( this ).data( 'index' ) ).attr( 'data-marker-color' );
+					var editDataLabelColor = $( '#savebtn_' + $( this ).data( 'index' ) ).attr( 'data-label-color' );
+					var marker_included_img = $( '#savebtn_' + $( this ).data( 'index' ) ).attr( 'marker_included_img' );
+					var editIncludedImgindex = marker_included_img.lastIndexOf( '/' ) + 1;
+					var selectedIconpath = marker_included_img.substr( editIncludedImgindex );
 
-            e.preventDefault();
-            var marker_position = marker.getPosition();
-            var marker_icon = $(this).data('marker');
-            var marker_icon_color = $(this).data('marker-color');
-            var label_color = $(this).data('label-color');
-            var marker_icon_data;
+				}
+				var saved_marker_included_img = $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker_included_img' ).val();
+				var savedIncludedimgindex = saved_marker_included_img.lastIndexOf( '/' ) + 1;
+				var savedselectedIconpath = saved_marker_included_img.substr( savedIncludedimgindex );
 
-            //Inline style for marker to set
-            var marker_label_inline_style = 'color:' + label_color + '; ';
-            if (marker_icon === 'MAP_PIN') {
-                marker_label_inline_style += 'font-size: 20px;position: relative; top: -3px;'; //position: relative; top: -44px; font-size: 24px;
-            } else if (marker_icon == 'SQUARE_PIN') {
-                marker_label_inline_style += 'font-size: 20px;position: relative; top: 12px;';
-            }
+				$( '.color-picker-pin' ).wpColorPicker( 'color', editDataMarkerColor );
+				$( '.color-picker-icon' ).wpColorPicker( 'color', editDataLabelColor );
 
-            //collect marker data from submit button
-            var marker_label_data = '<i class="' + $(this).data('label') + '" style="' + marker_label_inline_style + '"></i>';
+				if ( $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_label' ).text() !== '' ) {
+					var savedIconColor = $( jQuery.parseHTML( $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_label' ).text() ) ).attr( 'style' ).split( ';' )[ 0 ].split( ':' )[ 1 ];
+					var savedIconfillColor = $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker' ).text().split( ':' )[ 2 ].split( ',' )[ 0 ].replace( /\"/g, '' ).trim();
+					if ( editDataMarkerColor == null && editDataLabelColor == null ) {
+						$( '.color-picker-pin' ).wpColorPicker( 'color', savedIconfillColor );
+						$( '.color-picker-icon' ).wpColorPicker( 'color', savedIconColor );
+					}
+				}
 
+				var listIconItems = jQuery( '.map-icons-list' ).find( 'li' );
+				listIconItems.each( function( idx, li ) {
+					$( this ).find( '.maps-icon' ).removeClass( 'marker-item-selected' );
+					var iconImgsrc;
+					iconImgsrc = jQuery( li ).find( 'img' ).attr( 'src' );
+					var iconIndex = iconImgsrc.lastIndexOf( '/' ) + 1;
+					var filename = iconImgsrc.substr( iconIndex );
+					if ( selectedIconpath === filename || savedselectedIconpath === filename ) {
+						$( this ).find( '.maps-icon' ).trigger( 'click' );
+					}
 
-            //Clear marker vals
-            gmb.clear_marker_values(index);
+				} );
 
-            //Determine which type of marker to place
-            if (marker_icon == 'mapicons' || marker_icon == 'upload' || marker_icon == 'default') {
+				var markerHtml = $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_label' ).html();
+				var iconLabels = [ 'map-icon-art-gallery', 'map-icon-campground', 'map-icon-bank', 'map-icon-hair-care', 'map-icon-gym', 'map-icon-point-of-interest', 'map-icon-post-box', 'map-icon-post-office', 'map-icon-university', 'map-icon-beauty-salon', 'map-icon-atm', 'map-icon-rv-park', 'map-icon-school', 'map-icon-library', 'map-icon-spa', 'map-icon-route', 'map-icon-postal-code', 'map-icon-stadium', 'map-icon-museum', 'map-icon-finance', 'map-icon-natural-feature', 'map-icon-funeral-home', 'map-icon-cemetery', 'map-icon-park', 'map-icon-lodging' ];
+				iconLabels.forEach( function( element ) {
+					if ( markerHtml.indexOf( element ) !== - 1 || editMapIcon == element ) {
+						$( '.icon, .marker-item' ).removeClass( 'marker-item-selected' );
+						$( '.inner-modal-wrap .map-svg-icons' ).find( '.icon' ).find( '.icon-inner' ).find( '.' + element ).parent().parent().trigger( 'click' );
+					}
 
-                marker_icon_data = $(this).data('marker-image');
-                marker_label_data = ''; //no label here (img marker)
+				} );
 
-                //If marker image is an upload set full path
-                if (marker_icon == 'upload') {
-                    $('#gmb_markers_group_' + index + '_marker_img').val(marker_icon_data);
-                } else {
-                    //else set marker image relative path
-                    var new_marker_img_path = marker_icon_data.replace(gmb_data.plugin_url, '');
-                    $('#gmb_markers_group_' + index + '_marker_included_img').val(new_marker_img_path);
-                }
+				$( '.save-marker-button' ).attr( 'data-marker-index', $( this ).data( 'index' ) ); //Set the index for this marker
+				if ( $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker' ).html().indexOf( 'SQUARE_PIN' ) !== - 1 || editDataMarker === 'SQUARE_PIN' ) {
+					jQuery( '[data-marker="SQUARE_PIN"]' ).addClass( 'marker-item-selected' );
+					var edit_marker_containers = $( '.marker-icon-row' );
+					var edit_marker_modal = $( '.marker-icon-modal' );
+					var edit_marker_modal_save_container = edit_marker_modal.find( '.save-marker-icon' );
+					var edit_marker_modal_save_btn = edit_marker_modal.find( '.save-marker-button' );
+					var edit_marker_data = $( '[data-marker="SQUARE_PIN"]' ).data( 'marker' );
+					var edit_marker_toggle = $( '[data-marker="SQUARE_PIN"]' ).data( 'toggle' );
+					$( '.marker-item' ).removeClass( 'marker-item-selected' );
+					$( '[data-marker="SQUARE_PIN"]' ).addClass( 'marker-item-selected' );
+					$( '.save-marker-button' ).attr( 'data-marker', edit_marker_data ); //Set marker data attribute on save bt
+					//Slide up all panels
+					edit_marker_containers.hide();
+					//Slide down specific div
+					$( '.' + edit_marker_toggle ).show();
 
-            }
-            //custom SVG markers
-            else if (marker_icon == 'MAP_PIN' || marker_icon == 'SQUARE_PIN') {
-                //maps-icon
-                marker_icon_data = '{ path : ' + marker_icon + ', fillColor : "' + marker_icon_color + '", fillOpacity : 1, strokeColor : "", strokeWeight: 0, scale : 1 / 3 }';
-                //Update fields with necessary data
-                $('#gmb_markers_group_' + index + '_marker').val(marker_icon_data);
-                $('#gmb_markers_group_' + index + '_label').val(marker_label_data);
-                marker_icon_data = eval('(' + marker_icon_data + ')');
-                $('#gmb_markers_group_' + index + '_marker_img').val(''); //set marker image field
-            }
+				}
 
-            //remove current marker from map
-            marker.setMap(null);
+				if ( $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker' ).html().indexOf( 'MAP_PIN' ) !== - 1 || editDataMarker === 'MAP_PIN' ) {
+					var edit_marker_containers = $( '.marker-icon-row' );
+					var marker_modal = $( '.marker-icon-modal' );
+					var marker_modal_save_container = marker_modal.find( '.save-marker-icon' );
+					var marker_modal_save_btn = marker_modal.find( '.save-marker-button' );
+					var edit_marker_data = $( '[data-marker="MAP_PIN"]' ).data( 'marker' );
+					var edit_marker_toggle = $( '[data-marker="MAP_PIN"]' ).data( 'toggle' );
+					$( '.marker-item' ).removeClass( 'marker-item-selected' );
+					$( '[data-marker="MAP_PIN"]' ).addClass( 'marker-item-selected' );
+					$( '.save-marker-button' ).attr( 'data-marker', edit_marker_data ); //Set marker data attribute on save bt
 
-            var marker_args = {
-                position: marker_position,
-                map: map,
-                zIndex: 9,
-                icon: marker_icon_data,
-                custom_label: marker_label_data
-            };
+					//Slide up all panels
+					edit_marker_containers.hide();
+					//Slide down specific div
+					$( '.' + edit_marker_toggle ).show();
+				} else if ( $( '#gmb_markers_group_' + $( this ).data( 'index' ) + '_marker_included_img' ).val() !== '' || editDataMarker === 'default' ) {
+					var edit_marker_containers = $( '.marker-icon-row' );
+					var marker_modal = $( '.marker-icon-modal' );
+					var marker_modal_save_container = marker_modal.find( '.save-marker-icon' );
+					var marker_modal_save_btn = marker_modal.find( '.save-marker-button' );
 
-            //Update Icon
-            marker = new Marker(marker_args);
+					var edit_marker_data = $( '[data-marker="default"]' ).data( 'marker' );
+					var edit_marker_toggle = $( '[data-marker="default"]' ).data( 'toggle' );
+					$( '.marker-item' ).removeClass( 'marker-item-selected' );
+					$( '[data-marker="default"]' ).addClass( 'marker-item-selected' );
+					$( '.save-marker-button' ).attr( 'data-marker', edit_marker_data ); //Set marker data attribute on save bt
 
-            //Add event listener to new marker
-            google.maps.event.addListener(marker, 'click', function () {
-                gmb.get_info_window_content(index, marker);
-            });
+					//Slide up all panels
+					edit_marker_containers.hide();
+					//Slide down specific div
+					$( '.' + edit_marker_toggle ).show();
+				}
 
-            //Clean up modal and close
-            $('.icon, .marker-item').removeClass('marker-item-selected'); //reset modal
-            $('.marker-icon-row, .save-marker-icon').hide(); //reset modal
-            $(this).removeData('marker'); //Remove data
-            $(this).removeData('marker-color'); //Remove data
-            $(this).removeData('marker-img'); //Remove data
-            $(this).removeData('label'); //Remove data
-            $(this).removeData('label-color'); //Remove data
-            if ($('.magnific-builder').length === 0) {
-                $.magnificPopup.close(); // Close popup that is currently opened (shorthand)
-            } else {
-                $('.gmb-modal-close').trigger('click');
-            }
-            google.maps.event.removeListener(save_icon_listener); //remove this event listener
-            google.maps.event.removeListener(edit_marker_icon_button_click); //remove this event listener
+			} );
 
-        });
+			//Marker Modal Update Icon
+			var save_icon_listener = google.maps.event.addDomListener( $( '.save-marker-button' )[ 0 ], 'click', function( e ) {
+				e.preventDefault();
+				var marker_position = marker.getPosition();
+				var marker_icon = $( this ).data( 'marker' );
+				var marker_icon_color = $( this ).data( 'marker-color' );
+				var label_color = $( this ).data( 'label-color' );
+				var marker_icon_data;
 
-    };
+				//Inline style for marker to set
+				var marker_label_inline_style = 'color:' + label_color + '; ';
+				if ( marker_icon === 'MAP_PIN' ) {
+					marker_label_inline_style += 'font-size: 20px;position: relative; top: -3px;'; //position: relative; top: -44px; font-size: 24px;
+				} else if ( marker_icon == 'SQUARE_PIN' ) {
+					marker_label_inline_style += 'font-size: 20px;position: relative; top: 12px;';
+				}
+
+				//collect marker data from submit button
+				var marker_label_data = '<i class="' + $( this ).data( 'label' ) + '" style="' + marker_label_inline_style + '"></i>';
+
+				//Clear marker vals
+				gmb.clear_marker_values( index );
+
+				//Determine which type of marker to place
+				if ( marker_icon == 'mapicons' || marker_icon == 'upload' || marker_icon == 'default' ) {
+
+					marker_icon_data = $( this ).data( 'marker-image' );
+					marker_label_data = ''; //no label here (img marker)
+
+					//If marker image is an upload set full path
+					if ( marker_icon == 'upload' ) {
+						$( '#gmb_markers_group_' + index + '_marker_img' ).val( marker_icon_data );
+					} else {
+						//else set marker image relative path
+						var new_marker_img_path = marker_icon_data.replace( gmb_data.plugin_url, '' );
+						$( '#gmb_markers_group_' + index + '_marker_included_img' ).val( new_marker_img_path );
+					}
+
+				}
+				//custom SVG markers
+				else if ( marker_icon == 'MAP_PIN' || marker_icon == 'SQUARE_PIN' ) {
+					//maps-icon
+					marker_icon_data = '{ path : ' + marker_icon + ', fillColor : "' + marker_icon_color + '", fillOpacity : 1, strokeColor : "", strokeWeight: 0, scale : 1 / 3 }';
+					//Update fields with necessary data
+					$( '#gmb_markers_group_' + index + '_marker' ).val( marker_icon_data );
+					$( '#gmb_markers_group_' + index + '_label' ).val( marker_label_data );
+					marker_icon_data = eval( '(' + marker_icon_data + ')' );
+					$( '#gmb_markers_group_' + index + '_marker_img' ).val( '' ); //set marker image field
+				}
+				// Temporary save data when creating marker
+				if ( $( '#savebtn_' + index + '' ).length > 0 ) {
+					$( '#savebtn_' + index + '' ).remove();
+				}
+				$( '#google-map-wrap' ).append( '<input type="hidden" id="savebtn_' + index + '" map_icon="' + $( this ).data( 'label' ) + '" data_marker="' + marker_icon.trim() + '" data-marker-color="' + marker_icon_color + '"  data-label-color="' + label_color + '" marker_included_img = "' + new_marker_img_path + '"/>' );
+
+				//remove current marker from map
+				marker.setMap( null );
+				var marker_args = {
+					position: marker_position,
+					map: map,
+					zIndex: 9,
+					icon: marker_icon_data,
+					custom_label: marker_label_data
+				};
+
+				//Update Icon
+				marker = new Marker( marker_args );
+
+				//Add event listener to new marker
+				google.maps.event.addListener( marker, 'click', function() {
+					gmb.get_info_window_content( index, marker );
+				} );
+
+				//Clean up modal and close
+				$( '.icon, .marker-item' ).removeClass( 'marker-item-selected' ); //reset modal
+				$( '.marker-icon-row, .save-marker-icon' ).hide(); //reset modal
+				$( this ).removeData( 'marker' ); //Remove data
+				$( this ).removeData( 'marker-color' ); //Remove data
+				$( this ).removeData( 'marker-img' ); //Remove data
+				$( this ).removeData( 'label' ); //Remove data
+				$( this ).removeData( 'label-color' ); //Remove data
+				if ( $( '.magnific-builder' ).length === 0 ) {
+					$.magnificPopup.close(); // Close popup that is currently opened (shorthand)
+				} else {
+					$( '.gmb-modal-close' ).trigger( 'click' );
+				}
+				google.maps.event.removeListener( save_icon_listener ); //remove this event listener
+				google.maps.event.removeListener( edit_marker_icon_button_click ); //remove this event listener
+
+			} );
+
+		};
 
     /**
      * Wrap Info Window Content
