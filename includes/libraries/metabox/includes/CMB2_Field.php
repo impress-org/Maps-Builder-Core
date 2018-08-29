@@ -866,8 +866,29 @@ class CMB2_Field extends CMB2_Base {
 			$this->peform_param_callback( 'label_cb' );
 
 		} else {
+			if ( $this->get_param_callback_result( 'render_create_marker_tooltip' ) ) {
+				echo sprintf(
+					'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Create Marker', 'google-maps-builder' ),
+					esc_html__( 'Enter the name of a place or an address above to create a map marker or ', 'google-maps-builder' )
+				);
+			} else if ( $this->get_param_callback_result( 'render_show_place_tooltip' ) ) {
+				echo sprintf(
+				'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Show Places?', 'google-maps-builder' ),
+					esc_html__( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' )
+				);
+			}else if ( $this->get_param_callback_result( 'render_search_radius_tooltip' ) ) {
+				echo sprintf(
+					'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Search Radius', 'google-maps-builder' ),
+					esc_html__( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' )
+				);
+			}
 
-			if ( $this->get_param_callback_result( 'label_cb' ) ) {
+			else {
 				echo '<div class="cmb-th">', $this->peform_param_callback( 'label_cb' ), '</div>';
 			}
 

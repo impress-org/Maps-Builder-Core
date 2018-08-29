@@ -2750,4 +2750,11 @@ div.place-thumb {
   line-height: 1.6 !important;
 }
 
+.maps-marker-label h2 {
+  display: inline-block !important;
+}
+.maps-marker-label {
+  margin-bottom: 18px;
+}
+
 /*# sourceMappingURL=gmb-admin.css.map */

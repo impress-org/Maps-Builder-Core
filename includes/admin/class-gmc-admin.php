@@ -179,22 +179,26 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'show_names'   => true, // Show field names on the left
 		) );
 		$this->marker_box->add_field( array(
-			'name' => __( 'Create Marker', 'google-maps-builder' ),
-			'id'   => $prefix . 'geocoder',
-			'type' => 'google_geocoder'
+			'name'                  => __( 'Create Marker', 'google-maps-builder' ),
+			'id'                    => $prefix . 'geocoder',
+			'type'                  => 'google_geocoder',
+			'render_create_marker_tooltip' => 'name',
 		) );
 
 		$this->marker_box_group_field_id = $this->marker_box->add_field( array(
 			'name'        => __( 'Existing Markers', 'google-maps-builder' ),
 			'id'          => $prefix . 'markers_group',
 			'type'        => 'group',
-			'description' => __( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map.', 'google-maps-builder' ) . '<a href="#" class="button button-small toggle-repeater-groups">' . __( 'Toggle Marker Groups', 'google-maps-builder' ) . '</a>',
+			//'description' => __( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map.',
+			// 'google-maps-builder' ) . '<a href="#" class="button button-small toggle-repeater-groups">' . __( 'Toggle Marker Groups', 'google-maps-builder' ) . '</a>',
 			'options'     => array(
 				'group_title'   => __( 'Marker: {#}', 'cmb' ),
 				'add_button'    => __( 'Add Another Marker', 'google-maps-builder' ),
 				'remove_button' => __( 'Remove Marker', 'google-maps-builder' ),
 				'sortable'      => true, // beta
 			),
+			'render_existing_marker_tooltip' => __( 'Existing Markers', 'google-maps-builder' ),
+
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Title', 'google-maps-builder' ),
@@ -274,31 +278,33 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'    => __( 'Show Places?', 'google-maps-builder' ),
-				'desc'    => __( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' ),
-				'id'      => $prefix . 'show_places',
-				'type'    => 'radio_inline',
-				'options' => array(
+				'name'                           => __( 'Show Places?', 'google-maps-builder' ),
+				//'desc'                           => __( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' ),
+				'id'                             => $prefix . 'show_places',
+				'type'                           => 'radio_inline',
+				'options'                        => array(
 					'yes' => __( 'Yes', 'cmb' ),
 					'no'  => __( 'No', 'cmb' ),
 				),
+				'render_show_place_tooltip' => __( 'Show Places?', 'google-maps-builder' ),
 			)
 		);
 
 		$this->search_options->add_field(
 			array(
 				'name'    => __( 'Search Radius', 'google-maps-builder' ),
-				'desc'    => __( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' ),
+				//'desc'    => __( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' ),
 				'default' => '3000',
 				'id'      => $prefix . 'search_radius',
-				'type'    => 'text_small'
+				'type'    => 'text_small',
+				'render_search_radius_tooltip' => __( 'Show Places?', 'google-maps-builder' ),
 			)
 		);
 
 		$this->search_options->add_field(
 			array(
 				'name'    => __( 'Place Types', 'google-maps-builder' ),
-				'desc'    => __( 'Select which type of places you would like to display on this map.', 'google-maps-builder' ),
+				//'desc'    => __( 'Select which type of places you would like to display on this map.', 'google-maps-builder' ),
 				'id'      => $prefix . 'places_search_multicheckbox',
 				'type'    => 'multicheck',
 				'options' => apply_filters( 'gmb_place_types', array(
@@ -719,9 +725,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			)
 		);
 
-		echo '<div class="autocomplete-wrap"><input type="text" name="' . $field->args( 'id' ) . '[geocode]" id="' . $field->args( 'id' ) . '" value="" class="search-autocomplete" /><p class="autocomplete-description">' .
-		     sprintf( __( 'Enter the name of a place or an address above to create a map marker or %1$sDrop a Marker%2$s', 'google-maps-builder' ), '<a href="#" class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>', '</a>' ) .
-		     '</p></div>';
+		echo '<div class="autocomplete-wrap"><p class="autocomplete-description">' . sprintf( __( '%1$sDrop a Marker%2$s', 'google-maps-builder' ), '<a href="#" class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>', '</a>' ) . '</p><input type="text" name="' . $field->args( 'id' ) . '[geocode]" id="' . $field->args( 'id' ) . '" value="" class="search-autocomplete" /></div>';
 
 	}
 
