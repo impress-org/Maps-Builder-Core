@@ -48,7 +48,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 	 */
 	function enqueue_admin_styles( $hook ) {
 
-		global $post;
+		global $current_screen;
 		$suffix = $this->paths->suffix();
 
 		//Only enqueue scripts for CPT on post type screen
@@ -57,7 +57,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			  'post.php' === $hook ||
 			  'edit.php' === $hook )
 			&& (
-				'google_maps' === $post->post_type ||
+				'google_maps' === $current_screen->post_type ||
 				'google_maps_page_gmb_settings' === $hook ||
 				'google_maps_page_gmb_import_export' === $hook
 			)

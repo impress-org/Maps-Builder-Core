@@ -37,11 +37,12 @@ div[id^='google-maps-builder'] iframe.gm-save-widget {
 
 /* This fixes issues some themes have with embedded Google Maps (like Twenty Twelve) */
 div[id^='google-maps-builder'] img {
-  max-width: none;
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  width: auto; }
+  max-width: none !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  width: auto;
+}
 
 /**
  * Info Bubble (window)
