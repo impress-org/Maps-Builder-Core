@@ -200,41 +200,47 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Title', 'google-maps-builder' ),
-			'id'   => 'title',
-			'type' => 'text',
+			'name'                        => __( 'Marker Title', 'google-maps-builder' ),
+			'id'                          => 'title',
+			'type'                        => 'text',
+			'render_marker_title_tooltip' => 'render_marker_title_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name'            => __( 'Marker Description', 'google-maps-builder' ),
-			'description'     => __( 'Write a short description for this marker', 'google-maps-builder' ),
-			'id'              => 'description',
-			'type'            => 'textarea_small',
-			'sanitization_cb' => false
+			'name'                       => __( 'Marker Description', 'google-maps-builder' ),
+			'id'                         => 'description',
+			'type'                       => 'textarea_small',
+			'sanitization_cb'            => false,
+			'render_marker_desc_tooltip' => 'render_marker_desc_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name' => __( 'Marker Reference', 'google-maps-builder' ),
 			'id'   => 'reference',
 			'type' => 'text',
+			'render_marker_ref_tooltip' => 'render_marker_ref_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Place ID', 'google-maps-builder' ),
-			'id'   => 'place_id',
-			'type' => 'text',
+			'name'                          => __( 'Marker Place ID', 'google-maps-builder' ),
+			'id'                            => 'place_id',
+			'type'                          => 'text',
+			'render_marker_placeid_tooltip' => 'render_marker_placeid_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Hide Place Details', 'google-maps-builder' ),
-			'id'   => 'hide_details',
-			'type' => 'checkbox',
+			'name'                             => __( 'Hide Place Details', 'google-maps-builder' ),
+			'id'                               => 'hide_details',
+			'type'                             => 'checkbox',
+			'render_marker_hide_place_tooltip' => 'render_marker_hide_place_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Latitude', 'google-maps-builder' ),
-			'id'   => 'lat',
-			'type' => 'text',
+			'name'                      => __( 'Marker Latitude', 'google-maps-builder' ),
+			'id'                        => 'lat',
+			'type'                      => 'text',
+			'render_marker_lat_tooltip' => 'render_marker_lat_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
-			'name' => __( 'Marker Longitude', 'google-maps-builder' ),
-			'id'   => 'lng',
-			'type' => 'text',
+			'name'                      => __( 'Marker Longitude', 'google-maps-builder' ),
+			'id'                        => 'lng',
+			'type'                      => 'text',
+			'render_marker_lng_tooltip' => 'render_marker_lng_tooltip',
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'        => __( 'Custom Marker Image', 'google-maps-builder' ),

@@ -2802,5 +2802,20 @@ div.place-thumb {
 h2.cmb-group-name.cmb_create_marker {
   margin-bottom: 0px !important;
 }
-
+/* Css changes for marker label tooltip */
+.cmb-th label.inline_label {
+  display: inline;
+  vertical-align: middle;
+}
+#side-sortables .cmb-th label.inline_label{
+  display: inline-block;
+  vertical-align: inherit;
+}
+#poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping {
+  overflow: visible;
+}
+#poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping .cmb-group-title {
+  border-radius: 5px 5px 0 0;
+}
+/*# Css changes for marker label tooltip */
 /*# sourceMappingURL=gmb-admin.css.map */

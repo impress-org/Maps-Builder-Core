@@ -968,6 +968,65 @@ class CMB2_Field extends CMB2_Base {
 					esc_html__( 'Select which type of places you would like to display on this map.', 'google-maps-builder' )
 				);
 
+			} else if ( $this->get_param_callback_result( 'render_marker_title_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Title', 'google-maps-builder' ),
+					esc_html__( 'Defines the title of the infowindow.', 'google-maps-builder' )
+				);
+
+			} else if ( $this->get_param_callback_result( 'render_marker_desc_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Description', 'google-maps-builder' ),
+					esc_html__( 'Write a short description for this marker', 'google-maps-builder' )
+				);
+
+			} else if ( $this->get_param_callback_result( 'render_marker_ref_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Reference', 'google-maps-builder' ),
+					esc_html__( 'Define marker reference', 'google-maps-builder' )
+				);
+
+			} else if ( $this->get_param_callback_result( 'render_marker_placeid_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Place ID', 'google-maps-builder' ),
+					esc_html__( 'Defines the Google Place ID of the marker if it is associated with a known Place.', 'google-maps-builder' )
+				);
+			} else if ( $this->get_param_callback_result( 'render_marker_hide_place_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Hide Place Details', 'google-maps-builder' ),
+					esc_html__( 'Determines whether the Place details such as address, website, and phone number should appear in the infowindow.', 'google-maps-builder' )
+				);
+			} else if ( $this->get_param_callback_result( 'render_marker_hide_place_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Hide Place Details', 'google-maps-builder' ),
+					esc_html__( 'Determines whether the Place details such as address, website, and phone number should appear in the infowindow.', 'google-maps-builder' )
+				);
+			} else if ( $this->get_param_callback_result( 'render_marker_lat_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Latitude', 'google-maps-builder' ),
+					esc_html__( 'Defines the latitudinal coordinates of the marker.', 'google-maps-builder' )
+				);
+			} else if ( $this->get_param_callback_result( 'render_marker_lng_tooltip' ) ) {
+				echo sprintf(
+					'<div class="cmb-th"><label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Marker Longitude', 'google-maps-builder' ),
+					esc_html__( ' Defines the longitudinal coordinates of the marker.', 'google-maps-builder' )
+				);
 			} else {
 				echo '<div class="cmb-th">', $this->peform_param_callback( 'label_cb' ), '</div>';
 			}
