@@ -186,12 +186,11 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 
 		$this->marker_box_group_field_id = $this->marker_box->add_field( array(
-			'name'        => __( 'Existing Markers', 'google-maps-builder' ),
-			'id'          => $prefix . 'markers_group',
-			'type'        => 'group',
-			//'description' => __( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map.',
-			// 'google-maps-builder' ) . '<a href="#" class="button button-small toggle-repeater-groups">' . __( 'Toggle Marker Groups', 'google-maps-builder' ) . '</a>',
-			'options'     => array(
+			'name'                           => __( 'Existing Markers', 'google-maps-builder' ),
+			'id'                             => $prefix . 'markers_group',
+			'type'                           => 'group',
+			'description'                    => '',
+			'options'                        => array(
 				'group_title'   => __( 'Marker: {#}', 'cmb' ),
 				'add_button'    => __( 'Add Another Marker', 'google-maps-builder' ),
 				'remove_button' => __( 'Remove Marker', 'google-maps-builder' ),
@@ -278,11 +277,10 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'                           => __( 'Show Places?', 'google-maps-builder' ),
-				//'desc'                           => __( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' ),
-				'id'                             => $prefix . 'show_places',
-				'type'                           => 'radio_inline',
-				'options'                        => array(
+				'name'                      => __( 'Show Places?', 'google-maps-builder' ),
+				'id'                        => $prefix . 'show_places',
+				'type'                      => 'radio_inline',
+				'options'                   => array(
 					'yes' => __( 'Yes', 'cmb' ),
 					'no'  => __( 'No', 'cmb' ),
 				),
@@ -293,7 +291,6 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$this->search_options->add_field(
 			array(
 				'name'    => __( 'Search Radius', 'google-maps-builder' ),
-				//'desc'    => __( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' ),
 				'default' => '3000',
 				'id'      => $prefix . 'search_radius',
 				'type'    => 'text_small',
@@ -303,11 +300,10 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 		$this->search_options->add_field(
 			array(
-				'name'    => __( 'Place Types', 'google-maps-builder' ),
-				//'desc'    => __( 'Select which type of places you would like to display on this map.', 'google-maps-builder' ),
-				'id'      => $prefix . 'places_search_multicheckbox',
-				'type'    => 'multicheck',
-				'options' => apply_filters( 'gmb_place_types', array(
+				'name'                      => __( 'Place Types', 'google-maps-builder' ),
+				'id'                        => $prefix . 'places_search_multicheckbox',
+				'type'                      => 'multicheck',
+				'options'                   => apply_filters( 'gmb_place_types', array(
 					'accounting'              => __( 'Accounting', 'google-maps-builder' ),
 					'airport'                 => __( 'Airport', 'google-maps-builder' ),
 					'amusement_park'          => __( 'Amusement Park', 'google-maps-builder' ),
@@ -403,8 +399,9 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'travel_agency'           => __( 'Travel Agency', 'google-maps-builder' ),
 					'university'              => __( 'University', 'google-maps-builder' ),
 					'veterinary_care'         => __( 'Veterinary Care', 'google-maps-builder' ),
-					'zoo'                     => __( 'Zoo', 'google-maps-builder' )
-				) )
+					'zoo'                     => __( 'Zoo', 'google-maps-builder' ),
+				) ),
+				'render_place_type_tooltip' => __( 'Place Types', 'google-maps-builder' ),
 			)
 		);
 
@@ -421,13 +418,14 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		) );
 
 		$this->display_options->add_field( array(
-			'name'           => __( 'Map Size', 'google-maps-builder' ),
-			'id'             => $prefix . 'width_height',
-			'type'           => 'width_height',
-			'width_std'      => $default_options['width'],
-			'width_unit_std' => $default_options['width_unit'],
-			'height_std'     => $default_options['height'],
-			'desc'           => '',
+			'name'                    => __( 'Map Size', 'google-maps-builder' ),
+			'id'                      => $prefix . 'width_height',
+			'type'                    => 'width_height',
+			'width_std'               => $default_options['width'],
+			'width_unit_std'          => $default_options['width_unit'],
+			'height_std'              => $default_options['height'],
+			'desc'                    => '',
+			'render_map_size_tooltip' => __( 'Map Size', 'google-maps-builder' ),
 		) );
 		$this->display_options->add_field( array(
 			'name'    => __( 'Map Location', 'google-maps-builder' ),
@@ -450,12 +448,12 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			),
 		) );
 		$this->display_options->add_field( array(
-			'name'    => 'Zoom',
-			'desc'    => __( 'Adjust the map zoom (0-21)', 'google-maps-builder' ),
-			'id'      => $prefix . 'zoom',
-			'type'    => 'select',
-			'default' => '15',
-			'options' => apply_filters( 'gmb_map_zoom_levels', array(
+			'name'                => __( 'Zoom', 'google-maps-builder' ),
+			'desc'                => '',
+			'id'                  => $prefix . 'zoom',
+			'type'                => 'select',
+			'default'             => '15',
+			'options'             => apply_filters( 'gmb_map_zoom_levels', array(
 					'21' => '21',
 					'20' => '20',
 					'19' => '19',
@@ -479,25 +477,28 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'1'  => '1',
 					'0'  => '0',
 				)
-			)
+			),
+			'render_zoom_tooltip' => __( 'Zoom', 'google-maps-builder' ),
 		) );
 		$this->display_options->add_field( array(
-			'name'              => 'Map Layers',
-			'desc'              => __( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' ),
-			'id'                => $prefix . 'layers',
-			'type'              => 'multicheck',
-			'select_all_button' => false,
-			'options'           => apply_filters( 'gmb_map_zoom_levels', array(
+			'name'                      => __( 'Map Layers', 'google-maps-builder' ),
+			'desc'                      => '',
+			'id'                        => $prefix . 'layers',
+			'type'                      => 'multicheck',
+			'select_all_button'         => false,
+			'options'                   => apply_filters( 'gmb_map_zoom_levels', array(
 					'traffic' => __( 'Traffic', 'google-maps-builder' ),
 					'transit' => __( 'Transit', 'google-maps-builder' ),
 					'bicycle' => __( 'Bicycle', 'google-maps-builder' ),
 				)
-			)
+			),
+			'render_maps_layer_tooltip' => __( 'Map Layers', 'google-maps-builder' ),
 		) );
 
 		$this->display_options->add_field( array(
 			'name'    => __( 'Map Theme', 'google-maps-builder' ),
-			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
+			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the
+			 dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
 			'id'      => $prefix . 'theme',
 			'type'    => 'select',
 			'default' => 'none',
@@ -519,7 +520,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'27'   => __( 'Shift Worker', 'google-maps-builder' ),
 				'15'   => __( 'Subtle Grayscale', 'google-maps-builder' ),
 				'50'   => __( 'The Endless Atlas', 'google-maps-builder' ),
-			) )
+			) ),
 		) );
 		$this->display_options->add_field( array(
 			'name' => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
@@ -618,8 +619,6 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'true' => __( 'Standard', 'google-maps-builder' ),
 			),
 		) );
-
-
 	}
 
 	/**
@@ -661,15 +660,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '<input id="height_unit_px" type="radio" name="' . $field->args( 'id' ) . '[map_height_unit]" class="height_radio" value="px" ' . ( $meta['map_height_unit'] === 'px' ? 'checked="checked"' : '' ) . ' ><label class="height_unit_label">px</label>';
 		$output .= '</div>';
 		$output .= '</div>';
-
-		$output .= '<p class="cmb2-metabox-description">' . __( 'Configure the default map width and height.', 'google-maps-builder' ) . '</p>';
-
 		$output .= '</div>'; //end #width_height_wrap
-
-
 		echo $output;
-
-
 	}
 
 
