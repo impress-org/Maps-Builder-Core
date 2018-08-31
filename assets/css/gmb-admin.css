@@ -2814,8 +2814,14 @@ h2.cmb-group-name.cmb_create_marker {
 #poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping {
   overflow: visible;
 }
+
 #poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping .cmb-group-title {
   border-radius: 5px 5px 0 0;
 }
+
+.maps-marker-label.maps-existing-marker-div {
+  margin-bottom: 0px;
+}
+
 /*# Css changes for marker label tooltip */
 /*# sourceMappingURL=gmb-admin.css.map */

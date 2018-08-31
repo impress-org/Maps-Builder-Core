@@ -390,20 +390,10 @@ class CMB2 extends CMB2_Base {
 		$field_group->index = 0;
 
 		$field_group->peform_param_callback( 'before_group' );
-		$render_existing_marker_tooltip = $field_group->args( 'render_existing_marker_tooltip' );
 
 		echo '<div class="cmb-row cmb-repeat-group-wrap ', $field_group->row_classes(), '" data-fieldtype="group"><div class="cmb-td"><div id="', $field_group->id(), '_repeat" class="cmb-nested cmb-field-list cmb-repeatable-group', $sortable, $repeat_class, '" style="width:100%;">';
 
-		if ( $render_existing_marker_tooltip ) {
-			echo sprintf(
-				'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span class="dashicons gmb-tooltip-icon"></span></span>
-				<a href="#" class="button button-small toggle-repeater-groups">' . __( "Toggle Marker Groups", "google-maps-builder" ) . "</a></div>",
-				esc_html__( "Existing Markers", "google-maps-builder" ),
-				esc_html__( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map. ', 'google-maps-builder' )
-			);
-
-		}
-		if ( ( $desc || $label ) && empty( $render_existing_marker_tooltip ) ) {
+		if ( $desc || $label ) {
 			$class = $desc ? ' cmb-group-description' : '';
 			echo '<div class="cmb-row', $class, '"><div class="cmb-th">';
 			if ( $label ) {
