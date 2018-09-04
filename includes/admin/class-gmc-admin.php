@@ -878,131 +878,135 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 */
 
 	function render_maker_field_tooltip( $id ) {
-		if ( 'render_create_marker_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-label"><h2 class="cmb-group-name cmb_create_marker">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+		switch ( $id ) {
+			case 'render_create_marker_tooltip':
+				return sprintf(
+					'<div class="maps-marker-label"><h2 class="cmb-group-name cmb_create_marker">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
 					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Create Marker', 'google-maps-builder' ),
-				esc_html__( 'Enter the name of a place or an address above to create a map marker or ', 'google-maps-builder' )
-			);
-		} else if ( 'render_show_place_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Show Places?', 'google-maps-builder' ),
-				esc_html__( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' )
-			);
-		} else if ( 'render_search_radius_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Search Radius', 'google-maps-builder' ),
-				esc_html__( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' )
-			);
-		} else if ( 'render_map_size_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--bottom hint-bottom-custom" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Map Size', 'google-maps-builder' ),
-				esc_html__( 'Configure the default map width and height.', 'google-maps-builder' )
-			);
-		} else if ( 'render_zoom_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--bottom hint-bottom-custom" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Zoom', 'google-maps-builder' ),
-				esc_html__( 'Adjust the map zoom (0-21)', 'google-maps-builder' )
-			);
-		} else if ( 'render_maps_layer_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Map Layers', 'google-maps-builder' ),
-				esc_html__( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' )
-			);
-		} else if ( 'render_maps_theme_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Map Layers', 'google-maps-builder' ),
-				esc_html__( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' )
-			);
-
-		} else if ( 'render_place_type_tooltip' === $id ) {
-			return sprintf(
-				'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span></div>',
-				esc_html__( 'Place Types', 'google-maps-builder' ),
-				esc_html__( 'Select which type of places you would like to display on this map.', 'google-maps-builder' )
-			);
-
-		} else if ( 'render_marker_title_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Title', 'google-maps-builder' ),
-				esc_html__( 'Defines the title of the infowindow.', 'google-maps-builder' )
-			);
-
-		} else if ( 'render_marker_desc_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Description', 'google-maps-builder' ),
-				esc_html__( 'Write a short description for this marker', 'google-maps-builder' )
-			);
-
-		} else if ( 'render_marker_ref_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Reference', 'google-maps-builder' ),
-				esc_html__( 'Define marker reference', 'google-maps-builder' )
-			);
-
-		} else if ( 'render_marker_placeid_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Place ID', 'google-maps-builder' ),
-				esc_html__( 'Defines the Google Place ID of the marker if it is associated with a known Place.', 'google-maps-builder' )
-			);
-		} else if ( 'render_marker_hide_place_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Hide Place Details', 'google-maps-builder' ),
-				esc_html__( 'Determines whether the Place details such as address, website, and phone number should appear in the infowindow.', 'google-maps-builder' )
-			);
-		} else if ( 'render_marker_hide_place_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Hide Place Details', 'google-maps-builder' ),
-				esc_html__( 'Determines whether the Place details such as address, website, and phone number should appear in the infowindow.', 'google-maps-builder' )
-			);
-		} else if ( 'render_marker_lat_tooltip' === $id ) {
-			return sprintf(
-				'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Latitude', 'google-maps-builder' ),
-				esc_html__( 'Defines the latitudinal coordinates of the marker.', 'google-maps-builder' )
-			);
-		} else if ( 'render_marker_lng_tooltip' === $id ) {
-			return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
-					class="dashicons gmb-tooltip-icon"></span></span>',
-				esc_html__( 'Marker Longitude', 'google-maps-builder' ),
-				esc_html__( ' Defines the longitudinal coordinates of the marker.', 'google-maps-builder' )
-			);
-		} else if ( 'render_existing_marker_tooltip' === $id ) {
-			return sprintf( '<div class="maps-marker-label maps-existing-marker-div"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span class="dashicons gmb-tooltip-icon"></span></span>
+					esc_html__( 'Create Marker', 'google-maps-builder' ),
+					esc_html__( 'Enter the name of a place or an address above to create a map marker or ', 'google-maps-builder' )
+				);
+				break;
+			case 'render_existing_marker_tooltip':
+				return sprintf( '<div class="maps-marker-label maps-existing-marker-div"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span class="dashicons gmb-tooltip-icon"></span></span>
 				</div>',
-				esc_html__( "Existing Markers", "google-maps-builder" ),
-				esc_html__( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map. ', 'google-maps-builder' )
-			);
+					esc_html__( "Existing Markers", "google-maps-builder" ),
+					esc_html__( 'Map marker data is contained within the repeatable fields below. You may add or update marker data here or directly on the map. ', 'google-maps-builder' )
+				);
+				break;
+			case 'render_show_place_tooltip':
+				return sprintf(
+					'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Show Places?', 'google-maps-builder' ),
+					esc_html__( 'Display establishments, prominent points of interest, geographic locations, and more.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_search_radius_tooltip':
+				return sprintf(
+					'<div class="maps-marker-label"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Search Radius', 'google-maps-builder' ),
+					esc_html__( 'Defines the distance (in meters) within which to return Place markers. The maximum allowed radius is 50,000 meters.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_map_size_tooltip':
+				return sprintf(
+					'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--bottom hint-bottom-custom" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Map Size', 'google-maps-builder' ),
+					esc_html__( 'Configure the default map width and height.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_zoom_tooltip':
+				return sprintf(
+					'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--bottom hint-bottom-custom" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Zoom', 'google-maps-builder' ),
+					esc_html__( 'Adjust the map zoom (0-21)', 'google-maps-builder' )
+				);
+				break;
+			case 'render_maps_layer_tooltip':
+				return sprintf(
+					'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Map Layers', 'google-maps-builder' ),
+					esc_html__( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_maps_theme_tooltip':
+				return sprintf(
+					'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Map Layers', 'google-maps-builder' ),
+					esc_html__( 'Layers provide additional information overlayed on the map.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_place_type_tooltip':
+				return sprintf(
+					'<div class="maps-marker-display-option"><h2 class="cmb-group-name">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span></div>',
+					esc_html__( 'Place Types', 'google-maps-builder' ),
+					esc_html__( 'Select which type of places you would like to display on this map.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_desc_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Description', 'google-maps-builder' ),
+					esc_html__( 'Write a short description for this marker', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_ref_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Title', 'google-maps-builder' ),
+					esc_html__( 'Defines the title of the infowindow.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_title_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Title', 'google-maps-builder' ),
+					esc_html__( 'Defines the title of the infowindow.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_placeid_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Place ID', 'google-maps-builder' ),
+					esc_html__( 'Defines the Google Place ID of the marker if it is associated with a known Place.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_hide_place_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Hide Place Details', 'google-maps-builder' ),
+					esc_html__( 'Determines whether the Place details such as address, website, and phone number should appear in the infowindow.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_lat_tooltip':
+				return sprintf(
+					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Latitude', 'google-maps-builder' ),
+					esc_html__( 'Defines the latitudinal coordinates of the marker.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_lng_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Marker Longitude', 'google-maps-builder' ),
+					esc_html__( ' Defines the longitudinal coordinates of the marker.', 'google-maps-builder' )
+				);
+				break;
+
 		}
 	}
-
-
 }
 
