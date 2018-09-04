@@ -1547,19 +1547,48 @@ a.marker-edit-link {
   vertical-align: middle;
   margin-right: 5px;
   background-size: contain;
-  opacity: 0.5;
+  /*opacity: 0.5;*/
 }
 
+#infobubble-content .infowindow-toolbar a.marker-edit-link:before {
+  background-image: none;
+  width: auto;
+  height: auto;
+
+}
+
+#infobubble-content .infowindow-toolbar a.marker-edit-link .dashicons {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#infobubble-content .infowindow-toolbar a.marker-edit-link {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 2px 10px;
+  margin-top: 3px;
+}
+
+#infobubble-content.main-place-infobubble-content {
+  overflow: visible !important;
+}
+
+.hint--bottom.hint--bottom:hover:after {
+  padding-bottom: 10px !important;
+}
 
 #infobubble-content .edit-place-title {
   width: 290px;
-  margin: 0 0 10px; }
+  margin: 0 0 10px;
+}
 
 #infobubble-content .edit-place-description {
   display: block;
   font-size: 12px;
   width: 100%;
-  min-height: 100px; }
+  min-height: 100px;
+}
 
 /*-------------------------------------
 Map Edit Quick Toolbar
@@ -1797,7 +1826,9 @@ Autocomplete Metabox
   color: #aaaaaa; }
 
 #cmb2-metabox-google_maps_markers a.drop-marker {
-  font-style: normal; }
+  font-style: normal;
+  margin-bottom: 15px;
+}
   #cmb2-metabox-google_maps_markers a.drop-marker .dashicons {
     font-size: 14px;
     margin: 4px 0 0;
@@ -2745,9 +2776,52 @@ div.place-thumb {
 
 .hint--top-multiline:after {
   white-space: normal !important;
-  min-width: 16em;
+  min-width: 14em;
   max-width: 250px;
   line-height: 1.6 !important;
 }
 
+.maps-marker-label h2, .maps-marker-display-option h2 {
+  display: inline-block !important;
+}
+.maps-marker-label {
+  margin-bottom: 18px;
+}
+#cmb2-metabox-google_maps_search_options .cmb2-id-gmb-show-places {
+  padding-bottom: 0px;
+  padding-top: 1em;
+}
+.cmb-row.cmb-type-radio-inline.cmb2-id-gmb-show-places.cmb-inline .maps-marker-label {
+  margin-bottom: 0px;
+}
+.cmb-row.cmb-type-text-small.cmb2-id-gmb-search-radius {
+  padding-top: 1em !important;
+}
+.hint--bottom.hint--bottom:hover:after{left: 60px;padding-bottom: 20px;}
+.maps-marker-display-option {margin-bottom:5px;}
+h2.cmb-group-name.cmb_create_marker {
+  margin-bottom: 0px !important;
+}
+/* Css changes for marker label tooltip */
+.cmb-th label.inline_label {
+  display: inline;
+  vertical-align: middle;
+}
+#side-sortables .cmb-th label.inline_label{
+  display: inline-block;
+  vertical-align: inherit;
+}
+#poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping {
+  overflow: visible;
+}
+
+#poststuff #side-sortables .cmb-repeatable-group .cmb-repeatable-grouping .cmb-group-title {
+  border-radius: 5px 5px 0 0;
+}
+
+.maps-marker-label.maps-existing-marker-div {
+  margin-bottom: 0px;
+}
+
+/*# Css changes for marker label tooltip */
 /*# sourceMappingURL=gmb-admin.css.map */

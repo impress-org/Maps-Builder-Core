@@ -612,7 +612,7 @@ var gmb_data;
 				'<li class="info-window-save"><div class="google-btn-blue google-btn google-save-btn hint--top" aria-label="Save changes" data-index="' + index + '">Save</div></li>' +
 				'<li class="info-window-cancel"><div class="google-btn-default google-btn google-cancel-btn hint--top" aria-label="Cancel edit" data-index="' + index + '">Cancel</div></li>' +
 				'</ul>' +
-				'<span class="marker-edit-link-wrap" data-index="' + index + '"><a href="#" data-target="marker-icon-modal" aria-label="Change icon" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline hint--top"></a></span>' +
+				'<span class="marker-edit-link-wrap" data-index="' + index + '"><a href="#" data-target="marker-icon-modal" aria-label="Change icon" data-mfp-src="#marker-icon-modal" class="marker-edit-link gmb-magnific-marker gmb-magnific-inline hint--top"><span class="dashicons dashicons-location"></span> Customize Icon</a></span>' +
 				'</div>';
 
 			//Set info_window content

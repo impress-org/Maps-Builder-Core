@@ -451,9 +451,10 @@ class CMB2 extends CMB2_Base {
 		$label     = $field_group->args( 'name' );
 		$group_val = (array) $field_group->value();
 
+
 		echo '<div class="cmb-row cmb-repeat-group-wrap ', esc_attr( $field_group->row_classes() ), '" data-fieldtype="group"><div class="cmb-td"><div data-groupid="', esc_attr( $field_group->id() ), '" id="', esc_attr( $field_group->id() ), '_repeat" ', $this->group_wrap_attributes( $field_group ), '>';
 
-		if ( $desc || $label ) {
+		if ( ( $desc || $label ) ) {
 			$class = $desc ? ' cmb-group-description' : '';
 			echo '<div class="cmb-row', $class, '"><div class="cmb-th">';
 			if ( $label ) {
@@ -464,6 +465,7 @@ class CMB2 extends CMB2_Base {
 			}
 			echo '</div></div>';
 		}
+
 
 		if ( ! empty( $group_val ) ) {
 			foreach ( $group_val as $group_key => $field_id ) {
