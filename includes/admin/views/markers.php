@@ -49,7 +49,7 @@
 
 					<div class="marker-icon-color-wrap clear">
 						<div class="marker-color-picker-wrap">
-							<input type="text" name="color" id="color" value="#428BCA" class="color-picker marker-color" />
+							<input type="text" name="color" id="color" value="#428BCA" class="color-picker color-picker-pin marker-color" />
 						</div>
 						<p class="color-desc"><?php _e( 'Customize the marker color?', 'google-maps-builder' ); ?></p>
 					</div>
@@ -221,7 +221,7 @@
 
 					<div class="marker-label-color-wrap clear">
 						<div class="marker-color-picker-wrap">
-							<input type="text" name="color" id="color" class="color-picker label-color" value="#444444" />
+							<input type="text" name="color" id="color" class="color-picker color-picker-icon label-color" value="#444444" />
 						</div>
 						<p class="color-desc"><?php _e( 'Customize the icon color?', 'google-maps-builder' ); ?></p>
 					</div>
