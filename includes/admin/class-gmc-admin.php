@@ -962,8 +962,8 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				return sprintf(
 					'<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
 					class="dashicons gmb-tooltip-icon"></span></span>',
-					esc_html__( 'Marker Title', 'google-maps-builder' ),
-					esc_html__( 'Defines the title of the infowindow.', 'google-maps-builder' )
+					esc_html__( 'Marker Reference', 'google-maps-builder' ),
+					esc_html__( 'Defines the marker reference.', 'google-maps-builder' )
 				);
 				break;
 			case 'render_marker_title_tooltip':

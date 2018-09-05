@@ -839,14 +839,6 @@ var gmb_data;
 
 			};
 
-			// var marker_args = {
-			// 	position: marker_position,
-			// 	map: map,
-			// 	zIndex: 9,
-			// 	icon: marker_icon_data,
-			// 	custom_label: marker_label_data
-			// };
-
 			//Update Icon
 			marker = new mapIcons.Marker( marker_args );
 
