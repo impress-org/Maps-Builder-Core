@@ -346,11 +346,11 @@
 				map: map,
 				zIndex: index,
 				icon: marker_icon,
-				custom_label: marker_label
+				map_icon_label: marker_label
 			};
 
 			//Marker for map
-			var location_marker = new Marker(marker_args);
+			var location_marker = new mapIcons.Marker(marker_args);
 			markers.push(location_marker);
 			location_marker.setVisible(true);
 
