@@ -1,0 +1,87 @@
+/*---GMB PROCESS STEPS---*/
+.gmb-progress-steps {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+	clear: both;
+	margin: 10px 0;
+	display: inline-block;
+}
+
+.gmb-progress-steps li {
+	width: 33.33%;
+	float: left;
+	border-bottom: 4px solid #ccc;
+	text-align: center;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+.gmb-progress-steps li:before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border: 3px solid #ccc;
+	border-radius: 50px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -8px;
+	background: #fff;
+	margin: auto;
+}
+
+.gmb-progress-steps li.active, .gmb-progress-steps li.active:before {
+	border-color: #4ead61;
+	color: #4ead61;
+}
+
+.gmb-marker-import-export h3.hndle.ui-sortable-handle {
+	text-align: center;
+	border-bottom: 0;
+	font-size: 23px;
+}
+
+.gmb-marker-import-export p.intro {
+	text-align: center;
+}
+
+.gmb-marker-import-export .csv-mapping-header {
+	background: #f1f1f1;
+	padding: 15px 10px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.gmb-marker-import-export .field-wrap {
+	display: table;
+	display: flex;
+	padding: 10px;
+	align-items: center;
+}
+
+.gmb-marker-import-export .field-wrap .field-label, .gmb-marker-import-export .field-wrap select {
+	min-width: 20%;
+}
+
+.gmb-marker-import-export .field-wrap:nth-child(odd) {
+	background: #f1f1f1;
+}
+
+.csv-mapping-header-step3 {
+	text-align: center;
+}
+
+.csv-mapping-header-step3 h2 {
+	font-size: 18px !important;
+}
+
+.gmb-import-submit-spinner .button {
+	margin-top: 15px;
+}
+
+.gmb-import-submit-spinner .spinner {
+	float: none;
+	margin-top: 20px;
+}
