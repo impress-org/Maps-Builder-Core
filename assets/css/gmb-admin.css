@@ -2823,5 +2823,9 @@ h2.cmb-group-name.cmb_create_marker {
   margin-bottom: 0px;
 }
 
+.map-icon-label {
+  margin-top: -26px;
+}
+
 /*# Css changes for marker label tooltip */
 /*# sourceMappingURL=gmb-admin.css.map */
