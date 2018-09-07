@@ -76,7 +76,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 
 		}
 		// Register custom style for import export section and general admin style
-		if ( ( 'google_maps' === $current_screen->post_type ) && ( 'gmb_import_export' === $_GET['page'] ) ) {
+		if ( ( 'google_maps' === $current_screen->post_type ) && ( isset( $_GET['page'] ) && ! empty( $_GET['page'] ) && 'gmb_import_export' === $_GET['page'] ) ) {
 			wp_register_style( 'google-maps-builder-admin-custom-styles', GMB_CORE_URL . 'assets/css/gmb-admin-custom' . $suffix . '.css', array(), GMB_VERSION );
 			wp_enqueue_style( 'google-maps-builder-admin-custom-styles' );
 		}

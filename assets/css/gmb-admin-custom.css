@@ -33,8 +33,9 @@
 }
 
 .gmb-progress-steps li.active, .gmb-progress-steps li.active:before {
-	border-color: #4ead61;
-	color: #4ead61;
+	border-color: #2980b9;
+	color: #2980b9;
+	font-weight: 600;
 }
 
 .gmb-marker-import-export h3.hndle.ui-sortable-handle {
@@ -83,5 +84,8 @@
 
 .gmb-import-submit-spinner .spinner {
 	float: none;
+	margin-top: 20px;
+}
+div#gmb-marker-import {
 	margin-top: 20px;
 }
