@@ -55,7 +55,8 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		if (
 			( 'post-new.php' === $hook ||
 			  'post.php' === $hook ||
-			  'edit.php' === $hook )
+			  'edit.php' === $hook
+			)
 			&& (
 				'google_maps' === $current_screen->post_type ||
 				'google_maps_page_gmb_settings' === $hook ||
@@ -74,6 +75,12 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 			wp_enqueue_style( 'google-maps-builder-hint' );
 
 		}
+		// Register custom style for import export section and general admin style
+		if ( ( 'google_maps' === $current_screen->post_type ) && ( 'gmb_import_export' === $_GET['page'] ) ) {
+			wp_register_style( 'google-maps-builder-admin-custom-styles', GMB_CORE_URL . 'assets/css/gmb-admin-custom' . $suffix . '.css', array(), GMB_VERSION );
+			wp_enqueue_style( 'google-maps-builder-admin-custom-styles' );
+		}
+
 
 	}
 

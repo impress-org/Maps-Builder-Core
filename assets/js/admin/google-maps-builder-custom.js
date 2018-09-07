@@ -28,4 +28,20 @@ jQuery( document ).ready( function( $ ) {
 	jQuery( 'body' ).on( 'thickbox:removed', function() {
 		jQuery( '#gmb-preview-map' ).html( '' );
 	} );
+
+	$('.cls-gmb-import').on('click', function(event) {
+		event.preventDefault(); // Prevent the form from submitting via the browser
+		var form = $('#gmb-import-form');
+		$('.gmb-import-submit-spinner .spinner').css('visibility','visible');
+		$.ajax({
+			type: form.attr('method'),
+			url: form.attr('action'),
+			data: form.serialize()
+		}).done(function(data) {
+			window.location.href = data;
+		}).fail(function(data) {
+			window.location.href = data;
+		});
+	});
+
 } );
