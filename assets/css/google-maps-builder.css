@@ -320,4 +320,8 @@ div[id^="directions-panel"].panel-overlay {
       #places-search #type-selector input[type="radio"]:checked + label {
         background-color: #447ee0; }
 
+.map-icon-label {
+  margin-top: -26px;
+}
+
 /*# sourceMappingURL=google-maps-builder.css.map */

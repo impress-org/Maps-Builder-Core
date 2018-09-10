@@ -652,7 +652,8 @@
 				terms: terms,
 				index: index,
 				lat_field: lat_field,
-				lng_field: lng_field
+				lng_field: lng_field,
+				map_post_id: map_data.id
 			};
 
 			jQuery.post(map_data.ajax_url, data, function (response) {
@@ -660,7 +661,7 @@
 				//Loop through marker data
 				$.each(response, function (index, marker_data) {
 					var marker = gmb.set_mashup_marker(map, data.index, marker_data, mashup_value, map_data);
-					if (marker instanceof Marker) {
+					if (marker instanceof mapIcons.Marker) {
 						markers.push(marker);
 					}
 				});
