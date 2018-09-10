@@ -103,7 +103,7 @@ class Google_Maps_Builder_Core_Admin_Scripts extends Google_Maps_Builder_Core_Sc
 		$google_maps_api_url = $this->google_maps_url();
 
 		//Only enqueue scripts for CPT on post type screen
-		if ( ( $hook == 'post-new.php' || $hook == 'post.php' ) && 'google_maps' === $post->post_type ) {
+		if ( ( $hook == 'post-new.php' || $hook == 'post.php' ) && 'google_maps' === $current_screen->post_type ) {
 			$this->admin_scripts( $js_plugins, $suffix, $google_maps_api_url, $js_dir, $post, false );
 		}
 

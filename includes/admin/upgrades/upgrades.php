@@ -28,6 +28,15 @@ function gmb_v2_upgrades() {
 	//Set key variables
 	$google_api_key = gmb_get_option( 'gmb_api_key' );
 
+	// Get country name base on ip address
+	$get_cache_api_domain = wp_cache_get( 'gmb_current_country' );
+	if ( false === $get_cache_api_domain ) {
+		$get_gmb_api_domain = Google_Maps_Builder_Core_Scripts::gmb_get_country_name();
+		$gmb_api_domain     = $get_gmb_api_domain['domain'];
+	} else {
+		$gmb_api_domain = $get_cache_api_domain['domain'];
+	}
+
 	//Loop through maps
 	$args = array(
 		'post_type'      => 'google_maps',
@@ -65,7 +74,7 @@ function gmb_v2_upgrades() {
 						'reference' => $ref_id,
 						'key'       => $google_api_key
 					),
-					'https://maps.googleapis.com/maps/api/place/details/json'
+					$gmb_api_domain.'/maps/api/place/details/json'
 				);
 
 				$response = wp_remote_get( $google_places_url,

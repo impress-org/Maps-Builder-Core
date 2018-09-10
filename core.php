@@ -262,6 +262,7 @@ abstract class Google_Maps_Builder_Core {
 		require_once GMB_CORE_PATH . 'includes/class-gmc-engine.php';
 		require_once GMB_PLUGIN_PATH . 'includes/class-gmb-engine.php';
 		require_once GMB_CORE_PATH . 'includes/class-gmc-widget.php';
+		require_once GMB_CORE_PATH . '/vendor/autoload.php';
 
 	}
 
