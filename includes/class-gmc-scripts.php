@@ -26,8 +26,12 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 */
 	protected $plugin_settings;
 
+	/**
+	 * @since 2.2.0
+	 *
+	 * @var string
+	 */
 	protected static $geolite_database = 'includes/libraries/geolite-db/GeoLite2-Country.mmdb';
-
 
 	/**
 	 * Var for loading google maps api
