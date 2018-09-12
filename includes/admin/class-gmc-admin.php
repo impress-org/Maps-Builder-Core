@@ -806,10 +806,15 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 */
 	function setup_custom_columns( $columns ) {
 		$columns = array(
-			'cb'        => '<input type="checkbox" />',
-			'title'     => __( 'Google Map Title', 'google-maps-builder' ),
-			'shortcode' => __( 'Shortcode', 'google-maps-builder' ),
-			'date'      => __( 'Creation Date', 'google-maps-builder' )
+			'cb'               => '<input type="checkbox" />',
+			'title'            => __( 'Google Map Title', 'google-maps-builder' ),
+			'shortcode'        => __( 'Shortcode', 'google-maps-builder' ),
+			'number_of_marker' => __( 'Number of Markers', 'google-maps-builder' ),
+			'zoom_level'       => __( 'Zoom Level', 'google-maps-builder' ),
+			'latitude'         => __( 'Latitude', 'google-maps-builder' ),
+			'longitude'        => __( 'Longitude', 'google-maps-builder' ),
+			'date'             => __( 'Creation Date', 'google-maps-builder' ),
+
 		);
 
 		return $columns;
@@ -825,14 +830,28 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 * @param $post_id
 	 */
 	function configure_custom_columns( $column, $post_id ) {
+		$gmb_get_lat      = get_post_meta( $post_id, 'gmb_lat_lng', true );
+		$gmb_zoom         = get_post_meta( $post_id, 'gmb_zoom', true );
+		$gmb_total_marker = maybe_unserialize( get_post_meta( $post_id, 'gmb_markers_group', true ) );
+
 		switch ( $column ) {
 			case 'shortcode' :
-
-				//Shortcode column with select all input
 				$shortcode = htmlentities( '[google_maps id="' . $post_id . '"]' );
 				echo '<input onClick="this.setSelectionRange(0, this.value.length)" type="text" class="shortcode-input" readonly value="' . $shortcode . '">';
-
 				break;
+			case 'number_of_marker' :
+				echo ! empty( $gmb_total_marker ) ? count( $gmb_total_marker ) : '0';
+				break;
+			case 'zoom_level' :
+				echo ! empty( $gmb_zoom ) ? $gmb_zoom : '15';
+				break;
+			case 'latitude' :
+				echo isset( $gmb_get_lat['latitude'] ) ? $gmb_get_lat['latitude'] : '32.715738';
+				break;
+			case 'longitude' :
+				echo isset( $gmb_get_lat['longitude'] ) ? $gmb_get_lat['longitude'] : '-117.16108380000003';
+				break;
+
 			/* Just break out of the switch statement for everything else. */
 			default :
 				break;
