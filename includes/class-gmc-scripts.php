@@ -151,12 +151,14 @@ abstract class Google_Maps_Builder_Core_Scripts {
 		if ( ! empty( $google_maps_api_key ) ) {
 			$google_maps_api_url_args['language'] = $gmb_language;
 		}
-		$get_cache_api_url = wp_cache_get( 'gmb_current_country' );
-		if ( false === $get_cache_api_url ) {
+
+		// Check if admin settings enable for load map in china
+		$gmb_enable_china = gmb_get_option( 'gmb_enable_china' );
+		if ( false === $gmb_enable_china ) {
+			$gmb_api_url = 'https://maps.googleapis.com';
+		} else {
 			$get_gmb_api_url = $this->gmb_get_country_name();
 			$gmb_api_url     = $get_gmb_api_url['fullurl'];
-		} else {
-			$gmb_api_url = $get_cache_api_url['fullurl'];
 		}
 
 		$google_maps_api_url = add_query_arg( $google_maps_api_url_args, $gmb_api_url . '/maps/api/js?v=3.exp' );
@@ -192,7 +194,6 @@ abstract class Google_Maps_Builder_Core_Scripts {
 			$apiurlArray['fullurl'] = 'https://maps.googleapis.com';
 			$apiurlArray['domain']  = 'maps.googleapis.com';
 		}
-		wp_cache_set( 'gmb_current_country', $apiurlArray );
 
 		return $apiurlArray;
 	}
