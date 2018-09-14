@@ -750,6 +750,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '<div id="map-toolbar">';
 		$output .= '<button class="add-location button button-small gmb-magnific-inline" data-target="cmb2-id-gmb-geocoder" data-auto-focus="true"><span class="dashicons dashicons-pressthis"></span>' . __( 'Add Location', 'google-maps-builder' ) . '</button>';
 		$output .= '<button class="drop-marker button button-small"><span class="dashicons dashicons-location"></span>' . __( 'Drop a Marker', 'google-maps-builder' ) . '</button>';
+
 		$output .= '<button class="goto-location button button-small gmb-magnific-inline" data-target="map-autocomplete-wrap" data-auto-focus="true"><span class="dashicons dashicons-admin-site"></span>' . __( 'Goto Location', 'google-maps-builder' ) . '</button>';
 		$output .= '<button class="edit-title button  button-small gmb-magnific-inline" data-target="map-title-wrap" data-auto-focus="true"><span class="dashicons dashicons-edit"></span>' . __( 'Edit Map Title', 'google-maps-builder' ) . '</button>';
 
@@ -785,6 +786,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 		$output .= '</div>';
 		$output .= '</div>';
 		$output .= '</div>';
+		$output .= '<button class="gmb-upload-button-hidden button" onclick="gmb_upload_marker.hiddenuploder(); return false;" type="button" value=""/>';
 		$output .= '</div>';
 
 		//Markers Modal

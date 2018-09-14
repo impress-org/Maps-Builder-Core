@@ -122,64 +122,86 @@ var placeSearchAutocomplete;
             }
         });
 
-        //Custom marker modal uploader
-        gmb_upload_marker = {
+			//Custom marker modal uploader
+			gmb_upload_marker = {
 
-            // Call this from the upload button to initiate the upload frame.
-            uploader: function () {
+				// Call this from the upload button to initiate the upload frame.
+				uploader: function() {
+					$.magnificPopup.close();
+					$( '.gmb-upload-button-hidden' ).trigger( 'click' );
+					//@TODO: i18n
+					var frame = wp.media( {
+						title: 'Set an Custom Marker Icon',
+						multiple: false,
+						library: { type: 'image' },
+						button: { text: 'Set Marker' }
+					} );
 
-                //@TODO: i18n
-                var frame = wp.media({
-                    title: 'Set an Custom Marker Icon',
-                    multiple: false,
-                    library: {type: 'image'},
-                    button: {text: 'Set Marker'}
-                });
+					// Handle results from media manager.
+					frame.on( 'close', function() {
+						//$.magnificPopup.open();
+						frame.close();
+						$( '.media-modal-close' ).trigger( 'click' );
+						$( '.marker-edit-link' ).trigger( 'click' );
+						$( '.marker-upload.marker-preview' ).trigger( 'click' );
+						frame.render();
 
-                // Handle results from media manager.
-                frame.on('close', function () {
-                    var attachments = frame.state().get('selection').toJSON();
-                    gmb_upload_marker.render(attachments[0]);
-                });
+						var attachments = frame.state().get( 'selection' ).toJSON();
+						gmb_upload_marker.render( attachments[ 0 ] );
+					} );
 
-                frame.open();
-                return false;
-            },
+					frame.open();
+					return false;
+				},
 
-            // Output Image preview
-            render: function (attachment) {
+				hiddenuploder: function() {
+					$.magnificPopup.close();
+					//@TODO: i18n
+					var frameHidden = wp.media( {
+						title: 'Set an Custom Marker Icon1',
+						multiple: false,
+						library: { type: 'image' },
+						button: { text: 'Set Marker' }
+					} );
+					// Handle results from media manager.
+					frameHidden.on( 'close', function() {
+						var attachments = frameHidden.state().get( 'selection' ).toJSON();
+					} );
+					frameHidden.open();
+					return false;
+				},
 
-                $('.gmb-image-preview').prepend(gmb_upload_marker.imgHTML(attachment));
-                $('.gmb-image-preview').html(gmb_upload_marker.imgHTML(attachment));
-                $('.gmb-image-preview').show();
-                $('.save-marker-icon').slideDown(); //slide down save button
-                $('.save-marker-button').data('marker-image', attachment.url); //slide down save button
+				// Output Image preview
+				render: function( attachment ) {
+					$( '.gmb-image-preview' ).prepend( gmb_upload_marker.imgHTML( attachment ) );
+					$( '.gmb-image-preview' ).html( gmb_upload_marker.imgHTML( attachment ) );
+					$( '.gmb-image-preview' ).show();
+					$( '.save-marker-icon' ).slideDown(); //slide down save button
+					$( '.save-marker-button' ).data( 'marker-image', attachment.url ); //slide down save button
+				},
 
-            },
+				// Render html for the image.
+				imgHTML: function( attachment ) {
+					var img_html = '<img src="' + attachment.url + '" ';
+					img_html += 'width="' + attachment.width + '" ';
+					img_html += 'height="' + attachment.height + '" ';
+					if ( attachment.alt != '' ) {
+						img_html += 'alt="' + attachment.alt + '" ';
+					}
+					img_html += '/>';
+					return img_html;
+				},
+				// User wants to remove the avatar
+				removeImage: function( widget_id_string ) {
+					$( '#' + widget_id_string + 'attachment_id' ).val( '' );
+					$( '#' + widget_id_string + 'imageurl' ).val( '' );
+					$( '#' + widget_id_string + 'preview img' ).remove();
+					$( '#' + widget_id_string + 'preview a' ).hide();
+				}
 
-            // Render html for the image.
-            imgHTML: function (attachment) {
-                var img_html = '<img src="' + attachment.url + '" ';
-                img_html += 'width="' + attachment.width + '" ';
-                img_html += 'height="' + attachment.height + '" ';
-                if (attachment.alt != '') {
-                    img_html += 'alt="' + attachment.alt + '" ';
-                }
-                img_html += '/>';
-                return img_html;
-            },
-            // User wants to remove the avatar
-            removeImage: function (widget_id_string) {
-                $("#" + widget_id_string + 'attachment_id').val('');
-                $("#" + widget_id_string + 'imageurl').val('');
-                $("#" + widget_id_string + 'preview img').remove();
-                $("#" + widget_id_string + 'preview a').hide();
-            }
+			};
 
-        };
-
-
-    });
+		} );
 
     /**
      * Set Map Layers
