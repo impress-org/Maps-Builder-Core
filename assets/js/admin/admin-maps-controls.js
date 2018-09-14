@@ -158,7 +158,7 @@ var placeSearchAutocomplete;
 					$.magnificPopup.close();
 					//@TODO: i18n
 					var frameHidden = wp.media( {
-						title: 'Set an Custom Marker Icon1',
+						title: 'Set an Custom Marker',
 						multiple: false,
 						library: { type: 'image' },
 						button: { text: 'Set Marker' }
