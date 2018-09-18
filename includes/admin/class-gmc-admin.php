@@ -1032,7 +1032,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				);
 				break;
 			case 'render_marker_centered_tooltip':
-				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top-left hint--top-multiline" aria-label="%2$s"><span 
 					class="dashicons gmb-tooltip-icon"></span></span>',
 					esc_html__( 'Center Map upon Marker Click', 'google-maps-builder' ),
 					esc_html__( 'When a user clicks on a marker the map will be centered on the marker when this option is enabled.', 'google-maps-builder' )
@@ -1092,6 +1092,14 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					class="dashicons gmb-tooltip-icon"></span></span>',
 					esc_html__( 'Longitude Field', 'google-maps-builder' ),
 					esc_html__( 'Select the field containing the marker longitude data. Default is set to use Maps Builder field.', 'google-maps-builder' )
+				);
+				break;
+
+			case 'render_marker_featured_img_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Show Featured Image', 'google-maps-builder' ),
+					esc_html__( "Would you like the featured image displayed in the marker's infowindow?", 'google-maps-builder' )
 				);
 				break;
 
