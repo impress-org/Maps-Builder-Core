@@ -896,7 +896,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 * @return string
 	 */
 
-	function render_maker_field_tooltip( $id ) {
+	public static function render_maker_field_tooltip( $id ) {
 		switch ( $id ) {
 			case 'render_create_marker_tooltip':
 				return sprintf(
@@ -1022,6 +1022,76 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					class="dashicons gmb-tooltip-icon"></span></span>',
 					esc_html__( 'Marker Longitude', 'google-maps-builder' ),
 					esc_html__( ' Defines the longitudinal coordinates of the marker.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_animate_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Animate in Markers', 'google-maps-builder' ),
+					esc_html__( ' If you\'re adding a number of markers, you may want to drop them on the map consecutively rather than all at once.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_centered_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Center Map upon Marker Click', 'google-maps-builder' ),
+					esc_html__( 'When a user clicks on a marker the map will be centered on the marker when this option is enabled.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_marker_cluster':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Cluster Markers', 'google-maps-builder' ),
+					esc_html__( 'If enabled Maps Builder will intelligently create and manage per-zoom-level clusters for a large number of markers.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_directions_group':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Direction Groups', 'google-maps-builder' ),
+					esc_html__( 'Add sets of directions below.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_text_directions_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Directions Display', 'google-maps-builder' ),
+					esc_html__( 'How would you like to display the text directions on your website?', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_post_type_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Post Type', 'google-maps-builder' ),
+					esc_html__( 'Select the post type containing your marker information.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_taxonomy_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Taxonomy Terms', 'google-maps-builder' ),
+					esc_html__( 'Select the terms from this taxonomy that you would like to filter markers by.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_terms_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Taxonomy Terms', 'google-maps-builder' ),
+					esc_html__( 'Select the taxonomies (if any) that you would like to filter by.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_latitude_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Latitude Field', 'google-maps-builder' ),
+					esc_html__( 'Select the field containing the marker latitude data. Default is set to use Maps Builder field.', 'google-maps-builder' )
+				);
+				break;
+			case 'render_marker_longitude_tooltip':
+				return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Longitude Field', 'google-maps-builder' ),
+					esc_html__( 'Select the field containing the marker longitude data. Default is set to use Maps Builder field.', 'google-maps-builder' )
 				);
 				break;
 
