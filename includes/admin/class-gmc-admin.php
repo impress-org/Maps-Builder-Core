@@ -897,7 +897,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	 * @return string
 	 */
 
-	function render_maker_field_tooltip( $id ) {
+	public static function render_maker_field_tooltip( $id ) {
 		switch ( $id ) {
 			case 'render_snazzy_tooltip':
 				return sprintf( '<label class="inline_label cls_gmb_margin">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
