@@ -532,12 +532,13 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			) ),
 		) );
 		$this->display_options->add_field( array(
-			'name' => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
-			'desc' => __( 'Paste the Snazzy Map JSON code into the field above to set the theme.', 'google-maps-builder' ),
-			'id'   => $prefix . 'theme_json',
-			'type' => 'textarea_code',
+			'name'       => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
+			'id'         => $prefix . 'theme_json',
+			'type'       => 'textarea_code',
+			'attributes' => array(
+				'placeholder' => __( 'Paste the custom theme Json/JS code here.', 'google-maps-builder' ),
+			),
 		) );
-
 
 		// Control options.
 		$this->control_options = cmb2_get_metabox( array(
@@ -898,6 +899,13 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 
 	function render_maker_field_tooltip( $id ) {
 		switch ( $id ) {
+			case 'render_snazzy_tooltip':
+				return sprintf( '<label class="inline_label cls_gmb_margin">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+					esc_html__( 'Map Theme', 'google-maps-builder' ),
+					esc_html__( ' Select an optional preconfigured Snazzy Maps style.', 'google-maps-builder' )
+				);
+				break;
 			case 'render_create_marker_tooltip':
 				return sprintf(
 					'<div class="maps-marker-label"><h2 class="cmb-group-name cmb_create_marker">%1$s</h2><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
