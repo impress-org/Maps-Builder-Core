@@ -401,7 +401,7 @@ function gmb_find_view( $file, $full = false ) {
  * @return string
  */
 
-function render_maker_field_tooltip( $id ) {
+function gmb_render_maker_field_tooltip( $id ) {
 	switch ( $id ) {
 		case 'render_create_marker_tooltip':
 			return sprintf(
@@ -607,6 +607,5 @@ function render_maker_field_tooltip( $id ) {
 				esc_html__( "Would you like the featured image displayed in the marker's infowindow?", 'google-maps-builder' )
 			);
 			break;
-
 	}
 }

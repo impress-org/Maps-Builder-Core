@@ -182,7 +182,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'name'     => __( 'Create Marker', 'google-maps-builder' ),
 			'id'       => $prefix . 'geocoder',
 			'type'     => 'google_geocoder',
-			'label_cb' => render_maker_field_tooltip( 'render_create_marker_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_create_marker_tooltip' ),
 		) );
 
 		$this->marker_box_group_field_id = $this->marker_box->add_field( array(
@@ -197,51 +197,51 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'remove_button' => __( 'Remove Marker', 'google-maps-builder' ),
 				'sortable'      => true, // beta
 			),
-			'name'        => render_maker_field_tooltip( 'render_existing_marker_tooltip' ),
+			'name'        => gmb_render_maker_field_tooltip( 'render_existing_marker_tooltip' ),
 
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Marker Title', 'google-maps-builder' ),
 			'id'       => 'title',
 			'type'     => 'text',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_title_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_title_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'            => __( 'Marker Description', 'google-maps-builder' ),
 			'id'              => 'description',
 			'type'            => 'textarea_small',
 			'sanitization_cb' => false,
-			'label_cb'        => render_maker_field_tooltip( 'render_marker_desc_tooltip' ),
+			'label_cb'        => gmb_render_maker_field_tooltip( 'render_marker_desc_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Marker Reference', 'google-maps-builder' ),
 			'id'       => 'reference',
 			'type'     => 'text',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_ref_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_ref_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Marker Place ID', 'google-maps-builder' ),
 			'id'       => 'place_id',
 			'type'     => 'text',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_placeid_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_placeid_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Hide Place Details', 'google-maps-builder' ),
 			'id'       => 'hide_details',
 			'type'     => 'checkbox',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_hide_place_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_hide_place_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Marker Latitude', 'google-maps-builder' ),
 			'id'       => 'lat',
 			'type'     => 'text',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_lat_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_lat_tooltip' ),
 		) );
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
 			'name'     => __( 'Marker Longitude', 'google-maps-builder' ),
 			'id'       => 'lng',
 			'type'     => 'text',
-			'label_cb' => render_maker_field_tooltip( 'render_marker_lng_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_marker_lng_tooltip' ),
 		) );
 
 		$this->marker_box->add_group_field( $this->marker_box_group_field_id, array(
@@ -293,7 +293,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'yes' => __( 'Yes', 'cmb' ),
 					'no'  => __( 'No', 'cmb' ),
 				),
-				'label_cb' => render_maker_field_tooltip( 'render_show_place_tooltip' ),
+				'label_cb' => gmb_render_maker_field_tooltip( 'render_show_place_tooltip' ),
 			)
 		);
 
@@ -303,7 +303,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 				'default'  => '3000',
 				'id'       => $prefix . 'search_radius',
 				'type'     => 'text_small',
-				'label_cb' => render_maker_field_tooltip( 'render_search_radius_tooltip' ),
+				'label_cb' => gmb_render_maker_field_tooltip( 'render_search_radius_tooltip' ),
 			)
 		);
 
@@ -410,7 +410,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'veterinary_care'         => __( 'Veterinary Care', 'google-maps-builder' ),
 					'zoo'                     => __( 'Zoo', 'google-maps-builder' ),
 				) ),
-				'label_cb' => render_maker_field_tooltip( 'render_place_type_tooltip' ),
+				'label_cb' => gmb_render_maker_field_tooltip( 'render_place_type_tooltip' ),
 			)
 		);
 
@@ -434,7 +434,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'width_unit_std' => $default_options['width_unit'],
 			'height_std'     => $default_options['height'],
 			'desc'           => '',
-			'label_cb'       => render_maker_field_tooltip( 'render_map_size_tooltip' ),
+			'label_cb'       => gmb_render_maker_field_tooltip( 'render_map_size_tooltip' ),
 		) );
 		$this->display_options->add_field( array(
 			'name'    => __( 'Map Location', 'google-maps-builder' ),
@@ -487,7 +487,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'0'  => '0',
 				)
 			),
-			'label_cb' => render_maker_field_tooltip( 'render_zoom_tooltip' ),
+			'label_cb' => gmb_render_maker_field_tooltip( 'render_zoom_tooltip' ),
 		) );
 		$this->display_options->add_field( array(
 			'name'              => __( 'Map Layers', 'google-maps-builder' ),
@@ -501,13 +501,12 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 					'bicycle' => __( 'Bicycle', 'google-maps-builder' ),
 				)
 			),
-			'label_cb'          => render_maker_field_tooltip( 'render_maps_layer_tooltip' ),
+			'label_cb'          => gmb_render_maker_field_tooltip( 'render_maps_layer_tooltip' ),
 		) );
 
 		$this->display_options->add_field( array(
 			'name'    => __( 'Map Theme', 'google-maps-builder' ),
-			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the
-			 dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
+			'desc'    => sprintf( __( 'Set optional preconfigured <a href="%1s" class="snazzy-link new-window"  target="_blank">Snazzy Maps</a> styles by selecting from the dropdown above.', 'google-maps-builder' ), esc_url( 'http://snazzymaps.com' ) ),
 			'id'      => $prefix . 'theme',
 			'type'    => 'select',
 			'default' => 'none',
