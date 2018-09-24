@@ -536,7 +536,7 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			'id'         => $prefix . 'theme_json',
 			'type'       => 'textarea_code',
 			'attributes' => array(
-				'placeholder' => __( 'Paste the custom theme Json/JS code here.', 'google-maps-builder' ),
+				'placeholder' => __( 'Paste the custom theme JSON/JS code here.', 'google-maps-builder' ),
 			),
 		) );
 
