@@ -2827,8 +2827,12 @@ h2.cmb-group-name.cmb_create_marker {
   margin-top: -26px;
 }
 
+.cls_gmb_margin {
+  margin-bottom: 0px !important;
+
 body .cmb2-postbox .cmb-th {
   width: 19%;
+
 }
 
 /*# Css changes for marker label tooltip */

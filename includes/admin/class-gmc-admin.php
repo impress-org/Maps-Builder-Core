@@ -531,12 +531,13 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 			) ),
 		) );
 		$this->display_options->add_field( array(
-			'name' => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
-			'desc' => __( 'Paste the Snazzy Map JSON code into the field above to set the theme.', 'google-maps-builder' ),
-			'id'   => $prefix . 'theme_json',
-			'type' => 'textarea_code',
+			'name'       => __( 'Custom Map Theme JSON', 'google-maps-builder' ),
+			'id'         => $prefix . 'theme_json',
+			'type'       => 'textarea_code',
+			'attributes' => array(
+				'placeholder' => __( 'Paste the custom theme JSON/JS code here.', 'google-maps-builder' ),
+			),
 		) );
-
 
 		// Control options.
 		$this->control_options = cmb2_get_metabox( array(
@@ -888,7 +889,6 @@ abstract class Google_Maps_Builder_Core_Admin extends Google_Maps_Builder_Core_I
 	function places_search( $output ) {
 		return $output;
 	}
-
 
 }
 
