@@ -925,47 +925,51 @@ var gmb_data;
 	 *
 	 * @param map
 	 */
-	gmb.add_markers = function (map) {
+	gmb.add_markers = function( map ) {
 
 		gmb.clear_main_markers();
 		var time = 500;
 		var markers = [];
-		var cluster_markers = $('#gmb_marker_cluster1').prop('checked');
+		var cluster_markers = $( '#gmb_marker_cluster1' ).prop( 'checked' );
 		var location_marker_loop = 0;
-
+		var cluster_loop = 0;
 		//Loop through repeatable field of markers
-		$('#gmb_markers_group_repeat').find('.cmb-repeatable-grouping').each(function (index) {
+		$( '#gmb_markers_group_repeat' ).find( '.cmb-repeatable-grouping' ).each( function( index ) {
 
 			var marker_icon = gmb_data.default_marker;
 			var marker_label = '';
 
 			//check for custom marker and label data
-			var custom_marker_svg = $('#gmb_markers_group_' + index + '_marker').val();
-			var custom_marker_img = $('#gmb_markers_group_' + index + '_marker_img').val();
-			var included_marker_img = $('#gmb_markers_group_' + index + '_marker_included_img').val();
+			var custom_marker_svg = $( '#gmb_markers_group_' + index + '_marker' ).val();
+			var custom_marker_img = $( '#gmb_markers_group_' + index + '_marker_img' ).val();
+			var included_marker_img = $( '#gmb_markers_group_' + index + '_marker_included_img' ).val();
 
 			//Plugin included marker image
-			if (included_marker_img) {
+			if ( included_marker_img ) {
 				marker_icon = gmb_data.plugin_url + included_marker_img;
-			} else if (custom_marker_img) {
+			} else if ( custom_marker_img ) {
 				//Uploaded marker image
 				marker_icon = custom_marker_img;
-			} else if (custom_marker_svg.length > 0 && custom_marker_svg.length > 0) {
+			} else if ( custom_marker_svg.length > 0 && custom_marker_svg.length > 0 ) {
 				//SVG Marker
-				var custom_label = $('#gmb_markers_group_' + index + '_label').val();
-				marker_icon = eval('(' + custom_marker_svg + ')');
+				var custom_label = $( '#gmb_markers_group_' + index + '_label' ).val();
+				marker_icon = eval( '(' + custom_marker_svg + ')' );
 				marker_label = custom_label;
 			}
 
-			var marker_lat = parseFloat($('#gmb_markers_group_' + index + '_lat').val());
-			var marker_lng = parseFloat($('#gmb_markers_group_' + index + '_lng').val());
-			var place_id = $('#gmb_markers_group_' + index + '_place_id').val();
-			var position = new google.maps.LatLng(marker_lat, marker_lng);
+			var marker_lat = parseFloat( $( '#gmb_markers_group_' + index + '_lat' ).val() );
+			var marker_lng = parseFloat( $( '#gmb_markers_group_' + index + '_lng' ).val() );
+			var place_id = $( '#gmb_markers_group_' + index + '_place_id' ).val();
+			var position = new google.maps.LatLng( marker_lat, marker_lng );
 
 			// Check whether animate marker option enabled or not
 			var gmb_marker_animate = '';
 			if ( $( '#gmb_marker_animate1' ).is( ':checked' ) ) {
-				gmb_marker_animate = google.maps.Animation.BOUNCE;
+				if ( 'DROP' === $( '#gmb_marker_animate_style' ).val() ) {
+					gmb_marker_animate = google.maps.Animation.DROP;
+				} else {
+					gmb_marker_animate = google.maps.Animation.BOUNCE;
+				}
 				var timeout = 1000;
 			} else {
 				gmb_marker_animate = 'no';
@@ -979,41 +983,42 @@ var gmb_data;
 				zIndex: index,
 				icon: marker_icon,
 				map_icon_label: marker_label,
-				animation:gmb_marker_animate
+				animation: gmb_marker_animate
 			};
 
 			//Marker for map
 
 			setTimeout( function() {
-				var location_marker = new mapIcons.Marker(marker_args);
-				markers.push(	location_marker	);
-				location_marker.setVisible(true);
+				var location_marker = new mapIcons.Marker( marker_args );
+				markers.push( location_marker );
+				location_marker.setVisible( true );
 
 				//Set click action for marker to open infowindow
-				google.maps.event.addListener(location_marker, 'click', function () {
-					gmb.get_info_window_content(index, location_marker);
-				});
-
+				google.maps.event.addListener( location_marker, 'click', function() {
+					gmb.get_info_window_content( index, location_marker );
+				} );
 				time += 500;
-
 				//Remove row button/icon also removes icon (CMB2 buttons)
-				$('#gmb_markers_group_' + index + '_title').parents('.cmb-repeatable-grouping').find('.cmb-remove-group-row').each(function () {
-					google.maps.event.addDomListener($(this)[0], 'click', function () {
-						var index = $(this).parents('.cmb-repeatable-grouping').data('index');
+				$( '#gmb_markers_group_' + index + '_title' ).parents( '.cmb-repeatable-grouping' ).find( '.cmb-remove-group-row' ).each( function() {
+					google.maps.event.addDomListener( $( this )[ 0 ], 'click', function() {
+						var index = $( this ).parents( '.cmb-repeatable-grouping' ).data( 'index' );
 						//close info window and remove marker
 						info_bubble.close();
-						location_marker.setVisible(false);
-					});
-				});
-				//Cluster?
-				if (cluster_markers === true) {
-					var markerCluster = new MarkerClusterer(map, markers);
-				}
+						location_marker.setVisible( false );
+					} );
+				} );
 				setTimeout( function() { location_marker.setAnimation( null ); }, 710 );
 			}, location_marker_loop * timeout );
 			location_marker_loop = location_marker_loop + 1;
-		}); //end $.each()
-
+			cluster_loop = location_marker_loop * 500;
+		} ); //end $.each()
+		
+		//Cluster?
+		if ( cluster_markers === true ) {
+			setTimeout( function() {
+				var markerCluster = new MarkerClusterer( map, markers );
+			}, cluster_loop + 500 );
+		}
 	};
 
 	/**
