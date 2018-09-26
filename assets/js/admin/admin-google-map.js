@@ -931,6 +931,7 @@ var gmb_data;
 		var time = 500;
 		var markers = [];
 		var cluster_markers = $('#gmb_marker_cluster1').prop('checked');
+		var location_marker_loop = 0;
 
 		//Loop through repeatable field of markers
 		$('#gmb_markers_group_repeat').find('.cmb-repeatable-grouping').each(function (index) {
@@ -961,44 +962,57 @@ var gmb_data;
 			var place_id = $('#gmb_markers_group_' + index + '_place_id').val();
 			var position = new google.maps.LatLng(marker_lat, marker_lng);
 
+			// Check whether animate marker option enabled or not
+			var gmb_marker_animate = '';
+			if ( $( '#gmb_marker_animate1' ).is( ':checked' ) ) {
+				gmb_marker_animate = google.maps.Animation.BOUNCE;
+				var timeout = 1000;
+			} else {
+				gmb_marker_animate = 'no';
+				var timeout = 0;
+			}
+
 			//Default marker args
 			var marker_args = {
 				position: position,
 				map: map,
 				zIndex: index,
 				icon: marker_icon,
-				map_icon_label: marker_label
+				map_icon_label: marker_label,
+				animation:gmb_marker_animate
 			};
 
 			//Marker for map
-			var location_marker = new mapIcons.Marker(marker_args);
-			markers.push(location_marker);
 
-			location_marker.setVisible(true);
+			setTimeout( function() {
+				var location_marker = new mapIcons.Marker(marker_args);
+				markers.push(	location_marker	);
+				location_marker.setVisible(true);
 
-			//Set click action for marker to open infowindow
-			google.maps.event.addListener(location_marker, 'click', function () {
-				gmb.get_info_window_content(index, location_marker);
-			});
-
-			time += 500;
-
-			//Remove row button/icon also removes icon (CMB2 buttons)
-			$('#gmb_markers_group_' + index + '_title').parents('.cmb-repeatable-grouping').find('.cmb-remove-group-row').each(function () {
-				google.maps.event.addDomListener($(this)[0], 'click', function () {
-					var index = $(this).parents('.cmb-repeatable-grouping').data('index');
-					//close info window and remove marker
-					info_bubble.close();
-					location_marker.setVisible(false);
+				//Set click action for marker to open infowindow
+				google.maps.event.addListener(location_marker, 'click', function () {
+					gmb.get_info_window_content(index, location_marker);
 				});
-			});
 
+				time += 500;
+
+				//Remove row button/icon also removes icon (CMB2 buttons)
+				$('#gmb_markers_group_' + index + '_title').parents('.cmb-repeatable-grouping').find('.cmb-remove-group-row').each(function () {
+					google.maps.event.addDomListener($(this)[0], 'click', function () {
+						var index = $(this).parents('.cmb-repeatable-grouping').data('index');
+						//close info window and remove marker
+						info_bubble.close();
+						location_marker.setVisible(false);
+					});
+				});
+				//Cluster?
+				if (cluster_markers === true) {
+					var markerCluster = new MarkerClusterer(map, markers);
+				}
+				setTimeout( function() { location_marker.setAnimation( null ); }, 710 );
+			}, location_marker_loop * timeout );
+			location_marker_loop = location_marker_loop + 1;
 		}); //end $.each()
-
-		//Cluster?
-		if (cluster_markers === true) {
-			var markerCluster = new MarkerClusterer(map, markers);
-		}
 
 	};
 

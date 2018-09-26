@@ -668,6 +668,7 @@
 
 				//Cluster?
 				if (map_data.marker_cluster === 'yes') {
+					
 					var markerCluster = new MarkerClusterer(map, markers);
 				}
 
