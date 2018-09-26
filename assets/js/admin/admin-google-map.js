@@ -3,7 +3,7 @@
  *
  * Enqueued on the single `google_maps` CPT and responsible for interface map creation; the methods are extendable by admin-free.js and admin-pro.js
  */
-var gmb_data;
+var gmb_data, draggable;
 
 (function ($, gmb) {
 
@@ -246,9 +246,11 @@ var gmb_data;
 		map.setOptions({draggableCursor: null}); //reset cursor
 		google.maps.event.removeListener(event); //remove map click event
 
+		gmb.set_draggable();
 		//add marker at clicked location
 		var drop_location_marker = new mapIcons.Marker({
 			position: lat_lng,
+			draggable: draggable,
 			map: map,
 			icon: gmb_data.default_marker,
 			zIndex: google.maps.Marker.MAX_ZINDEX + 1,
@@ -268,6 +270,12 @@ var gmb_data;
 		google.maps.event.addListener(drop_location_marker, 'click', function () {
 			gmb.get_info_window_content(index, drop_location_marker);
 		});
+
+		// Drag end event added for draggable marker
+		google.maps.event.addListener( drop_location_marker, 'dragend', function( event ) {
+			$( '#gmb_markers_group_' + index + '_lat' ).val( parseFloat( event.latLng.lat() ) );
+			$( '#gmb_markers_group_' + index + '_lng' ).val( parseFloat( event.latLng.lng() ) );
+		} );
 
 	};
 
@@ -827,11 +835,12 @@ var gmb_data;
 				$( '#savebtn_' + index + '' ).remove();
 			}
 			$( '#google-map-wrap' ).append( '<input type="hidden" id="savebtn_' + index + '" map_icon="' + $( this ).data( 'label' ) + '" data_marker="' + marker_icon.trim() + '" data-marker-color="' + marker_icon_color + '"  data-label-color="' + label_color + '" marker_included_img = "' + new_marker_img_path + '"/>' );
-
+			gmb.set_draggable();
 			//remove current marker from map
 			marker.setMap( null );
 			var marker_args = {
 				position: marker_position,
+				draggable: draggable,
 				map: map,
 				zIndex: 9,
 				icon: marker_icon_data,
@@ -842,10 +851,17 @@ var gmb_data;
 			//Update Icon
 			marker = new mapIcons.Marker( marker_args );
 
+			// Drag end event added for draggable marker
+			google.maps.event.addListener( marker, 'dragend', function( event ) {
+				$( '#gmb_markers_group_' + index + '_lat' ).val( parseFloat( event.latLng.lat() ) );
+				$( '#gmb_markers_group_' + index + '_lng' ).val( parseFloat( event.latLng.lng() ) );
+			} );
+
 			//Add event listener to new marker
 			google.maps.event.addListener( marker, 'click', function() {
 				gmb.get_info_window_content( index, marker );
 			} );
+
 
 			//Clean up modal and close
 			$( '.icon, .marker-item' ).removeClass( 'marker-item-selected' ); //reset modal
@@ -976,9 +992,12 @@ var gmb_data;
 				var timeout = 0;
 			}
 
+			gmb.set_draggable();
+
 			//Default marker args
 			var marker_args = {
 				position: position,
+				draggable: draggable,
 				map: map,
 				zIndex: index,
 				icon: marker_icon,
@@ -987,7 +1006,6 @@ var gmb_data;
 			};
 
 			//Marker for map
-
 			setTimeout( function() {
 				var location_marker = new mapIcons.Marker( marker_args );
 				markers.push( location_marker );
@@ -1006,6 +1024,12 @@ var gmb_data;
 						info_bubble.close();
 						location_marker.setVisible( false );
 					} );
+				} );
+
+				// Drag end event added for draggable marker
+				google.maps.event.addListener( location_marker, 'dragend', function( event ) {
+					$( '#gmb_markers_group_' + index + '_lat' ).val( parseFloat( event.latLng.lat() ) );
+					$( '#gmb_markers_group_' + index + '_lng' ).val( parseFloat( event.latLng.lng() ) );
 				} );
 				setTimeout( function() { location_marker.setAnimation( null ); }, 710 );
 			}, location_marker_loop * timeout );
@@ -1655,16 +1679,18 @@ var gmb_data;
 	/**
 	 * Sets Draggable Map
 	 */
-	gmb.set_draggable = function () {
-		var draggable = $('#gmb_draggable').val();
-		if (draggable == 'none') {
-			map.setOptions({
+	gmb.set_draggable = function() {
+		var get_draggable = $( '#gmb_draggable' ).val();
+		if ( get_draggable == 'none' ) {
+			draggable = false;
+			map.setOptions( {
 				draggable: false
-			});
+			} );
 		} else {
-			map.setOptions({
+			draggable = true;
+			map.setOptions( {
 				draggable: true
-			});
+			} );
 		}
 	};
 
