@@ -1012,7 +1012,7 @@ var gmb_data;
 			location_marker_loop = location_marker_loop + 1;
 			cluster_loop = location_marker_loop * 500;
 		} ); //end $.each()
-		
+
 		//Cluster?
 		if ( cluster_markers === true ) {
 			setTimeout( function() {
