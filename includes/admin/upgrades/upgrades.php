@@ -28,6 +28,16 @@ function gmb_v2_upgrades() {
 	//Set key variables
 	$google_api_key = gmb_get_option( 'gmb_api_key' );
 
+	// Check if admin settings enable for load map in china
+	$gmb_enable_china = gmb_get_option( 'gmb_enable_china' );
+	if ( false === $gmb_enable_china ) {
+		$gmb_api_url = 'https://maps.googleapis.com';
+	} else {
+		$get_gmb_api_url = Google_Maps_Builder_Core_Scripts::gmb_get_country_name();
+		$gmb_api_url     = $get_gmb_api_url['fullurl'];
+	}
+
+
 	//Loop through maps
 	$args = array(
 		'post_type'      => 'google_maps',
@@ -65,7 +75,7 @@ function gmb_v2_upgrades() {
 						'reference' => $ref_id,
 						'key'       => $google_api_key
 					),
-					'https://maps.googleapis.com/maps/api/place/details/json'
+					$gmb_api_url.'/maps/api/place/details/json'
 				);
 
 				$response = wp_remote_get( $google_places_url,

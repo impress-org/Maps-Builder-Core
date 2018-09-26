@@ -9,6 +9,9 @@
  * @since       2.0
  */
 
+
+use GeoIp2\Database\Reader;
+
 /**
  * Class Google_Maps_Builder_Core_Scripts
  */
@@ -22,6 +25,13 @@ abstract class Google_Maps_Builder_Core_Scripts {
 	 * @var array
 	 */
 	protected $plugin_settings;
+
+	/**
+	 * @since 2.2.0
+	 *
+	 * @var string
+	 */
+	protected static $geolite_database = 'includes/libraries/geolite-db/GeoLite2-Country.mmdb';
 
 	/**
 	 * Var for loading google maps api
@@ -129,23 +139,62 @@ abstract class Google_Maps_Builder_Core_Scripts {
 		$gmb_language        = gmb_get_option( 'gmb_language' );
 
 		$google_maps_api_url_args = array(
-			'libraries' => $libraries
+			'libraries' => $libraries,
 		);
 
 		//Google Maps API key present?
 		if ( ! empty( $google_maps_api_key ) ) {
-			$google_maps_api_url_args[ 'key' ] = $google_maps_api_key;
+			$google_maps_api_url_args['key'] = $google_maps_api_key;
 		}
 
 		//Preferred Language?
 		if ( ! empty( $google_maps_api_key ) ) {
-			$google_maps_api_url_args[ 'language' ] = $gmb_language;
+			$google_maps_api_url_args['language'] = $gmb_language;
 		}
 
-		$google_maps_api_url = add_query_arg( $google_maps_api_url_args, 'https://maps.googleapis.com/maps/api/js?v=3.exp' );
+		// Check if admin settings enable for load map in china
+		$gmb_enable_china = gmb_get_option( 'gmb_enable_china' );
+		if ( false === $gmb_enable_china ) {
+			$gmb_api_url = 'https://maps.googleapis.com';
+		} else {
+			$get_gmb_api_url = $this->gmb_get_country_name();
+			$gmb_api_url     = $get_gmb_api_url['fullurl'];
+		}
+
+		$google_maps_api_url = add_query_arg( $google_maps_api_url_args, $gmb_api_url . '/maps/api/js?v=3.exp' );
 
 		return $google_maps_api_url;
 	}
 
+	/**
+	 * Used to check visitor country to load map in china
+	 *
+	 * @since 2.2.0
+	 */
 
+	public static function gmb_get_country_name() {
+		try {
+			$gmb_visitor_ip = $_SERVER['REMOTE_ADDR'];
+			// This creates the Reader object, which should be reused across
+			$reader = new Reader( GMB_CORE_PATH . self::$geolite_database );
+			$record = $reader->country( $gmb_visitor_ip );
+
+			$apiurlArray            = array();
+			$apiurlArray['fullurl'] = 'https://maps.googleapis.com';
+			$apiurlArray['domain']  = 'maps.googleapis.com';
+
+			if ( isset( $record ) && ! empty( $record ) && isset ( $record->country->name ) && ! empty( $record->country->name ) && 'China' === $record->country->name ) {
+				$apiurlArray['fullurl'] = 'http://maps.google.cn';
+				$apiurlArray['domain']  = 'maps.google.cn';
+			} else {
+				$apiurlArray['fullurl'] = 'https://maps.googleapis.com';
+				$apiurlArray['domain']  = 'maps.googleapis.com';
+			}
+		} catch ( \Exception $e ) {
+			$apiurlArray['fullurl'] = 'https://maps.googleapis.com';
+			$apiurlArray['domain']  = 'maps.googleapis.com';
+		}
+
+		return $apiurlArray;
+	}
 }
