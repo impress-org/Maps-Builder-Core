@@ -83,7 +83,11 @@ if ( false === ( $response = get_transient( $transient_name ) ) ) {
 		$response[ $post_id ]['longitude'] = $lng;
 
 		// Info bubble content set
-		$marker_post_content                = get_post_field( 'post_content', $post_id );
+		if ( isset($group_data_array[0]['show_excerpts']) && 'yes' === $group_data_array[0]['show_excerpts'] ) {
+			$marker_post_content = get_the_excerpt( $post_id );
+		} else {
+			$marker_post_content = get_post_field( 'post_content', $post_id );
+		}
 		$marker_content                     = wp_trim_words( $marker_post_content, 55 );
 		$marker_thumbnail                   = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $gmb_image_size );
 		$response[ $post_id ]['infowindow'] = '<div id="infobubble-content" class="main-place-infobubble-content">';
