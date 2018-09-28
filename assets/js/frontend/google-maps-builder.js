@@ -342,17 +342,17 @@
 				marker_label = marker_data.label;
 			}
 
-			var gmb_marker_animate = '';
-			if ( 'yes' === map_data.map_marker_animation[ 0 ] ) {
-					if ('DROP' === map_data.map_marker_animation_style) {
+			var gmb_marker_animate = 'no';
+			var animation_timeout = 0;
+			if ( 'undefined' !== typeof(map_data) && 'undefined' !== typeof(map_data.map_marker_animation) ) {
+				if ( 'yes' === map_data.map_marker_animation[ 0 ] ) {
+					if ( 'DROP' === map_data.map_marker_animation_style ) {
 						gmb_marker_animate = google.maps.Animation.DROP;
-					}else {
+					} else {
 						gmb_marker_animate = google.maps.Animation.BOUNCE;
 					}
-				var animation_timeout = 1000;
-			} else {
-				gmb_marker_animate = 'no';
-				var animation_timeout = 0;
+					animation_timeout = 500;
+				}
 			}
 
 			//Default marker args
