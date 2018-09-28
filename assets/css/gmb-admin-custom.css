@@ -89,3 +89,12 @@
 div#gmb-marker-import {
 	margin-top: 20px;
 }
+
+.google_maps_page_gmb_import_export .field-wrap select, .google_maps_page_gmb_import_export .field-wrap .field-label {
+	width: auto;
+	margin: 0;
+}
+
+.google_maps_page_gmb_import_export .import-export-metabox {
+	max-width: 100%;
+}
