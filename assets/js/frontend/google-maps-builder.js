@@ -288,7 +288,7 @@
 	 * @param map
 	 * @param map_data
 	 */
-	gmb.set_map_markers = function (map, map_data) {
+	gmb.set_map_markers = function( map, map_data ) {
 
 		gmb.info_window_args = {
 			map: map,
@@ -311,83 +311,115 @@
 
 		var map_markers = map_data.map_markers;
 		var markers = [];
-		map.info_window = new GMB_InfoBubble(gmb.info_window_args);
+		var location_marker_loop = 0;
+		var cluster_loop = 0;
+		map.info_window = new GMB_InfoBubble( gmb.info_window_args );
 
 		//Loop through repeatable field of markers
-		$(map_markers).each(function (index, marker_data) {
+		$( map_markers ).each( function( index, marker_data ) {
 
 			// Make sure we have latitude and longitude before creating the marker.
-			if (marker_data.lat == '' || marker_data.lng == '') {
+			if ( marker_data.lat == '' || marker_data.lng == '' ) {
 				return;
 			}
 
 			var marker_label = '';
 
 			//check for custom marker and label data.
-			var custom_marker_icon = (marker_data.marker_img && !isNaN(marker_data.marker_img_id)) ? marker_data.marker_img : '';
+			var custom_marker_icon = (marker_data.marker_img && ! isNaN( marker_data.marker_img_id )) ? marker_data.marker_img : '';
 			var marker_icon = map_data.map_params.default_marker; //Default marker icon here
 			var included_marker_icon = marker_data.marker_included_img !== '' ? marker_data.marker_included_img : '';
 
 			//Plugin included marker image.
-			if (included_marker_icon) {
+			if ( included_marker_icon ) {
 				marker_icon = map_data.plugin_url + included_marker_icon;
-			} else if (custom_marker_icon) {
+			} else if ( custom_marker_icon ) {
 				//Custom Marker Upload? Check if image is set
 				marker_icon = custom_marker_icon;
-			} else if ((typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0)) {
+			} else if ( (typeof marker_data.marker !== 'undefined' && marker_data.marker.length > 0) && (typeof marker_data.label !== 'undefined' && marker_data.label.length > 0) ) {
 				//SVG Icon
-				marker_icon = eval('(' + marker_data.marker + ')');
-				marker_label = marker_data.label
+				marker_icon = eval( '(' + marker_data.marker + ')' );
+				marker_label = marker_data.label;
+			}
+
+			var gmb_marker_animate = '';
+			if ( 'yes' === map_data.map_marker_animation[ 0 ] ) {
+					if ('DROP' === map_data.map_marker_animation_style) {
+						gmb_marker_animate = google.maps.Animation.DROP;
+					}else {
+						gmb_marker_animate = google.maps.Animation.BOUNCE;
+					}
+				var animation_timeout = 1000;
+			} else {
+				gmb_marker_animate = 'no';
+				var animation_timeout = 0;
 			}
 
 			//Default marker args
 			var marker_args = {
-				position: new google.maps.LatLng(marker_data.lat, marker_data.lng),
+				position: new google.maps.LatLng( marker_data.lat, marker_data.lng ),
 				map: map,
 				zIndex: index,
 				icon: marker_icon,
-				map_icon_label: marker_label
+				map_icon_label: marker_label,
+				animation: gmb_marker_animate,
 			};
 
 			//Marker for map
-			var location_marker = new mapIcons.Marker(marker_args);
-			markers.push(location_marker);
-			location_marker.setVisible(true);
+			setTimeout( function() {
+				var location_marker = new mapIcons.Marker( marker_args );
+				markers.push( location_marker );
+				location_marker.setVisible( true );
 
-			//Add event listener for infowindows upon a marker being clicked.
-			google.maps.event.addListener(location_marker, 'click', function () {
-				map.info_window.close();
-				//Set marker content in info_window.
-				gmb.set_info_window_content(marker_data, map, map_data).done(function () {
-					map.info_window.open(map, location_marker, map_data);
+				//Add event listener for infowindows upon a marker being clicked.
+				google.maps.event.addListener( location_marker, 'click', function() {
+					map.info_window.close();
+					//Set marker content in info_window.
+					gmb.set_info_window_content( marker_data, map, map_data ).done( function() {
+						map.info_window.open( map, location_marker, map_data );
 
-					//Center markers on click option.
-					//Timeout required to calculate height properly.
-					if (map_data.marker_centered == 'yes') {
-						window.setTimeout(function () {
-							map.info_window.panToView();
-						}, 300);
-					}
-				});
+						//Center markers on click option.
+						//Timeout required to calculate height properly.
+						if ( map_data.marker_centered == 'yes' ) {
+							window.setTimeout( function() {
+								map.info_window.panToView();
+							}, 300 );
+						}
+					} );
 
-			});
+				} );
 
-			//Should this marker's info_window be opened by default?
-			if (typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened') {
-				google.maps.event.addListenerOnce(map, 'idle', function () {
+				//Should this marker's info_window be opened by default?
+				if ( typeof marker_data.infowindow_open !== 'undefined' && marker_data.infowindow_open == 'opened' ) {
+					google.maps.event.addListenerOnce( map, 'idle', function() {
 
-					gmb.set_info_window_content(marker_data, map, map_data).done(function () {
-						map.info_window.open(map, location_marker, map_data);
-					});
+						gmb.set_info_window_content( marker_data, map, map_data ).done( function() {
+							map.info_window.open( map, location_marker, map_data );
+						} );
 
-				});
-			}
+					} );
 
-		}); //end $.each()
+				}
+				setTimeout( function() { location_marker.setAnimation( null ); }, 710 );
+			}, location_marker_loop * animation_timeout );
+			location_marker_loop = location_marker_loop + 1;
+			cluster_loop = location_marker_loop * 1000;
+
+		} ); //end $.each()
 
 		//Cluster the markers?
-		if (map_data.marker_cluster === 'yes') {
-			var markerCluster = new MarkerClusterer(map, markers);
+		var gmb_animate_marker_admin = $( '#gmb_marker_animate1' ).prop( 'checked' );
+		if ( gmb_animate_marker_admin ) {
+			var gmb_cluster_timeout = 500;
+
+		} else {
+			var gmb_cluster_timeout = 0;
+		}
+		if ( map_data.marker_cluster === 'yes' ) {
+
+			setTimeout( function() {
+				var markerCluster = new MarkerClusterer( map, markers );
+			}, cluster_loop + gmb_cluster_timeout );
 		}
 
 
@@ -655,20 +687,31 @@
 				lng_field: lng_field,
 				map_post_id: map_data.id
 			};
+			var marker_arr = [];
 
 			jQuery.post(map_data.ajax_url, data, function (response) {
 
 				//Loop through marker data
+				var gmb_marker_loop = 0;
+				var cluster_loop = 0;
 				$.each(response, function (index, marker_data) {
-					var marker = gmb.set_mashup_marker(map, data.index, marker_data, mashup_value, map_data);
+					var marker = gmb.set_mashup_marker(map, data.index, marker_data, mashup_value, map_data,gmb_marker_loop,marker_arr);
+
 					if (marker instanceof mapIcons.Marker) {
 						markers.push(marker);
 					}
+					gmb_marker_loop = gmb_marker_loop + 1;
+					cluster_loop = gmb_marker_loop * 1000;
 				});
-
+				console.log(marker_arr);
 				//Cluster?
 				if (map_data.marker_cluster === 'yes') {
-					var markerCluster = new MarkerClusterer(map, markers);
+
+					setTimeout( function() {
+
+						var markerCluster = new MarkerClusterer( map, marker_arr );
+					}, cluster_loop + 500 );
+					//var markerCluster = new MarkerClusterer(map, markers);
 				}
 
 			}, 'json');

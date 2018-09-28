@@ -607,5 +607,13 @@ function gmb_render_maker_field_tooltip( $id ) {
 				esc_html__( "Would you like the featured image displayed in the marker's infowindow?", 'google-maps-builder' )
 			);
 			break;
+		case 'render_marker_animate_style_tooltip':
+			return sprintf( '<label class="inline_label">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+				esc_html__( 'Select Animation Style', 'google-maps-builder' ),
+				esc_html__( 'Select an animation behaviour for marker for ex: Bounce or Drop', 'google-maps-builder' )
+			);
+			break;
+
 	}
 }
