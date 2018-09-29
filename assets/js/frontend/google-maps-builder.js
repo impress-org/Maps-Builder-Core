@@ -703,7 +703,7 @@
 					gmb_marker_loop = gmb_marker_loop + 1;
 					cluster_loop = gmb_marker_loop * 1000;
 				});
-				console.log(marker_arr);
+
 				//Cluster?
 				if (map_data.marker_cluster === 'yes') {
 
