@@ -614,6 +614,13 @@ function gmb_render_maker_field_tooltip( $id ) {
 				esc_html__( 'Select an animation behaviour for marker for ex: Bounce or Drop', 'google-maps-builder' )
 			);
 			break;
+		case 'render_snazzy_tooltip':
+			return sprintf( '<label class="inline_label cls_gmb_margin">%1$s</label><span class="hint--top hint--top-multiline" aria-label="%2$s"><span 
+					class="dashicons gmb-tooltip-icon"></span></span>',
+				esc_html__( 'Map Theme', 'google-maps-builder' ),
+				esc_html__( 'Select an optional preconfigured Snazzy Maps style.', 'google-maps-builder' )
+			);
+			break;
 
 	}
 }
